@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IFC Geometry Repair</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/static/vendor/three/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="workspace-shell">
+      <header class="app-topbar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <path d="M6 3h10l2 2v16H6zm3 4v10m4-10v10M8 5v14h8V7.4L14.6 6H8z"></path>
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <p class="brand-kicker">Phase 4 Workspace</p>
+            <h1>IFC Geometry Debugger</h1>
+          </div>
+        </div>
+
+        <div class="topbar-status">
+          <div class="status-chip">
+            <span>Job</span>
+            <strong id="job-id">No active job</strong>
+          </div>
+          <div id="job-state-pill" class="status-chip status-chip--state" data-state="idle">
+            <span>State</span>
+            <strong id="job-state">Idle</strong>
+          </div>
+          <div class="status-chip">
+            <span>Updated</span>
+            <strong id="job-updated">-</strong>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <form id="upload-form" class="upload-form">
+            <label class="upload-picker" for="file-input">
+              <span class="upload-picker__label">Import IFC</span>
+              <strong id="selected-file-name">No file selected</strong>
+              <input id="file-input" type="file" name="file" accept=".ifc" required />
+            </label>
+            <button id="submit-button" type="submit" class="button button--primary">Create Job</button>
+          </form>
+
+          <div class="quick-links">
+            <a id="status-link" href="#" class="quick-link hidden">Status JSON</a>
+            <a id="output-link" href="#" class="quick-link hidden">Output JSON</a>
+            <a id="viewer-manifest-link" href="#" class="quick-link hidden">Viewer Manifest</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="workspace-main">
+        <section id="viewer-panel" class="viewer-workspace">
+          <div class="viewer-card">
+            <div class="viewer-card__header">
+              <div>
+                <p class="section-kicker">Geometry Workspace</p>
+                <h2>Raw vs normalized preprocessing inspection</h2>
+              </div>
+              <div class="viewer-card__meta">
+                <span class="meta-pill">OBJ layers</span>
+                <span class="meta-pill">Raycast select</span>
+                <span class="meta-pill">Artifact-backed</span>
+              </div>
+            </div>
+
+            <div class="viewer-stage">
+              <canvas id="viewer-canvas"></canvas>
+
+              <div id="viewer-empty" class="viewer-empty">
+                <p class="viewer-empty__kicker">Workspace Ready</p>
+                <h3>Geometry workspace</h3>
+                <p id="viewer-empty-message" class="viewer-empty__message">
+                  Use the import control above to create a job and populate the 3D workspace.
+                </p>
+                <button id="empty-upload-button" type="button" class="button button--primary">
+                  Import IFC
+                </button>
+              </div>
+
+              <p id="flash-message" class="flash-message hidden" aria-live="polite"></p>
+            </div>
+
+            <div class="stage-toolbar">
+              <div class="stage-toolbar__group">
+                <label class="scene-toggle" data-control-state="off">
+                  <input data-layer-toggle="raw" type="checkbox" />
+                  <span>Raw IFC</span>
+                </label>
+                <label class="scene-toggle" data-control-state="off">
+                  <input data-layer-toggle="normalized" type="checkbox" />
+                  <span>Normalized</span>
+                </label>
+                <label class="scene-toggle" data-control-state="off">
+                  <input data-layer-toggle="openings" type="checkbox" />
+                  <span>Openings</span>
+                </label>
+                <label class="scene-toggle" data-control-state="off">
+                  <input data-layer-toggle="failed" type="checkbox" />
+                  <span>Failed</span>
+                </label>
+              </div>
+
+              <div class="stage-toolbar__group">
+                <button id="reset-view-button" type="button" class="button button--slate button--ghost">
+                  Reset View
+                </button>
+                <button id="fit-view-button" type="button" class="button button--slate">
+                  Fit View
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="inspector-rail">
+          <section id="job-run-card" class="rail-card rail-card--primary">
+            <div class="rail-card__header">
+              <h3>Job Run</h3>
+              <span id="job-state-rail-pill" class="rail-state-pill" data-state="idle">
+                <strong id="job-state-rail">Idle</strong>
+              </span>
+            </div>
+
+            <dl class="detail-list detail-list--light">
+              <div>
+                <dt>Job ID</dt>
+                <dd id="job-id-rail">No active job</dd>
+              </div>
+              <div>
+                <dt>Updated</dt>
+                <dd id="job-updated-rail">-</dd>
+              </div>
+            </dl>
+
+            <p id="job-error" class="job-error hidden"></p>
+            <ol id="job-history" class="history-list history-list--compact"></ol>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Scene Layers</h3>
+              <span class="card-caption">Availability + toggles</span>
+            </div>
+
+            <div class="layer-list">
+              <label class="layer-row">
+                <span class="layer-row__copy">
+                  <strong>Raw IFC Preview</strong>
+                  <small>Aggregate tessellation debug layer</small>
+                </span>
+                <span class="layer-row__actions">
+                  <span id="layer-raw-count" class="layer-count">n/a</span>
+                  <input data-layer-toggle="raw" type="checkbox" />
+                </span>
+              </label>
+
+              <label class="layer-row">
+                <span class="layer-row__copy">
+                  <strong>Normalized Spaces</strong>
+                  <small>Processed space solids</small>
+                </span>
+                <span class="layer-row__actions">
+                  <span id="layer-normalized-count" class="layer-count">0</span>
+                  <input data-layer-toggle="normalized" type="checkbox" />
+                </span>
+              </label>
+
+              <label class="layer-row">
+                <span class="layer-row__copy">
+                  <strong>Openings</strong>
+                  <small>Processed opening solids</small>
+                </span>
+                <span class="layer-row__actions">
+                  <span id="layer-openings-count" class="layer-count">0</span>
+                  <input data-layer-toggle="openings" type="checkbox" />
+                </span>
+              </label>
+
+              <label class="layer-row">
+                <span class="layer-row__copy">
+                  <strong>Failed Entities</strong>
+                  <small>Invalid or missing geometry markers</small>
+                </span>
+                <span class="layer-row__actions">
+                  <span id="layer-failed-count" class="layer-count">0</span>
+                  <input data-layer-toggle="failed" type="checkbox" />
+                </span>
+              </label>
+            </div>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Selection</h3>
+              <span class="card-caption">Canvas or list driven</span>
+            </div>
+
+            <p id="viewer-selection-empty" class="viewer-selection-empty">
+              Select an object in the scene or from the lists below.
+            </p>
+            <dl id="viewer-metadata" class="metadata-list"></dl>
+            <ul id="viewer-artifact-links" class="artifact-list artifact-list--stacked compact-artifacts"></ul>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Extraction Summary</h3>
+              <span class="card-caption">Backend report</span>
+            </div>
+
+            <div class="summary-grid">
+              <article class="summary-metric">
+                <span>Schema</span>
+                <strong id="report-schema">-</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Spaces</span>
+                <strong id="spaces-count">0</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Openings</span>
+                <strong id="openings-count">0</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Missing Rep.</span>
+                <strong id="missing-count">0</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Invalid Solids</span>
+                <strong id="invalid-count">0</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Worker</span>
+                <strong id="worker-backend">-</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Valid Entities</span>
+                <strong id="valid-normalized-count">0</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Invalid Entities</span>
+                <strong id="invalid-normalized-count">0</strong>
+              </article>
+              <article class="summary-metric">
+                <span>Unit</span>
+                <strong id="geometry-unit">-</strong>
+              </article>
+            </div>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Artifacts</h3>
+              <span id="artifact-count" class="count-pill">0</span>
+            </div>
+            <ul id="artifact-list" class="artifact-list artifact-list--stacked"></ul>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Spaces</h3>
+              <span id="spaces-object-count" class="count-pill">0</span>
+            </div>
+            <div id="viewer-space-list" class="object-list"></div>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Openings</h3>
+              <span id="openings-object-count" class="count-pill">0</span>
+            </div>
+            <div id="viewer-opening-list" class="object-list"></div>
+          </section>
+
+          <section class="rail-card">
+            <div class="rail-card__header">
+              <h3>Failed</h3>
+              <span id="failed-object-count" class="count-pill">0</span>
+            </div>
+            <div id="viewer-failed-list" class="object-list"></div>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="/static/app.js"></script>
+  </body>
+</html>

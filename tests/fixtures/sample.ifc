@@ -1,0 +1,9 @@
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION(('ViewDefinition [CoordinationView]'),'2;1');
+FILE_NAME('sample.ifc','2026-04-13T00:00:00',('Codex'),('Codex'),'IfcOpenShell','Codex','');
+FILE_SCHEMA(('IFC4'));
+ENDSEC;
+DATA;
+ENDSEC;
+END-ISO-10303-21;
