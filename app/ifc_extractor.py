@@ -58,6 +58,7 @@ def build_extraction_report(
     job_id: str,
     prepared_ifc: PreparedIFC,
     preprocessing_result: dict[str, Any],
+    internal_boundary_result: dict[str, Any],
 ) -> dict[str, Any]:
     geometry_by_express_id = {
         entity["express_id"]: entity for entity in preprocessing_result.get("entities", [])
@@ -116,6 +117,12 @@ def build_extraction_report(
             "summary": preprocessing_result.get("summary", {}),
             "invalid_entities": preprocessing_invalid_entities,
             "artifacts": preprocessing_result.get("artifacts", {}),
+        },
+        "internal_boundaries": {
+            "threshold_m": internal_boundary_result.get("threshold_m"),
+            "summary": internal_boundary_result.get("summary", {}),
+            "adjacencies": internal_boundary_result.get("adjacencies", []),
+            "artifacts": internal_boundary_result.get("artifacts", {}),
         },
     }
 

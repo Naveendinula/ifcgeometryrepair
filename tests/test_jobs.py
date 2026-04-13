@@ -13,10 +13,12 @@ import app.geometry_worker as geometry_worker
 from app.config import Settings
 from app.main import create_app
 from tests.ifc_factory import (
+    build_corridor_room_fixture,
     build_empty_fixture,
     build_extraction_fixture,
+    build_separated_rooms_fixture,
+    build_shared_wall_fixture,
     build_single_room_fixture,
-    build_two_room_fixture,
 )
 
 
@@ -48,6 +50,7 @@ def build_client(jobs_root: Path) -> TestClient:
             jobs_root=jobs_root,
             stage_delay_seconds=0.02,
             geometry_worker_binary=jobs_root / "missing-worker.exe",
+            internal_boundary_thickness_threshold_m=0.30,
         )
     )
     return TestClient(app)
@@ -80,6 +83,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "uploaded",
                 "parsing",
                 "preprocessing",
+                "internal_boundary",
                 "classifying",
                 "complete",
             ]
@@ -96,6 +100,8 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "geometry/request.json",
                 "geometry/result.json",
                 "geometry/geometry_summary.json",
+                "geometry/internal_boundaries.json",
+                "geometry/internal_boundaries.obj",
                 "geometry/viewer_manifest.json",
                 "geometry/raw/spaces_all.obj",
                 "geometry/raw/openings.obj",
@@ -112,6 +118,8 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert output_payload["preprocessing"]["summary"]["valid_entities"] == 1
             assert output_payload["preprocessing"]["artifacts"]["viewer_manifest"] == "geometry/viewer_manifest.json"
             assert output_payload["preprocessing"]["artifacts"]["raw_spaces_all"] == "geometry/raw/spaces_all.obj"
+            assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 0
+            assert output_payload["internal_boundaries"]["artifacts"]["detail"] == "geometry/internal_boundaries.json"
 
             room = output_payload["spaces"][0]
             assert room["name"] == fixture.represented_space_name
@@ -130,6 +138,10 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert geometry_summary["summary"]["valid_entities"] == 1
             assert geometry_summary["entities"][0]["closed"] is True
 
+            internal_boundaries = json.loads((job_dir / "geometry" / "internal_boundaries.json").read_text(encoding="utf-8"))
+            assert internal_boundaries["summary"]["shared_surface_count"] == 0
+            assert internal_boundaries["adjacencies"] == []
+
             viewer_manifest = json.loads((job_dir / "geometry" / "viewer_manifest.json").read_text(encoding="utf-8"))
             assert viewer_manifest["summary"]["space_count"] == 1
             assert viewer_manifest["layers"]["raw_ifc_preview"]["available"] is True
@@ -146,8 +158,8 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
 
 
 def test_two_rooms_survive_preprocessing_independently() -> None:
-    fixture = build_two_room_fixture()
-    jobs_root = make_test_root("two-room")
+    fixture = build_shared_wall_fixture()
+    jobs_root = make_test_root("shared-wall-preprocessing")
 
     try:
         with build_client(jobs_root) as client:
@@ -163,6 +175,7 @@ def test_two_rooms_survive_preprocessing_independently() -> None:
             output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
             assert output_payload["summary"]["number_of_spaces"] == 2
             assert output_payload["preprocessing"]["summary"]["valid_spaces"] == 2
+            assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 1
 
             per_space_artifacts = [space["artifacts"]["obj"] for space in output_payload["spaces"]]
             assert len(per_space_artifacts) == 2
@@ -179,6 +192,98 @@ def test_two_rooms_survive_preprocessing_independently() -> None:
             raw_spaces_response = client.get(f"/jobs/{job_id}/artifacts/geometry/raw/spaces_all.obj")
             assert raw_spaces_response.status_code == 200
             assert raw_spaces_response.text.count("\no ") >= 2
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_shared_wall_model_produces_one_internal_boundary_pair() -> None:
+    fixture = build_shared_wall_fixture()
+    jobs_root = make_test_root("shared-wall-boundary")
+
+    try:
+        with build_client(jobs_root) as client:
+            created = client.post(
+                "/jobs",
+                files={"file": ("shared-wall.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
+            boundaries = output_payload["internal_boundaries"]
+            assert boundaries["threshold_m"] == pytest.approx(0.30)
+            assert boundaries["summary"]["adjacent_pair_count"] == 1
+            assert boundaries["summary"]["shared_surface_count"] == 1
+
+            spaces_by_global_id = {space["global_id"]: space["name"] for space in output_payload["spaces"]}
+            adjacency = boundaries["adjacencies"][0]
+            adjacency_names = tuple(sorted((spaces_by_global_id[adjacency["space_a_global_id"]], spaces_by_global_id[adjacency["space_b_global_id"]])))
+            assert adjacency_names == fixture.expected_adjacency_pairs[0]
+            assert adjacency["shared_area_m2"] == pytest.approx(fixture.expected_shared_area_m2, abs=0.05)
+
+            detail_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/internal_boundaries.json").text)
+            assert detail_payload["summary"]["candidate_pair_count"] == 1
+            assert detail_payload["summary"]["adjacent_pair_count"] == 1
+            assert detail_payload["shared_surfaces"][0]["area_m2"] == pytest.approx(fixture.expected_shared_area_m2, abs=0.05)
+
+            obj_response = client.get(f"/jobs/{job_id}/artifacts/geometry/internal_boundaries.obj")
+            assert obj_response.status_code == 200
+            assert "o ib_0_0" in obj_response.text
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_separated_rooms_produce_zero_internal_boundaries() -> None:
+    fixture = build_separated_rooms_fixture()
+    jobs_root = make_test_root("separated-rooms")
+
+    try:
+        with build_client(jobs_root) as client:
+            created = client.post(
+                "/jobs",
+                files={"file": ("separated.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
+            boundaries = output_payload["internal_boundaries"]
+            assert boundaries["summary"]["adjacent_pair_count"] == 0
+            assert boundaries["summary"]["shared_surface_count"] == 0
+            assert boundaries["adjacencies"] == []
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_corridor_only_reports_touching_space_pairs() -> None:
+    fixture = build_corridor_room_fixture()
+    jobs_root = make_test_root("corridor-room")
+
+    try:
+        with build_client(jobs_root) as client:
+            created = client.post(
+                "/jobs",
+                files={"file": ("corridor.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
+            boundaries = output_payload["internal_boundaries"]
+            assert boundaries["summary"]["adjacent_pair_count"] == 1
+            assert boundaries["summary"]["shared_surface_count"] == 1
+
+            spaces_by_global_id = {space["global_id"]: space["name"] for space in output_payload["spaces"]}
+            adjacency = boundaries["adjacencies"][0]
+            adjacency_names = tuple(sorted((spaces_by_global_id[adjacency["space_a_global_id"]], spaces_by_global_id[adjacency["space_b_global_id"]])))
+            assert adjacency_names == fixture.expected_adjacency_pairs[0]
+            assert adjacency["shared_area_m2"] == pytest.approx(fixture.expected_shared_area_m2, abs=0.05)
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
@@ -202,6 +307,7 @@ def test_space_opening_and_missing_representation_are_reported_cleanly() -> None
             assert output_payload["summary"]["number_of_spaces"] == fixture.expected_space_count
             assert output_payload["summary"]["number_of_openings"] == fixture.expected_opening_count
             assert output_payload["preprocessing"]["worker_backend"] == "python"
+            assert output_payload["internal_boundaries"]["summary"]["skipped_space_count"] == 1
 
             spaces_by_name = {space["name"]: space for space in output_payload["spaces"]}
             openings_by_name = {opening["name"]: opening for opening in output_payload["openings"]}
@@ -224,6 +330,10 @@ def test_space_opening_and_missing_representation_are_reported_cleanly() -> None
             invalid_names = {entity["name"]: entity["reason"] for entity in geometry_summary["invalid_entities"]}
             assert invalid_names[fixture.missing_space_name] == "Missing representation"
 
+            internal_boundaries = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/internal_boundaries.json").text)
+            skipped_names = {entity["name"]: entity["reason"] for entity in internal_boundaries["skipped_spaces"]}
+            assert skipped_names[fixture.missing_space_name] == "Missing representation"
+
             viewer_manifest = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/viewer_manifest.json").text)
             assert viewer_manifest["summary"]["failed_count"] == 1
             missing_manifest_entity = next(
@@ -244,6 +354,8 @@ def test_space_opening_and_missing_representation_are_reported_cleanly() -> None
             artifacts_response = client.get(f"/jobs/{job_id}/artifacts")
             artifact_names = {item["name"] for item in artifacts_response.json()["artifacts"]}
             assert "geometry/viewer_manifest.json" in artifact_names
+            assert "geometry/internal_boundaries.json" in artifact_names
+            assert "geometry/internal_boundaries.obj" in artifact_names
             assert "geometry/raw/spaces_all.obj" in artifact_names
             assert "geometry/raw/openings.obj" in artifact_names
             assert "geometry/openings.obj" in artifact_names
@@ -253,7 +365,7 @@ def test_space_opening_and_missing_representation_are_reported_cleanly() -> None
 
 
 def test_per_entity_tessellation_failure_does_not_fail_job(monkeypatch) -> None:
-    fixture = build_two_room_fixture()
+    fixture = build_shared_wall_fixture()
     jobs_root = make_test_root("tessellation-failure")
 
     original_build_shape = geometry_worker.build_shape
@@ -280,6 +392,8 @@ def test_per_entity_tessellation_failure_does_not_fail_job(monkeypatch) -> None:
             output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
             assert output_payload["preprocessing"]["summary"]["valid_entities"] == 1
             assert output_payload["preprocessing"]["summary"]["invalid_entities"] == 1
+            assert output_payload["internal_boundaries"]["summary"]["processed_space_count"] == 1
+            assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 0
 
             spaces_by_name = {space["name"]: space for space in output_payload["spaces"]}
             failed_space = spaces_by_name[fixture.represented_space_name]
@@ -352,6 +466,7 @@ def test_empty_ifc_returns_zero_counts_without_crashing() -> None:
             assert output_payload["spaces"] == []
             assert output_payload["openings"] == []
             assert output_payload["preprocessing"]["summary"]["entities_total"] == 0
+            assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 0
 
             viewer_manifest = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/viewer_manifest.json").text)
             assert viewer_manifest["entities"] == []

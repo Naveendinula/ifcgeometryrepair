@@ -26,6 +26,7 @@ def create_app(
             jobs_root=settings.jobs_root,
             stage_delay_seconds=settings.stage_delay_seconds,
             geometry_worker_binary=settings.geometry_worker_binary,
+            internal_boundary_thickness_threshold_m=settings.internal_boundary_thickness_threshold_m,
         )
         service.start()
         app.state.job_service = service

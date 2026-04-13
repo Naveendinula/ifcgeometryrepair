@@ -7,6 +7,7 @@ JobState = Literal[
     "uploaded",
     "parsing",
     "preprocessing",
+    "internal_boundary",
     "classifying",
     "complete",
     "failed",

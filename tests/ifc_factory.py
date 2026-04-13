@@ -16,6 +16,9 @@ class GeneratedFixture:
     opening_name: str | None = None
     storey_name: str | None = None
     building_name: str | None = None
+    space_names: tuple[str, ...] = ()
+    expected_adjacency_pairs: tuple[tuple[str, str], ...] = ()
+    expected_shared_area_m2: float | None = None
 
 
 def build_empty_fixture() -> GeneratedFixture:
@@ -46,26 +49,31 @@ def build_single_room_fixture() -> GeneratedFixture:
         represented_space_name=room.Name,
         storey_name=storey.Name,
         building_name=building.Name,
+        space_names=(room.Name,),
     )
 
 
-def build_two_room_fixture() -> GeneratedFixture:
+def build_shared_wall_fixture() -> GeneratedFixture:
     model, body_context, building, storey = _base_model()
     first_room = _add_space(
         model,
         body_context,
         storey,
         name="Room A",
-        placement=(5.0, 6.0, 0.0),
+        placement=(0.0, 0.0, 0.0),
         represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
     )
-    _add_space(
+    second_room = _add_space(
         model,
         body_context,
         storey,
         name="Room B",
-        placement=(5.01, 6.0, 0.0),
+        placement=(4.2, 0.0, 0.0),
         represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
     )
     return GeneratedFixture(
         content=model.to_string().encode("utf-8"),
@@ -74,6 +82,87 @@ def build_two_room_fixture() -> GeneratedFixture:
         represented_space_name=first_room.Name,
         storey_name=storey.Name,
         building_name=building.Name,
+        space_names=(first_room.Name, second_room.Name),
+        expected_adjacency_pairs=((first_room.Name, second_room.Name),),
+        expected_shared_area_m2=8.4,
+    )
+ 
+ 
+def build_separated_rooms_fixture() -> GeneratedFixture:
+    model, body_context, building, storey = _base_model()
+    first_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Room A",
+        placement=(0.0, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    second_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Room B",
+        placement=(4.6, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    return GeneratedFixture(
+        content=model.to_string().encode("utf-8"),
+        expected_space_count=2,
+        expected_opening_count=0,
+        represented_space_name=first_room.Name,
+        storey_name=storey.Name,
+        building_name=building.Name,
+        space_names=(first_room.Name, second_room.Name),
+    )
+
+
+def build_corridor_room_fixture() -> GeneratedFixture:
+    model, body_context, building, storey = _base_model()
+    corridor = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Corridor",
+        placement=(0.0, 0.0, 0.0),
+        represented=True,
+        footprint=(8000.0, 2000.0),
+        height=3.0,
+    )
+    touching_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Touching Room",
+        placement=(0.0, 2.5, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=3.0,
+    )
+    distant_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Far Room",
+        placement=(0.0, -4.1, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=3.0,
+    )
+    return GeneratedFixture(
+        content=model.to_string().encode("utf-8"),
+        expected_space_count=3,
+        expected_opening_count=0,
+        represented_space_name=corridor.Name,
+        storey_name=storey.Name,
+        building_name=building.Name,
+        space_names=(corridor.Name, touching_room.Name, distant_room.Name),
+        expected_adjacency_pairs=((corridor.Name, touching_room.Name),),
+        expected_shared_area_m2=12.0,
     )
 
 
@@ -113,6 +202,7 @@ def build_extraction_fixture() -> GeneratedFixture:
         opening_name=opening.Name,
         storey_name=storey.Name,
         building_name=building.Name,
+        space_names=(represented_space.Name, missing_space.Name),
     )
 
 
@@ -124,6 +214,8 @@ def _add_space(
     name: str,
     placement: tuple[float, float, float],
     represented: bool,
+    footprint: tuple[float, float] = (4.0, 3.0),
+    height: float = 2.8,
 ) -> Any:
     space = run("root.create_entity", model, ifc_class="IfcSpace", name=name)
     run("aggregate.assign_object", model, products=[space], relating_object=storey)
@@ -138,15 +230,15 @@ def _add_space(
         profile = model.create_entity(
             "IfcRectangleProfileDef",
             ProfileType="AREA",
-            XDim=4.0,
-            YDim=3.0,
+            XDim=footprint[0],
+            YDim=footprint[1],
         )
         representation = run(
             "geometry.add_profile_representation",
             model,
             context=body_context,
             profile=profile,
-            depth=2.8,
+            depth=height,
         )
         run(
             "geometry.assign_representation",

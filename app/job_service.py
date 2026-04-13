@@ -16,6 +16,7 @@ from fastapi import UploadFile
 
 from .geometry_worker import GeometryPreprocessingResult, run_geometry_preprocessing
 from .ifc_extractor import ParsedIFC, PreparedIFC, build_extraction_report, parse_ifc_file, prepare_extraction
+from .internal_boundaries import InternalBoundaryResult, run_internal_boundary_generation
 from .models import JobState
 from .viewer_manifest import build_viewer_manifest
 
@@ -27,6 +28,7 @@ TERMINAL_STATES = {"complete", "failed"}
 class JobProcessingBundle:
     prepared_ifc: PreparedIFC
     preprocessing: GeometryPreprocessingResult
+    internal_boundaries: InternalBoundaryResult
 
 
 class JobNotFoundError(FileNotFoundError):
@@ -43,10 +45,12 @@ class JobService:
         jobs_root: Path,
         stage_delay_seconds: float = 0.2,
         geometry_worker_binary: Path | None = None,
+        internal_boundary_thickness_threshold_m: float = 0.30,
     ) -> None:
         self.jobs_root = jobs_root
         self.stage_delay_seconds = stage_delay_seconds
         self.geometry_worker_binary = geometry_worker_binary
+        self.internal_boundary_thickness_threshold_m = internal_boundary_thickness_threshold_m
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._stop_event = threading.Event()
         self._io_lock = threading.Lock()
@@ -202,6 +206,10 @@ class JobService:
             self._sleep_between_stages()
             bundle = self._run_preprocessing(job_id, parsed_ifc)
 
+            self._transition(job_id, "internal_boundary", "Detecting shared boundaries between adjacent spaces")
+            self._sleep_between_stages()
+            bundle = self._run_internal_boundary(job_id, bundle)
+
             self._transition(job_id, "classifying", "Building extraction report")
             self._sleep_between_stages()
             self._run_classifying(job_id, bundle)
@@ -265,13 +273,48 @@ class JobService:
             ),
         )
         self._append_log(job_id, "Wrote geometry request/result, summary, and OBJ debug artifacts")
-        return JobProcessingBundle(prepared_ifc=prepared_ifc, preprocessing=preprocessing)
+        return JobProcessingBundle(
+            prepared_ifc=prepared_ifc,
+            preprocessing=preprocessing,
+            internal_boundaries=InternalBoundaryResult(payload={}),
+        )
+
+    def _run_internal_boundary(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        internal_boundaries = run_internal_boundary_generation(
+            job_id,
+            self._job_dir(job_id),
+            bundle.preprocessing.result,
+            threshold_m=self.internal_boundary_thickness_threshold_m,
+        )
+
+        def mutator(debug_data: dict[str, Any]) -> None:
+            debug_data["internal_boundaries_preview"] = {
+                "threshold_m": internal_boundaries.payload["threshold_m"],
+                "summary": internal_boundaries.payload["summary"],
+                "artifacts": internal_boundaries.payload["artifacts"],
+            }
+
+        self._update_debug(job_id, mutator)
+        self._append_log(
+            job_id,
+            (
+                "Generated internal boundary graph: "
+                f"{internal_boundaries.payload['summary']['adjacent_pair_count']} adjacency pairs, "
+                f"{internal_boundaries.payload['summary']['shared_surface_count']} shared surfaces"
+            ),
+        )
+        return JobProcessingBundle(
+            prepared_ifc=bundle.prepared_ifc,
+            preprocessing=bundle.preprocessing,
+            internal_boundaries=internal_boundaries,
+        )
 
     def _run_classifying(self, job_id: str, bundle: JobProcessingBundle) -> None:
         output_payload = build_extraction_report(
             job_id,
             bundle.prepared_ifc,
             bundle.preprocessing.result,
+            bundle.internal_boundaries.payload,
         )
         self._write_json_file(self._job_dir(job_id) / "output.json", output_payload)
         viewer_manifest = build_viewer_manifest(job_id, output_payload)
@@ -283,7 +326,8 @@ class JobService:
                 "Wrote output.json extraction report and viewer manifest "
                 f"({output_payload['summary']['number_of_spaces']} spaces, "
                 f"{output_payload['summary']['number_of_openings']} openings, "
-                f"{output_payload['preprocessing']['summary']['valid_entities']} valid normalized entities)"
+                f"{output_payload['preprocessing']['summary']['valid_entities']} valid normalized entities, "
+                f"{output_payload['internal_boundaries']['summary']['adjacent_pair_count']} adjacency pairs)"
             ),
         )
 

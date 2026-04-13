@@ -137,7 +137,7 @@ function clearWorkspaceForNewRun() {
   renderArtifacts([]);
   resetSummary();
   hideQuickLinks();
-  viewer.clear("Viewer layers will appear once preprocessing completes.");
+  viewer.clear("Viewer layers will appear once processing completes.");
 }
 
 function updateSelectedFileName() {
