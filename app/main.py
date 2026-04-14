@@ -3,13 +3,23 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from typing import Literal
+
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import Settings
-from .job_service import ArtifactNotFoundError, JobNotFoundError, JobService
-from .models import ArtifactsResponse, JobCreatedResponse, JobStatusResponse
+from .ifc_editing import InvalidSpaceRemovalRequestError, InvalidSpaceResolutionRequestError
+from .job_service import ArtifactNotFoundError, InvalidJobOperationError, JobNotFoundError, JobService
+from .models import (
+    ArtifactsResponse,
+    DerivedJobCreatedResponse,
+    JobCreatedResponse,
+    JobStatusResponse,
+    RemoveSpacesRequest,
+    ResolveSpaceClashesRequest,
+)
 
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
@@ -26,7 +36,11 @@ def create_app(
             jobs_root=settings.jobs_root,
             stage_delay_seconds=settings.stage_delay_seconds,
             geometry_worker_binary=settings.geometry_worker_binary,
+            exact_repair_mode=settings.exact_repair_mode,
+            exact_repair_worker_binary=settings.exact_repair_worker_binary,
+            shell_worker_binary=settings.shell_worker_binary,
             internal_boundary_thickness_threshold_m=settings.internal_boundary_thickness_threshold_m,
+            preflight_clash_tolerance_m=settings.preflight_clash_tolerance_m,
         )
         service.start()
         app.state.job_service = service
@@ -46,9 +60,13 @@ def create_app(
         return FileResponse(STATIC_DIR / "index.html")
 
     @app.post("/jobs", status_code=202, response_model=JobCreatedResponse)
-    async def create_job(request: Request, file: UploadFile = File(...)) -> JobCreatedResponse:
+    async def create_job(
+        request: Request,
+        file: UploadFile = File(...),
+        external_shell_mode: Literal["alpha_wrap", "heuristic"] = Form("alpha_wrap"),
+    ) -> JobCreatedResponse:
         try:
-            payload = request.app.state.job_service.create_job(file)
+            payload = request.app.state.job_service.create_job(file, external_shell_mode=external_shell_mode)
         finally:
             await file.close()
         return JobCreatedResponse(**payload)
@@ -60,6 +78,45 @@ def create_app(
         except JobNotFoundError as exc:
             raise HTTPException(status_code=404, detail=str(exc)) from exc
         return JobStatusResponse(**payload)
+
+    @app.post("/jobs/{job_id}/rerun/remove-spaces", status_code=202, response_model=DerivedJobCreatedResponse)
+    async def rerun_remove_spaces(
+        request: Request,
+        job_id: str,
+        payload: RemoveSpacesRequest,
+    ) -> DerivedJobCreatedResponse:
+        try:
+            result = request.app.state.job_service.create_remove_spaces_rerun(
+                job_id,
+                space_global_ids=payload.space_global_ids,
+                space_express_ids=payload.space_express_ids,
+            )
+        except JobNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except InvalidJobOperationError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        except InvalidSpaceRemovalRequestError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+        return DerivedJobCreatedResponse(**result)
+
+    @app.post("/jobs/{job_id}/rerun/resolve-space-clashes", status_code=202, response_model=DerivedJobCreatedResponse)
+    async def rerun_resolve_space_clashes(
+        request: Request,
+        job_id: str,
+        payload: ResolveSpaceClashesRequest,
+    ) -> DerivedJobCreatedResponse:
+        try:
+            result = request.app.state.job_service.create_resolve_space_clashes_rerun(
+                job_id,
+                group_resolutions=[resolution.model_dump() for resolution in payload.group_resolutions],
+            )
+        except JobNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except InvalidJobOperationError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        except (InvalidSpaceRemovalRequestError, InvalidSpaceResolutionRequestError) as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+        return DerivedJobCreatedResponse(**result)
 
     @app.get("/jobs/{job_id}/artifacts", response_model=ArtifactsResponse)
     async def get_job_artifacts(request: Request, job_id: str) -> ArtifactsResponse:

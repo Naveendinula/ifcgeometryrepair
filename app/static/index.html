@@ -50,6 +50,13 @@
               <strong id="selected-file-name">No file selected</strong>
               <input id="file-input" type="file" name="file" accept=".ifc" required />
             </label>
+            <label class="mode-picker" for="external-shell-mode-input">
+              <span class="upload-picker__label">Shell Mode</span>
+              <select id="external-shell-mode-input" name="external_shell_mode">
+                <option value="alpha_wrap" selected>Alpha Wrap</option>
+                <option value="heuristic">Heuristic</option>
+              </select>
+            </label>
             <button id="submit-button" type="submit" class="button button--primary">Create Job</button>
           </form>
 
@@ -67,7 +74,7 @@
             <div class="viewer-card__header">
               <div>
                 <p class="section-kicker">Geometry Workspace</p>
-                <h2>Raw vs normalized preprocessing inspection</h2>
+                <h2>Preprocessing, shell, and surface classification inspection</h2>
               </div>
               <div class="viewer-card__meta">
                 <span class="meta-pill">OBJ layers</span>
@@ -94,25 +101,7 @@
             </div>
 
             <div class="stage-toolbar">
-              <div class="stage-toolbar__group">
-                <label class="scene-toggle" data-control-state="off">
-                  <input data-layer-toggle="raw" type="checkbox" />
-                  <span>Raw IFC</span>
-                </label>
-                <label class="scene-toggle" data-control-state="off">
-                  <input data-layer-toggle="normalized" type="checkbox" />
-                  <span>Normalized</span>
-                </label>
-                <label class="scene-toggle" data-control-state="off">
-                  <input data-layer-toggle="openings" type="checkbox" />
-                  <span>Openings</span>
-                </label>
-                <label class="scene-toggle" data-control-state="off">
-                  <input data-layer-toggle="failed" type="checkbox" />
-                  <span>Failed</span>
-                </label>
-              </div>
-
+              <p class="stage-toolbar__hint">Use the Inspect tab to toggle layers and browse entities.</p>
               <div class="stage-toolbar__group">
                 <button id="reset-view-button" type="button" class="button button--slate button--ghost">
                   Reset View
@@ -126,172 +115,429 @@
         </section>
 
         <aside class="inspector-rail">
-          <section id="job-run-card" class="rail-card rail-card--primary">
-            <div class="rail-card__header">
-              <h3>Job Run</h3>
-              <span id="job-state-rail-pill" class="rail-state-pill" data-state="idle">
-                <strong id="job-state-rail">Idle</strong>
-              </span>
+          <div class="rail-shell">
+            <div class="rail-tabs" role="tablist" aria-label="Inspector tabs">
+              <button type="button" class="rail-tab-button" data-rail-tab-button="overview" aria-selected="true">
+                Overview
+              </button>
+              <button type="button" class="rail-tab-button" data-rail-tab-button="inspect" aria-selected="false">
+                Inspect
+              </button>
+              <button type="button" class="rail-tab-button" data-rail-tab-button="data" aria-selected="false">
+                Data
+              </button>
             </div>
 
-            <dl class="detail-list detail-list--light">
-              <div>
-                <dt>Job ID</dt>
-                <dd id="job-id-rail">No active job</dd>
+            <section class="rail-tab-panel" data-rail-panel="overview">
+              <section id="job-run-card" class="rail-hero">
+                <div class="rail-card__header">
+                  <h3>Job Run</h3>
+                  <span id="job-state-rail-pill" class="rail-state-pill" data-state="idle">
+                    <strong id="job-state-rail">Idle</strong>
+                  </span>
+                </div>
+
+                <dl class="detail-list detail-list--light">
+                  <div>
+                    <dt>Job ID</dt>
+                    <dd id="job-id-rail">No active job</dd>
+                  </div>
+                  <div>
+                    <dt>Updated</dt>
+                    <dd id="job-updated-rail">-</dd>
+                  </div>
+                </dl>
+
+                <p id="job-error" class="job-error hidden"></p>
+
+                <div class="rail-disclosure rail-disclosure--hero">
+                  <button
+                    id="overview-history-toggle"
+                    type="button"
+                    class="disclosure-toggle disclosure-toggle--hero"
+                    data-disclosure-button="overviewHistory"
+                    aria-expanded="false"
+                  >
+                    <span>Run History</span>
+                    <small>Expand recent workflow states</small>
+                  </button>
+                  <div id="overview-history-panel" class="data-panel hidden">
+                    <ol id="job-history-overview" class="history-list history-list--compact"></ol>
+                  </div>
+                </div>
+              </section>
+
+              <div id="job-derivation-note" class="lineage-banner">
+                Original upload. Mark spaces to create a filtered rerun.
               </div>
-              <div>
-                <dt>Updated</dt>
-                <dd id="job-updated-rail">-</dd>
-              </div>
-            </dl>
 
-            <p id="job-error" class="job-error hidden"></p>
-            <ol id="job-history" class="history-list history-list--compact"></ol>
-          </section>
+              <section class="rail-section rail-section--overview">
+                <div class="rail-card__header rail-card__header--tight">
+                  <h3>Job Health</h3>
+                  <span class="card-caption">Production summary</span>
+                </div>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Scene Layers</h3>
-              <span class="card-caption">Availability + toggles</span>
-            </div>
+                <div class="health-grid">
+                  <article class="health-metric">
+                    <span>Spaces</span>
+                    <strong id="overview-spaces-count">0</strong>
+                  </article>
+                  <article class="health-metric">
+                    <span>Openings</span>
+                    <strong id="overview-openings-count">0</strong>
+                  </article>
+                  <article class="health-metric">
+                    <span>Failed</span>
+                    <strong id="overview-failed-count">0</strong>
+                  </article>
+                  <article class="health-metric">
+                    <span>Preflight</span>
+                    <strong id="overview-preflight-status">-</strong>
+                  </article>
+                  <article class="health-metric">
+                    <span>Surface Patches</span>
+                    <strong id="overview-surface-count">0</strong>
+                  </article>
+                  <article class="health-metric">
+                    <span>Shell Mode</span>
+                    <strong id="overview-shell-mode">-</strong>
+                  </article>
+                </div>
+              </section>
 
-            <div class="layer-list">
-              <label class="layer-row">
-                <span class="layer-row__copy">
-                  <strong>Raw IFC Preview</strong>
-                  <small>Aggregate tessellation debug layer</small>
-                </span>
-                <span class="layer-row__actions">
-                  <span id="layer-raw-count" class="layer-count">n/a</span>
-                  <input data-layer-toggle="raw" type="checkbox" />
-                </span>
-              </label>
+              <section class="rail-section rail-section--overview">
+                <div class="rail-card__header rail-card__header--tight">
+                  <h3>Clash Review</h3>
+                  <span id="clash-group-count" class="count-pill">0</span>
+                </div>
 
-              <label class="layer-row">
-                <span class="layer-row__copy">
-                  <strong>Normalized Spaces</strong>
-                  <small>Processed space solids</small>
-                </span>
-                <span class="layer-row__actions">
-                  <span id="layer-normalized-count" class="layer-count">0</span>
-                  <input data-layer-toggle="normalized" type="checkbox" />
-                </span>
-              </label>
+                <p id="clash-review-summary" class="viewer-selection-empty">
+                  No clash review is required for the current job.
+                </p>
+                <p id="clash-review-empty" class="viewer-selection-empty">
+                  When preflight detects intersecting IfcSpace groups, review them here before creating a derived rerun.
+                </p>
+                <div class="rerun-actions">
+                  <button id="accept-clash-recommendations-button" type="button" class="button button--slate button--ghost" disabled>
+                    Accept Recommendations
+                  </button>
+                  <button id="clear-clash-selections-button" type="button" class="button button--slate button--ghost" disabled>
+                    Clear Clash Selection
+                  </button>
+                  <button id="rerun-resolve-clashes-button" type="button" class="button button--primary" disabled>
+                    Create Clash Rerun
+                  </button>
+                </div>
+                <div id="clash-group-list" class="clash-review-list hidden"></div>
+              </section>
 
-              <label class="layer-row">
-                <span class="layer-row__copy">
-                  <strong>Openings</strong>
-                  <small>Processed opening solids</small>
-                </span>
-                <span class="layer-row__actions">
-                  <span id="layer-openings-count" class="layer-count">0</span>
-                  <input data-layer-toggle="openings" type="checkbox" />
-                </span>
-              </label>
+              <section class="rail-section rail-section--overview">
+                <div class="rail-card__header rail-card__header--tight">
+                  <h3>Rerun</h3>
+                  <span id="pending-removal-count" class="count-pill">0</span>
+                </div>
 
-              <label class="layer-row">
-                <span class="layer-row__copy">
-                  <strong>Failed Entities</strong>
-                  <small>Invalid or missing geometry markers</small>
-                </span>
-                <span class="layer-row__actions">
-                  <span id="layer-failed-count" class="layer-count">0</span>
-                  <input data-layer-toggle="failed" type="checkbox" />
-                </span>
-              </label>
-            </div>
-          </section>
+                <p id="pending-removal-empty" class="viewer-selection-empty">
+                  Mark spaces from the Selection panel or the object browser to remove them from a derived IFC.
+                </p>
+                <ul
+                  id="pending-removal-list"
+                  class="artifact-list artifact-list--stacked compact-artifacts pending-removal-list hidden"
+                ></ul>
+                <div class="rerun-actions">
+                  <button id="clear-pending-removals-button" type="button" class="button button--slate button--ghost">
+                    Clear Marked Spaces
+                  </button>
+                  <button id="rerun-remove-spaces-button" type="button" class="button button--primary" disabled>
+                    Rerun Without 0 Spaces
+                  </button>
+                </div>
+              </section>
+            </section>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Selection</h3>
-              <span class="card-caption">Canvas or list driven</span>
-            </div>
+            <section class="rail-tab-panel hidden" data-rail-panel="inspect">
+              <section class="rail-section rail-section--sticky rail-section--inspect-header">
+                <div class="inspect-toolbar">
+                  <div class="rail-card__header rail-card__header--tight rail-card__header--stacked">
+                    <div>
+                      <h3>Inspect</h3>
+                      <span class="card-caption">Select a row to reveal details inline</span>
+                    </div>
+                  </div>
 
-            <p id="viewer-selection-empty" class="viewer-selection-empty">
-              Select an object in the scene or from the lists below.
-            </p>
-            <dl id="viewer-metadata" class="metadata-list"></dl>
-            <ul id="viewer-artifact-links" class="artifact-list artifact-list--stacked compact-artifacts"></ul>
-          </section>
+                  <div class="inspect-selection-summary">
+                    <p class="subsection-label">Selected</p>
+                    <strong id="inspect-selection-name" class="inspect-selection-summary__name">No selection</strong>
+                    <p id="inspect-selection-meta" class="inspect-selection-summary__meta">
+                      Pick an object in the scene or object browser.
+                    </p>
+                  </div>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Extraction Summary</h3>
-              <span class="card-caption">Backend report</span>
-            </div>
+                  <div id="inspect-selection-actions" class="inspect-quick-actions hidden"></div>
+                </div>
+              </section>
 
-            <div class="summary-grid">
-              <article class="summary-metric">
-                <span>Schema</span>
-                <strong id="report-schema">-</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Spaces</span>
-                <strong id="spaces-count">0</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Openings</span>
-                <strong id="openings-count">0</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Missing Rep.</span>
-                <strong id="missing-count">0</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Invalid Solids</span>
-                <strong id="invalid-count">0</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Worker</span>
-                <strong id="worker-backend">-</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Valid Entities</span>
-                <strong id="valid-normalized-count">0</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Invalid Entities</span>
-                <strong id="invalid-normalized-count">0</strong>
-              </article>
-              <article class="summary-metric">
-                <span>Unit</span>
-                <strong id="geometry-unit">-</strong>
-              </article>
-            </div>
-          </section>
+              <section class="rail-section">
+                <button
+                  type="button"
+                  class="disclosure-toggle"
+                  data-disclosure-button="inspectLayers"
+                  aria-expanded="false"
+                >
+                  <span>Scene Layers</span>
+                  <small>Visibility controls stay secondary to inspection</small>
+                </button>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Artifacts</h3>
-              <span id="artifact-count" class="count-pill">0</span>
-            </div>
-            <ul id="artifact-list" class="artifact-list artifact-list--stacked"></ul>
-          </section>
+                <div id="inspect-layers-panel" class="data-panel hidden">
+                  <div class="layer-list">
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Grid Floor</strong>
+                        <small>Viewer-only floor anchor and orbit reference</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-grid-count" class="layer-count">0</span>
+                        <input data-layer-toggle="grid" type="checkbox" />
+                      </span>
+                    </label>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Spaces</h3>
-              <span id="spaces-object-count" class="count-pill">0</span>
-            </div>
-            <div id="viewer-space-list" class="object-list"></div>
-          </section>
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Raw IFC Preview</strong>
+                        <small>Aggregate tessellation debug layer</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-raw-count" class="layer-count">n/a</span>
+                        <input data-layer-toggle="raw" type="checkbox" />
+                      </span>
+                    </label>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Openings</h3>
-              <span id="openings-object-count" class="count-pill">0</span>
-            </div>
-            <div id="viewer-opening-list" class="object-list"></div>
-          </section>
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Normalized Spaces</strong>
+                        <small>Processed space solids</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-normalized-count" class="layer-count">0</span>
+                        <input data-layer-toggle="normalized" type="checkbox" />
+                      </span>
+                    </label>
 
-          <section class="rail-card">
-            <div class="rail-card__header">
-              <h3>Failed</h3>
-              <span id="failed-object-count" class="count-pill">0</span>
-            </div>
-            <div id="viewer-failed-list" class="object-list"></div>
-          </section>
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Openings</strong>
+                        <small>Processed opening solids</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-openings-count" class="layer-count">0</span>
+                        <input data-layer-toggle="openings" type="checkbox" />
+                      </span>
+                    </label>
+
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Failed Entities</strong>
+                        <small>Invalid or missing geometry markers</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-failed-count" class="layer-count">0</span>
+                        <input data-layer-toggle="failed" type="checkbox" />
+                      </span>
+                    </label>
+
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Envelope Shell</strong>
+                        <small>Building shell debug envelope</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-shell-count" class="layer-count">0</span>
+                        <input data-layer-toggle="shell" type="checkbox" />
+                      </span>
+                    </label>
+
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Surface Classification</strong>
+                        <small>Per-space envelope partition labels</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-surfaces-count" class="layer-count">0</span>
+                        <input data-layer-toggle="surfaces" type="checkbox" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </section>
+
+              <section class="rail-section">
+                <div class="rail-card__header rail-card__header--tight">
+                  <h3>Object Browser</h3>
+                  <span id="object-browser-count" class="count-pill">0</span>
+                </div>
+
+                <div class="browser-toolbar">
+                  <label class="browser-search">
+                    <span class="subsection-label">Search</span>
+                    <input
+                      id="entity-browser-search"
+                      type="search"
+                      placeholder="Search name, GlobalId, express ID, or type"
+                    />
+                  </label>
+
+                  <div class="browser-filter-chips">
+                    <button type="button" class="filter-chip" data-browser-filter="all" aria-pressed="true">
+                      <span>All</span>
+                      <span id="browser-filter-count-all" class="filter-chip__count">0</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-browser-filter="spaces" aria-pressed="false">
+                      <span>Spaces</span>
+                      <span id="browser-filter-count-spaces" class="filter-chip__count">0</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-browser-filter="openings" aria-pressed="false">
+                      <span>Openings</span>
+                      <span id="browser-filter-count-openings" class="filter-chip__count">0</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-browser-filter="failed" aria-pressed="false">
+                      <span>Failed</span>
+                      <span id="browser-filter-count-failed" class="filter-chip__count">0</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-browser-filter="surfaces" aria-pressed="false">
+                      <span>Surfaces</span>
+                      <span id="browser-filter-count-surfaces" class="filter-chip__count">0</span>
+                    </button>
+                    <button type="button" class="filter-chip" data-browser-filter="marked" aria-pressed="false">
+                      <span>Marked</span>
+                      <span id="browser-filter-count-marked" class="filter-chip__count">0</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div id="viewer-browser-list" class="object-list object-list--browser"></div>
+              </section>
+            </section>
+
+            <section class="rail-tab-panel hidden" data-rail-panel="data">
+              <section class="rail-section rail-section--compact">
+                <div class="rail-card__header rail-card__header--tight">
+                  <h3>Quick Links</h3>
+                  <span class="card-caption">Raw report access</span>
+                </div>
+
+                <div class="quick-links quick-links--rail">
+                  <a id="status-link-rail" href="#" class="quick-link hidden">Status JSON</a>
+                  <a id="output-link-rail" href="#" class="quick-link hidden">Output JSON</a>
+                  <a id="viewer-manifest-link-rail" href="#" class="quick-link hidden">Viewer Manifest</a>
+                </div>
+              </section>
+
+              <section class="rail-section rail-section--compact">
+                <button
+                  type="button"
+                  class="disclosure-toggle"
+                  data-disclosure-button="metrics"
+                  aria-expanded="true"
+                >
+                  <span>Advanced Metrics</span>
+                  <small>Geometry intake, preflight, and classification</small>
+                </button>
+                <div id="data-section-metrics" class="data-panel">
+                  <div class="metrics-group">
+                    <h4>Geometry Intake</h4>
+                    <dl class="stacked-detail-list">
+                      <div>
+                        <dt>Schema</dt>
+                        <dd id="report-schema">-</dd>
+                      </div>
+                      <div>
+                        <dt>Unit</dt>
+                        <dd id="geometry-unit">-</dd>
+                      </div>
+                      <div>
+                        <dt>Missing Representation</dt>
+                        <dd id="missing-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Invalid Solids</dt>
+                        <dd id="invalid-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Worker</dt>
+                        <dd id="worker-backend">-</dd>
+                      </div>
+                      <div>
+                        <dt>Valid Entities</dt>
+                        <dd id="valid-normalized-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Invalid Entities</dt>
+                        <dd id="invalid-normalized-count">0</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div class="metrics-group">
+                    <h4>Preflight</h4>
+                    <dl class="stacked-detail-list">
+                      <div>
+                        <dt>Blockers</dt>
+                        <dd id="preflight-blocker-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Warnings</dt>
+                        <dd id="preflight-warning-count">0</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div class="metrics-group">
+                    <h4>Classification</h4>
+                    <dl class="stacked-detail-list">
+                      <div>
+                        <dt>Unclassified</dt>
+                        <dd id="unclassified-surface-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Internal Partitions</dt>
+                        <dd id="internal-partition-count">0</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </section>
+
+              <section class="rail-section rail-section--compact">
+                <button
+                  type="button"
+                  class="disclosure-toggle"
+                  data-disclosure-button="artifacts"
+                  aria-expanded="false"
+                >
+                  <span>Artifacts</span>
+                  <small><span id="artifact-count">0</span> files available</small>
+                </button>
+                <div id="data-section-artifacts" class="data-panel hidden">
+                  <ul id="artifact-list" class="artifact-list artifact-list--stacked"></ul>
+                </div>
+              </section>
+
+              <section class="rail-section rail-section--compact">
+                <button
+                  type="button"
+                  class="disclosure-toggle"
+                  data-disclosure-button="dataHistory"
+                  aria-expanded="false"
+                >
+                  <span>History</span>
+                  <small>Full job activity log</small>
+                </button>
+                <div id="data-section-history" class="data-panel hidden">
+                  <ol id="job-history-data" class="history-list history-list--compact"></ol>
+                </div>
+              </section>
+            </section>
+          </div>
         </aside>
       </section>
     </main>

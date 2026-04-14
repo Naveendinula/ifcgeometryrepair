@@ -58,14 +58,32 @@ def build_extraction_report(
     job_id: str,
     prepared_ifc: PreparedIFC,
     preprocessing_result: dict[str, Any],
+    preflight_result: dict[str, Any] | None,
     internal_boundary_result: dict[str, Any],
+    external_shell_result: dict[str, Any],
+    derivation_info: dict[str, Any] | None = None,
+    *,
+    success: bool = True,
+    error: str | None = None,
 ) -> dict[str, Any]:
+    preflight_result = preflight_result or {}
+    derivation_info = derivation_info or None
     geometry_by_express_id = {
         entity["express_id"]: entity for entity in preprocessing_result.get("entities", [])
     }
 
     spaces = [_merge_entity_record(extracted.record, geometry_by_express_id) for extracted in prepared_ifc.spaces]
     openings = [_merge_entity_record(extracted.record, geometry_by_express_id) for extracted in prepared_ifc.openings]
+    preflight_issues_by_express_id = _index_preflight_issues(preflight_result)
+    clash_groups_by_express_id = _index_clash_groups(preflight_result)
+    spaces = [
+        _attach_preflight_issues(record, preflight_issues_by_express_id, clash_groups_by_express_id)
+        for record in spaces
+    ]
+    openings = [
+        _attach_preflight_issues(record, preflight_issues_by_express_id, clash_groups_by_express_id)
+        for record in openings
+    ]
 
     missing_spaces = [
         _entity_ref_from_record(record) for record in spaces if not record["has_representation"]
@@ -85,22 +103,28 @@ def build_extraction_report(
             "express_id": entity["express_id"],
             "name": entity.get("name"),
             "entity_type": entity["entity_type"],
+            "repair_backend": entity.get("repair_backend"),
+            "repair_status": entity.get("repair_status"),
+            "repair_reason": entity.get("repair_reason"),
             "reason": entity.get("reason"),
             "valid": entity["valid"],
         }
         for entity in preprocessing_result.get("entities", [])
         if not entity["valid"]
     ]
+    preflight_blocker_count = len(preflight_result.get("blockers", []))
 
     return {
-        "success": True,
+        "success": success,
         "job_id": job_id,
+        "error": error,
+        "derivation": derivation_info,
         "schema": prepared_ifc.schema,
         "summary": {
             "number_of_spaces": len(spaces),
             "number_of_openings": len(openings),
             "entities_processed": len(spaces) + len(openings),
-            "issues_found": len(missing_spaces) + len(invalid_solids),
+            "issues_found": len(missing_spaces) + len(invalid_solids) + preflight_blocker_count,
         },
         "geometry_sanity": {
             "number_of_spaces": len(spaces),
@@ -115,14 +139,34 @@ def build_extraction_report(
             "unit": preprocessing_result.get("unit"),
             "source_unit_scale_to_meters": preprocessing_result.get("source_unit_scale_to_meters"),
             "summary": preprocessing_result.get("summary", {}),
+            "repair": preprocessing_result.get("repair", {}),
             "invalid_entities": preprocessing_invalid_entities,
             "artifacts": preprocessing_result.get("artifacts", {}),
+        },
+        "preflight": {
+            "status": preflight_result.get("status"),
+            "summary": preflight_result.get("summary", {}),
+            "blockers": preflight_result.get("blockers", []),
+            "warnings": preflight_result.get("warnings", []),
+            "clash_groups": preflight_result.get("clash_groups", []),
+            "recommended_resolution": preflight_result.get("recommended_resolution"),
+            "resolution_status": preflight_result.get("resolution_status"),
+            "review_required": preflight_result.get("review_required", False),
+            "artifacts": preflight_result.get("artifacts", {}),
         },
         "internal_boundaries": {
             "threshold_m": internal_boundary_result.get("threshold_m"),
             "summary": internal_boundary_result.get("summary", {}),
             "adjacencies": internal_boundary_result.get("adjacencies", []),
             "artifacts": internal_boundary_result.get("artifacts", {}),
+        },
+        "external_shell": {
+            "mode_requested": external_shell_result.get("mode_requested"),
+            "mode_effective": external_shell_result.get("mode_effective"),
+            "fallback_reason": external_shell_result.get("fallback_reason"),
+            "summary": external_shell_result.get("summary", {}),
+            "surfaces": external_shell_result.get("surfaces", []),
+            "artifacts": external_shell_result.get("artifacts", {}),
         },
     }
 
@@ -135,8 +179,12 @@ def _build_geometry_settings() -> Any:
 
 
 def _extract_entity(entity: Any) -> ExtractedEntity:
+    return ExtractedEntity(product=entity, record=extract_entity_record(entity))
+
+
+def extract_entity_record(entity: Any) -> dict[str, Any]:
     storey, building = _resolve_spatial_refs(entity)
-    record = {
+    return {
         "express_id": entity.id(),
         "global_id": getattr(entity, "GlobalId", None),
         "name": getattr(entity, "Name", None),
@@ -146,7 +194,6 @@ def _extract_entity(entity: Any) -> ExtractedEntity:
         "placement": _serialize_placement(getattr(entity, "ObjectPlacement", None)),
         "has_representation": _has_representation(entity),
     }
-    return ExtractedEntity(product=entity, record=record)
 
 
 def _merge_entity_record(
@@ -179,9 +226,98 @@ def _merge_entity_record(
             "face_count": geometry["face_count"] if geometry else 0,
             "vertex_count": geometry["vertex_count"] if geometry else 0,
             "component_count": geometry["component_count"] if geometry else 0,
+            "repair_backend": geometry.get("repair_backend") if geometry else "none",
+            "repair_status": geometry.get("repair_status") if geometry else "not_attempted",
+            "repair_reason": geometry.get("repair_reason") if geometry else None,
             "repair_actions": geometry["repair_actions"] if geometry else [],
             "artifacts": geometry.get("artifacts", {}) if geometry else {},
         }
+    )
+    return record
+
+
+def _index_preflight_issues(preflight_result: dict[str, Any]) -> dict[int, dict[str, list[dict[str, Any]]]]:
+    issues_by_express_id: dict[int, dict[str, list[dict[str, Any]]]] = {}
+
+    for severity, items in (
+        ("blockers", preflight_result.get("blockers", [])),
+        ("warnings", preflight_result.get("warnings", [])),
+    ):
+        for item in items:
+            refs = []
+            if isinstance(item.get("entity"), dict):
+                refs.append(item["entity"])
+            refs.extend(ref for ref in item.get("entities", []) if isinstance(ref, dict))
+            for ref in refs:
+                express_id = ref.get("express_id")
+                if not isinstance(express_id, int):
+                    continue
+                bucket = issues_by_express_id.setdefault(express_id, {"blockers": [], "warnings": []})
+                bucket[severity].append(
+                    {
+                        "code": item.get("code"),
+                        "message": item.get("message"),
+                    }
+                )
+
+    return issues_by_express_id
+
+
+def _index_clash_groups(preflight_result: dict[str, Any]) -> dict[int, list[dict[str, Any]]]:
+    clash_groups_by_express_id: dict[int, list[dict[str, Any]]] = {}
+    for clash_group in preflight_result.get("clash_groups", []):
+        recommended_resolution = clash_group.get("recommended_resolution") or {}
+        keeper_express_id = (
+            int(recommended_resolution["keeper"]["express_id"])
+            if recommended_resolution.get("keeper")
+            else None
+        )
+        removable_ids = {
+            int(space_ref["express_id"])
+            for space_ref in recommended_resolution.get("spaces_to_remove", [])
+        }
+        for space_ref in clash_group.get("spaces", []):
+            express_id = space_ref.get("express_id")
+            if not isinstance(express_id, int):
+                continue
+            recommended_action = None
+            if keeper_express_id is not None and express_id == keeper_express_id:
+                recommended_action = "keep"
+            elif express_id in removable_ids:
+                recommended_action = "remove"
+            clash_groups_by_express_id.setdefault(express_id, []).append(
+                {
+                    "clash_group_id": clash_group.get("clash_group_id"),
+                    "classification": clash_group.get("classification"),
+                    "resolution_status": clash_group.get("resolution_status"),
+                    "review_required": clash_group.get("review_required", False),
+                    "recommended_action": recommended_action,
+                }
+            )
+    return clash_groups_by_express_id
+
+
+def _attach_preflight_issues(
+    record: dict[str, Any],
+    issues_by_express_id: dict[int, dict[str, list[dict[str, Any]]]],
+    clash_groups_by_express_id: dict[int, list[dict[str, Any]]],
+) -> dict[str, Any]:
+    bucket = issues_by_express_id.get(record["express_id"], {"blockers": [], "warnings": []})
+    clash_groups = clash_groups_by_express_id.get(record["express_id"], [])
+    record = dict(record)
+    record["preflight_blockers"] = list(bucket["blockers"])
+    record["preflight_warnings"] = list(bucket["warnings"])
+    record["preflight_failed"] = bool(bucket["blockers"])
+    record["preflight_reason"] = bucket["blockers"][0]["message"] if bucket["blockers"] else None
+    record["clash_groups"] = list(clash_groups)
+    record["clash_group_ids"] = [group["clash_group_id"] for group in clash_groups if group.get("clash_group_id")]
+    record["recommended_clash_action"] = next(
+        (
+            group["recommended_action"]
+            for group in clash_groups
+            if group.get("recommended_action") is not None
+        ),
+        None,
     )
     return record
 

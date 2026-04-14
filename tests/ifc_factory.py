@@ -121,6 +121,105 @@ def build_separated_rooms_fixture() -> GeneratedFixture:
     )
 
 
+def build_overlapping_rooms_fixture() -> GeneratedFixture:
+    model, body_context, building, storey = _base_model()
+    first_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Room A",
+        placement=(0.0, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    second_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Room B",
+        placement=(3.6, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    return GeneratedFixture(
+        content=model.to_string().encode("utf-8"),
+        expected_space_count=2,
+        expected_opening_count=0,
+        represented_space_name=first_room.Name,
+        storey_name=storey.Name,
+        building_name=building.Name,
+        space_names=(first_room.Name, second_room.Name),
+    )
+
+
+def build_duplicate_rooms_fixture() -> GeneratedFixture:
+    model, body_context, building, storey = _base_model()
+    first_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Room A",
+        placement=(0.0, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    second_room = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Room A Duplicate",
+        placement=(0.0, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    return GeneratedFixture(
+        content=model.to_string().encode("utf-8"),
+        expected_space_count=2,
+        expected_opening_count=0,
+        represented_space_name=first_room.Name,
+        storey_name=storey.Name,
+        building_name=building.Name,
+        space_names=(first_room.Name, second_room.Name),
+    )
+
+
+def build_contained_fragment_fixture() -> GeneratedFixture:
+    model, body_context, building, storey = _base_model()
+    outer_space = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Outer Space",
+        placement=(0.0, 0.0, 0.0),
+        represented=True,
+        footprint=(4000.0, 3000.0),
+        height=2.8,
+    )
+    fragment_space = _add_space(
+        model,
+        body_context,
+        storey,
+        name="Inner Fragment",
+        placement=(0.8, 0.8, 0.0),
+        represented=True,
+        footprint=(1500.0, 1200.0),
+        height=2.0,
+    )
+    return GeneratedFixture(
+        content=model.to_string().encode("utf-8"),
+        expected_space_count=2,
+        expected_opening_count=0,
+        represented_space_name=outer_space.Name,
+        storey_name=storey.Name,
+        building_name=building.Name,
+        space_names=(outer_space.Name, fragment_space.Name),
+    )
+
+
 def build_corridor_room_fixture() -> GeneratedFixture:
     model, body_context, building, storey = _base_model()
     corridor = _add_space(

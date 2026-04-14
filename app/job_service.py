@@ -14,10 +14,18 @@ from uuid import uuid4
 
 from fastapi import UploadFile
 
+from .external_shell import ExternalShellResult, run_external_shell_classification
 from .geometry_worker import GeometryPreprocessingResult, run_geometry_preprocessing
+from .ifc_editing import (
+    InvalidSpaceRemovalRequestError,
+    InvalidSpaceResolutionRequestError,
+    derive_ifc_resolving_space_clashes,
+    derive_ifc_without_spaces,
+)
 from .ifc_extractor import ParsedIFC, PreparedIFC, build_extraction_report, parse_ifc_file, prepare_extraction
 from .internal_boundaries import InternalBoundaryResult, run_internal_boundary_generation
 from .models import JobState
+from .preflight import PreflightValidationResult, run_preflight_validation
 from .viewer_manifest import build_viewer_manifest
 
 
@@ -28,7 +36,9 @@ TERMINAL_STATES = {"complete", "failed"}
 class JobProcessingBundle:
     prepared_ifc: PreparedIFC
     preprocessing: GeometryPreprocessingResult
+    preflight: PreflightValidationResult
     internal_boundaries: InternalBoundaryResult
+    external_shell: ExternalShellResult
 
 
 class JobNotFoundError(FileNotFoundError):
@@ -39,18 +49,31 @@ class ArtifactNotFoundError(FileNotFoundError):
     pass
 
 
+class InvalidJobOperationError(RuntimeError):
+    pass
+
+
 class JobService:
     def __init__(
         self,
         jobs_root: Path,
         stage_delay_seconds: float = 0.2,
         geometry_worker_binary: Path | None = None,
+        exact_repair_mode: str = "preferred",
+        exact_repair_worker_binary: Path | None = None,
+        shell_worker_binary: Path | None = None,
         internal_boundary_thickness_threshold_m: float = 0.30,
+        preflight_clash_tolerance_m: float = 0.01,
     ) -> None:
         self.jobs_root = jobs_root
         self.stage_delay_seconds = stage_delay_seconds
-        self.geometry_worker_binary = geometry_worker_binary
+        resolved_exact_repair_binary = exact_repair_worker_binary or geometry_worker_binary
+        self.geometry_worker_binary = resolved_exact_repair_binary
+        self.exact_repair_mode = exact_repair_mode
+        self.exact_repair_worker_binary = resolved_exact_repair_binary
+        self.shell_worker_binary = shell_worker_binary
         self.internal_boundary_thickness_threshold_m = internal_boundary_thickness_threshold_m
+        self.preflight_clash_tolerance_m = preflight_clash_tolerance_m
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._stop_event = threading.Event()
         self._io_lock = threading.Lock()
@@ -71,7 +94,7 @@ class JobService:
         self._queue.put(None)
         self._worker.join(timeout=2.0)
 
-    def create_job(self, upload: UploadFile) -> dict[str, Any]:
+    def create_job(self, upload: UploadFile, *, external_shell_mode: str = "alpha_wrap") -> dict[str, Any]:
         job_id = str(uuid4())
         job_dir = self._job_dir(job_id)
         job_dir.mkdir(parents=True, exist_ok=False)
@@ -85,26 +108,14 @@ class JobService:
         input_size = input_path.stat().st_size
 
         self._append_log(job_id, f"Upload received: {original_name} ({input_size} bytes)")
-
-        debug_payload = {
-            "job_id": job_id,
-            "state": "uploaded",
-            "created_at": created_at,
-            "updated_at": created_at,
-            "error": None,
-            "history": [
-                {
-                    "state": "uploaded",
-                    "timestamp": created_at,
-                    "message": "Upload received",
-                }
-            ],
-            "input": {
-                "original_filename": original_name,
-                "size_bytes": input_size,
-                "validated": False,
-            },
-        }
+        debug_payload = self._build_debug_payload(
+            job_id,
+            created_at=created_at,
+            original_name=original_name,
+            input_size=input_size,
+            external_shell_mode=external_shell_mode,
+            history_message="Upload received",
+        )
         self._write_debug(job_id, debug_payload)
         self._queue.put(job_id)
 
@@ -114,6 +125,199 @@ class JobService:
             "created_at": created_at,
             "status_url": f"/jobs/{job_id}",
             "artifacts_url": f"/jobs/{job_id}/artifacts",
+        }
+
+    def create_remove_spaces_rerun(
+        self,
+        job_id: str,
+        *,
+        space_global_ids: list[str] | None = None,
+        space_express_ids: list[int] | None = None,
+    ) -> dict[str, Any]:
+        parent_debug = self._load_debug(job_id)
+        if parent_debug["state"] not in TERMINAL_STATES:
+            raise InvalidJobOperationError("Reruns are only available after a job reaches complete or failed.")
+
+        base_input_path = self._job_dir(job_id) / "input.ifc"
+        if not base_input_path.exists():
+            raise InvalidJobOperationError(f"Job {job_id} does not have an input.ifc artifact to derive from.")
+
+        child_job_id = str(uuid4())
+        child_job_dir = self._job_dir(child_job_id)
+        child_job_dir.mkdir(parents=True, exist_ok=False)
+
+        parent_derivation = parent_debug.get("derivation") or {}
+        root_job_id = parent_derivation.get("root_job_id") or job_id
+        external_shell_mode = (
+            parent_debug.get("options", {}).get("external_shell_mode")
+            or parent_debug.get("external_shell_preview", {}).get("mode_requested")
+            or "alpha_wrap"
+        )
+        input_path = child_job_dir / "input.ifc"
+        try:
+            edit_result = derive_ifc_without_spaces(
+                base_input_path,
+                input_path,
+                space_global_ids=space_global_ids,
+                space_express_ids=space_express_ids,
+            )
+        except Exception:
+            shutil.rmtree(child_job_dir, ignore_errors=True)
+            raise
+
+        derivation_payload = {
+            "parent_job_id": job_id,
+            "root_job_id": root_job_id,
+            "operation": "remove_spaces",
+            "removed_space_count": len(edit_result.removed_spaces),
+            "removed_spaces": edit_result.removed_spaces,
+        }
+        edit_payload = {
+            **derivation_payload,
+            "requested_space_global_ids": edit_result.requested_space_global_ids,
+            "requested_space_express_ids": edit_result.requested_space_express_ids,
+            "remaining_space_count": edit_result.remaining_space_count,
+        }
+        self._write_json_file(child_job_dir / "edits" / "remove_spaces.json", edit_payload)
+
+        created_at = _utcnow()
+        original_name = parent_debug.get("input", {}).get("original_filename") or base_input_path.name
+        input_size = input_path.stat().st_size
+        debug_payload = self._build_debug_payload(
+            child_job_id,
+            created_at=created_at,
+            original_name=original_name,
+            input_size=input_size,
+            external_shell_mode=external_shell_mode,
+            history_message=(
+                f"Derived from {job_id} after removing {len(edit_result.removed_spaces)} spaces"
+            ),
+            derivation=derivation_payload,
+        )
+        self._write_debug(child_job_id, debug_payload)
+        self._append_log(
+            child_job_id,
+            (
+                f"Derived job created from {job_id}; removed {len(edit_result.removed_spaces)} spaces "
+                f"and wrote edits/remove_spaces.json"
+            ),
+        )
+        self._queue.put(child_job_id)
+
+        return {
+            "job_id": child_job_id,
+            "state": "uploaded",
+            "created_at": created_at,
+            "status_url": f"/jobs/{child_job_id}",
+            "artifacts_url": f"/jobs/{child_job_id}/artifacts",
+            "parent_job_id": job_id,
+            "root_job_id": root_job_id,
+            "removed_space_count": len(edit_result.removed_spaces),
+        }
+
+    def create_resolve_space_clashes_rerun(
+        self,
+        job_id: str,
+        *,
+        group_resolutions: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        parent_debug = self._load_debug(job_id)
+        if parent_debug["state"] not in TERMINAL_STATES:
+            raise InvalidJobOperationError("Reruns are only available after a job reaches complete or failed.")
+
+        base_input_path = self._job_dir(job_id) / "input.ifc"
+        if not base_input_path.exists():
+            raise InvalidJobOperationError(f"Job {job_id} does not have an input.ifc artifact to derive from.")
+
+        parent_output = self._load_output_payload(job_id)
+        preflight = parent_output.get("preflight") or {}
+        clash_groups = {
+            str(clash_group["clash_group_id"]): clash_group
+            for clash_group in preflight.get("clash_groups", [])
+            if clash_group.get("clash_group_id")
+        }
+        if not clash_groups:
+            raise InvalidJobOperationError(f"Job {job_id} does not have any preflight clash groups to resolve.")
+
+        validated_group_resolutions = self._validate_group_resolutions(group_resolutions or [], clash_groups)
+        child_job_id = str(uuid4())
+        child_job_dir = self._job_dir(child_job_id)
+        child_job_dir.mkdir(parents=True, exist_ok=False)
+
+        parent_derivation = parent_debug.get("derivation") or {}
+        root_job_id = parent_derivation.get("root_job_id") or job_id
+        external_shell_mode = (
+            parent_debug.get("options", {}).get("external_shell_mode")
+            or parent_debug.get("external_shell_preview", {}).get("mode_requested")
+            or "alpha_wrap"
+        )
+        input_path = child_job_dir / "input.ifc"
+        try:
+            edit_result = derive_ifc_resolving_space_clashes(
+                base_input_path,
+                input_path,
+                group_resolutions=validated_group_resolutions,
+            )
+        except Exception:
+            shutil.rmtree(child_job_dir, ignore_errors=True)
+            raise
+
+        resolved_group_ids = [
+            str(group_resolution["clash_group_id"])
+            for group_resolution in edit_result.requested_group_resolutions
+        ]
+        derivation_payload = {
+            "parent_job_id": job_id,
+            "root_job_id": root_job_id,
+            "operation": "resolve_space_clashes",
+            "removed_space_count": len(edit_result.removed_spaces),
+            "removed_spaces": edit_result.removed_spaces,
+            "resolved_clash_group_count": len(resolved_group_ids),
+            "resolved_clash_group_ids": resolved_group_ids,
+        }
+        edit_payload = {
+            **derivation_payload,
+            "requested_group_resolutions": edit_result.requested_group_resolutions,
+            "requested_space_global_ids": edit_result.requested_space_global_ids,
+            "requested_space_express_ids": edit_result.requested_space_express_ids,
+            "remaining_space_count": edit_result.remaining_space_count,
+        }
+        self._write_json_file(child_job_dir / "edits" / "resolve_space_clashes.json", edit_payload)
+
+        created_at = _utcnow()
+        original_name = parent_debug.get("input", {}).get("original_filename") or base_input_path.name
+        input_size = input_path.stat().st_size
+        debug_payload = self._build_debug_payload(
+            child_job_id,
+            created_at=created_at,
+            original_name=original_name,
+            input_size=input_size,
+            external_shell_mode=external_shell_mode,
+            history_message=(
+                f"Derived from {job_id} after resolving {len(resolved_group_ids)} clash groups"
+            ),
+            derivation=derivation_payload,
+        )
+        self._write_debug(child_job_id, debug_payload)
+        self._append_log(
+            child_job_id,
+            (
+                f"Derived job created from {job_id}; reviewed {len(resolved_group_ids)} clash groups, "
+                f"removed {len(edit_result.removed_spaces)} spaces, and wrote edits/resolve_space_clashes.json"
+            ),
+        )
+        self._queue.put(child_job_id)
+
+        return {
+            "job_id": child_job_id,
+            "state": "uploaded",
+            "created_at": created_at,
+            "status_url": f"/jobs/{child_job_id}",
+            "artifacts_url": f"/jobs/{child_job_id}/artifacts",
+            "parent_job_id": job_id,
+            "root_job_id": root_job_id,
+            "removed_space_count": len(edit_result.removed_spaces),
+            "resolved_clash_group_count": len(resolved_group_ids),
         }
 
     def get_status(self, job_id: str) -> dict[str, Any]:
@@ -127,6 +331,7 @@ class JobService:
             "error": debug_data.get("error"),
             "history": debug_data.get("history", []),
             "artifacts": artifacts,
+            "derivation": debug_data.get("derivation"),
         }
 
     def list_artifacts(self, job_id: str) -> dict[str, Any]:
@@ -206,9 +411,20 @@ class JobService:
             self._sleep_between_stages()
             bundle = self._run_preprocessing(job_id, parsed_ifc)
 
+            self._transition(job_id, "preflight", "Validating normalized spaces for topology and clashes")
+            self._sleep_between_stages()
+            bundle = self._run_preflight(job_id, bundle)
+            if bundle.preflight.payload["status"] == "failed":
+                self._fail_preflight_job(job_id, bundle)
+                return
+
             self._transition(job_id, "internal_boundary", "Detecting shared boundaries between adjacent spaces")
             self._sleep_between_stages()
             bundle = self._run_internal_boundary(job_id, bundle)
+
+            self._transition(job_id, "external_shell", "Classifying space surfaces against the building shell")
+            self._sleep_between_stages()
+            bundle = self._run_external_shell(job_id, bundle)
 
             self._transition(job_id, "classifying", "Building extraction report")
             self._sleep_between_stages()
@@ -246,7 +462,8 @@ class JobService:
             job_id,
             self._job_dir(job_id),
             prepared_ifc,
-            worker_binary=self.geometry_worker_binary,
+            exact_repair_mode=self.exact_repair_mode,
+            exact_repair_worker_binary=self.exact_repair_worker_binary,
         )
 
         def mutator(debug_data: dict[str, Any]) -> None:
@@ -260,6 +477,7 @@ class JobService:
                 "worker_backend": preprocessing.result["worker_backend"],
                 "unit": preprocessing.result["unit"],
                 "summary": preprocessing.result["summary"],
+                "repair": preprocessing.result["repair"],
                 "artifacts": preprocessing.result["artifacts"],
             }
 
@@ -269,14 +487,50 @@ class JobService:
             (
                 "Prepared extraction targets and normalized geometry: "
                 f"{len(prepared_ifc.spaces)} spaces, {len(prepared_ifc.openings)} openings, "
-                f"backend={preprocessing.result['worker_backend']}"
+                f"backend={preprocessing.result['worker_backend']}, "
+                f"repair_status={preprocessing.result['repair']['summary']['effective_mode']}"
             ),
         )
         self._append_log(job_id, "Wrote geometry request/result, summary, and OBJ debug artifacts")
         return JobProcessingBundle(
             prepared_ifc=prepared_ifc,
             preprocessing=preprocessing,
+            preflight=PreflightValidationResult(payload={}),
             internal_boundaries=InternalBoundaryResult(payload={}),
+            external_shell=ExternalShellResult(payload={}),
+        )
+
+    def _run_preflight(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        preflight = run_preflight_validation(
+            job_id,
+            self._job_dir(job_id),
+            bundle.preprocessing.result,
+            clash_tolerance_m=self.preflight_clash_tolerance_m,
+        )
+
+        def mutator(debug_data: dict[str, Any]) -> None:
+            debug_data["preflight_preview"] = {
+                "status": preflight.payload["status"],
+                "summary": preflight.payload["summary"],
+                "artifacts": preflight.payload["artifacts"],
+            }
+
+        self._update_debug(job_id, mutator)
+        self._append_log(
+            job_id,
+            (
+                "Preflight validation finished: "
+                f"status={preflight.payload['status']}, "
+                f"{preflight.payload['summary']['blocker_count']} blockers, "
+                f"{preflight.payload['summary']['warning_count']} warnings"
+            ),
+        )
+        return JobProcessingBundle(
+            prepared_ifc=bundle.prepared_ifc,
+            preprocessing=bundle.preprocessing,
+            preflight=preflight,
+            internal_boundaries=bundle.internal_boundaries,
+            external_shell=bundle.external_shell,
         )
 
     def _run_internal_boundary(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -306,7 +560,52 @@ class JobService:
         return JobProcessingBundle(
             prepared_ifc=bundle.prepared_ifc,
             preprocessing=bundle.preprocessing,
+            preflight=bundle.preflight,
             internal_boundaries=internal_boundaries,
+            external_shell=bundle.external_shell,
+        )
+
+    def _run_external_shell(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        debug_data = self._load_debug(job_id)
+        mode_requested = (
+            debug_data.get("options", {}).get("external_shell_mode")
+            or debug_data.get("external_shell_preview", {}).get("mode_requested")
+            or "alpha_wrap"
+        )
+        external_shell = run_external_shell_classification(
+            job_id,
+            self._job_dir(job_id),
+            bundle.preprocessing.result,
+            bundle.internal_boundaries.payload,
+            mode_requested=mode_requested,
+            worker_binary=self.shell_worker_binary,
+        )
+
+        def mutator(debug_data: dict[str, Any]) -> None:
+            debug_data["external_shell_preview"] = {
+                "mode_requested": external_shell.payload["mode_requested"],
+                "mode_effective": external_shell.payload["mode_effective"],
+                "fallback_reason": external_shell.payload.get("fallback_reason"),
+                "summary": external_shell.payload["summary"],
+                "artifacts": external_shell.payload["artifacts"],
+            }
+
+        self._update_debug(job_id, mutator)
+        self._append_log(
+            job_id,
+            (
+                "Classified space surfaces against shell: "
+                f"mode={external_shell.payload['mode_effective']}, "
+                f"{external_shell.payload['summary']['candidate_surface_count']} surfaces, "
+                f"{external_shell.payload['summary']['unclassified_count']} unclassified"
+            ),
+        )
+        return JobProcessingBundle(
+            prepared_ifc=bundle.prepared_ifc,
+            preprocessing=bundle.preprocessing,
+            preflight=bundle.preflight,
+            internal_boundaries=bundle.internal_boundaries,
+            external_shell=external_shell,
         )
 
     def _run_classifying(self, job_id: str, bundle: JobProcessingBundle) -> None:
@@ -314,7 +613,10 @@ class JobService:
             job_id,
             bundle.prepared_ifc,
             bundle.preprocessing.result,
+            bundle.preflight.payload,
             bundle.internal_boundaries.payload,
+            bundle.external_shell.payload,
+            derivation_info=self._load_debug(job_id).get("derivation"),
         )
         self._write_json_file(self._job_dir(job_id) / "output.json", output_payload)
         viewer_manifest = build_viewer_manifest(job_id, output_payload)
@@ -327,22 +629,63 @@ class JobService:
                 f"({output_payload['summary']['number_of_spaces']} spaces, "
                 f"{output_payload['summary']['number_of_openings']} openings, "
                 f"{output_payload['preprocessing']['summary']['valid_entities']} valid normalized entities, "
-                f"{output_payload['internal_boundaries']['summary']['adjacent_pair_count']} adjacency pairs)"
+                f"{output_payload['preflight']['summary']['blocker_count']} preflight blockers, "
+                f"{output_payload['internal_boundaries']['summary']['adjacent_pair_count']} adjacency pairs, "
+                f"{output_payload['external_shell']['summary']['candidate_surface_count']} classified surfaces)"
             ),
         )
 
-    def _fail_job(self, job_id: str, error_message: str, append_history: bool) -> None:
-        failure_payload = {
+    def _fail_preflight_job(self, job_id: str, bundle: JobProcessingBundle) -> None:
+        blocker_count = bundle.preflight.payload["summary"]["blocker_count"]
+        first_message = bundle.preflight.payload["blockers"][0]["message"]
+        error_message = (
+            f"Preflight failed: {first_message}"
+            if blocker_count == 1
+            else f"Preflight failed: {first_message} (+{blocker_count - 1} more blockers)"
+        )
+        output_payload = build_extraction_report(
+            job_id,
+            bundle.prepared_ifc,
+            bundle.preprocessing.result,
+            bundle.preflight.payload,
+            {},
+            {},
+            derivation_info=self._load_debug(job_id).get("derivation"),
+            success=False,
+            error=error_message,
+        )
+        viewer_manifest = build_viewer_manifest(job_id, output_payload)
+        self._fail_job(
+            job_id,
+            error_message,
+            append_history=True,
+            output_payload=output_payload,
+            viewer_manifest=viewer_manifest,
+        )
+
+    def _fail_job(
+        self,
+        job_id: str,
+        error_message: str,
+        append_history: bool,
+        *,
+        output_payload: dict[str, Any] | None = None,
+        viewer_manifest: dict[str, Any] | None = None,
+    ) -> None:
+        failure_payload = output_payload or {
             "success": False,
             "job_id": job_id,
             "error": error_message,
         }
         self._write_json_file(self._job_dir(job_id) / "output.json", failure_payload)
+        if viewer_manifest is not None:
+            self._write_json_file(self._job_dir(job_id) / "geometry" / "viewer_manifest.json", viewer_manifest)
         self._append_log(job_id, f"Job failed: {error_message}")
 
         def mutator(debug_data: dict[str, Any]) -> None:
             debug_data["state"] = "failed"
             debug_data["error"] = error_message
+            debug_data["result"] = failure_payload
             if append_history:
                 debug_data.setdefault("history", []).append(
                     {
@@ -398,6 +741,79 @@ class JobService:
         with self._io_lock:
             return self._read_json_file(debug_path)
 
+    def _load_output_payload(self, job_id: str) -> dict[str, Any]:
+        output_path = self._job_dir(job_id) / "output.json"
+        if not output_path.exists():
+            raise InvalidJobOperationError(f"Job {job_id} does not have an output.json artifact to derive from.")
+        with self._io_lock:
+            return self._read_json_file(output_path)
+
+    @staticmethod
+    def _validate_group_resolutions(
+        group_resolutions: list[dict[str, Any]],
+        clash_groups: dict[str, dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        normalized_group_resolutions: list[dict[str, Any]] = []
+        seen_group_ids: set[str] = set()
+        for group_resolution in group_resolutions:
+            clash_group_id = str(group_resolution.get("clash_group_id") or "").strip()
+            if not clash_group_id or clash_group_id in seen_group_ids:
+                continue
+            seen_group_ids.add(clash_group_id)
+
+            clash_group = clash_groups.get(clash_group_id)
+            if clash_group is None:
+                raise InvalidSpaceResolutionRequestError(f"Unknown clash_group_id: {clash_group_id}")
+
+            valid_member_global_ids = {
+                str(space_ref["global_id"])
+                for space_ref in clash_group.get("spaces", [])
+                if space_ref.get("global_id")
+            }
+            valid_member_express_ids = {
+                int(space_ref["express_id"])
+                for space_ref in clash_group.get("spaces", [])
+            }
+
+            remove_space_global_ids = []
+            for global_id in group_resolution.get("remove_space_global_ids", []):
+                candidate = str(global_id).strip()
+                if not candidate:
+                    continue
+                if candidate not in valid_member_global_ids:
+                    raise InvalidSpaceResolutionRequestError(
+                        f"Space {candidate} does not belong to clash group {clash_group_id}."
+                    )
+                if candidate not in remove_space_global_ids:
+                    remove_space_global_ids.append(candidate)
+
+            remove_space_express_ids = []
+            for express_id in group_resolution.get("remove_space_express_ids", []):
+                candidate = int(express_id)
+                if candidate not in valid_member_express_ids:
+                    raise InvalidSpaceResolutionRequestError(
+                        f"Space #{candidate} does not belong to clash group {clash_group_id}."
+                    )
+                if candidate not in remove_space_express_ids:
+                    remove_space_express_ids.append(candidate)
+
+            if not remove_space_global_ids and not remove_space_express_ids:
+                raise InvalidSpaceResolutionRequestError(
+                    f"Select at least one IfcSpace to remove for clash group {clash_group_id}."
+                )
+
+            normalized_group_resolutions.append(
+                {
+                    "clash_group_id": clash_group_id,
+                    "remove_space_global_ids": remove_space_global_ids,
+                    "remove_space_express_ids": remove_space_express_ids,
+                }
+            )
+
+        if not normalized_group_resolutions:
+            raise InvalidSpaceResolutionRequestError("Select at least one clash group resolution before creating a rerun.")
+        return normalized_group_resolutions
+
     def _artifact_snapshot(
         self,
         job_dir: Path,
@@ -442,6 +858,52 @@ class JobService:
     def _debug_path(self, job_id: str) -> Path:
         return self._job_dir(job_id) / "debug.json"
 
+    def _build_debug_payload(
+        self,
+        job_id: str,
+        *,
+        created_at: str,
+        original_name: str,
+        input_size: int,
+        external_shell_mode: str,
+        history_message: str,
+        derivation: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        return {
+            "job_id": job_id,
+            "state": "uploaded",
+            "created_at": created_at,
+            "updated_at": created_at,
+            "error": None,
+            "history": [
+                {
+                    "state": "uploaded",
+                    "timestamp": created_at,
+                    "message": history_message,
+                }
+            ],
+            "input": {
+                "original_filename": original_name,
+                "size_bytes": input_size,
+                "validated": False,
+            },
+            "options": {
+                "external_shell_mode": external_shell_mode,
+                "exact_repair_mode": self.exact_repair_mode,
+            },
+            "derivation": derivation,
+            "preflight_preview": {
+                "status": None,
+                "summary": {},
+                "artifacts": {},
+            },
+            "external_shell_preview": {
+                "mode_requested": external_shell_mode,
+                "mode_effective": None,
+                "fallback_reason": None,
+            },
+        }
+
     def _append_log(self, job_id: str, message: str) -> None:
         log_line = f"[{_utcnow()}] {message}\n"
         log_path = self._job_dir(job_id) / "logs.txt"
@@ -459,6 +921,7 @@ class JobService:
 
     @staticmethod
     def _write_json_atomically(path: Path, payload: dict[str, Any]) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
         temp_path = path.with_name(f"{path.name}.tmp")
         temp_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         temp_path.replace(path)
