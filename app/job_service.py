@@ -14,6 +14,7 @@ from uuid import uuid4
 
 from fastapi import UploadFile
 
+from .external_candidates import ExternalCandidatesResult, run_external_candidate_generation
 from .external_shell import ExternalShellResult, run_external_shell_classification
 from .geometry_worker import GeometryPreprocessingResult, run_geometry_preprocessing
 from .ifc_editing import (
@@ -38,6 +39,7 @@ class JobProcessingBundle:
     preprocessing: GeometryPreprocessingResult
     preflight: PreflightValidationResult
     internal_boundaries: InternalBoundaryResult
+    external_candidates: ExternalCandidatesResult
     external_shell: ExternalShellResult
 
 
@@ -63,6 +65,8 @@ class JobService:
         exact_repair_worker_binary: Path | None = None,
         shell_worker_binary: Path | None = None,
         internal_boundary_thickness_threshold_m: float = 0.30,
+        alpha_wrap_alpha_m: float = 1.0,
+        alpha_wrap_offset_m: float = 0.01,
         preflight_clash_tolerance_m: float = 0.01,
     ) -> None:
         self.jobs_root = jobs_root
@@ -73,6 +77,8 @@ class JobService:
         self.exact_repair_worker_binary = resolved_exact_repair_binary
         self.shell_worker_binary = shell_worker_binary
         self.internal_boundary_thickness_threshold_m = internal_boundary_thickness_threshold_m
+        self.alpha_wrap_alpha_m = alpha_wrap_alpha_m
+        self.alpha_wrap_offset_m = alpha_wrap_offset_m
         self.preflight_clash_tolerance_m = preflight_clash_tolerance_m
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._stop_event = threading.Event()
@@ -94,7 +100,15 @@ class JobService:
         self._queue.put(None)
         self._worker.join(timeout=2.0)
 
-    def create_job(self, upload: UploadFile, *, external_shell_mode: str = "alpha_wrap") -> dict[str, Any]:
+    def create_job(
+        self,
+        upload: UploadFile,
+        *,
+        external_shell_mode: str = "alpha_wrap",
+        internal_boundary_thickness_threshold_m: float | None = None,
+        alpha_wrap_alpha_m: float | None = None,
+        alpha_wrap_offset_m: float | None = None,
+    ) -> dict[str, Any]:
         job_id = str(uuid4())
         job_dir = self._job_dir(job_id)
         job_dir.mkdir(parents=True, exist_ok=False)
@@ -108,12 +122,22 @@ class JobService:
         input_size = input_path.stat().st_size
 
         self._append_log(job_id, f"Upload received: {original_name} ({input_size} bytes)")
+        threshold_m = float(
+            internal_boundary_thickness_threshold_m
+            if internal_boundary_thickness_threshold_m is not None
+            else self.internal_boundary_thickness_threshold_m
+        )
+        alpha_m = float(alpha_wrap_alpha_m if alpha_wrap_alpha_m is not None else self.alpha_wrap_alpha_m)
+        offset_m = float(alpha_wrap_offset_m if alpha_wrap_offset_m is not None else self.alpha_wrap_offset_m)
         debug_payload = self._build_debug_payload(
             job_id,
             created_at=created_at,
             original_name=original_name,
             input_size=input_size,
             external_shell_mode=external_shell_mode,
+            internal_boundary_thickness_threshold_m=threshold_m,
+            alpha_wrap_alpha_m=alpha_m,
+            alpha_wrap_offset_m=offset_m,
             history_message="Upload received",
         )
         self._write_debug(job_id, debug_payload)
@@ -153,6 +177,18 @@ class JobService:
             or parent_debug.get("external_shell_preview", {}).get("mode_requested")
             or "alpha_wrap"
         )
+        internal_boundary_thickness_threshold_m = float(
+            parent_debug.get("options", {}).get("internal_boundary_thickness_threshold_m")
+            or self.internal_boundary_thickness_threshold_m
+        )
+        alpha_wrap_alpha_m = float(
+            parent_debug.get("options", {}).get("alpha_wrap_alpha_m")
+            or self.alpha_wrap_alpha_m
+        )
+        alpha_wrap_offset_m = float(
+            parent_debug.get("options", {}).get("alpha_wrap_offset_m")
+            or self.alpha_wrap_offset_m
+        )
         input_path = child_job_dir / "input.ifc"
         try:
             edit_result = derive_ifc_without_spaces(
@@ -189,6 +225,9 @@ class JobService:
             original_name=original_name,
             input_size=input_size,
             external_shell_mode=external_shell_mode,
+            internal_boundary_thickness_threshold_m=internal_boundary_thickness_threshold_m,
+            alpha_wrap_alpha_m=alpha_wrap_alpha_m,
+            alpha_wrap_offset_m=alpha_wrap_offset_m,
             history_message=(
                 f"Derived from {job_id} after removing {len(edit_result.removed_spaces)} spaces"
             ),
@@ -251,6 +290,18 @@ class JobService:
             or parent_debug.get("external_shell_preview", {}).get("mode_requested")
             or "alpha_wrap"
         )
+        internal_boundary_thickness_threshold_m = float(
+            parent_debug.get("options", {}).get("internal_boundary_thickness_threshold_m")
+            or self.internal_boundary_thickness_threshold_m
+        )
+        alpha_wrap_alpha_m = float(
+            parent_debug.get("options", {}).get("alpha_wrap_alpha_m")
+            or self.alpha_wrap_alpha_m
+        )
+        alpha_wrap_offset_m = float(
+            parent_debug.get("options", {}).get("alpha_wrap_offset_m")
+            or self.alpha_wrap_offset_m
+        )
         input_path = child_job_dir / "input.ifc"
         try:
             edit_result = derive_ifc_resolving_space_clashes(
@@ -293,6 +344,9 @@ class JobService:
             original_name=original_name,
             input_size=input_size,
             external_shell_mode=external_shell_mode,
+            internal_boundary_thickness_threshold_m=internal_boundary_thickness_threshold_m,
+            alpha_wrap_alpha_m=alpha_wrap_alpha_m,
+            alpha_wrap_offset_m=alpha_wrap_offset_m,
             history_message=(
                 f"Derived from {job_id} after resolving {len(resolved_group_ids)} clash groups"
             ),
@@ -422,9 +476,17 @@ class JobService:
             self._sleep_between_stages()
             bundle = self._run_internal_boundary(job_id, bundle)
 
+            self._transition(job_id, "external_candidates", "Subtracting shared boundaries from each space shell")
+            self._sleep_between_stages()
+            bundle = self._run_external_candidates(job_id, bundle)
+
             self._transition(job_id, "external_shell", "Classifying space surfaces against the building shell")
             self._sleep_between_stages()
-            bundle = self._run_external_shell(job_id, bundle)
+            try:
+                bundle = self._run_external_shell(job_id, bundle)
+            except Exception as exc:
+                self._fail_external_shell_job(job_id, bundle, str(exc))
+                return
 
             self._transition(job_id, "classifying", "Building extraction report")
             self._sleep_between_stages()
@@ -497,6 +559,7 @@ class JobService:
             preprocessing=preprocessing,
             preflight=PreflightValidationResult(payload={}),
             internal_boundaries=InternalBoundaryResult(payload={}),
+            external_candidates=ExternalCandidatesResult(payload={}),
             external_shell=ExternalShellResult(payload={}),
         )
 
@@ -530,15 +593,21 @@ class JobService:
             preprocessing=bundle.preprocessing,
             preflight=preflight,
             internal_boundaries=bundle.internal_boundaries,
+            external_candidates=bundle.external_candidates,
             external_shell=bundle.external_shell,
         )
 
     def _run_internal_boundary(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        debug_data = self._load_debug(job_id)
+        threshold_m = float(
+            debug_data.get("options", {}).get("internal_boundary_thickness_threshold_m")
+            or self.internal_boundary_thickness_threshold_m
+        )
         internal_boundaries = run_internal_boundary_generation(
             job_id,
             self._job_dir(job_id),
             bundle.preprocessing.result,
-            threshold_m=self.internal_boundary_thickness_threshold_m,
+            threshold_m=threshold_m,
         )
 
         def mutator(debug_data: dict[str, Any]) -> None:
@@ -562,6 +631,39 @@ class JobService:
             preprocessing=bundle.preprocessing,
             preflight=bundle.preflight,
             internal_boundaries=internal_boundaries,
+            external_candidates=bundle.external_candidates,
+            external_shell=bundle.external_shell,
+        )
+
+    def _run_external_candidates(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        external_candidates = run_external_candidate_generation(
+            job_id,
+            self._job_dir(job_id),
+            bundle.preprocessing.result,
+            bundle.internal_boundaries.payload,
+        )
+
+        def mutator(debug_data: dict[str, Any]) -> None:
+            debug_data["external_candidates_preview"] = {
+                "summary": external_candidates.payload["summary"],
+                "artifacts": external_candidates.payload["artifacts"],
+            }
+
+        self._update_debug(job_id, mutator)
+        self._append_log(
+            job_id,
+            (
+                "Generated external candidate surfaces: "
+                f"{external_candidates.payload['summary']['candidate_surface_count']} candidates across "
+                f"{external_candidates.payload['summary']['processed_space_count']} spaces"
+            ),
+        )
+        return JobProcessingBundle(
+            prepared_ifc=bundle.prepared_ifc,
+            preprocessing=bundle.preprocessing,
+            preflight=bundle.preflight,
+            internal_boundaries=bundle.internal_boundaries,
+            external_candidates=external_candidates,
             external_shell=bundle.external_shell,
         )
 
@@ -572,13 +674,28 @@ class JobService:
             or debug_data.get("external_shell_preview", {}).get("mode_requested")
             or "alpha_wrap"
         )
+        threshold_m = float(
+            debug_data.get("options", {}).get("internal_boundary_thickness_threshold_m")
+            or self.internal_boundary_thickness_threshold_m
+        )
+        alpha_wrap_alpha_m = float(
+            debug_data.get("options", {}).get("alpha_wrap_alpha_m")
+            or self.alpha_wrap_alpha_m
+        )
+        alpha_wrap_offset_m = float(
+            debug_data.get("options", {}).get("alpha_wrap_offset_m")
+            or self.alpha_wrap_offset_m
+        )
         external_shell = run_external_shell_classification(
             job_id,
             self._job_dir(job_id),
             bundle.preprocessing.result,
-            bundle.internal_boundaries.payload,
+            bundle.external_candidates.payload,
             mode_requested=mode_requested,
             worker_binary=self.shell_worker_binary,
+            thickness_threshold_m=threshold_m,
+            alpha_m_requested=alpha_wrap_alpha_m,
+            offset_m_requested=alpha_wrap_offset_m,
         )
 
         def mutator(debug_data: dict[str, Any]) -> None:
@@ -586,6 +703,7 @@ class JobService:
                 "mode_requested": external_shell.payload["mode_requested"],
                 "mode_effective": external_shell.payload["mode_effective"],
                 "fallback_reason": external_shell.payload.get("fallback_reason"),
+                "alpha_wrap": external_shell.payload.get("alpha_wrap", {}),
                 "summary": external_shell.payload["summary"],
                 "artifacts": external_shell.payload["artifacts"],
             }
@@ -605,7 +723,70 @@ class JobService:
             preprocessing=bundle.preprocessing,
             preflight=bundle.preflight,
             internal_boundaries=bundle.internal_boundaries,
+            external_candidates=bundle.external_candidates,
             external_shell=external_shell,
+        )
+
+    def _fail_external_shell_job(self, job_id: str, bundle: JobProcessingBundle, error_message: str) -> None:
+        debug_data = self._load_debug(job_id)
+        threshold_m = float(
+            debug_data.get("options", {}).get("internal_boundary_thickness_threshold_m")
+            or self.internal_boundary_thickness_threshold_m
+        )
+        alpha_requested = float(
+            debug_data.get("options", {}).get("alpha_wrap_alpha_m")
+            or self.alpha_wrap_alpha_m
+        )
+        offset_requested = float(
+            debug_data.get("options", {}).get("alpha_wrap_offset_m")
+            or self.alpha_wrap_offset_m
+        )
+        effective_alpha_m = max(alpha_requested, threshold_m + 0.05)
+        external_shell_failure = {
+            "mode_requested": debug_data.get("options", {}).get("external_shell_mode") or "alpha_wrap",
+            "mode_effective": None,
+            "fallback_reason": None,
+            "shell_backend": None,
+            "shell_generation_time_ms": None,
+            "classification_time_ms": None,
+            "shell_mesh_stats": {},
+            "summary": {},
+            "surfaces": [],
+            "artifacts": {},
+            "alpha_wrap": {
+                "status": "failed",
+                "backend": None,
+                "epsilon": 1e-3,
+                "alpha_m_requested": alpha_requested,
+                "alpha_m_effective": effective_alpha_m,
+                "offset_m_requested": offset_requested,
+                "offset_m_effective": offset_requested,
+                "generation_time_ms": None,
+                "classification_time_ms": None,
+                "triangle_count": 0,
+                "vertex_count": 0,
+                "error": error_message,
+            },
+        }
+        output_payload = build_extraction_report(
+            job_id,
+            bundle.prepared_ifc,
+            bundle.preprocessing.result,
+            bundle.preflight.payload,
+            bundle.internal_boundaries.payload,
+            bundle.external_candidates.payload,
+            external_shell_failure,
+            derivation_info=debug_data.get("derivation"),
+            success=False,
+            error=error_message,
+        )
+        viewer_manifest = build_viewer_manifest(job_id, output_payload)
+        self._fail_job(
+            job_id,
+            error_message,
+            append_history=True,
+            output_payload=output_payload,
+            viewer_manifest=viewer_manifest,
         )
 
     def _run_classifying(self, job_id: str, bundle: JobProcessingBundle) -> None:
@@ -615,6 +796,7 @@ class JobService:
             bundle.preprocessing.result,
             bundle.preflight.payload,
             bundle.internal_boundaries.payload,
+            bundle.external_candidates.payload,
             bundle.external_shell.payload,
             derivation_info=self._load_debug(job_id).get("derivation"),
         )
@@ -631,6 +813,7 @@ class JobService:
                 f"{output_payload['preprocessing']['summary']['valid_entities']} valid normalized entities, "
                 f"{output_payload['preflight']['summary']['blocker_count']} preflight blockers, "
                 f"{output_payload['internal_boundaries']['summary']['adjacent_pair_count']} adjacency pairs, "
+                f"{output_payload['external_candidates']['summary']['candidate_surface_count']} C2 candidates, "
                 f"{output_payload['external_shell']['summary']['candidate_surface_count']} classified surfaces)"
             ),
         )
@@ -648,6 +831,7 @@ class JobService:
             bundle.prepared_ifc,
             bundle.preprocessing.result,
             bundle.preflight.payload,
+            {},
             {},
             {},
             derivation_info=self._load_debug(job_id).get("derivation"),
@@ -866,6 +1050,9 @@ class JobService:
         original_name: str,
         input_size: int,
         external_shell_mode: str,
+        internal_boundary_thickness_threshold_m: float,
+        alpha_wrap_alpha_m: float,
+        alpha_wrap_offset_m: float,
         history_message: str,
         derivation: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
@@ -889,6 +1076,9 @@ class JobService:
             },
             "options": {
                 "external_shell_mode": external_shell_mode,
+                "internal_boundary_thickness_threshold_m": float(internal_boundary_thickness_threshold_m),
+                "alpha_wrap_alpha_m": float(alpha_wrap_alpha_m),
+                "alpha_wrap_offset_m": float(alpha_wrap_offset_m),
                 "exact_repair_mode": self.exact_repair_mode,
             },
             "derivation": derivation,
@@ -897,10 +1087,15 @@ class JobService:
                 "summary": {},
                 "artifacts": {},
             },
+            "external_candidates_preview": {
+                "summary": {},
+                "artifacts": {},
+            },
             "external_shell_preview": {
                 "mode_requested": external_shell_mode,
                 "mode_effective": None,
                 "fallback_reason": None,
+                "alpha_wrap": {},
             },
         }
 

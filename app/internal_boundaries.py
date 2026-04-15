@@ -6,16 +6,27 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from shapely.geometry import GeometryCollection, MultiPolygon, Polygon
-from shapely.ops import triangulate, unary_union
+from shapely.geometry import Polygon
+from shapely.geometry.polygon import orient as orient_polygon
+from shapely.ops import triangulate
 
+from .external_shell import (
+    FACE_AREA_EPSILON,
+    SurfacePatch,
+    _extract_polygons,
+    _extract_surface_patches_from_mesh,
+    _lift_point,
+    _plane_basis,
+    _project_triangle,
+    _triangle_polygon,
+    _triangles_to_mesh,
+)
 from .mesh_normalizer import build_obj_text
+from .polygon_clipper import BACKEND_NAME as CLIP_BACKEND_NAME, intersection as clip_intersection
 
 
-FACE_AREA_EPSILON = 1e-9
 PLANE_KEY_PRECISION = 6
-ANTIPARALLEL_DEGREES = 5.0
-ANTIPARALLEL_DOT_THRESHOLD = -float(np.cos(np.deg2rad(ANTIPARALLEL_DEGREES)))
+OPPOSITE_NORMAL_EPSILON = 1e-3
 SLIVER_AREA_THRESHOLD_M2 = 0.01
 
 
@@ -25,11 +36,17 @@ class InternalBoundaryResult:
 
 
 @dataclass(slots=True)
-class FaceGeometry:
-    triangle: np.ndarray
-    centroid: np.ndarray
+class PlanarPolygon:
+    polygon_id: str
+    space_global_id: str | None
+    space_express_id: int
+    space_name: str | None
+    source_surface_id: str
     normal: np.ndarray
-    area: float
+    plane_point: np.ndarray
+    basis_u: np.ndarray
+    basis_v: np.ndarray
+    polygon_2d: Polygon
 
 
 @dataclass(slots=True)
@@ -38,11 +55,20 @@ class SpaceGeometry:
     express_id: int
     name: str | None
     object_name: str
-    vertices: np.ndarray
-    faces: np.ndarray
-    face_geometries: list[FaceGeometry]
+    polygons: list[PlanarPolygon]
     aabb_min: np.ndarray
     aabb_max: np.ndarray
+
+
+@dataclass(slots=True)
+class IntersectionProjectionResult:
+    left_polygons: list[Polygon]
+    right_polygons: list[Polygon]
+    shared_polygons: list[Polygon]
+    shared_normal: np.ndarray
+    shared_plane_point: np.ndarray
+    shared_basis_u: np.ndarray
+    shared_basis_v: np.ndarray
 
 
 def run_internal_boundary_generation(
@@ -62,8 +88,8 @@ def run_internal_boundary_generation(
 
     processed_spaces: list[SpaceGeometry] = []
     skipped_spaces: list[dict[str, Any]] = []
-    for entity in all_spaces:
-        built_space = _build_space_geometry(entity)
+    for space_index, entity in enumerate(all_spaces):
+        built_space = _build_space_geometry(entity, space_index)
         if built_space is None:
             skipped_spaces.append(
                 {
@@ -77,34 +103,20 @@ def run_internal_boundary_generation(
         processed_spaces.append(built_space)
 
     candidate_pairs = _generate_candidate_pairs(processed_spaces, threshold_m)
+    oriented_surfaces: list[dict[str, Any]] = []
     shared_surfaces: list[dict[str, Any]] = []
     adjacencies: list[dict[str, Any]] = []
     obj_meshes: list[dict[str, Any]] = []
 
     for pair_index, (space_a, space_b) in enumerate(candidate_pairs):
-        pair_surfaces = _detect_pair_shared_surfaces(space_a, space_b, threshold_m, pair_index)
-        if not pair_surfaces:
+        pair_result = intersection_projection_sets(space_a, space_b, threshold_m, pair_index)
+        if not pair_result["oriented_surfaces"]:
             continue
 
-        shared_surface_ids = [surface["shared_surface_id"] for surface in pair_surfaces]
-        shared_area_m2 = float(sum(surface["area_m2"] for surface in pair_surfaces))
-        adjacencies.append(
-            {
-                "space_a_global_id": space_a.global_id,
-                "space_b_global_id": space_b.global_id,
-                "shared_surface_ids": shared_surface_ids,
-                "shared_area_m2": shared_area_m2,
-            }
-        )
-        shared_surfaces.extend(pair_surfaces)
-        obj_meshes.extend(
-            {
-                "name": surface["shared_surface_id"],
-                "vertices": surface["mesh"]["vertices"],
-                "faces": surface["mesh"]["faces"],
-            }
-            for surface in pair_surfaces
-        )
+        adjacencies.append(pair_result["adjacency"])
+        oriented_surfaces.extend(pair_result["oriented_surfaces"])
+        shared_surfaces.extend(pair_result["shared_surfaces"])
+        obj_meshes.extend(pair_result["shared_meshes"])
 
     artifacts = {
         "detail": "geometry/internal_boundaries.json",
@@ -113,24 +125,22 @@ def run_internal_boundary_generation(
     payload = {
         "job_id": job_id,
         "threshold_m": float(threshold_m),
+        "epsilon": float(OPPOSITE_NORMAL_EPSILON),
+        "clip_backend": CLIP_BACKEND_NAME,
         "summary": {
             "space_count": len(all_spaces),
             "processed_space_count": len(processed_spaces),
             "skipped_space_count": len(skipped_spaces),
             "candidate_pair_count": len(candidate_pairs),
             "adjacent_pair_count": len(adjacencies),
+            "oriented_surface_count": len(oriented_surfaces),
             "shared_surface_count": len(shared_surfaces),
+            "total_oriented_area_m2": float(sum(surface["area_m2"] for surface in oriented_surfaces)),
             "total_shared_area_m2": float(sum(surface["area_m2"] for surface in shared_surfaces)),
         },
         "adjacencies": adjacencies,
-        "shared_surfaces": [
-            {
-                key: value
-                for key, value in surface.items()
-                if key != "mesh"
-            }
-            for surface in shared_surfaces
-        ],
+        "oriented_surfaces": oriented_surfaces,
+        "shared_surfaces": shared_surfaces,
         "skipped_spaces": skipped_spaces,
         "artifacts": artifacts,
     }
@@ -140,7 +150,214 @@ def run_internal_boundary_generation(
     return InternalBoundaryResult(payload=payload)
 
 
-def _build_space_geometry(entity: dict[str, Any]) -> SpaceGeometry | None:
+def intersection_projection(
+    left: PlanarPolygon,
+    right: PlanarPolygon,
+    threshold_m: float,
+    *,
+    epsilon: float = OPPOSITE_NORMAL_EPSILON,
+) -> IntersectionProjectionResult:
+    if float(np.dot(left.normal, right.normal)) >= -epsilon:
+        return _empty_projection_result(left)
+
+    if _polygon_exceeds_plane_threshold(left, right.plane_point, right.normal, threshold_m):
+        return _empty_projection_result(left)
+    if _polygon_exceeds_plane_threshold(right, left.plane_point, left.normal, threshold_m):
+        return _empty_projection_result(left)
+
+    projected_left_on_right = _project_polygon_to_plane(
+        left,
+        right.plane_point,
+        right.normal,
+        right.basis_u,
+        right.basis_v,
+    )
+    projected_right_on_left = _project_polygon_to_plane(
+        right,
+        left.plane_point,
+        left.normal,
+        left.basis_u,
+        left.basis_v,
+    )
+
+    midpoint_normal, midpoint_point, midpoint_basis_u, midpoint_basis_v = _midpoint_plane(left, right)
+    projected_left_on_midpoint = _project_polygon_to_plane(
+        left,
+        midpoint_point,
+        midpoint_normal,
+        midpoint_basis_u,
+        midpoint_basis_v,
+    )
+    projected_right_on_midpoint = _project_polygon_to_plane(
+        right,
+        midpoint_point,
+        midpoint_normal,
+        midpoint_basis_u,
+        midpoint_basis_v,
+    )
+
+    left_polygons = _normalize_projected_results(
+        clip_intersection(projected_left_on_right, right.polygon_2d),
+        source_normal=left.normal,
+        plane_normal=right.normal,
+    )
+    right_polygons = _normalize_projected_results(
+        clip_intersection(projected_right_on_left, left.polygon_2d),
+        source_normal=right.normal,
+        plane_normal=left.normal,
+    )
+    shared_polygons = _normalize_projected_results(
+        clip_intersection(projected_left_on_midpoint, projected_right_on_midpoint),
+        source_normal=midpoint_normal,
+        plane_normal=midpoint_normal,
+    )
+
+    return IntersectionProjectionResult(
+        left_polygons=left_polygons,
+        right_polygons=right_polygons,
+        shared_polygons=shared_polygons,
+        shared_normal=midpoint_normal,
+        shared_plane_point=midpoint_point,
+        shared_basis_u=midpoint_basis_u,
+        shared_basis_v=midpoint_basis_v,
+    )
+
+
+def intersection_projection_sets(
+    space_a: SpaceGeometry,
+    space_b: SpaceGeometry,
+    threshold_m: float,
+    pair_index: int,
+) -> dict[str, Any]:
+    oriented_surfaces: list[dict[str, Any]] = []
+    shared_surfaces: list[dict[str, Any]] = []
+    shared_meshes: list[dict[str, Any]] = []
+    adjacency_oriented_ids: list[str] = []
+    adjacency_shared_ids: list[str] = []
+    surface_index = 0
+
+    for polygon_a in space_a.polygons:
+        for polygon_b in space_b.polygons:
+            result = intersection_projection(polygon_a, polygon_b, threshold_m)
+            if not result.left_polygons and not result.right_polygons:
+                continue
+
+            shared_sorted = _sort_polygons_by_reference(
+                result.shared_polygons,
+                result.shared_plane_point,
+                result.shared_basis_u,
+                result.shared_basis_v,
+                result.shared_plane_point,
+                result.shared_basis_u,
+                result.shared_basis_v,
+            )
+            left_sorted = _sort_polygons_by_reference(
+                result.left_polygons,
+                right_plane_point := polygon_b.plane_point,
+                right_basis_u := polygon_b.basis_u,
+                right_basis_v := polygon_b.basis_v,
+                result.shared_plane_point,
+                result.shared_basis_u,
+                result.shared_basis_v,
+            )
+            right_sorted = _sort_polygons_by_reference(
+                result.right_polygons,
+                left_plane_point := polygon_a.plane_point,
+                left_basis_u := polygon_a.basis_u,
+                left_basis_v := polygon_a.basis_v,
+                result.shared_plane_point,
+                result.shared_basis_u,
+                result.shared_basis_v,
+            )
+
+            group_count = max(len(shared_sorted), len(left_sorted), len(right_sorted))
+            for group_index in range(group_count):
+                shared_polygon = shared_sorted[group_index] if group_index < len(shared_sorted) else None
+                left_polygon = left_sorted[group_index] if group_index < len(left_sorted) else None
+                right_polygon = right_sorted[group_index] if group_index < len(right_sorted) else None
+
+                shared_surface_id = f"ib_{pair_index}_{surface_index}" if shared_polygon is not None else None
+                left_surface_id = f"ibo_{pair_index}_{surface_index}_a" if left_polygon is not None else None
+                right_surface_id = f"ibo_{pair_index}_{surface_index}_b" if right_polygon is not None else None
+
+                if left_polygon is not None and left_surface_id is not None:
+                    left_surface = _build_oriented_surface_payload(
+                        surface_id=left_surface_id,
+                        polygon=left_polygon,
+                        owner=polygon_a,
+                        adjacent=polygon_b,
+                        plane_point=right_plane_point,
+                        basis_u=right_basis_u,
+                        basis_v=right_basis_v,
+                        plane_normal=polygon_a.normal,
+                        reference_plane_normal=polygon_b.normal,
+                        paired_surface_id=right_surface_id,
+                        shared_surface_id=shared_surface_id,
+                    )
+                    oriented_surfaces.append(left_surface)
+                    adjacency_oriented_ids.append(left_surface_id)
+
+                if right_polygon is not None and right_surface_id is not None:
+                    right_surface = _build_oriented_surface_payload(
+                        surface_id=right_surface_id,
+                        polygon=right_polygon,
+                        owner=polygon_b,
+                        adjacent=polygon_a,
+                        plane_point=left_plane_point,
+                        basis_u=left_basis_u,
+                        basis_v=left_basis_v,
+                        plane_normal=polygon_b.normal,
+                        reference_plane_normal=polygon_a.normal,
+                        paired_surface_id=left_surface_id,
+                        shared_surface_id=shared_surface_id,
+                    )
+                    oriented_surfaces.append(right_surface)
+                    adjacency_oriented_ids.append(right_surface_id)
+
+                if shared_polygon is not None and shared_surface_id is not None:
+                    shared_surface, shared_mesh = _build_shared_surface_payload(
+                        surface_id=shared_surface_id,
+                        polygon=shared_polygon,
+                        space_a=polygon_a,
+                        space_b=polygon_b,
+                        plane_point=result.shared_plane_point,
+                        basis_u=result.shared_basis_u,
+                        basis_v=result.shared_basis_v,
+                        plane_normal=result.shared_normal,
+                        oriented_surface_ids=[surface_id for surface_id in (left_surface_id, right_surface_id) if surface_id],
+                    )
+                    shared_surfaces.append(shared_surface)
+                    shared_meshes.append(shared_mesh)
+                    adjacency_shared_ids.append(shared_surface_id)
+
+                surface_index += 1
+
+    if not oriented_surfaces:
+        return {
+            "adjacency": {},
+            "oriented_surfaces": [],
+            "shared_surfaces": [],
+            "shared_meshes": [],
+        }
+
+    adjacency = {
+        "space_a_global_id": space_a.global_id,
+        "space_a_express_id": space_a.express_id,
+        "space_b_global_id": space_b.global_id,
+        "space_b_express_id": space_b.express_id,
+        "oriented_surface_ids": adjacency_oriented_ids,
+        "shared_surface_ids": adjacency_shared_ids,
+        "shared_area_m2": float(sum(surface["area_m2"] for surface in shared_surfaces)),
+    }
+    return {
+        "adjacency": adjacency,
+        "oriented_surfaces": oriented_surfaces,
+        "shared_surfaces": shared_surfaces,
+        "shared_meshes": shared_meshes,
+    }
+
+
+def _build_space_geometry(entity: dict[str, Any], space_index: int) -> SpaceGeometry | None:
     mesh = entity.get("mesh")
     if not entity.get("valid") or not mesh or not mesh.get("vertices") or not mesh.get("faces"):
         return None
@@ -150,39 +367,51 @@ def _build_space_geometry(entity: dict[str, Any]) -> SpaceGeometry | None:
     if len(vertices) == 0 or len(faces) == 0:
         return None
 
-    triangles = vertices[faces]
-    cross_products = np.cross(triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0])
-    magnitudes = np.linalg.norm(cross_products, axis=1)
-    valid_mask = magnitudes > FACE_AREA_EPSILON
-    if not np.any(valid_mask):
+    surface_patches = _extract_surface_patches_from_mesh(
+        mesh,
+        id_prefix=f"space_{space_index}",
+        space_global_id=entity.get("global_id"),
+        space_express_id=entity["express_id"],
+        space_name=entity.get("name"),
+    )
+    polygons: list[PlanarPolygon] = []
+    for patch in surface_patches:
+        polygons.extend(_patch_to_planar_polygons(patch))
+    if not polygons:
         return None
-
-    triangles = triangles[valid_mask]
-    magnitudes = magnitudes[valid_mask]
-    normals = cross_products[valid_mask] / magnitudes[:, np.newaxis]
-    centroids = np.mean(triangles, axis=1)
-    areas = 0.5 * magnitudes
-    face_geometries = [
-        FaceGeometry(
-            triangle=triangle,
-            centroid=centroid,
-            normal=normal,
-            area=float(area),
-        )
-        for triangle, centroid, normal, area in zip(triangles, centroids, normals, areas, strict=False)
-    ]
 
     return SpaceGeometry(
         global_id=entity.get("global_id"),
         express_id=entity["express_id"],
         name=entity.get("name"),
         object_name=entity.get("object_name") or entity.get("global_id") or f"entity_{entity['express_id']}",
-        vertices=vertices,
-        faces=faces,
-        face_geometries=face_geometries,
+        polygons=polygons,
         aabb_min=np.min(vertices, axis=0),
         aabb_max=np.max(vertices, axis=0),
     )
+
+
+def _patch_to_planar_polygons(patch: SurfacePatch) -> list[PlanarPolygon]:
+    planar_polygons: list[PlanarPolygon] = []
+    for polygon_index, polygon in enumerate(_extract_polygons(patch.union_polygon_2d)):
+        oriented = orient_polygon(polygon, sign=1.0)
+        if oriented.is_empty or float(oriented.area) <= FACE_AREA_EPSILON:
+            continue
+        planar_polygons.append(
+            PlanarPolygon(
+                polygon_id=f"{patch.surface_id}_poly_{polygon_index}",
+                space_global_id=patch.space_global_id,
+                space_express_id=patch.space_express_id or -1,
+                space_name=patch.space_name,
+                source_surface_id=patch.surface_id,
+                normal=np.asarray(patch.normal, dtype=np.float64),
+                plane_point=np.asarray(patch.plane_point, dtype=np.float64),
+                basis_u=np.asarray(patch.basis_u, dtype=np.float64),
+                basis_v=np.asarray(patch.basis_v, dtype=np.float64),
+                polygon_2d=oriented,
+            )
+        )
+    return planar_polygons
 
 
 def _generate_candidate_pairs(spaces: list[SpaceGeometry], threshold_m: float) -> list[tuple[SpaceGeometry, SpaceGeometry]]:
@@ -191,7 +420,7 @@ def _generate_candidate_pairs(spaces: list[SpaceGeometry], threshold_m: float) -
 
     sorted_spaces = sorted(spaces, key=lambda space: (float(space.aabb_min[0]), *_space_sort_key(space)))
     active: list[SpaceGeometry] = []
-    pair_map: dict[tuple[tuple[str | None, int], tuple[str | None, int]], tuple[SpaceGeometry, SpaceGeometry]] = {}
+    pair_map: dict[tuple[tuple[str, int], tuple[str, int]], tuple[SpaceGeometry, SpaceGeometry]] = {}
 
     for current in sorted_spaces:
         active = [space for space in active if float(space.aabb_max[0]) + threshold_m >= float(current.aabb_min[0])]
@@ -205,92 +434,294 @@ def _generate_candidate_pairs(spaces: list[SpaceGeometry], threshold_m: float) -
     return [pair_map[key] for key in sorted(pair_map)]
 
 
-def _detect_pair_shared_surfaces(
-    space_a: SpaceGeometry,
-    space_b: SpaceGeometry,
+def _polygon_exceeds_plane_threshold(
+    polygon: PlanarPolygon,
+    plane_point: np.ndarray,
+    plane_normal: np.ndarray,
     threshold_m: float,
-    pair_index: int,
-) -> list[dict[str, Any]]:
-    plane_buckets: dict[tuple[Any, ...], dict[str, Any]] = {}
+) -> bool:
+    for point in _polygon_ring_points_3d(polygon.polygon_2d, polygon.plane_point, polygon.basis_u, polygon.basis_v):
+        distance = abs(float(np.dot(plane_normal, point - plane_point)))
+        if distance > threshold_m:
+            return True
+    return False
 
-    for face_a in space_a.face_geometries:
-        for face_b in space_b.face_geometries:
-            if np.dot(face_a.normal, face_b.normal) > ANTIPARALLEL_DOT_THRESHOLD:
-                continue
 
-            plane_offset_a = float(np.dot(face_a.normal, face_a.centroid))
-            plane_offset_b = float(np.dot(face_a.normal, face_b.centroid))
-            plane_separation = abs(plane_offset_b - plane_offset_a)
-            if plane_separation > threshold_m:
-                continue
+def _project_polygon_to_plane(
+    polygon: PlanarPolygon,
+    target_plane_point: np.ndarray,
+    target_plane_normal: np.ndarray,
+    target_basis_u: np.ndarray,
+    target_basis_v: np.ndarray,
+) -> Polygon:
+    shell = _project_ring_to_plane(
+        list(polygon.polygon_2d.exterior.coords)[:-1],
+        polygon.plane_point,
+        polygon.basis_u,
+        polygon.basis_v,
+        target_plane_point,
+        target_plane_normal,
+        target_basis_u,
+        target_basis_v,
+    )
+    holes = [
+        _project_ring_to_plane(
+            list(interior.coords)[:-1],
+            polygon.plane_point,
+            polygon.basis_u,
+            polygon.basis_v,
+            target_plane_point,
+            target_plane_normal,
+            target_basis_u,
+            target_basis_v,
+        )
+        for interior in polygon.polygon_2d.interiors
+    ]
+    projected = Polygon(shell, holes)
+    if not projected.is_valid:
+        projected = projected.buffer(0)
+    if projected.is_empty:
+        return Polygon()
+    if isinstance(projected, Polygon):
+        return projected
+    extracted = _extract_polygons(projected)
+    return extracted[0] if len(extracted) == 1 else projected
 
-            midpoint_offset = (plane_offset_a + plane_offset_b) / 2.0
-            plane_key = _plane_bucket_key(space_a, space_b, face_a.normal, midpoint_offset)
-            bucket = plane_buckets.get(plane_key)
-            if bucket is None:
-                basis_u, basis_v = _plane_basis(face_a.normal)
-                plane_origin = face_a.normal * midpoint_offset
-                bucket = {
-                    "normal": face_a.normal,
-                    "plane_point": plane_origin,
-                    "basis_u": basis_u,
-                    "basis_v": basis_v,
-                    "polygons": [],
-                }
-                plane_buckets[plane_key] = bucket
 
-            triangle_a_2d = _project_triangle(face_a.triangle, bucket["plane_point"], bucket["basis_u"], bucket["basis_v"])
-            triangle_b_2d = _project_triangle(face_b.triangle, bucket["plane_point"], bucket["basis_u"], bucket["basis_v"])
-            polygon_a = _triangle_polygon(triangle_a_2d)
-            polygon_b = _triangle_polygon(triangle_b_2d)
-            if polygon_a is None or polygon_b is None:
-                continue
+def _project_ring_to_plane(
+    ring: list[tuple[float, float]],
+    source_plane_point: np.ndarray,
+    source_basis_u: np.ndarray,
+    source_basis_v: np.ndarray,
+    target_plane_point: np.ndarray,
+    target_plane_normal: np.ndarray,
+    target_basis_u: np.ndarray,
+    target_basis_v: np.ndarray,
+) -> list[tuple[float, float]]:
+    projected_ring: list[tuple[float, float]] = []
+    for coordinate in ring:
+        point_3d = np.asarray(_lift_point(coordinate, source_plane_point, source_basis_u, source_basis_v), dtype=np.float64)
+        projected_point = point_3d - (np.dot(target_plane_normal, point_3d - target_plane_point) * target_plane_normal)
+        relative = projected_point - target_plane_point
+        projected_ring.append((float(relative @ target_basis_u), float(relative @ target_basis_v)))
+    return projected_ring
 
-            intersection = polygon_a.intersection(polygon_b)
-            bucket["polygons"].extend(_extract_polygons(intersection))
 
-    pair_surfaces: list[dict[str, Any]] = []
-    surface_index = 0
-
-    for plane_key in sorted(plane_buckets):
-        bucket = plane_buckets[plane_key]
-        if not bucket["polygons"]:
+def _normalize_projected_results(
+    polygons: list[Polygon],
+    *,
+    source_normal: np.ndarray,
+    plane_normal: np.ndarray,
+) -> list[Polygon]:
+    exterior_ccw = float(np.dot(source_normal, plane_normal)) >= 0.0
+    normalized: list[Polygon] = []
+    for polygon in polygons:
+        if polygon.is_empty or float(polygon.area) < SLIVER_AREA_THRESHOLD_M2:
             continue
+        oriented = orient_polygon(polygon, sign=1.0 if exterior_ccw else -1.0)
+        if oriented.is_empty or float(oriented.area) < SLIVER_AREA_THRESHOLD_M2:
+            continue
+        normalized.append(oriented)
+    return normalized
 
-        unioned = unary_union(bucket["polygons"])
-        for polygon in _extract_polygons(unioned):
-            area_m2 = float(polygon.area)
-            if area_m2 < SLIVER_AREA_THRESHOLD_M2:
-                continue
 
-            triangles_3d = _triangulate_polygon_3d(polygon, bucket["plane_point"], bucket["basis_u"], bucket["basis_v"])
-            if not triangles_3d:
-                continue
+def _midpoint_plane(
+    left: PlanarPolygon,
+    right: PlanarPolygon,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    normal = left.normal / np.linalg.norm(left.normal)
+    left_offset = float(np.dot(normal, left.plane_point))
+    right_offset = float(np.dot(normal, right.plane_point))
+    midpoint_offset = (left_offset + right_offset) / 2.0
+    plane_point = normal * midpoint_offset
+    basis_u, basis_v = _plane_basis(normal)
+    return normal, plane_point, basis_u, basis_v
 
-            mesh = _triangles_to_mesh(triangles_3d)
-            polygon_vertices_3d = [
-                _lift_point(coordinate, bucket["plane_point"], bucket["basis_u"], bucket["basis_v"])
-                for coordinate in list(polygon.exterior.coords)[:-1]
+
+def _sort_polygons_by_reference(
+    polygons: list[Polygon],
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+    reference_plane_point: np.ndarray,
+    reference_basis_u: np.ndarray,
+    reference_basis_v: np.ndarray,
+) -> list[Polygon]:
+    def sort_key(polygon: Polygon) -> tuple[float, float, float]:
+        centroid_3d = np.asarray(_lift_point(polygon.centroid.coords[0], plane_point, basis_u, basis_v), dtype=np.float64)
+        relative = centroid_3d - reference_plane_point
+        return (
+            round(float(relative @ reference_basis_u), PLANE_KEY_PRECISION),
+            round(float(relative @ reference_basis_v), PLANE_KEY_PRECISION),
+            round(float(centroid_3d[2]), PLANE_KEY_PRECISION),
+        )
+
+    return sorted(polygons, key=sort_key)
+
+
+def _build_oriented_surface_payload(
+    *,
+    surface_id: str,
+    polygon: Polygon,
+    owner: PlanarPolygon,
+    adjacent: PlanarPolygon,
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+    plane_normal: np.ndarray,
+    reference_plane_normal: np.ndarray,
+    paired_surface_id: str | None,
+    shared_surface_id: str | None,
+) -> dict[str, Any]:
+    exterior_ccw = float(np.dot(plane_normal, reference_plane_normal)) >= 0.0
+    triangles_3d = _triangulate_polygon_3d(
+        polygon,
+        plane_point,
+        basis_u,
+        basis_v,
+        exterior_ccw=exterior_ccw,
+    )
+    centroid_3d = _lift_point(polygon.centroid.coords[0], plane_point, basis_u, basis_v)
+    polygon_vertices_3d = [_lift_point(coordinate, plane_point, basis_u, basis_v) for coordinate in list(polygon.exterior.coords)[:-1]]
+    polygon_rings_3d = _lift_polygon_rings(polygon, plane_point, basis_u, basis_v)
+
+    return {
+        "oriented_surface_id": surface_id,
+        "object_name": surface_id,
+        "space_global_id": owner.space_global_id,
+        "space_express_id": owner.space_express_id,
+        "space_name": owner.space_name,
+        "adjacent_space_global_id": adjacent.space_global_id,
+        "adjacent_space_express_id": adjacent.space_express_id,
+        "adjacent_space_name": adjacent.space_name,
+        "source_surface_id": owner.source_surface_id,
+        "source_polygon_id": owner.polygon_id,
+        "paired_surface_id": paired_surface_id,
+        "shared_surface_id": shared_surface_id,
+        "area_m2": float(polygon.area),
+        "plane_normal": _round_vector(plane_normal),
+        "plane_point": _round_vector(plane_point),
+        "centroid": _round_vector(centroid_3d),
+        "polygon_vertices_3d": [_round_vector(vertex) for vertex in polygon_vertices_3d],
+        "polygon_rings_3d": [[_round_vector(vertex) for vertex in ring] for ring in polygon_rings_3d],
+        "triangles": [[_round_vector(vertex) for vertex in triangle] for triangle in triangles_3d],
+    }
+
+
+def _build_shared_surface_payload(
+    *,
+    surface_id: str,
+    polygon: Polygon,
+    space_a: PlanarPolygon,
+    space_b: PlanarPolygon,
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+    plane_normal: np.ndarray,
+    oriented_surface_ids: list[str],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    triangles_3d = _triangulate_polygon_3d(
+        polygon,
+        plane_point,
+        basis_u,
+        basis_v,
+        exterior_ccw=True,
+    )
+    centroid_3d = _lift_point(polygon.centroid.coords[0], plane_point, basis_u, basis_v)
+    polygon_vertices_3d = [_lift_point(coordinate, plane_point, basis_u, basis_v) for coordinate in list(polygon.exterior.coords)[:-1]]
+    polygon_rings_3d = _lift_polygon_rings(polygon, plane_point, basis_u, basis_v)
+    mesh = _triangles_to_mesh(triangles_3d)
+
+    payload = {
+        "shared_surface_id": surface_id,
+        "object_name": surface_id,
+        "space_a_global_id": space_a.space_global_id,
+        "space_a_express_id": space_a.space_express_id,
+        "space_b_global_id": space_b.space_global_id,
+        "space_b_express_id": space_b.space_express_id,
+        "oriented_surface_ids": oriented_surface_ids,
+        "area_m2": float(polygon.area),
+        "plane_normal": _round_vector(plane_normal),
+        "plane_point": _round_vector(plane_point),
+        "centroid": _round_vector(centroid_3d),
+        "polygon_vertices_3d": [_round_vector(vertex) for vertex in polygon_vertices_3d],
+        "polygon_rings_3d": [[_round_vector(vertex) for vertex in ring] for ring in polygon_rings_3d],
+        "triangles": [[_round_vector(vertex) for vertex in triangle] for triangle in triangles_3d],
+    }
+    mesh_payload = {
+        "name": surface_id,
+        "vertices": mesh["vertices"],
+        "faces": mesh["faces"],
+    }
+    return payload, mesh_payload
+
+
+def _triangulate_polygon_3d(
+    polygon: Polygon,
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+    *,
+    exterior_ccw: bool,
+) -> list[list[list[float]]]:
+    triangles_3d: list[list[list[float]]] = []
+    for triangle in triangulate(polygon):
+        if triangle.is_empty or triangle.area <= FACE_AREA_EPSILON:
+            continue
+        if not polygon.covers(triangle.representative_point()):
+            continue
+        oriented_triangle = orient_polygon(triangle, sign=1.0 if exterior_ccw else -1.0)
+        coordinates = list(oriented_triangle.exterior.coords)[:-1]
+        if len(coordinates) != 3:
+            continue
+        triangles_3d.append(
+            [
+                _lift_point(coordinate, plane_point, basis_u, basis_v)
+                for coordinate in coordinates
             ]
-            centroid_3d = _lift_point(polygon.centroid.coords[0], bucket["plane_point"], bucket["basis_u"], bucket["basis_v"])
-            shared_surface_id = f"ib_{pair_index}_{surface_index}"
-            pair_surfaces.append(
-                {
-                    "shared_surface_id": shared_surface_id,
-                    "space_a_global_id": space_a.global_id,
-                    "space_b_global_id": space_b.global_id,
-                    "area_m2": area_m2,
-                    "plane_normal": _round_vector(bucket["normal"]),
-                    "plane_point": _round_vector(bucket["plane_point"]),
-                    "centroid": _round_vector(centroid_3d),
-                    "polygon_vertices_3d": [_round_vector(vertex) for vertex in polygon_vertices_3d],
-                    "triangles": [[_round_vector(vertex) for vertex in triangle] for triangle in triangles_3d],
-                    "mesh": mesh,
-                }
-            )
-            surface_index += 1
+        )
+    return triangles_3d
 
-    return pair_surfaces
+
+def _lift_polygon_rings(
+    polygon: Polygon,
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+) -> list[list[list[float]]]:
+    rings = [
+        [_lift_point(coordinate, plane_point, basis_u, basis_v) for coordinate in list(polygon.exterior.coords)[:-1]]
+    ]
+    for interior in polygon.interiors:
+        rings.append(
+            [_lift_point(coordinate, plane_point, basis_u, basis_v) for coordinate in list(interior.coords)[:-1]]
+        )
+    return rings
+
+
+def _polygon_ring_points_3d(
+    polygon: Polygon,
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+) -> list[np.ndarray]:
+    points: list[np.ndarray] = []
+    for ring in [polygon.exterior, *polygon.interiors]:
+        for coordinate in list(ring.coords)[:-1]:
+            points.append(np.asarray(_lift_point(coordinate, plane_point, basis_u, basis_v), dtype=np.float64))
+    return points
+
+
+def _empty_projection_result(reference: PlanarPolygon) -> IntersectionProjectionResult:
+    return IntersectionProjectionResult(
+        left_polygons=[],
+        right_polygons=[],
+        shared_polygons=[],
+        shared_normal=reference.normal,
+        shared_plane_point=reference.plane_point,
+        shared_basis_u=reference.basis_u,
+        shared_basis_v=reference.basis_v,
+    )
 
 
 def _aabb_gap(left: SpaceGeometry, right: SpaceGeometry) -> float:
@@ -303,137 +734,6 @@ def _aabb_gap(left: SpaceGeometry, right: SpaceGeometry) -> float:
         else:
             deltas.append(0.0)
     return float(np.linalg.norm(np.asarray(deltas, dtype=np.float64)))
-
-
-def _plane_basis(normal: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    reference = np.asarray([0.0, 0.0, 1.0], dtype=np.float64)
-    if abs(float(np.dot(normal, reference))) > 0.95:
-        reference = np.asarray([0.0, 1.0, 0.0], dtype=np.float64)
-
-    basis_u = np.cross(normal, reference)
-    basis_u /= np.linalg.norm(basis_u)
-    basis_v = np.cross(normal, basis_u)
-    basis_v /= np.linalg.norm(basis_v)
-    return basis_u, basis_v
-
-
-def _project_triangle(
-    triangle: np.ndarray,
-    plane_point: np.ndarray,
-    basis_u: np.ndarray,
-    basis_v: np.ndarray,
-) -> np.ndarray:
-    relative = triangle - plane_point
-    return np.stack(
-        (
-            relative @ basis_u,
-            relative @ basis_v,
-        ),
-        axis=1,
-    )
-
-
-def _triangle_polygon(points_2d: np.ndarray) -> Polygon | None:
-    polygon = Polygon([(float(x), float(y)) for x, y in points_2d])
-    if polygon.is_empty or polygon.area <= FACE_AREA_EPSILON:
-        return None
-    if not polygon.is_valid:
-        polygon = polygon.buffer(0)
-    if polygon.is_empty or polygon.area <= FACE_AREA_EPSILON:
-        return None
-    if isinstance(polygon, MultiPolygon):
-        polygons = [candidate for candidate in polygon.geoms if candidate.area > FACE_AREA_EPSILON]
-        if not polygons:
-            return None
-        polygon = max(polygons, key=lambda candidate: candidate.area)
-    return polygon if isinstance(polygon, Polygon) else None
-
-
-def _extract_polygons(geometry: Any) -> list[Polygon]:
-    if geometry is None or geometry.is_empty:
-        return []
-    if isinstance(geometry, Polygon):
-        return [geometry] if geometry.area > FACE_AREA_EPSILON else []
-    if isinstance(geometry, MultiPolygon):
-        return [polygon for polygon in geometry.geoms if polygon.area > FACE_AREA_EPSILON]
-    if isinstance(geometry, GeometryCollection):
-        polygons: list[Polygon] = []
-        for child in geometry.geoms:
-            polygons.extend(_extract_polygons(child))
-        return polygons
-    return []
-
-
-def _triangulate_polygon_3d(
-    polygon: Polygon,
-    plane_point: np.ndarray,
-    basis_u: np.ndarray,
-    basis_v: np.ndarray,
-) -> list[list[list[float]]]:
-    triangles_3d: list[list[list[float]]] = []
-    for triangle in triangulate(polygon):
-        if triangle.is_empty or triangle.area <= FACE_AREA_EPSILON:
-            continue
-        if not polygon.covers(triangle.representative_point()):
-            continue
-        coordinates = list(triangle.exterior.coords)[:-1]
-        if len(coordinates) != 3:
-            continue
-        triangles_3d.append(
-            [
-                _lift_point(coordinate, plane_point, basis_u, basis_v)
-                for coordinate in coordinates
-            ]
-        )
-    return triangles_3d
-
-
-def _lift_point(
-    coordinate_2d: tuple[float, float] | list[float],
-    plane_point: np.ndarray,
-    basis_u: np.ndarray,
-    basis_v: np.ndarray,
-) -> list[float]:
-    x, y = coordinate_2d
-    lifted = plane_point + (float(x) * basis_u) + (float(y) * basis_v)
-    return [float(value) for value in lifted.tolist()]
-
-
-def _triangles_to_mesh(triangles_3d: list[list[list[float]]]) -> dict[str, Any]:
-    vertices: list[list[float]] = []
-    faces: list[list[int]] = []
-    vertex_index: dict[tuple[float, float, float], int] = {}
-
-    for triangle in triangles_3d:
-        face_indices: list[int] = []
-        for vertex in triangle:
-            rounded_vertex = tuple(round(float(component), 9) for component in vertex)
-            index = vertex_index.get(rounded_vertex)
-            if index is None:
-                index = len(vertices)
-                vertex_index[rounded_vertex] = index
-                vertices.append([float(component) for component in vertex])
-            face_indices.append(index)
-        faces.append(face_indices)
-
-    return {
-        "vertices": vertices,
-        "faces": faces,
-    }
-
-
-def _plane_bucket_key(
-    space_a: SpaceGeometry,
-    space_b: SpaceGeometry,
-    normal: np.ndarray,
-    midpoint_offset: float,
-) -> tuple[Any, ...]:
-    return (
-        _space_sort_key(space_a),
-        _space_sort_key(space_b),
-        tuple(round(float(component), PLANE_KEY_PRECISION) for component in normal.tolist()),
-        round(float(midpoint_offset), PLANE_KEY_PRECISION),
-    )
 
 
 def _entity_sort_key(entity: dict[str, Any]) -> tuple[str, int]:

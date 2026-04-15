@@ -9,6 +9,7 @@ JobState = Literal[
     "preprocessing",
     "preflight",
     "internal_boundary",
+    "external_candidates",
     "external_shell",
     "classifying",
     "complete",

@@ -57,6 +57,39 @@
                 <option value="heuristic">Heuristic</option>
               </select>
             </label>
+            <label class="mode-picker" for="internal-boundary-threshold-input">
+              <span class="upload-picker__label">Boundary d (m)</span>
+              <input
+                id="internal-boundary-threshold-input"
+                type="number"
+                name="internal_boundary_thickness_threshold_m"
+                min="0.001"
+                step="0.05"
+                value="0.30"
+              />
+            </label>
+            <label class="mode-picker" for="alpha-wrap-alpha-input">
+              <span class="upload-picker__label">Alpha Wrap α (m)</span>
+              <input
+                id="alpha-wrap-alpha-input"
+                type="number"
+                name="alpha_wrap_alpha_m"
+                min="0.001"
+                step="0.05"
+                value="1.00"
+              />
+            </label>
+            <label class="mode-picker" for="alpha-wrap-offset-input">
+              <span class="upload-picker__label">Alpha Wrap Offset (m)</span>
+              <input
+                id="alpha-wrap-offset-input"
+                type="number"
+                name="alpha_wrap_offset_m"
+                min="0.001"
+                step="0.005"
+                value="0.01"
+              />
+            </label>
             <button id="submit-button" type="submit" class="button button--primary">Create Job</button>
           </form>
 
@@ -499,8 +532,20 @@
                         <dd id="unclassified-surface-count">0</dd>
                       </div>
                       <div>
-                        <dt>Internal Partitions</dt>
-                        <dd id="internal-partition-count">0</dd>
+                        <dt>Internal Voids</dt>
+                        <dd id="internal-void-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Shell Backend</dt>
+                        <dd id="shell-backend">-</dd>
+                      </div>
+                      <div>
+                        <dt>Wrap α (m)</dt>
+                        <dd id="alpha-wrap-alpha-effective">-</dd>
+                      </div>
+                      <div>
+                        <dt>Wrap Offset (m)</dt>
+                        <dd id="alpha-wrap-offset-effective">-</dd>
                       </div>
                     </dl>
                   </div>
@@ -542,6 +587,6 @@
       </section>
     </main>
 
-    <script type="module" src="/static/app.js"></script>
+    <script type="module" src="/static/app.js?v=20260415-3"></script>
   </body>
 </html>

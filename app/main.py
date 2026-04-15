@@ -40,6 +40,8 @@ def create_app(
             exact_repair_worker_binary=settings.exact_repair_worker_binary,
             shell_worker_binary=settings.shell_worker_binary,
             internal_boundary_thickness_threshold_m=settings.internal_boundary_thickness_threshold_m,
+            alpha_wrap_alpha_m=settings.alpha_wrap_alpha_m,
+            alpha_wrap_offset_m=settings.alpha_wrap_offset_m,
             preflight_clash_tolerance_m=settings.preflight_clash_tolerance_m,
         )
         service.start()
@@ -64,9 +66,18 @@ def create_app(
         request: Request,
         file: UploadFile = File(...),
         external_shell_mode: Literal["alpha_wrap", "heuristic"] = Form("alpha_wrap"),
+        internal_boundary_thickness_threshold_m: float | None = Form(None, gt=0.0),
+        alpha_wrap_alpha_m: float | None = Form(None, gt=0.0),
+        alpha_wrap_offset_m: float | None = Form(None, gt=0.0),
     ) -> JobCreatedResponse:
         try:
-            payload = request.app.state.job_service.create_job(file, external_shell_mode=external_shell_mode)
+            payload = request.app.state.job_service.create_job(
+                file,
+                external_shell_mode=external_shell_mode,
+                internal_boundary_thickness_threshold_m=internal_boundary_thickness_threshold_m,
+                alpha_wrap_alpha_m=alpha_wrap_alpha_m,
+                alpha_wrap_offset_m=alpha_wrap_offset_m,
+            )
         finally:
             await file.close()
         return JobCreatedResponse(**payload)

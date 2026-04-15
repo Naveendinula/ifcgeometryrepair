@@ -57,14 +57,19 @@ def build_client(
     exact_repair_worker_binary: Path | None = None,
     shell_worker_binary: Path | None = None,
 ) -> TestClient:
+    resolved_shell_worker_binary = shell_worker_binary or make_fake_shell_worker_binary(
+        jobs_root / "fake-shell-worker.py"
+    )
     app = create_app(
         Settings(
             jobs_root=jobs_root,
             stage_delay_seconds=0.02,
             exact_repair_mode=exact_repair_mode,
             exact_repair_worker_binary=exact_repair_worker_binary or jobs_root / "missing-worker.exe",
-            shell_worker_binary=shell_worker_binary or jobs_root / "missing-shell-worker.exe",
+            shell_worker_binary=resolved_shell_worker_binary,
             internal_boundary_thickness_threshold_m=0.30,
+            alpha_wrap_alpha_m=1.0,
+            alpha_wrap_offset_m=0.01,
             preflight_clash_tolerance_m=0.01,
         )
     )
@@ -81,6 +86,77 @@ def make_fake_worker_binary(path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("", encoding="utf-8")
     return path
+
+
+def write_shell_worker_script(path: Path, source: str) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(source.strip(), encoding="utf-8")
+    return path
+
+
+def make_fake_shell_worker_binary(path: Path) -> Path:
+    return write_shell_worker_script(
+        path,
+        """
+import json
+import sys
+
+
+def build_box_mesh(vertices):
+    min_x = min(vertex[0] for vertex in vertices)
+    min_y = min(vertex[1] for vertex in vertices)
+    min_z = min(vertex[2] for vertex in vertices)
+    max_x = max(vertex[0] for vertex in vertices)
+    max_y = max(vertex[1] for vertex in vertices)
+    max_z = max(vertex[2] for vertex in vertices)
+    return {
+        "vertices": [
+            [min_x, min_y, min_z],
+            [max_x, min_y, min_z],
+            [max_x, max_y, min_z],
+            [min_x, max_y, min_z],
+            [min_x, min_y, max_z],
+            [max_x, min_y, max_z],
+            [max_x, max_y, max_z],
+            [min_x, max_y, max_z],
+        ],
+        "faces": [
+            [0, 2, 1],
+            [0, 3, 2],
+            [4, 5, 6],
+            [4, 6, 7],
+            [0, 1, 5],
+            [0, 5, 4],
+            [1, 2, 6],
+            [1, 6, 5],
+            [2, 3, 7],
+            [2, 7, 6],
+            [3, 0, 4],
+            [3, 4, 7],
+        ],
+    }
+
+
+request_path = sys.argv[1]
+result_path = sys.argv[2]
+request_payload = json.loads(open(request_path, encoding="utf-8").read())
+vertices = []
+for space in request_payload.get("space_meshes", []):
+    mesh = space.get("mesh") or {}
+    vertices.extend(mesh.get("vertices", []))
+shell_mesh = {"vertices": [], "faces": []} if not vertices else build_box_mesh(vertices)
+payload = {
+    "contract_version": 1,
+    "status": "ok",
+    "backend": "cpp-cgal-alpha-wrap",
+    "alpha_m_effective": request_payload.get("alpha_m_effective"),
+    "offset_m_effective": request_payload.get("offset_m_effective"),
+    "generation_time_ms": 1.0,
+    "shell_mesh": shell_mesh,
+}
+open(result_path, "w", encoding="utf-8").write(json.dumps(payload, indent=2))
+""".strip(),
+    )
 
 
 def build_exact_repair_response(request_payload: dict[str, Any]) -> dict[str, Any]:
@@ -136,6 +212,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "preprocessing",
                 "preflight",
                 "internal_boundary",
+                "external_candidates",
                 "external_shell",
                 "classifying",
                 "complete",
@@ -156,6 +233,8 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "geometry/preflight.json",
                 "geometry/internal_boundaries.json",
                 "geometry/internal_boundaries.obj",
+                "geometry/external_candidates/result.json",
+                "geometry/external_candidates/candidates_all.obj",
                 "geometry/external_shell/request.json",
                 "geometry/external_shell/result.json",
                 "geometry/external_shell/shell.obj",
@@ -163,8 +242,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "geometry/external_shell/classes/external_wall.obj",
                 "geometry/external_shell/classes/roof.obj",
                 "geometry/external_shell/classes/ground_floor.obj",
-                "geometry/external_shell/classes/internal_partition.obj",
-                "geometry/external_shell/classes/virtual_partition.obj",
+                "geometry/external_shell/classes/internal_void.obj",
                 "geometry/external_shell/classes/unclassified.obj",
                 "geometry/viewer_manifest.json",
                 "geometry/raw/spaces_all.obj",
@@ -186,6 +264,8 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert output_payload["preprocessing"]["artifacts"]["raw_spaces_all"] == "geometry/raw/spaces_all.obj"
             assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 0
             assert output_payload["internal_boundaries"]["artifacts"]["detail"] == "geometry/internal_boundaries.json"
+            assert output_payload["external_candidates"]["summary"]["candidate_surface_count"] == 6
+            assert output_payload["external_candidates"]["artifacts"]["result"] == "geometry/external_candidates/result.json"
             assert output_payload["external_shell"]["summary"]["candidate_surface_count"] == 6
             assert output_payload["external_shell"]["summary"]["per_class_counts"]["external_wall"] == 4
             assert output_payload["external_shell"]["summary"]["per_class_counts"]["roof"] == 1
@@ -213,10 +293,20 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert internal_boundaries["summary"]["shared_surface_count"] == 0
             assert internal_boundaries["adjacencies"] == []
 
+            external_candidates_payload = json.loads((job_dir / "geometry" / "external_candidates" / "result.json").read_text(encoding="utf-8"))
+            assert external_candidates_payload["summary"]["candidate_surface_count"] == 6
+            assert len(external_candidates_payload["spaces"][0]["candidate_surface_ids"]) == 6
+
             external_shell_payload = json.loads((job_dir / "geometry" / "external_shell" / "result.json").read_text(encoding="utf-8"))
             assert external_shell_payload["mode_requested"] == "alpha_wrap"
-            assert external_shell_payload["mode_effective"] == "heuristic"
-            assert external_shell_payload["fallback_reason"]
+            assert external_shell_payload["mode_effective"] == "alpha_wrap"
+            assert external_shell_payload["fallback_reason"] is None
+            assert output_payload["external_shell"]["shell_backend"] == "cpp-cgal-alpha-wrap"
+            assert external_shell_payload["shell_backend"] == "cpp-cgal-alpha-wrap"
+            assert external_shell_payload["alpha_wrap"]["status"] == "ok"
+            assert external_shell_payload["alpha_wrap"]["backend"] == "cpp-cgal-alpha-wrap"
+            assert external_shell_payload["alpha_wrap"]["alpha_m_effective"] == pytest.approx(1.0)
+            assert external_shell_payload["alpha_wrap"]["offset_m_effective"] == pytest.approx(0.01)
             assert external_shell_payload["summary"]["candidate_surface_count"] == 6
 
             viewer_manifest = json.loads((job_dir / "geometry" / "viewer_manifest.json").read_text(encoding="utf-8"))
@@ -234,7 +324,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             classified_surfaces_text = (job_dir / "geometry" / "external_shell" / "surfaces_all.obj").read_text(encoding="utf-8")
             assert f"o {room['global_id']}" in raw_spaces_text
             assert f"o {room['global_id']}" in normalized_spaces_text
-            assert "o surf_0_0" in classified_surfaces_text
+            assert "o ec_0_0" in classified_surfaces_text
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
@@ -300,7 +390,8 @@ def test_mocked_exact_repair_worker_preserves_boundary_outputs() -> None:
             assert output_payload["preprocessing"]["worker_backend"] == "hybrid"
             assert output_payload["preprocessing"]["repair"]["summary"]["exact_passthrough_space_count"] == 2
             assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 1
-            assert output_payload["external_shell"]["summary"]["candidate_surface_count"] == 12
+            assert output_payload["external_candidates"]["summary"]["candidate_surface_count"] == 10
+            assert output_payload["external_shell"]["summary"]["candidate_surface_count"] == 10
             assert all(space["repair_backend"] == "cpp-cgal" for space in output_payload["spaces"])
             assert all(space["repair_status"] == "exact_passthrough" for space in output_payload["spaces"])
     finally:
@@ -481,7 +572,8 @@ def test_two_rooms_survive_preprocessing_independently() -> None:
             assert output_payload["summary"]["number_of_spaces"] == 2
             assert output_payload["preprocessing"]["summary"]["valid_spaces"] == 2
             assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 1
-            assert output_payload["external_shell"]["summary"]["candidate_surface_count"] == 12
+            assert output_payload["external_candidates"]["summary"]["candidate_surface_count"] == 10
+            assert output_payload["external_shell"]["summary"]["candidate_surface_count"] == 10
 
             per_space_artifacts = [space["artifacts"]["obj"] for space in output_payload["spaces"]]
             assert len(per_space_artifacts) == 2
@@ -531,9 +623,23 @@ def test_shared_wall_model_produces_one_internal_boundary_pair() -> None:
             assert adjacency["shared_area_m2"] == pytest.approx(fixture.expected_shared_area_m2, abs=0.05)
 
             detail_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/internal_boundaries.json").text)
+            assert detail_payload["epsilon"] == pytest.approx(1e-3)
             assert detail_payload["summary"]["candidate_pair_count"] == 1
             assert detail_payload["summary"]["adjacent_pair_count"] == 1
+            assert detail_payload["summary"]["oriented_surface_count"] == 2
             assert detail_payload["shared_surfaces"][0]["area_m2"] == pytest.approx(fixture.expected_shared_area_m2, abs=0.05)
+            assert len(detail_payload["adjacencies"][0]["oriented_surface_ids"]) == 2
+            oriented_surfaces = detail_payload["oriented_surfaces"]
+            assert len(oriented_surfaces) == 2
+            normal_a = oriented_surfaces[0]["plane_normal"]
+            normal_b = oriented_surfaces[1]["plane_normal"]
+            assert sum(left * right for left, right in zip(normal_a, normal_b, strict=False)) < -0.99
+
+            candidates_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/external_candidates/result.json").text)
+            assert candidates_payload["summary"]["candidate_surface_count"] == 10
+            assert candidates_payload["summary"]["subtracted_source_polygon_count"] == 2
+            assert len(candidates_payload["spaces"]) == 2
+            assert all(len(space["candidate_surface_ids"]) == 5 for space in candidates_payload["spaces"])
 
             obj_response = client.get(f"/jobs/{job_id}/artifacts/geometry/internal_boundaries.obj")
             assert obj_response.status_code == 200
@@ -572,6 +678,31 @@ def test_heuristic_one_room_classifies_outer_surfaces() -> None:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
 
+def test_heuristic_mode_does_not_require_native_shell_worker() -> None:
+    fixture = build_single_room_fixture()
+    jobs_root = make_test_root("heuristic-without-native-worker")
+
+    try:
+        with build_client(jobs_root, shell_worker_binary=jobs_root / "missing-shell-worker.exe") as client:
+            created = client.post(
+                "/jobs",
+                data={"external_shell_mode": "heuristic"},
+                files={"file": ("heuristic-no-native.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = wait_for_output_report(client, job_id)
+            assert output_payload["success"] is True
+            assert output_payload["external_shell"]["mode_requested"] == "heuristic"
+            assert output_payload["external_shell"]["mode_effective"] == "heuristic"
+            assert output_payload["external_shell"]["shell_backend"] == "python"
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
 def test_heuristic_two_room_model_keeps_shared_wall_internal() -> None:
     fixture = build_shared_wall_fixture()
     jobs_root = make_test_root("heuristic-two-room-shell")
@@ -590,8 +721,9 @@ def test_heuristic_two_room_model_keeps_shared_wall_internal() -> None:
 
             output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
             shell = output_payload["external_shell"]
-            assert shell["summary"]["candidate_surface_count"] == 12
-            assert shell["summary"]["per_class_counts"]["internal_partition"] == 2
+            assert output_payload["external_candidates"]["summary"]["candidate_surface_count"] == 10
+            assert shell["summary"]["candidate_surface_count"] == 10
+            assert shell["summary"]["per_class_counts"]["internal_void"] == 0
             assert shell["summary"]["per_class_counts"]["roof"] == 2
             assert shell["summary"]["per_class_counts"]["ground_floor"] == 2
             assert shell["summary"]["per_class_counts"]["external_wall"] == 6
@@ -604,9 +736,9 @@ def test_alpha_wrap_request_can_succeed_with_mocked_shell(monkeypatch) -> None:
     fixture = build_single_room_fixture()
     jobs_root = make_test_root("alpha-wrap-success")
 
-    def fake_alpha_wrap(request_payload, worker_binary):
+    def fake_alpha_wrap(request_payload, worker_binary, workspace_dir):
         shell_payload = external_shell.generate_heuristic_shell(request_payload)
-        shell_payload["backend"] = "cpp"
+        shell_payload["backend"] = external_shell.ALPHA_WRAP_NATIVE_BACKEND
         return shell_payload
 
     monkeypatch.setattr(external_shell, "generate_alpha_wrap_shell", fake_alpha_wrap)
@@ -627,17 +759,17 @@ def test_alpha_wrap_request_can_succeed_with_mocked_shell(monkeypatch) -> None:
             assert result_payload["mode_requested"] == "alpha_wrap"
             assert result_payload["mode_effective"] == "alpha_wrap"
             assert result_payload["fallback_reason"] is None
-            assert result_payload["shell_backend"] == "cpp"
+            assert result_payload["shell_backend"] == external_shell.ALPHA_WRAP_NATIVE_BACKEND
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
 
-def test_alpha_wrap_falls_back_to_heuristic_when_worker_is_unavailable() -> None:
+def test_alpha_wrap_request_fails_when_worker_is_unavailable() -> None:
     fixture = build_single_room_fixture()
     jobs_root = make_test_root("alpha-wrap-fallback")
 
     try:
-        with build_client(jobs_root) as client:
+        with build_client(jobs_root, shell_worker_binary=jobs_root / "missing-shell-worker.exe") as client:
             created = client.post(
                 "/jobs",
                 data={"external_shell_mode": "alpha_wrap"},
@@ -646,28 +778,115 @@ def test_alpha_wrap_falls_back_to_heuristic_when_worker_is_unavailable() -> None
             job_id = created["job_id"]
 
             status_payload, _ = wait_for_terminal_state(client, job_id)
-            assert status_payload["state"] == "complete"
+            assert status_payload["state"] == "failed"
 
-            result_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/external_shell/result.json").text)
-            assert result_payload["mode_requested"] == "alpha_wrap"
-            assert result_payload["mode_effective"] == "heuristic"
-            assert result_payload["fallback_reason"]
+            result_payload = wait_for_output_report(client, job_id)
+            assert result_payload["success"] is False
+            assert result_payload["external_shell"]["mode_requested"] == "alpha_wrap"
+            assert result_payload["external_shell"]["mode_effective"] is None
+            assert result_payload["external_shell"]["shell_backend"] is None
+            assert result_payload["external_shell"]["summary"] == {}
+            assert result_payload["external_shell"]["alpha_wrap"]["status"] == "failed"
+            assert "unavailable" in (result_payload["error"] or "").lower()
+            assert "unavailable" in (result_payload["external_shell"]["alpha_wrap"]["error"] or "").lower()
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
 
-def test_partial_alpha_wrap_shell_leaves_unclassified_surfaces_visible(monkeypatch) -> None:
+def test_alpha_wrap_request_fails_when_worker_exits_nonzero() -> None:
+    fixture = build_single_room_fixture()
+    jobs_root = make_test_root("alpha-wrap-worker-error")
+    failing_worker = write_shell_worker_script(
+        jobs_root / "failing-shell-worker.py",
+        """
+import sys
+
+sys.stderr.write("native alpha-wrap worker crashed")
+sys.exit(1)
+""",
+    )
+
+    try:
+        with build_client(jobs_root, shell_worker_binary=failing_worker) as client:
+            created = client.post(
+                "/jobs",
+                data={"external_shell_mode": "alpha_wrap"},
+                files={"file": ("alpha-worker-error.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "failed"
+
+            result_payload = wait_for_output_report(client, job_id)
+            assert result_payload["success"] is False
+            assert "crashed" in (result_payload["error"] or "").lower()
+            assert "crashed" in (result_payload["external_shell"]["alpha_wrap"]["error"] or "").lower()
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_alpha_wrap_request_fails_when_worker_returns_unsupported_contract() -> None:
+    fixture = build_single_room_fixture()
+    jobs_root = make_test_root("alpha-wrap-invalid-contract")
+    invalid_worker = write_shell_worker_script(
+        jobs_root / "invalid-shell-worker.py",
+        """
+import json
+import sys
+
+request_path = sys.argv[1]
+result_path = sys.argv[2]
+request_payload = json.loads(open(request_path, encoding="utf-8").read())
+payload = {
+    "contract_version": 999,
+    "status": "ok",
+    "backend": "cpp-cgal-alpha-wrap",
+    "alpha_m_effective": request_payload.get("alpha_m_effective"),
+    "offset_m_effective": request_payload.get("offset_m_effective"),
+    "shell_mesh": {
+        "vertices": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
+        "faces": [[0, 1, 2]],
+    },
+}
+open(result_path, "w", encoding="utf-8").write(json.dumps(payload, indent=2))
+""",
+    )
+
+    try:
+        with build_client(jobs_root, shell_worker_binary=invalid_worker) as client:
+            created = client.post(
+                "/jobs",
+                data={"external_shell_mode": "alpha_wrap"},
+                files={"file": ("alpha-invalid-contract.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "failed"
+
+            result_payload = wait_for_output_report(client, job_id)
+            assert result_payload["success"] is False
+            assert "unsupported contract version" in (result_payload["error"] or "").lower()
+            assert "unsupported contract version" in (
+                result_payload["external_shell"]["alpha_wrap"]["error"] or ""
+            ).lower()
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_partial_alpha_wrap_shell_excludes_missing_regions_as_internal_void(monkeypatch) -> None:
     fixture = build_single_room_fixture()
     jobs_root = make_test_root("alpha-wrap-partial")
 
-    def partial_shell(request_payload, worker_binary):
+    def partial_shell(request_payload, worker_binary, workspace_dir):
         shell_payload = external_shell.generate_heuristic_shell(request_payload)
         shell_mesh = shell_payload["shell_mesh"]
         shell_payload["shell_mesh"] = {
             "vertices": shell_mesh["vertices"],
             "faces": shell_mesh["faces"][:4],
         }
-        shell_payload["backend"] = "cpp"
+        shell_payload["backend"] = external_shell.ALPHA_WRAP_NATIVE_BACKEND
         return shell_payload
 
     monkeypatch.setattr(external_shell, "generate_alpha_wrap_shell", partial_shell)
@@ -686,11 +905,106 @@ def test_partial_alpha_wrap_shell_leaves_unclassified_surfaces_visible(monkeypat
 
             result_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/external_shell/result.json").text)
             assert result_payload["mode_effective"] == "alpha_wrap"
-            assert result_payload["summary"]["unclassified_count"] > 0
+            assert result_payload["summary"]["internal_void_count"] > 0
+            assert result_payload["summary"]["unclassified_count"] == 0
 
             viewer_manifest = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/viewer_manifest.json").text)
-            assert viewer_manifest["summary"]["unclassified_surface_count"] > 0
-            assert any(surface["classification"] == "unclassified" for surface in viewer_manifest["surface_entities"])
+            assert viewer_manifest["summary"]["unclassified_surface_count"] == 0
+            assert any(surface["classification"] == "internal_void" for surface in viewer_manifest["surface_entities"])
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_alpha_wrap_parameters_are_persisted_and_clamped() -> None:
+    fixture = build_single_room_fixture()
+    jobs_root = make_test_root("alpha-wrap-params")
+
+    try:
+        with build_client(jobs_root) as client:
+            created = client.post(
+                "/jobs",
+                data={
+                    "alpha_wrap_alpha_m": "0.20",
+                    "alpha_wrap_offset_m": "0.02",
+                    "internal_boundary_thickness_threshold_m": "0.30",
+                },
+                files={"file": ("alpha-params.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = wait_for_output_report(client, job_id)
+            alpha_wrap = output_payload["external_shell"]["alpha_wrap"]
+            assert alpha_wrap["alpha_m_requested"] == pytest.approx(0.20)
+            assert alpha_wrap["alpha_m_effective"] == pytest.approx(0.35)
+            assert alpha_wrap["offset_m_requested"] == pytest.approx(0.02)
+            assert alpha_wrap["offset_m_effective"] == pytest.approx(0.02)
+
+            request_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/external_shell/request.json").text)
+            assert request_payload["alpha_m_requested"] == pytest.approx(0.20)
+            assert request_payload["alpha_m_effective"] == pytest.approx(0.35)
+            assert request_payload["offset_m_requested"] == pytest.approx(0.02)
+            assert request_payload["offset_m_effective"] == pytest.approx(0.02)
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_alpha_wrap_offset_must_be_positive() -> None:
+    fixture = build_single_room_fixture()
+    jobs_root = make_test_root("alpha-wrap-invalid-offset")
+
+    try:
+        with build_client(jobs_root) as client:
+            response = client.post(
+                "/jobs",
+                data={"alpha_wrap_offset_m": "0"},
+                files={"file": ("invalid-offset.ifc", fixture.content, "application/octet-stream")},
+            )
+            assert response.status_code == 422
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_remove_spaces_rerun_inherits_alpha_wrap_parameters() -> None:
+    fixture = build_shared_wall_fixture()
+    jobs_root = make_test_root("alpha-wrap-rerun")
+
+    try:
+        with build_client(jobs_root) as client:
+            created = client.post(
+                "/jobs",
+                data={
+                    "alpha_wrap_alpha_m": "0.20",
+                    "alpha_wrap_offset_m": "0.02",
+                    "internal_boundary_thickness_threshold_m": "0.30",
+                },
+                files={"file": ("rerun-alpha.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = wait_for_output_report(client, job_id)
+            room = output_payload["spaces"][0]
+            rerun_response = client.post(
+                f"/jobs/{job_id}/rerun/remove-spaces",
+                json={"space_global_ids": [room["global_id"]]},
+            )
+            assert rerun_response.status_code == 202
+            rerun_job_id = rerun_response.json()["job_id"]
+
+            rerun_status, _ = wait_for_terminal_state(client, rerun_job_id)
+            assert rerun_status["state"] == "complete"
+
+            rerun_output = wait_for_output_report(client, rerun_job_id)
+            alpha_wrap = rerun_output["external_shell"]["alpha_wrap"]
+            assert alpha_wrap["alpha_m_requested"] == pytest.approx(0.20)
+            assert alpha_wrap["alpha_m_effective"] == pytest.approx(0.35)
+            assert alpha_wrap["offset_m_requested"] == pytest.approx(0.02)
+            assert alpha_wrap["offset_m_effective"] == pytest.approx(0.02)
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
@@ -715,6 +1029,38 @@ def test_separated_rooms_produce_zero_internal_boundaries() -> None:
             assert boundaries["summary"]["adjacent_pair_count"] == 0
             assert boundaries["summary"]["shared_surface_count"] == 0
             assert boundaries["adjacencies"] == []
+    finally:
+        shutil.rmtree(jobs_root, ignore_errors=True)
+
+
+def test_threshold_override_detects_internal_boundary_across_wall_gap() -> None:
+    fixture = build_separated_rooms_fixture()
+    jobs_root = make_test_root("separated-rooms-threshold")
+
+    try:
+        with build_client(jobs_root) as client:
+            created = client.post(
+                "/jobs",
+                data={"internal_boundary_thickness_threshold_m": "1.5"},
+                files={"file": ("separated-threshold.ifc", fixture.content, "application/octet-stream")},
+            ).json()
+            job_id = created["job_id"]
+
+            status_payload, _ = wait_for_terminal_state(client, job_id)
+            assert status_payload["state"] == "complete"
+
+            output_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/output.json").text)
+            boundaries = output_payload["internal_boundaries"]
+            assert boundaries["threshold_m"] == pytest.approx(1.5)
+            assert boundaries["summary"]["adjacent_pair_count"] == 1
+            assert boundaries["summary"]["shared_surface_count"] == 1
+
+            detail_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/internal_boundaries.json").text)
+            assert detail_payload["summary"]["oriented_surface_count"] == 2
+            assert len(detail_payload["adjacencies"][0]["oriented_surface_ids"]) == 2
+
+            candidates_payload = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/external_candidates/result.json").text)
+            assert candidates_payload["summary"]["candidate_surface_count"] == 10
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
 
@@ -750,6 +1096,7 @@ def test_overlapping_rooms_fail_preflight_with_space_clash() -> None:
             assert clash_blockers[0]["recommended_resolution"] is None
             assert output_payload["preflight"]["review_required"] is True
             assert output_payload["internal_boundaries"]["summary"] == {}
+            assert output_payload["external_candidates"]["summary"] == {}
             assert output_payload["external_shell"]["summary"] == {}
 
             viewer_manifest = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/viewer_manifest.json").text)
@@ -764,6 +1111,7 @@ def test_overlapping_rooms_fail_preflight_with_space_clash() -> None:
             assert "geometry/viewer_manifest.json" in artifact_names
             assert "geometry/spaces_all.obj" in artifact_names
             assert "geometry/internal_boundaries.json" not in artifact_names
+            assert "geometry/external_candidates/result.json" not in artifact_names
             assert "geometry/external_shell/result.json" not in artifact_names
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
@@ -941,6 +1289,7 @@ def test_missing_space_representation_fails_preflight_and_preserves_viewer_artif
             assert output_payload["preflight"]["blockers"][0]["code"] == "invalid_space_solid"
             assert output_payload["preflight"]["blockers"][0]["entity"]["name"] == fixture.missing_space_name
             assert output_payload["internal_boundaries"]["summary"] == {}
+            assert output_payload["external_candidates"]["summary"] == {}
             assert output_payload["external_shell"]["summary"] == {}
 
             spaces_by_name = {space["name"]: space for space in output_payload["spaces"]}
@@ -1002,6 +1351,7 @@ def test_missing_space_representation_fails_preflight_and_preserves_viewer_artif
             assert "geometry/openings.obj" in artifact_names
             assert "geometry/spaces_all.obj" in artifact_names
             assert "geometry/internal_boundaries.json" not in artifact_names
+            assert "geometry/external_candidates/result.json" not in artifact_names
             assert "geometry/external_shell/result.json" not in artifact_names
     finally:
         shutil.rmtree(jobs_root, ignore_errors=True)
@@ -1039,6 +1389,7 @@ def test_per_entity_tessellation_failure_fails_preflight_and_keeps_viewer_manife
             assert output_payload["preflight"]["status"] == "failed"
             assert output_payload["preflight"]["summary"]["blocker_count"] == 1
             assert output_payload["internal_boundaries"]["summary"] == {}
+            assert output_payload["external_candidates"]["summary"] == {}
             assert output_payload["external_shell"]["summary"] == {}
 
             spaces_by_name = {space["name"]: space for space in output_payload["spaces"]}
@@ -1367,6 +1718,7 @@ def test_empty_ifc_returns_zero_counts_without_crashing() -> None:
             assert output_payload["preflight"]["status"] == "passed"
             assert output_payload["preflight"]["summary"]["blocker_count"] == 0
             assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 0
+            assert output_payload["external_candidates"]["summary"]["candidate_surface_count"] == 0
             assert output_payload["external_shell"]["summary"]["candidate_surface_count"] == 0
 
             viewer_manifest = json.loads(client.get(f"/jobs/{job_id}/artifacts/geometry/viewer_manifest.json").text)

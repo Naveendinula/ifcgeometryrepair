@@ -17,6 +17,8 @@ class Settings:
     exact_repair_worker_binary: Path | None = None
     shell_worker_binary: Path | None = None
     internal_boundary_thickness_threshold_m: float = 0.30
+    alpha_wrap_alpha_m: float = 1.0
+    alpha_wrap_offset_m: float = 0.01
     preflight_clash_tolerance_m: float = 0.01
 
     def __post_init__(self) -> None:

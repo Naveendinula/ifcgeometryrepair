@@ -1,8 +1,22 @@
-import { DebugViewer } from "./viewer.js";
+import { DebugViewer } from "./viewer.js?v=20260415-3";
+
+const escapeHtml = globalThis.escapeHtml || ((value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;"));
+
+if (globalThis.escapeHtml !== escapeHtml) {
+  globalThis.escapeHtml = escapeHtml;
+}
 
 const form = document.querySelector("#upload-form");
 const fileInput = document.querySelector("#file-input");
 const externalShellModeInput = document.querySelector("#external-shell-mode-input");
+const internalBoundaryThresholdInput = document.querySelector("#internal-boundary-threshold-input");
+const alphaWrapAlphaInput = document.querySelector("#alpha-wrap-alpha-input");
+const alphaWrapOffsetInput = document.querySelector("#alpha-wrap-offset-input");
 const selectedFileNameNode = document.querySelector("#selected-file-name");
 const emptyUploadButton = document.querySelector("#empty-upload-button");
 const submitButton = document.querySelector("#submit-button");
@@ -63,7 +77,10 @@ const preflightBlockerCountNode = document.querySelector("#preflight-blocker-cou
 const preflightWarningCountNode = document.querySelector("#preflight-warning-count");
 const geometryUnitNode = document.querySelector("#geometry-unit");
 const unclassifiedSurfaceCountNode = document.querySelector("#unclassified-surface-count");
-const internalPartitionCountNode = document.querySelector("#internal-partition-count");
+const internalVoidCountNode = document.querySelector("#internal-void-count");
+const shellBackendNode = document.querySelector("#shell-backend");
+const alphaWrapAlphaEffectiveNode = document.querySelector("#alpha-wrap-alpha-effective");
+const alphaWrapOffsetEffectiveNode = document.querySelector("#alpha-wrap-offset-effective");
 
 const layerRawCountNode = document.querySelector("#layer-raw-count");
 const layerGridCountNode = document.querySelector("#layer-grid-count");
@@ -221,6 +238,15 @@ form.addEventListener("submit", async (event) => {
   const payload = new FormData();
   payload.append("file", file);
   payload.append("external_shell_mode", externalShellModeInput.value || "alpha_wrap");
+  if (internalBoundaryThresholdInput?.value) {
+    payload.append("internal_boundary_thickness_threshold_m", internalBoundaryThresholdInput.value);
+  }
+  if (alphaWrapAlphaInput?.value) {
+    payload.append("alpha_wrap_alpha_m", alphaWrapAlphaInput.value);
+  }
+  if (alphaWrapOffsetInput?.value) {
+    payload.append("alpha_wrap_offset_m", alphaWrapOffsetInput.value);
+  }
 
   try {
     const response = await fetch("/jobs", {
@@ -458,7 +484,10 @@ function renderSummary(report) {
   const shellMode = report.external_shell?.mode_effective || "-";
   const surfaceCount = report.external_shell?.summary?.candidate_surface_count ?? 0;
   const unclassifiedCount = report.external_shell?.summary?.unclassified_count ?? 0;
-  const internalPartitionCount = report.external_shell?.summary?.per_class_counts?.internal_partition ?? 0;
+  const internalVoidCount = report.external_shell?.summary?.per_class_counts?.internal_void ?? 0;
+  const shellBackend = report.external_shell?.shell_backend || report.external_shell?.alpha_wrap?.backend || "-";
+  const effectiveAlpha = report.external_shell?.alpha_wrap?.alpha_m_effective;
+  const effectiveOffset = report.external_shell?.alpha_wrap?.offset_m_effective;
 
   const failedCount = [...(report.spaces || []), ...(report.openings || [])].filter(
     (entity) => entity.preflight_failed || !entity.geometry_ok,
@@ -481,7 +510,10 @@ function renderSummary(report) {
   preflightWarningCountNode.textContent = String(preflightWarningCount);
   geometryUnitNode.textContent = report.preprocessing?.unit || "-";
   unclassifiedSurfaceCountNode.textContent = String(unclassifiedCount);
-  internalPartitionCountNode.textContent = String(internalPartitionCount);
+  internalVoidCountNode.textContent = String(internalVoidCount);
+  shellBackendNode.textContent = shellBackend;
+  alphaWrapAlphaEffectiveNode.textContent = effectiveAlpha == null ? "-" : Number(effectiveAlpha).toFixed(3);
+  alphaWrapOffsetEffectiveNode.textContent = effectiveOffset == null ? "-" : Number(effectiveOffset).toFixed(3);
 
   const rawMeshCount = countArtifacts(report.spaces || [], "raw_obj") + countArtifacts(report.openings || [], "raw_obj");
   const normalizedSpaceCount = countArtifacts(report.spaces || [], "normalized_obj");
@@ -516,7 +548,10 @@ function resetSummary() {
   preflightWarningCountNode.textContent = "0";
   geometryUnitNode.textContent = "-";
   unclassifiedSurfaceCountNode.textContent = "0";
-  internalPartitionCountNode.textContent = "0";
+  internalVoidCountNode.textContent = "0";
+  shellBackendNode.textContent = "-";
+  alphaWrapAlphaEffectiveNode.textContent = "-";
+  alphaWrapOffsetEffectiveNode.textContent = "-";
 
   layerRawCountNode.textContent = "n/a";
   layerGridCountNode.textContent = "0";

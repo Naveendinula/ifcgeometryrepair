@@ -17,6 +17,8 @@
 #include <utility>
 #include <vector>
 
+#include "common.hpp"
+
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Nef_polyhedron_3.h>
 #include <CGAL/Polyhedron_3.h>
@@ -31,15 +33,21 @@
 #include <CGAL/boost/graph/copy_face_graph.h>
 #include <CGAL/boost/graph/helpers.h>
 
-#include <nlohmann/json.hpp>
-
 namespace PMP = CGAL::Polygon_mesh_processing;
 using Kernel = CGAL::Exact_predicates_exact_constructions_kernel;
 using Point_3 = Kernel::Point_3;
 using Surface_mesh = CGAL::Surface_mesh<Point_3>;
 using Polyhedron = CGAL::Polyhedron_3<Kernel>;
 using Nef_polyhedron = CGAL::Nef_polyhedron_3<Kernel>;
-using json = nlohmann::json;
+using worker_common::Face;
+using worker_common::json;
+using worker_common::mesh_to_json;
+using worker_common::parse_raw_mesh;
+using worker_common::RawMesh;
+using worker_common::read_json_file;
+using worker_common::triangle_area_squared;
+using worker_common::Vec3;
+using worker_common::write_json_file;
 
 namespace {
 
@@ -47,14 +55,6 @@ constexpr int kContractVersion = 2;
 constexpr double kWeldEpsilon = 1e-7;
 constexpr double kAreaEpsilon = 1e-12;
 constexpr double kVolumeEpsilon = 1e-12;
-
-using Vec3 = std::array<double, 3>;
-using Face = std::array<int, 3>;
-
-struct RawMesh {
-  std::vector<Vec3> vertices;
-  std::vector<Face> faces;
-};
 
 struct SpaceRequest {
   std::string object_name;
@@ -125,46 +125,6 @@ struct EdgeKeyHash {
   }
 };
 
-json read_json_file(const std::string& path) {
-  std::ifstream input(path);
-  if (!input) {
-    throw std::runtime_error("could not open request payload: " + path);
-  }
-  json payload;
-  input >> payload;
-  return payload;
-}
-
-void write_json_file(const std::string& path, const json& payload) {
-  std::ofstream output(path);
-  if (!output) {
-    throw std::runtime_error("could not open result path: " + path);
-  }
-  output << payload.dump(2) << '\n';
-}
-
-Vec3 subtract(const Vec3& left, const Vec3& right) {
-  return {left[0] - right[0], left[1] - right[1], left[2] - right[2]};
-}
-
-Vec3 cross(const Vec3& left, const Vec3& right) {
-  return {
-      left[1] * right[2] - left[2] * right[1],
-      left[2] * right[0] - left[0] * right[2],
-      left[0] * right[1] - left[1] * right[0],
-  };
-}
-
-double norm_squared(const Vec3& value) {
-  return (value[0] * value[0]) + (value[1] * value[1]) + (value[2] * value[2]);
-}
-
-double triangle_area_squared(const Vec3& a, const Vec3& b, const Vec3& c) {
-  const Vec3 left = subtract(b, a);
-  const Vec3 right = subtract(c, a);
-  return norm_squared(cross(left, right)) * 0.25;
-}
-
 std::vector<std::pair<int, int>> face_edges(const Face& face) {
   return {
       {face[0], face[1]},
@@ -189,13 +149,6 @@ std::string join_reasons(const std::vector<std::string>& reasons) {
   return stream.str();
 }
 
-json mesh_to_json(const RawMesh& mesh) {
-  return {
-      {"vertices", mesh.vertices},
-      {"faces", mesh.faces},
-  };
-}
-
 SpaceRequest parse_space_request(const json& payload) {
   SpaceRequest request;
   request.object_name = payload.at("object_name").get<std::string>();
@@ -206,14 +159,7 @@ SpaceRequest parse_space_request(const json& payload) {
   if (payload.contains("name") && !payload["name"].is_null()) {
     request.name = payload.at("name").get<std::string>();
   }
-
-  const json& mesh_payload = payload.at("mesh");
-  for (const auto& vertex : mesh_payload.at("vertices")) {
-    request.mesh.vertices.push_back({vertex.at(0).get<double>(), vertex.at(1).get<double>(), vertex.at(2).get<double>()});
-  }
-  for (const auto& face : mesh_payload.at("faces")) {
-    request.mesh.faces.push_back({face.at(0).get<int>(), face.at(1).get<int>(), face.at(2).get<int>()});
-  }
+  request.mesh = parse_raw_mesh(payload.at("mesh"));
   return request;
 }
 

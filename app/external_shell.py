@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -20,12 +22,16 @@ PLANE_OFFSET_TOLERANCE_M = 1e-4
 ORIENTATION_Z_THRESHOLD = 0.707
 DEFAULT_SHELL_MATCH_TOLERANCE_M = 0.05
 MIN_OVERLAP_AREA_M2 = 1e-6
+ALPHA_WRAP_CONTRACT_VERSION = 1
+ALPHA_WRAP_EPSILON = 1e-3
+ALPHA_WRAP_ALPHA_BUFFER_M = 0.05
+ALPHA_WRAP_NATIVE_BACKEND = "cpp-cgal-alpha-wrap"
+AABB_LEAF_TRIANGLE_COUNT = 16
 SURFACE_CLASSES = (
     "external_wall",
     "roof",
     "ground_floor",
-    "internal_partition",
-    "virtual_partition",
+    "internal_void",
     "unclassified",
 )
 
@@ -54,16 +60,40 @@ class SurfacePatch:
     mesh: dict[str, Any]
     reason: str | None = None
     artifacts: dict[str, str | None] | None = None
+    source_surface_id: str | None = None
+    subtracted_internal_surface_ids: list[str] | None = None
+
+
+@dataclass(slots=True)
+class WrapTriangle:
+    triangle_id: str
+    vertices: np.ndarray
+    normal: np.ndarray
+    plane_point: np.ndarray
+    aabb_min: np.ndarray
+    aabb_max: np.ndarray
+
+
+@dataclass(slots=True)
+class TriangleAABBNode:
+    aabb_min: np.ndarray
+    aabb_max: np.ndarray
+    left: TriangleAABBNode | None
+    right: TriangleAABBNode | None
+    triangles: list[WrapTriangle]
 
 
 def run_external_shell_classification(
     job_id: str,
     job_dir: Path,
     preprocessing_result: dict[str, Any],
-    internal_boundary_result: dict[str, Any],
+    external_candidates_result: dict[str, Any],
     *,
     mode_requested: str = "alpha_wrap",
     worker_binary: Path | None = None,
+    thickness_threshold_m: float,
+    alpha_m_requested: float,
+    offset_m_requested: float,
 ) -> ExternalShellResult:
     external_shell_dir = job_dir / "geometry" / "external_shell"
     classes_dir = external_shell_dir / "classes"
@@ -90,11 +120,19 @@ def run_external_shell_classification(
         if entity not in valid_space_entities
     ]
 
-    candidate_surfaces = _extract_space_surfaces(valid_space_entities)
+    candidate_surfaces = _load_candidate_surfaces(external_candidates_result)
+    effective_alpha_m = max(float(alpha_m_requested), float(thickness_threshold_m) + ALPHA_WRAP_ALPHA_BUFFER_M)
+    effective_offset_m = float(offset_m_requested)
     request_payload = {
+        "contract_version": ALPHA_WRAP_CONTRACT_VERSION,
         "job_id": job_id,
         "unit": "meter",
         "mode_requested": mode_requested,
+        "epsilon": ALPHA_WRAP_EPSILON,
+        "alpha_m_requested": float(alpha_m_requested),
+        "alpha_m_effective": float(effective_alpha_m),
+        "offset_m_requested": float(offset_m_requested),
+        "offset_m_effective": float(effective_offset_m),
         "space_meshes": [
             {
                 "global_id": entity.get("global_id"),
@@ -123,12 +161,16 @@ def run_external_shell_classification(
     fallback_reason = None
     mode_effective = mode_requested
     if mode_requested == "alpha_wrap":
-        try:
-            shell_payload = generate_alpha_wrap_shell(request_payload, worker_binary)
-        except Exception as exc:
-            fallback_reason = str(exc)
-            mode_effective = "heuristic"
-            shell_payload = generate_heuristic_shell(request_payload)
+        if not valid_space_entities and not candidate_surfaces:
+            shell_payload = {
+                "backend": "none",
+                "status": "idle",
+                "alpha_m_effective": float(effective_alpha_m),
+                "offset_m_effective": float(effective_offset_m),
+                "shell_mesh": {"vertices": [], "faces": []},
+            }
+        else:
+            shell_payload = generate_alpha_wrap_shell(request_payload, worker_binary, external_shell_dir)
     else:
         shell_payload = generate_heuristic_shell(request_payload)
     shell_generation_time_ms = (time.perf_counter() - shell_started) * 1000.0
@@ -142,39 +184,20 @@ def run_external_shell_classification(
         space_name="Envelope Shell",
     )
 
-    shared_refs_by_space = _build_shared_surface_refs_by_space(internal_boundary_result)
-    shell_match_count = 0
-    internal_partition_match_count = 0
-    virtual_partition_count = 0
-    unclassified_count = 0
-
-    shell_match_tolerance_m = float(shell_payload.get("match_tolerance_m", DEFAULT_SHELL_MATCH_TOLERANCE_M))
-    for surface in candidate_surfaces:
-        shared_refs = shared_refs_by_space.get(surface.space_global_id, [])
-        shared_match = _best_overlap_match(surface, shared_refs, plane_tolerance_m=max(shell_match_tolerance_m, 0.30))
-        if shared_match is not None:
-            surface.classification = "internal_partition"
-            surface.reason = f"shared_surface:{shared_match.surface_id}"
-            internal_partition_match_count += 1
-            continue
-
-        shell_match = _best_overlap_match(surface, shell_patches, plane_tolerance_m=shell_match_tolerance_m)
-        if shell_match is not None:
-            surface.classification = _surface_class_from_normal(surface.normal)
-            surface.reason = f"shell_match:{shell_match.surface_id}"
-            shell_match_count += 1
-            continue
-
-        virtual_match = _classify_virtual_partition(surface, shell_payload)
-        if virtual_match:
-            surface.classification = "virtual_partition"
-            surface.reason = virtual_match
-            virtual_partition_count += 1
-            continue
-
-        surface.classification = "unclassified"
-        surface.reason = "No matching shell surface"
-        unclassified_count += 1
+    classification_started = time.perf_counter()
+    if mode_effective == "alpha_wrap":
+        shell_match_count, internal_void_count, unclassified_count = _classify_with_alpha_wrap(
+            candidate_surfaces,
+            shell_mesh,
+            offset_tolerance_m=float(shell_payload.get("offset_m_effective", effective_offset_m)) + ALPHA_WRAP_EPSILON,
+        )
+    else:
+        shell_match_count, internal_void_count, unclassified_count = _classify_with_heuristic_shell(
+            candidate_surfaces,
+            shell_patches,
+            shell_payload,
+        )
+    classification_time_ms = (time.perf_counter() - classification_started) * 1000.0
 
     artifacts = {
         "request": "geometry/external_shell/request.json",
@@ -216,9 +239,9 @@ def run_external_shell_classification(
         "processed_space_count": len(valid_space_entities),
         "skipped_space_count": len(skipped_spaces),
         "candidate_surface_count": len(candidate_surfaces),
-        "internal_partition_match_count": internal_partition_match_count,
+        "internal_partition_match_count": 0,
         "shell_match_count": shell_match_count,
-        "virtual_partition_count": virtual_partition_count,
+        "internal_void_count": internal_void_count,
         "unclassified_count": unclassified_count,
         "per_class_counts": per_class_counts,
         "per_class_area_m2": {
@@ -230,6 +253,25 @@ def run_external_shell_classification(
             6,
         ),
         "shell_generation_time_ms": round(float(shell_generation_time_ms), 3),
+        "classification_time_ms": round(float(classification_time_ms), 3),
+    }
+    alpha_wrap_payload = {
+        "status": (
+            shell_payload.get("status", "ok")
+            if mode_effective == "alpha_wrap"
+            else "compatibility_heuristic"
+        ),
+        "backend": shell_payload.get("backend", "python"),
+        "epsilon": float(ALPHA_WRAP_EPSILON),
+        "alpha_m_requested": round(float(alpha_m_requested), 6),
+        "alpha_m_effective": round(float(shell_payload.get("alpha_m_effective", effective_alpha_m)), 6),
+        "offset_m_requested": round(float(offset_m_requested), 6),
+        "offset_m_effective": round(float(shell_payload.get("offset_m_effective", effective_offset_m)), 6),
+        "generation_time_ms": round(float(shell_generation_time_ms), 3),
+        "classification_time_ms": round(float(classification_time_ms), 3),
+        "triangle_count": int(len(shell_mesh.get("faces", []))),
+        "vertex_count": int(len(shell_mesh.get("vertices", []))),
+        "error": None,
     }
 
     result_payload = {
@@ -239,7 +281,9 @@ def run_external_shell_classification(
         "fallback_reason": fallback_reason,
         "shell_backend": shell_payload.get("backend", "python"),
         "shell_generation_time_ms": round(float(shell_generation_time_ms), 3),
+        "classification_time_ms": round(float(classification_time_ms), 3),
         "shell_mesh_stats": shell_mesh_stats,
+        "alpha_wrap": alpha_wrap_payload,
         "summary": summary,
         "skipped_spaces": skipped_spaces,
         "surfaces": [_serialize_surface(surface) for surface in candidate_surfaces],
@@ -249,10 +293,63 @@ def run_external_shell_classification(
     return ExternalShellResult(payload=result_payload)
 
 
-def generate_alpha_wrap_shell(request_payload: dict[str, Any], worker_binary: Path | None) -> dict[str, Any]:
+def generate_alpha_wrap_shell(
+    request_payload: dict[str, Any],
+    worker_binary: Path | None,
+    workspace_dir: Path,
+) -> dict[str, Any]:
     if worker_binary is None or not worker_binary.exists():
         raise RuntimeError("Native alpha-wrap shell worker is unavailable")
-    raise RuntimeError("Native alpha-wrap shell generation is not implemented in this build")
+    worker_temp_root = workspace_dir / "_worker"
+    worker_temp_root.mkdir(parents=True, exist_ok=True)
+    request_path = worker_temp_root / "request.json"
+    result_path = worker_temp_root / "result.json"
+    _write_json(request_path, request_payload)
+    if result_path.exists():
+        result_path.unlink()
+    _invoke_alpha_wrap_worker(worker_binary, request_path, result_path)
+    return _parse_alpha_wrap_response(_read_json(result_path), request_payload)
+
+
+def _invoke_alpha_wrap_worker(worker_binary: Path, request_path: Path, result_path: Path) -> None:
+    command = [str(worker_binary), str(request_path), str(result_path)]
+    if worker_binary.suffix.lower() == ".py":
+        command = [sys.executable, str(worker_binary), str(request_path), str(result_path)]
+    completed = subprocess.run(
+        command,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        stderr = completed.stderr.strip() or completed.stdout.strip() or "alpha-wrap worker failed"
+        raise RuntimeError(stderr)
+
+
+def _parse_alpha_wrap_response(payload: dict[str, Any], request_payload: dict[str, Any]) -> dict[str, Any]:
+    if payload.get("contract_version") != ALPHA_WRAP_CONTRACT_VERSION:
+        raise RuntimeError("Alpha-wrap worker returned an unsupported contract version")
+    if payload.get("status") != "ok":
+        raise RuntimeError(payload.get("reason") or "Alpha-wrap worker failed")
+
+    shell_mesh = payload.get("shell_mesh") or {"vertices": [], "faces": []}
+    faces = shell_mesh.get("faces", [])
+    vertices = shell_mesh.get("vertices", [])
+    if request_payload.get("space_meshes") and (not vertices or not faces):
+        raise RuntimeError("Alpha-wrap worker returned an empty shell mesh")
+
+    parsed_payload = {
+        "backend": payload.get("backend", ALPHA_WRAP_NATIVE_BACKEND),
+        "status": "ok",
+        "alpha_m_effective": float(payload.get("alpha_m_effective", request_payload["alpha_m_effective"])),
+        "offset_m_effective": float(payload.get("offset_m_effective", request_payload["offset_m_effective"])),
+        "shell_mesh": shell_mesh,
+    }
+    if "generation_time_ms" in payload:
+        parsed_payload["generation_time_ms"] = payload["generation_time_ms"]
+    if "reason" in payload and payload.get("reason"):
+        parsed_payload["reason"] = payload["reason"]
+    return parsed_payload
 
 
 def generate_heuristic_shell(request_payload: dict[str, Any]) -> dict[str, Any]:
@@ -281,6 +378,196 @@ def generate_heuristic_shell(request_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _classify_with_alpha_wrap(
+    candidate_surfaces: list[SurfacePatch],
+    shell_mesh: dict[str, Any],
+    *,
+    offset_tolerance_m: float,
+) -> tuple[int, int, int]:
+    wrap_triangles = _load_wrap_triangles(shell_mesh)
+    triangle_index = _build_triangle_aabb_tree(wrap_triangles)
+    shell_match_count = 0
+    internal_void_count = 0
+
+    for surface in candidate_surfaces:
+        triangle = _find_alpha_wrap_hit(surface, triangle_index, offset_tolerance_m=offset_tolerance_m)
+        if triangle is not None:
+            surface.classification = _surface_class_from_normal(surface.normal)
+            surface.reason = f"alpha_wrap_hit:{triangle.triangle_id}"
+            shell_match_count += 1
+            continue
+
+        surface.classification = "internal_void"
+        surface.reason = "no_alpha_wrap_hit"
+        internal_void_count += 1
+
+    return shell_match_count, internal_void_count, 0
+
+
+def _classify_with_heuristic_shell(
+    candidate_surfaces: list[SurfacePatch],
+    shell_patches: list[SurfacePatch],
+    shell_payload: dict[str, Any],
+) -> tuple[int, int, int]:
+    shell_match_count = 0
+    internal_void_count = 0
+    unclassified_count = 0
+    shell_match_tolerance_m = float(shell_payload.get("match_tolerance_m", DEFAULT_SHELL_MATCH_TOLERANCE_M))
+
+    for surface in candidate_surfaces:
+        shell_match = _best_overlap_match(surface, shell_patches, plane_tolerance_m=shell_match_tolerance_m)
+        if shell_match is not None:
+            surface.classification = _surface_class_from_normal(surface.normal)
+            surface.reason = f"shell_match:{shell_match.surface_id}"
+            shell_match_count += 1
+            continue
+
+        internal_void_reason = _classify_internal_void(surface, shell_payload)
+        if internal_void_reason:
+            surface.classification = "internal_void"
+            surface.reason = internal_void_reason
+            internal_void_count += 1
+            continue
+
+        surface.classification = "unclassified"
+        surface.reason = "No matching shell surface"
+        unclassified_count += 1
+
+    return shell_match_count, internal_void_count, unclassified_count
+
+
+def _load_wrap_triangles(shell_mesh: dict[str, Any]) -> list[WrapTriangle]:
+    vertices = np.asarray(shell_mesh.get("vertices", []), dtype=np.float64).reshape(-1, 3)
+    faces = np.asarray(shell_mesh.get("faces", []), dtype=np.int64).reshape(-1, 3)
+    if len(vertices) == 0 or len(faces) == 0:
+        return []
+
+    triangles = vertices[faces]
+    wrap_triangles: list[WrapTriangle] = []
+    for triangle_index, triangle in enumerate(triangles):
+        cross_product = np.cross(triangle[1] - triangle[0], triangle[2] - triangle[0])
+        magnitude = float(np.linalg.norm(cross_product))
+        if magnitude <= FACE_AREA_EPSILON:
+            continue
+        normal = cross_product / magnitude
+        wrap_triangles.append(
+            WrapTriangle(
+                triangle_id=f"aw_{triangle_index}",
+                vertices=np.asarray(triangle, dtype=np.float64),
+                normal=np.asarray(normal, dtype=np.float64),
+                plane_point=np.asarray(triangle[0], dtype=np.float64),
+                aabb_min=np.min(triangle, axis=0),
+                aabb_max=np.max(triangle, axis=0),
+            )
+        )
+    return wrap_triangles
+
+
+def _build_triangle_aabb_tree(triangles: list[WrapTriangle]) -> TriangleAABBNode | None:
+    if not triangles:
+        return None
+    aabb_min = np.min(np.stack([triangle.aabb_min for triangle in triangles]), axis=0)
+    aabb_max = np.max(np.stack([triangle.aabb_max for triangle in triangles]), axis=0)
+    if len(triangles) <= AABB_LEAF_TRIANGLE_COUNT:
+        return TriangleAABBNode(aabb_min=aabb_min, aabb_max=aabb_max, left=None, right=None, triangles=triangles)
+
+    extents = aabb_max - aabb_min
+    axis = int(np.argmax(extents))
+    sorted_triangles = sorted(
+        triangles,
+        key=lambda triangle: float((triangle.aabb_min[axis] + triangle.aabb_max[axis]) / 2.0),
+    )
+    midpoint = len(sorted_triangles) // 2
+    left = _build_triangle_aabb_tree(sorted_triangles[:midpoint])
+    right = _build_triangle_aabb_tree(sorted_triangles[midpoint:])
+    return TriangleAABBNode(aabb_min=aabb_min, aabb_max=aabb_max, left=left, right=right, triangles=[])
+
+
+def _find_alpha_wrap_hit(
+    surface: SurfacePatch,
+    triangle_index: TriangleAABBNode | None,
+    *,
+    offset_tolerance_m: float,
+) -> WrapTriangle | None:
+    candidate_min, candidate_max = _surface_aabb(surface, padding=offset_tolerance_m)
+    for triangle in _query_triangle_aabb_tree(triangle_index, candidate_min, candidate_max):
+        if _surface_matches_wrap_triangle(surface, triangle, offset_tolerance_m=offset_tolerance_m):
+            return triangle
+    return None
+
+
+def _query_triangle_aabb_tree(
+    node: TriangleAABBNode | None,
+    query_min: np.ndarray,
+    query_max: np.ndarray,
+) -> list[WrapTriangle]:
+    if node is None or not _aabb_overlap(node.aabb_min, node.aabb_max, query_min, query_max):
+        return []
+    if node.left is None and node.right is None:
+        return [
+            triangle
+            for triangle in node.triangles
+            if _aabb_overlap(triangle.aabb_min, triangle.aabb_max, query_min, query_max)
+        ]
+    return [
+        *_query_triangle_aabb_tree(node.left, query_min, query_max),
+        *_query_triangle_aabb_tree(node.right, query_min, query_max),
+    ]
+
+
+def _surface_matches_wrap_triangle(
+    surface: SurfacePatch,
+    triangle: WrapTriangle,
+    *,
+    offset_tolerance_m: float,
+) -> bool:
+    if abs(float(np.dot(surface.normal, triangle.normal))) <= 1.0 - ALPHA_WRAP_EPSILON:
+        return False
+    plane_distances = [
+        abs(float(np.dot(surface.normal, vertex - surface.plane_point)))
+        for vertex in triangle.vertices
+    ]
+    if max(plane_distances, default=0.0) > offset_tolerance_m:
+        return False
+    overlap_area = _triangle_overlap_area_on_surface(surface, triangle)
+    return overlap_area >= MIN_OVERLAP_AREA_M2
+
+
+def _triangle_overlap_area_on_surface(surface: SurfacePatch, triangle: WrapTriangle) -> float:
+    projected_triangle = triangle.vertices - np.outer(
+        np.einsum("ij,j->i", triangle.vertices - surface.plane_point, surface.normal),
+        surface.normal,
+    )
+    triangle_polygon = _triangle_polygon(
+        _project_triangle(projected_triangle, surface.plane_point, surface.basis_u, surface.basis_v)
+    )
+    if triangle_polygon is None:
+        return 0.0
+    overlap = surface.union_polygon_2d.intersection(triangle_polygon)
+    return float(sum(polygon.area for polygon in _extract_polygons(overlap)))
+
+
+def _surface_aabb(surface: SurfacePatch, *, padding: float = 0.0) -> tuple[np.ndarray, np.ndarray]:
+    if surface.mesh.get("vertices"):
+        vertices = np.asarray(surface.mesh["vertices"], dtype=np.float64).reshape(-1, 3)
+    else:
+        vertices = np.vstack(surface.triangles_3d) if surface.triangles_3d else np.zeros((0, 3), dtype=np.float64)
+    if len(vertices) == 0:
+        zero = np.zeros(3, dtype=np.float64)
+        return zero, zero
+    delta = np.full(3, float(padding), dtype=np.float64)
+    return np.min(vertices, axis=0) - delta, np.max(vertices, axis=0) + delta
+
+
+def _aabb_overlap(
+    left_min: np.ndarray,
+    left_max: np.ndarray,
+    right_min: np.ndarray,
+    right_max: np.ndarray,
+) -> bool:
+    return bool(np.all(left_min <= right_max) and np.all(right_min <= left_max))
+
+
 def _extract_space_surfaces(space_entities: list[dict[str, Any]]) -> list[SurfacePatch]:
     patches: list[SurfacePatch] = []
     for space_index, entity in enumerate(sorted(space_entities, key=_entity_sort_key)):
@@ -293,6 +580,69 @@ def _extract_space_surfaces(space_entities: list[dict[str, Any]]) -> list[Surfac
         )
         patches.extend(extracted)
     return patches
+
+
+def _load_candidate_surfaces(external_candidates_result: dict[str, Any]) -> list[SurfacePatch]:
+    candidate_surfaces: list[tuple[tuple[float, ...], SurfacePatch]] = []
+    for surface in external_candidates_result.get("candidate_surfaces", []):
+        patch = _candidate_surface_to_patch(surface)
+        if patch is None:
+            continue
+        sort_key = (
+            round(float(patch.centroid[0]), 6),
+            round(float(patch.centroid[1]), 6),
+            round(float(patch.centroid[2]), 6),
+            round(float(patch.normal[0]), 6),
+            round(float(patch.normal[1]), 6),
+            round(float(patch.normal[2]), 6),
+            patch.surface_id,
+        )
+        candidate_surfaces.append((sort_key, patch))
+    return [patch for _, patch in sorted(candidate_surfaces, key=lambda item: item[0])]
+
+
+def _candidate_surface_to_patch(surface: dict[str, Any]) -> SurfacePatch | None:
+    normal = np.asarray(surface.get("plane_normal", [0.0, 0.0, 1.0]), dtype=np.float64)
+    magnitude = float(np.linalg.norm(normal))
+    if magnitude <= FACE_AREA_EPSILON:
+        return None
+    normal /= magnitude
+    plane_point = np.asarray(surface.get("plane_point", [0.0, 0.0, 0.0]), dtype=np.float64)
+    basis_u, basis_v = _plane_basis(normal)
+    triangle_arrays = [np.asarray(triangle, dtype=np.float64) for triangle in surface.get("triangles", [])]
+    if not triangle_arrays:
+        return None
+    union_polygon = _polygon_from_rings_3d(surface.get("polygon_rings_3d", []), plane_point, basis_u, basis_v)
+    if union_polygon is None:
+        polygons = [
+            polygon
+            for triangle in triangle_arrays
+            if (polygon := _triangle_polygon(_project_triangle(triangle, plane_point, basis_u, basis_v))) is not None
+        ]
+        if not polygons:
+            return None
+        union_polygon = unary_union(polygons)
+    centroid = np.asarray(surface.get("centroid") or _lift_point(union_polygon.centroid.coords[0], plane_point, basis_u, basis_v), dtype=np.float64)
+    mesh = _triangles_to_mesh([triangle.tolist() for triangle in triangle_arrays])
+    return SurfacePatch(
+        surface_id=surface["surface_id"],
+        object_name=surface.get("object_name") or surface["surface_id"],
+        space_global_id=surface.get("space_global_id"),
+        space_express_id=surface.get("space_express_id"),
+        space_name=surface.get("space_name"),
+        classification="unclassified",
+        area_m2=float(surface.get("area_m2", union_polygon.area)),
+        normal=normal,
+        centroid=centroid,
+        plane_point=plane_point,
+        basis_u=basis_u,
+        basis_v=basis_v,
+        union_polygon_2d=union_polygon,
+        triangles_3d=triangle_arrays,
+        mesh=mesh,
+        source_surface_id=surface.get("source_surface_id"),
+        subtracted_internal_surface_ids=list(surface.get("subtracted_internal_surface_ids", [])),
+    )
 
 
 def _extract_surface_patches_from_mesh(
@@ -410,46 +760,41 @@ def _extract_surface_patches_from_mesh(
     return patches
 
 
-def _build_shared_surface_refs_by_space(internal_boundary_result: dict[str, Any]) -> dict[str | None, list[SurfacePatch]]:
-    refs_by_space: dict[str | None, list[SurfacePatch]] = {}
-    for surface in internal_boundary_result.get("shared_surfaces", []):
-        normal = np.asarray(surface.get("plane_normal", [0.0, 0.0, 1.0]), dtype=np.float64)
-        if np.linalg.norm(normal) <= FACE_AREA_EPSILON:
-            continue
-        normal /= np.linalg.norm(normal)
-        plane_point = np.asarray(surface.get("plane_point", [0.0, 0.0, 0.0]), dtype=np.float64)
-        basis_u, basis_v = _plane_basis(normal)
-        triangle_arrays = [np.asarray(triangle, dtype=np.float64) for triangle in surface.get("triangles", [])]
-        polygons = [
-            polygon
-            for triangle in triangle_arrays
-            if (polygon := _triangle_polygon(_project_triangle(triangle, plane_point, basis_u, basis_v))) is not None
-        ]
-        if not polygons:
-            continue
-        unioned = unary_union(polygons)
-        centroid = np.asarray(_lift_point(unioned.centroid.coords[0], plane_point, basis_u, basis_v), dtype=np.float64)
-        ref = SurfacePatch(
-            surface_id=surface["shared_surface_id"],
-            object_name=surface["shared_surface_id"],
-            space_global_id=None,
-            space_express_id=None,
-            space_name=None,
-            classification="internal_partition",
-            area_m2=float(surface.get("area_m2", 0.0)),
-            normal=normal,
-            centroid=centroid,
-            plane_point=plane_point,
-            basis_u=basis_u,
-            basis_v=basis_v,
-            union_polygon_2d=unioned,
-            triangles_3d=triangle_arrays,
-            mesh=surface.get("mesh", _triangles_to_mesh([triangle.tolist() for triangle in triangle_arrays])),
-            reason=None,
-        )
-        for space_global_id in (surface.get("space_a_global_id"), surface.get("space_b_global_id")):
-            refs_by_space.setdefault(space_global_id, []).append(ref)
-    return refs_by_space
+def _polygon_from_rings_3d(
+    rings_3d: list[list[list[float]]],
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+) -> Polygon | MultiPolygon | None:
+    if not rings_3d:
+        return None
+    shell = _project_ring_to_basis(rings_3d[0], plane_point, basis_u, basis_v)
+    holes = [_project_ring_to_basis(ring, plane_point, basis_u, basis_v) for ring in rings_3d[1:]]
+    polygon = Polygon(shell, holes)
+    if not polygon.is_valid:
+        polygon = polygon.buffer(0)
+    if polygon.is_empty:
+        return None
+    if isinstance(polygon, (Polygon, MultiPolygon)):
+        return polygon
+    extracted = _extract_polygons(polygon)
+    if not extracted:
+        return None
+    return extracted[0] if len(extracted) == 1 else unary_union(extracted)
+
+
+def _project_ring_to_basis(
+    ring_3d: list[list[float]],
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+) -> list[tuple[float, float]]:
+    projected: list[tuple[float, float]] = []
+    for point in ring_3d:
+        point_array = np.asarray(point, dtype=np.float64)
+        relative = point_array - plane_point
+        projected.append((float(relative @ basis_u), float(relative @ basis_v)))
+    return projected
 
 
 def _best_overlap_match(
@@ -457,12 +802,16 @@ def _best_overlap_match(
     candidate_targets: list[SurfacePatch],
     *,
     plane_tolerance_m: float,
+    same_direction: bool = False,
 ) -> SurfacePatch | None:
     best_match = None
     best_overlap = 0.0
     for target in candidate_targets:
-        normal_alignment = abs(float(np.dot(source_surface.normal, target.normal)))
-        if normal_alignment < NORMAL_DOT_THRESHOLD:
+        normal_alignment = float(np.dot(source_surface.normal, target.normal))
+        if same_direction:
+            if normal_alignment < NORMAL_DOT_THRESHOLD:
+                continue
+        elif abs(normal_alignment) < NORMAL_DOT_THRESHOLD:
             continue
 
         plane_distance = abs(float(np.dot(target.normal, source_surface.centroid - target.plane_point)))
@@ -495,7 +844,7 @@ def _surface_overlap_area(source_surface: SurfacePatch, target_surface: SurfaceP
     return float(sum(polygon.area for polygon in _extract_polygons(overlap)))
 
 
-def _classify_virtual_partition(surface: SurfacePatch, shell_payload: dict[str, Any]) -> str | None:
+def _classify_internal_void(surface: SurfacePatch, shell_payload: dict[str, Any]) -> str | None:
     aabb_min = shell_payload.get("aabb_min")
     aabb_max = shell_payload.get("aabb_max")
     if aabb_min is None or aabb_max is None:
@@ -507,7 +856,7 @@ def _classify_virtual_partition(surface: SurfacePatch, shell_payload: dict[str, 
     tolerance = DEFAULT_SHELL_MATCH_TOLERANCE_M * 2.0
     inside = np.all(centroid > (lower + tolerance)) and np.all(centroid < (upper - tolerance))
     if inside:
-        return "Interior patch inside heuristic shell volume"
+        return "Candidate surface lies inside the shell volume"
     return None
 
 
@@ -570,6 +919,8 @@ def _serialize_surface(surface: SurfacePatch) -> dict[str, Any]:
         "area_m2": round(float(surface.area_m2), 6),
         "normal": _round_vector(surface.normal),
         "centroid": _round_vector(surface.centroid),
+        "source_surface_id": surface.source_surface_id,
+        "subtracted_internal_surface_ids": list(surface.subtracted_internal_surface_ids or []),
         "reason": surface.reason,
         "artifacts": surface.artifacts or {},
     }
@@ -745,6 +1096,10 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
     temp_path = path.with_name(f"{path.name}.tmp")
     temp_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     temp_path.replace(path)
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _write_text(path: Path, content: str) -> None:

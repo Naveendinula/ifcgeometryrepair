@@ -152,6 +152,7 @@ select {
 .status-chip--state[data-state="preprocessing"],
 .status-chip--state[data-state="preflight"],
 .status-chip--state[data-state="internal_boundary"],
+.status-chip--state[data-state="external_candidates"],
 .status-chip--state[data-state="external_shell"],
 .status-chip--state[data-state="classifying"] {
   border-color: rgba(255, 98, 40, 0.25);
@@ -233,7 +234,8 @@ select {
   background: var(--surface);
 }
 
-.mode-picker select {
+.mode-picker select,
+.mode-picker input {
   border: 0;
   padding: 0;
   background: transparent;
@@ -573,6 +575,7 @@ select {
 .rail-state-pill[data-state="preprocessing"],
 .rail-state-pill[data-state="preflight"],
 .rail-state-pill[data-state="internal_boundary"],
+.rail-state-pill[data-state="external_candidates"],
 .rail-state-pill[data-state="external_shell"],
 .rail-state-pill[data-state="classifying"] {
   background: rgba(255, 98, 40, 0.18);
@@ -1382,7 +1385,7 @@ select {
   color: #a16207;
 }
 
-.object-badge[data-kind="virtual_partition"] {
+.object-badge[data-kind="internal_void"] {
   border-color: rgba(139, 92, 246, 0.18);
   background: rgba(139, 92, 246, 0.08);
   color: #6d28d9;

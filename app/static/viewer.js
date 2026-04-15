@@ -25,6 +25,17 @@ import { OrbitControls } from "/static/vendor/three/examples/jsm/controls/OrbitC
 import { OBJLoader } from "/static/vendor/three/examples/jsm/loaders/OBJLoader.js";
 import { GLTFLoader } from "/static/vendor/three/examples/jsm/loaders/GLTFLoader.js";
 
+const escapeHtml = globalThis.escapeHtml || ((value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;"));
+
+if (globalThis.escapeHtml !== escapeHtml) {
+  globalThis.escapeHtml = escapeHtml;
+}
+
 const LAYERS = {
   grid: "gridFloor",
   raw: "raw",
@@ -1120,10 +1131,8 @@ function colorForSurfaceClassification(classification) {
       return 0x0d9488;
     case "ground_floor":
       return 0x8a6d3b;
-    case "internal_partition":
+    case "internal_void":
       return 0xf59e0b;
-    case "virtual_partition":
-      return 0x8b5cf6;
     case "unclassified":
     default:
       return 0xda4757;
@@ -1194,12 +1203,4 @@ function formatArea(value) {
   if (typeof value !== "number" || Number.isNaN(value)) return "-";
   if (value === 0) return "0";
   return value < 0.001 ? value.toExponential(2) : value.toFixed(3);
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
 }
