@@ -11,6 +11,7 @@ JobState = Literal[
     "internal_boundary",
     "external_candidates",
     "external_shell",
+    "opening_integration",
     "classifying",
     "complete",
     "failed",

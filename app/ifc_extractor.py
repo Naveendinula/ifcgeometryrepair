@@ -62,12 +62,14 @@ def build_extraction_report(
     internal_boundary_result: dict[str, Any],
     external_candidate_result: dict[str, Any],
     external_shell_result: dict[str, Any],
+    opening_integration_result: dict[str, Any] | None = None,
     derivation_info: dict[str, Any] | None = None,
     *,
     success: bool = True,
     error: str | None = None,
 ) -> dict[str, Any]:
     preflight_result = preflight_result or {}
+    opening_integration_result = opening_integration_result or {}
     derivation_info = derivation_info or None
     geometry_by_express_id = {
         entity["express_id"]: entity for entity in preprocessing_result.get("entities", [])
@@ -178,6 +180,11 @@ def build_extraction_report(
             "summary": external_shell_result.get("summary", {}),
             "surfaces": external_shell_result.get("surfaces", []),
             "artifacts": external_shell_result.get("artifacts", {}),
+        },
+        "opening_integration": {
+            "summary": opening_integration_result.get("summary", {}),
+            "opening_surfaces": opening_integration_result.get("opening_surfaces", []),
+            "artifacts": opening_integration_result.get("artifacts", {}),
         },
     }
 

@@ -214,6 +214,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "internal_boundary",
                 "external_candidates",
                 "external_shell",
+                "opening_integration",
                 "classifying",
                 "complete",
             ]

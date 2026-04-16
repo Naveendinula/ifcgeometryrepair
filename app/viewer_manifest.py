@@ -9,9 +9,12 @@ def build_viewer_manifest(job_id: str, output_payload: dict[str, Any]) -> dict[s
     preflight = output_payload.get("preflight", {})
     external_shell = output_payload.get("external_shell", {})
     external_shell_artifacts = external_shell.get("artifacts", {})
+    opening_integration = output_payload.get("opening_integration", {})
+    opening_integration_artifacts = opening_integration.get("artifacts", {})
     entities = [*_build_entities(output_payload.get("spaces", [])), *_build_entities(output_payload.get("openings", []))]
     failed_entities = [entity for entity in entities if entity["failed"]]
     surface_entities = _build_surface_entities(external_shell.get("surfaces", []))
+    opening_surface_entities = _build_opening_surface_entities(opening_integration.get("opening_surfaces", []))
     clash_groups = list(preflight.get("clash_groups", []))
 
     return {
@@ -24,6 +27,7 @@ def build_viewer_manifest(job_id: str, output_payload: dict[str, Any]) -> dict[s
             "failed_count": len(failed_entities),
             "valid_count": sum(1 for entity in entities if not entity["failed"]),
             "surface_count": len(surface_entities),
+            "opening_surface_count": len(opening_surface_entities),
             "unclassified_surface_count": sum(
                 1 for surface in surface_entities if surface.get("classification") == "unclassified"
             ),
@@ -61,6 +65,12 @@ def build_viewer_manifest(job_id: str, output_payload: dict[str, Any]) -> dict[s
                 "glb": None,
                 "count": len(surface_entities),
             },
+            "opening_integration": {
+                "available": bool(opening_integration_artifacts.get("obj")),
+                "obj": opening_integration_artifacts.get("obj"),
+                "glb": None,
+                "count": len(opening_surface_entities),
+            },
         },
         "clash_review": {
             "review_required": preflight.get("review_required", False),
@@ -70,6 +80,7 @@ def build_viewer_manifest(job_id: str, output_payload: dict[str, Any]) -> dict[s
         },
         "entities": entities,
         "surface_entities": surface_entities,
+        "opening_surface_entities": opening_surface_entities,
     }
 
 
@@ -161,3 +172,33 @@ def _marker_origin(placement: dict[str, Any] | None) -> list[float] | None:
     if isinstance(origin, list) and len(origin) == 3:
         return origin
     return None
+
+
+def _build_opening_surface_entities(surfaces: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    manifest_surfaces: list[dict[str, Any]] = []
+    for surface in surfaces:
+        surface_id = surface.get("surface_id", "")
+        manifest_surfaces.append(
+            {
+                "object_name": surface_id,
+                "selection_type": "opening_surface",
+                "surface_id": surface_id,
+                "name": surface.get("opening_name") or surface_id,
+                "entity_type": "OpeningSurface",
+                "boundary_type": surface.get("boundary_type"),
+                "boundary_surface_id": surface.get("boundary_surface_id"),
+                "boundary_classification": surface.get("boundary_classification"),
+                "opening_express_id": surface.get("opening_express_id"),
+                "opening_global_id": surface.get("opening_global_id"),
+                "space_global_id": surface.get("space_global_id"),
+                "space_express_id": surface.get("space_express_id"),
+                "classification": "opening",
+                "failed": False,
+                "valid": True,
+                "area_m2": surface.get("area_m2", 0.0),
+                "normal": surface.get("normal"),
+                "centroid": surface.get("centroid"),
+                "marker_origin": surface.get("centroid"),
+            }
+        )
+    return manifest_surfaces

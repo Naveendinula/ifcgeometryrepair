@@ -43,6 +43,7 @@ def create_app(
             alpha_wrap_alpha_m=settings.alpha_wrap_alpha_m,
             alpha_wrap_offset_m=settings.alpha_wrap_offset_m,
             preflight_clash_tolerance_m=settings.preflight_clash_tolerance_m,
+            min_surface_area_threshold_m2=settings.min_surface_area_threshold_m2,
         )
         service.start()
         app.state.job_service = service

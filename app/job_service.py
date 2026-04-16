@@ -26,6 +26,8 @@ from .ifc_editing import (
 from .ifc_extractor import ParsedIFC, PreparedIFC, build_extraction_report, parse_ifc_file, prepare_extraction
 from .internal_boundaries import InternalBoundaryResult, run_internal_boundary_generation
 from .models import JobState
+from .opening_integration import OpeningIntegrationResult, run_opening_integration
+from .output_export import export_2lsb_obj, export_2lsb_xml
 from .preflight import PreflightValidationResult, run_preflight_validation
 from .viewer_manifest import build_viewer_manifest
 
@@ -41,6 +43,7 @@ class JobProcessingBundle:
     internal_boundaries: InternalBoundaryResult
     external_candidates: ExternalCandidatesResult
     external_shell: ExternalShellResult
+    opening_integration: OpeningIntegrationResult
 
 
 class JobNotFoundError(FileNotFoundError):
@@ -68,6 +71,7 @@ class JobService:
         alpha_wrap_alpha_m: float = 1.0,
         alpha_wrap_offset_m: float = 0.01,
         preflight_clash_tolerance_m: float = 0.01,
+        min_surface_area_threshold_m2: float = 0.25,
     ) -> None:
         self.jobs_root = jobs_root
         self.stage_delay_seconds = stage_delay_seconds
@@ -80,6 +84,7 @@ class JobService:
         self.alpha_wrap_alpha_m = alpha_wrap_alpha_m
         self.alpha_wrap_offset_m = alpha_wrap_offset_m
         self.preflight_clash_tolerance_m = preflight_clash_tolerance_m
+        self.min_surface_area_threshold_m2 = min_surface_area_threshold_m2
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._stop_event = threading.Event()
         self._io_lock = threading.Lock()
@@ -488,6 +493,10 @@ class JobService:
                 self._fail_external_shell_job(job_id, bundle, str(exc))
                 return
 
+            self._transition(job_id, "opening_integration", "Projecting openings onto boundary surfaces")
+            self._sleep_between_stages()
+            bundle = self._run_opening_integration(job_id, bundle)
+
             self._transition(job_id, "classifying", "Building extraction report")
             self._sleep_between_stages()
             self._run_classifying(job_id, bundle)
@@ -561,6 +570,7 @@ class JobService:
             internal_boundaries=InternalBoundaryResult(payload={}),
             external_candidates=ExternalCandidatesResult(payload={}),
             external_shell=ExternalShellResult(payload={}),
+            opening_integration=OpeningIntegrationResult(payload={}),
         )
 
     def _run_preflight(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -595,6 +605,7 @@ class JobService:
             internal_boundaries=bundle.internal_boundaries,
             external_candidates=bundle.external_candidates,
             external_shell=bundle.external_shell,
+            opening_integration=bundle.opening_integration,
         )
 
     def _run_internal_boundary(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -633,6 +644,7 @@ class JobService:
             internal_boundaries=internal_boundaries,
             external_candidates=bundle.external_candidates,
             external_shell=bundle.external_shell,
+            opening_integration=bundle.opening_integration,
         )
 
     def _run_external_candidates(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -665,6 +677,7 @@ class JobService:
             internal_boundaries=bundle.internal_boundaries,
             external_candidates=external_candidates,
             external_shell=bundle.external_shell,
+            opening_integration=bundle.opening_integration,
         )
 
     def _run_external_shell(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -725,6 +738,53 @@ class JobService:
             internal_boundaries=bundle.internal_boundaries,
             external_candidates=bundle.external_candidates,
             external_shell=external_shell,
+            opening_integration=bundle.opening_integration,
+        )
+
+    def _run_opening_integration(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        debug_data = self._load_debug(job_id)
+        threshold_m = float(
+            debug_data.get("options", {}).get("internal_boundary_thickness_threshold_m")
+            or self.internal_boundary_thickness_threshold_m
+        )
+        min_area_m2 = float(
+            debug_data.get("options", {}).get("min_surface_area_threshold_m2")
+            or self.min_surface_area_threshold_m2
+        )
+        opening_integration = run_opening_integration(
+            job_id,
+            self._job_dir(job_id),
+            bundle.preprocessing.result,
+            bundle.internal_boundaries.payload,
+            bundle.external_candidates.payload,
+            bundle.external_shell.payload,
+            threshold_m=threshold_m,
+            min_area_m2=min_area_m2,
+        )
+
+        def mutator(debug_data: dict[str, Any]) -> None:
+            debug_data["opening_integration_preview"] = {
+                "summary": opening_integration.payload.get("summary", {}),
+                "artifacts": opening_integration.payload.get("artifacts", {}),
+            }
+
+        self._update_debug(job_id, mutator)
+        self._append_log(
+            job_id,
+            (
+                "Opening integration complete: "
+                f"{opening_integration.payload['summary']['openings_processed']} openings processed, "
+                f"{opening_integration.payload['summary']['opening_surfaces_created']} opening surfaces created"
+            ),
+        )
+        return JobProcessingBundle(
+            prepared_ifc=bundle.prepared_ifc,
+            preprocessing=bundle.preprocessing,
+            preflight=bundle.preflight,
+            internal_boundaries=bundle.internal_boundaries,
+            external_candidates=bundle.external_candidates,
+            external_shell=bundle.external_shell,
+            opening_integration=opening_integration,
         )
 
     def _fail_external_shell_job(self, job_id: str, bundle: JobProcessingBundle, error_message: str) -> None:
@@ -798,11 +858,34 @@ class JobService:
             bundle.internal_boundaries.payload,
             bundle.external_candidates.payload,
             bundle.external_shell.payload,
+            opening_integration_result=bundle.opening_integration.payload,
             derivation_info=self._load_debug(job_id).get("derivation"),
         )
         self._write_json_file(self._job_dir(job_id) / "output.json", output_payload)
+
+        # Generate 2LSB export files.
+        geometry_dir = self._job_dir(job_id) / "geometry"
+        try:
+            export_2lsb_xml(
+                bundle.opening_integration.payload,
+                bundle.internal_boundaries.payload,
+                bundle.external_shell.payload,
+                geometry_dir / "2lsb_surfaces.xml",
+            )
+        except Exception:
+            self._append_log(job_id, "Warning: XML export failed")
+        try:
+            export_2lsb_obj(
+                bundle.opening_integration.payload,
+                bundle.internal_boundaries.payload,
+                bundle.external_shell.payload,
+                geometry_dir / "2lsb_surfaces.obj",
+            )
+        except Exception:
+            self._append_log(job_id, "Warning: OBJ export failed")
+
         viewer_manifest = build_viewer_manifest(job_id, output_payload)
-        self._write_json_file(self._job_dir(job_id) / "geometry" / "viewer_manifest.json", viewer_manifest)
+        self._write_json_file(geometry_dir / "viewer_manifest.json", viewer_manifest)
         self._update_debug(job_id, lambda debug_data: debug_data.update({"result": output_payload}))
         self._append_log(
             job_id,
