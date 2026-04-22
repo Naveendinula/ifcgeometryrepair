@@ -3,6 +3,7 @@ app/__init__.py
 app/config.py
 app/external_candidates.py
 app/external_shell.py
+app/gbxml_export.py
 app/geometry_worker.py
 app/ifc_editing.py
 app/ifc_extractor.py
@@ -30,3 +31,4 @@ tests/test_mesh_normalizer.py
 tests/test_opening_integration.py
 tests/test_output_export.py
 tests/test_preflight.py
+tests/test_viewer_manifest.py

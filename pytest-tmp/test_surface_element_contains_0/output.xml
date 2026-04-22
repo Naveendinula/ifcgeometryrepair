@@ -36,10 +36,10 @@
       <AreaM2>1.5</AreaM2>
       <Geometry>
         <Ring index="0">
-          <Point>1.5 1.0 0.0</Point>
-          <Point>2.5 1.0 0.0</Point>
-          <Point>2.5 2.0 0.0</Point>
-          <Point>1.5 2.0 0.0</Point>
+          <Point>5.0 1.0 1.0</Point>
+          <Point>5.0 2.0 1.0</Point>
+          <Point>5.0 2.0 2.5</Point>
+          <Point>5.0 1.0 2.5</Point>
         </Ring>
       </Geometry>
     </Surface>
@@ -49,5 +49,6 @@
     <ExternalSurfaceCount>1</ExternalSurfaceCount>
     <OpeningSurfaceCount>1</OpeningSurfaceCount>
     <TotalOpeningAreaM2>1.5</TotalOpeningAreaM2>
+    <MinSurfaceAreaThresholdM2>0.25</MinSurfaceAreaThresholdM2>
   </Summary>
 </SecondLevelSpaceBoundaries>

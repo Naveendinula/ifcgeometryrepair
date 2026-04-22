@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -69,6 +69,11 @@ class IntersectionProjectionResult:
     shared_plane_point: np.ndarray
     shared_basis_u: np.ndarray
     shared_basis_v: np.ndarray
+    raw_left_polygons: list[Polygon] = field(default_factory=list)
+    raw_right_polygons: list[Polygon] = field(default_factory=list)
+    raw_shared_polygons: list[Polygon] = field(default_factory=list)
+    rejection_code: str | None = None
+    rejection_message: str | None = None
 
 
 def run_internal_boundary_generation(
@@ -105,15 +110,15 @@ def run_internal_boundary_generation(
     candidate_pairs = _generate_candidate_pairs(processed_spaces, threshold_m)
     oriented_surfaces: list[dict[str, Any]] = []
     shared_surfaces: list[dict[str, Any]] = []
+    rejected_shared_components: list[dict[str, Any]] = []
     adjacencies: list[dict[str, Any]] = []
     obj_meshes: list[dict[str, Any]] = []
 
     for pair_index, (space_a, space_b) in enumerate(candidate_pairs):
         pair_result = intersection_projection_sets(space_a, space_b, threshold_m, pair_index)
-        if not pair_result["oriented_surfaces"]:
-            continue
-
-        adjacencies.append(pair_result["adjacency"])
+        rejected_shared_components.extend(pair_result.get("rejected_shared_components", []))
+        if pair_result["oriented_surfaces"]:
+            adjacencies.append(pair_result["adjacency"])
         oriented_surfaces.extend(pair_result["oriented_surfaces"])
         shared_surfaces.extend(pair_result["shared_surfaces"])
         obj_meshes.extend(pair_result["shared_meshes"])
@@ -135,12 +140,14 @@ def run_internal_boundary_generation(
             "adjacent_pair_count": len(adjacencies),
             "oriented_surface_count": len(oriented_surfaces),
             "shared_surface_count": len(shared_surfaces),
+            "rejected_shared_component_count": len(rejected_shared_components),
             "total_oriented_area_m2": float(sum(surface["area_m2"] for surface in oriented_surfaces)),
             "total_shared_area_m2": float(sum(surface["area_m2"] for surface in shared_surfaces)),
         },
         "adjacencies": adjacencies,
         "oriented_surfaces": oriented_surfaces,
         "shared_surfaces": shared_surfaces,
+        "rejected_shared_components": rejected_shared_components,
         "skipped_spaces": skipped_spaces,
         "artifacts": artifacts,
     }
@@ -158,12 +165,30 @@ def intersection_projection(
     epsilon: float = OPPOSITE_NORMAL_EPSILON,
 ) -> IntersectionProjectionResult:
     if float(np.dot(left.normal, right.normal)) >= -epsilon:
-        return _empty_projection_result(left)
+        return _empty_projection_result(
+            left,
+            rejection_code="non_opposite_normals",
+            rejection_message=(
+                f'Polygons "{left.polygon_id}" and "{right.polygon_id}" are not approximately opposite within epsilon.'
+            ),
+        )
 
     if _polygon_exceeds_plane_threshold(left, right.plane_point, right.normal, threshold_m):
-        return _empty_projection_result(left)
+        return _empty_projection_result(
+            left,
+            rejection_code="pair_distance_exceeds_threshold",
+            rejection_message=(
+                f'Polygon "{left.polygon_id}" exceeds the opposite-plane distance threshold against "{right.polygon_id}".'
+            ),
+        )
     if _polygon_exceeds_plane_threshold(right, left.plane_point, left.normal, threshold_m):
-        return _empty_projection_result(left)
+        return _empty_projection_result(
+            left,
+            rejection_code="pair_distance_exceeds_threshold",
+            rejection_message=(
+                f'Polygon "{right.polygon_id}" exceeds the opposite-plane distance threshold against "{left.polygon_id}".'
+            ),
+        )
 
     projected_left_on_right = _project_polygon_to_plane(
         left,
@@ -196,18 +221,22 @@ def intersection_projection(
         midpoint_basis_v,
     )
 
+    raw_left_polygons = clip_intersection(projected_left_on_right, right.polygon_2d)
+    raw_right_polygons = clip_intersection(projected_right_on_left, left.polygon_2d)
+    raw_shared_polygons = clip_intersection(projected_left_on_midpoint, projected_right_on_midpoint)
+
     left_polygons = _normalize_projected_results(
-        clip_intersection(projected_left_on_right, right.polygon_2d),
+        raw_left_polygons,
         source_normal=left.normal,
         plane_normal=right.normal,
     )
     right_polygons = _normalize_projected_results(
-        clip_intersection(projected_right_on_left, left.polygon_2d),
+        raw_right_polygons,
         source_normal=right.normal,
         plane_normal=left.normal,
     )
     shared_polygons = _normalize_projected_results(
-        clip_intersection(projected_left_on_midpoint, projected_right_on_midpoint),
+        raw_shared_polygons,
         source_normal=midpoint_normal,
         plane_normal=midpoint_normal,
     )
@@ -220,6 +249,9 @@ def intersection_projection(
         shared_plane_point=midpoint_point,
         shared_basis_u=midpoint_basis_u,
         shared_basis_v=midpoint_basis_v,
+        raw_left_polygons=raw_left_polygons,
+        raw_right_polygons=raw_right_polygons,
+        raw_shared_polygons=raw_shared_polygons,
     )
 
 
@@ -232,51 +264,70 @@ def intersection_projection_sets(
     oriented_surfaces: list[dict[str, Any]] = []
     shared_surfaces: list[dict[str, Any]] = []
     shared_meshes: list[dict[str, Any]] = []
+    rejected_shared_components: list[dict[str, Any]] = []
     adjacency_oriented_ids: list[str] = []
     adjacency_shared_ids: list[str] = []
+    adjacency_rejected_shared_ids: list[str] = []
     surface_index = 0
 
     for polygon_a in space_a.polygons:
         for polygon_b in space_b.polygons:
             result = intersection_projection(polygon_a, polygon_b, threshold_m)
-            if not result.left_polygons and not result.right_polygons:
+            if (
+                not result.left_polygons
+                and not result.right_polygons
+                and not result.shared_polygons
+                and not result.raw_left_polygons
+                and not result.raw_right_polygons
+                and not result.raw_shared_polygons
+            ):
                 continue
 
-            shared_sorted = _sort_polygons_by_reference(
-                result.shared_polygons,
+            shared_components = _build_projection_components(
+                result.raw_shared_polygons,
                 result.shared_plane_point,
                 result.shared_basis_u,
                 result.shared_basis_v,
+                result.shared_normal,
+                result.shared_normal,
                 result.shared_plane_point,
                 result.shared_basis_u,
                 result.shared_basis_v,
             )
-            left_sorted = _sort_polygons_by_reference(
-                result.left_polygons,
+            left_components = _build_projection_components(
+                result.raw_left_polygons,
                 right_plane_point := polygon_b.plane_point,
                 right_basis_u := polygon_b.basis_u,
                 right_basis_v := polygon_b.basis_v,
+                polygon_a.normal,
+                polygon_b.normal,
                 result.shared_plane_point,
                 result.shared_basis_u,
                 result.shared_basis_v,
             )
-            right_sorted = _sort_polygons_by_reference(
-                result.right_polygons,
+            right_components = _build_projection_components(
+                result.raw_right_polygons,
                 left_plane_point := polygon_a.plane_point,
                 left_basis_u := polygon_a.basis_u,
                 left_basis_v := polygon_a.basis_v,
+                polygon_b.normal,
+                polygon_a.normal,
                 result.shared_plane_point,
                 result.shared_basis_u,
                 result.shared_basis_v,
             )
 
-            group_count = max(len(shared_sorted), len(left_sorted), len(right_sorted))
+            group_count = max(len(shared_components), len(left_components), len(right_components))
             for group_index in range(group_count):
-                shared_polygon = shared_sorted[group_index] if group_index < len(shared_sorted) else None
-                left_polygon = left_sorted[group_index] if group_index < len(left_sorted) else None
-                right_polygon = right_sorted[group_index] if group_index < len(right_sorted) else None
+                shared_component = shared_components[group_index] if group_index < len(shared_components) else None
+                left_component = left_components[group_index] if group_index < len(left_components) else None
+                right_component = right_components[group_index] if group_index < len(right_components) else None
 
-                shared_surface_id = f"ib_{pair_index}_{surface_index}" if shared_polygon is not None else None
+                shared_polygon = shared_component["polygon"] if shared_component is not None else None
+                left_polygon = left_component["polygon"] if left_component is not None else None
+                right_polygon = right_component["polygon"] if right_component is not None else None
+
+                shared_surface_id = f"ib_{pair_index}_{surface_index}"
                 left_surface_id = f"ibo_{pair_index}_{surface_index}_a" if left_polygon is not None else None
                 right_surface_id = f"ibo_{pair_index}_{surface_index}_b" if right_polygon is not None else None
 
@@ -314,7 +365,25 @@ def intersection_projection_sets(
                     oriented_surfaces.append(right_surface)
                     adjacency_oriented_ids.append(right_surface_id)
 
-                if shared_polygon is not None and shared_surface_id is not None:
+                rejection = _build_rejected_shared_component(
+                    pair_index=pair_index,
+                    group_index=group_index,
+                    polygon_a=polygon_a,
+                    polygon_b=polygon_b,
+                    shared_surface_id=shared_surface_id,
+                    left_surface_id=left_surface_id,
+                    right_surface_id=right_surface_id,
+                    left_component=left_component,
+                    right_component=right_component,
+                    shared_component=shared_component,
+                    left_component_count=len(left_components),
+                    right_component_count=len(right_components),
+                    shared_component_count=len(shared_components),
+                )
+                if rejection is not None:
+                    rejected_shared_components.append(rejection)
+                    adjacency_rejected_shared_ids.append(shared_surface_id)
+                elif shared_polygon is not None:
                     shared_surface, shared_mesh = _build_shared_surface_payload(
                         surface_id=shared_surface_id,
                         polygon=shared_polygon,
@@ -338,6 +407,7 @@ def intersection_projection_sets(
             "oriented_surfaces": [],
             "shared_surfaces": [],
             "shared_meshes": [],
+            "rejected_shared_components": rejected_shared_components,
         }
 
     adjacency = {
@@ -347,6 +417,8 @@ def intersection_projection_sets(
         "space_b_express_id": space_b.express_id,
         "oriented_surface_ids": adjacency_oriented_ids,
         "shared_surface_ids": adjacency_shared_ids,
+        "rejected_shared_surface_ids": adjacency_rejected_shared_ids,
+        "rejected_shared_component_count": len(rejected_shared_components),
         "shared_area_m2": float(sum(surface["area_m2"] for surface in shared_surfaces)),
     }
     return {
@@ -354,6 +426,7 @@ def intersection_projection_sets(
         "oriented_surfaces": oriented_surfaces,
         "shared_surfaces": shared_surfaces,
         "shared_meshes": shared_meshes,
+        "rejected_shared_components": rejected_shared_components,
     }
 
 
@@ -559,6 +632,145 @@ def _sort_polygons_by_reference(
     return sorted(polygons, key=sort_key)
 
 
+def _build_projection_components(
+    polygons: list[Polygon],
+    plane_point: np.ndarray,
+    basis_u: np.ndarray,
+    basis_v: np.ndarray,
+    source_normal: np.ndarray,
+    plane_normal: np.ndarray,
+    reference_plane_point: np.ndarray,
+    reference_basis_u: np.ndarray,
+    reference_basis_v: np.ndarray,
+) -> list[dict[str, Any]]:
+    components: list[dict[str, Any]] = []
+    for polygon in _sort_polygons_by_reference(
+        polygons,
+        plane_point,
+        basis_u,
+        basis_v,
+        reference_plane_point,
+        reference_basis_u,
+        reference_basis_v,
+    ):
+        components.append(
+            {
+                "raw_polygon": polygon,
+                "polygon": _normalize_projected_polygon(
+                    polygon,
+                    source_normal=source_normal,
+                    plane_normal=plane_normal,
+                ),
+                "raw_area_m2": float(polygon.area),
+            }
+        )
+    return components
+
+
+def _normalize_projected_polygon(
+    polygon: Polygon,
+    *,
+    source_normal: np.ndarray,
+    plane_normal: np.ndarray,
+) -> Polygon | None:
+    if polygon.is_empty or float(polygon.area) < SLIVER_AREA_THRESHOLD_M2:
+        return None
+    exterior_ccw = float(np.dot(source_normal, plane_normal)) >= 0.0
+    oriented = orient_polygon(polygon, sign=1.0 if exterior_ccw else -1.0)
+    if oriented.is_empty or float(oriented.area) < SLIVER_AREA_THRESHOLD_M2:
+        return None
+    return oriented
+
+
+def _build_rejected_shared_component(
+    *,
+    pair_index: int,
+    group_index: int,
+    polygon_a: PlanarPolygon,
+    polygon_b: PlanarPolygon,
+    shared_surface_id: str,
+    left_surface_id: str | None,
+    right_surface_id: str | None,
+    left_component: dict[str, Any] | None,
+    right_component: dict[str, Any] | None,
+    shared_component: dict[str, Any] | None,
+    left_component_count: int,
+    right_component_count: int,
+    shared_component_count: int,
+) -> dict[str, Any] | None:
+    counts_mismatch = len({left_component_count, right_component_count, shared_component_count}) > 1
+    missing_component = left_component is None or right_component is None or shared_component is None
+    rejected_left = left_component is not None and left_component.get("polygon") is None
+    rejected_right = right_component is not None and right_component.get("polygon") is None
+    rejected_shared = shared_component is not None and shared_component.get("polygon") is None
+
+    rejection_code: str | None = None
+    rejection_message: str | None = None
+    if counts_mismatch and missing_component:
+        rejection_code = "component_count_mismatch"
+        rejection_message = (
+            f'Midpoint component group {group_index} for spaces "{polygon_a.space_global_id or polygon_a.space_express_id}" '
+            f'and "{polygon_b.space_global_id or polygon_b.space_express_id}" does not map one-to-one after sorting '
+            f"(left={left_component_count}, right={right_component_count}, shared={shared_component_count})."
+        )
+    elif shared_component is None:
+        rejection_code = "missing_shared_overlap"
+        rejection_message = (
+            f'Midpoint component group {group_index} for polygons "{polygon_a.polygon_id}" and "{polygon_b.polygon_id}" '
+            "does not have a valid midpoint overlap."
+        )
+    elif rejected_shared:
+        rejection_code = "degenerate_midpoint_overlap"
+        rejection_message = (
+            f'Midpoint component group {group_index} for polygons "{polygon_a.polygon_id}" and "{polygon_b.polygon_id}" '
+            "collapsed below the shared sliver threshold."
+        )
+    elif left_component is None or right_component is None:
+        rejection_code = "missing_projected_overlap"
+        rejection_message = (
+            f'Midpoint component group {group_index} for polygons "{polygon_a.polygon_id}" and "{polygon_b.polygon_id}" '
+            "is missing one side of the clipped overlap set."
+        )
+    elif rejected_left or rejected_right:
+        rejection_code = "degenerate_projected_overlap"
+        rejection_message = (
+            f'Midpoint component group {group_index} for polygons "{polygon_a.polygon_id}" and "{polygon_b.polygon_id}" '
+            "collapsed below the projected-overlap sliver threshold."
+        )
+
+    if rejection_code is None:
+        return None
+
+    return {
+        "pair_index": pair_index,
+        "group_index": group_index,
+        "shared_surface_id": shared_surface_id,
+        "space_a_global_id": polygon_a.space_global_id,
+        "space_a_express_id": polygon_a.space_express_id,
+        "space_b_global_id": polygon_b.space_global_id,
+        "space_b_express_id": polygon_b.space_express_id,
+        "source_surface_a_id": polygon_a.source_surface_id,
+        "source_surface_b_id": polygon_b.source_surface_id,
+        "source_polygon_a_id": polygon_a.polygon_id,
+        "source_polygon_b_id": polygon_b.polygon_id,
+        "oriented_surface_ids": [surface_id for surface_id in (left_surface_id, right_surface_id) if surface_id],
+        "left_area_m2": _component_area(left_component),
+        "right_area_m2": _component_area(right_component),
+        "shared_area_m2": _component_area(shared_component),
+        "rejection_code": rejection_code,
+        "rejection_message": rejection_message,
+    }
+
+
+def _component_area(component: dict[str, Any] | None) -> float | None:
+    if component is None:
+        return None
+    raw_area = component.get("raw_area_m2")
+    if raw_area is None:
+        return None
+    return float(raw_area)
+
+
 def _build_oriented_surface_payload(
     *,
     surface_id: str,
@@ -712,7 +924,12 @@ def _polygon_ring_points_3d(
     return points
 
 
-def _empty_projection_result(reference: PlanarPolygon) -> IntersectionProjectionResult:
+def _empty_projection_result(
+    reference: PlanarPolygon,
+    *,
+    rejection_code: str | None = None,
+    rejection_message: str | None = None,
+) -> IntersectionProjectionResult:
     return IntersectionProjectionResult(
         left_polygons=[],
         right_polygons=[],
@@ -721,6 +938,11 @@ def _empty_projection_result(reference: PlanarPolygon) -> IntersectionProjection
         shared_plane_point=reference.plane_point,
         shared_basis_u=reference.basis_u,
         shared_basis_v=reference.basis_v,
+        raw_left_polygons=[],
+        raw_right_polygons=[],
+        raw_shared_polygons=[],
+        rejection_code=rejection_code,
+        rejection_message=rejection_message,
     )
 
 

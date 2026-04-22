@@ -64,6 +64,7 @@ def build_extraction_report(
     external_shell_result: dict[str, Any],
     opening_integration_result: dict[str, Any] | None = None,
     derivation_info: dict[str, Any] | None = None,
+    gbxml_preflight_result: dict[str, Any] | None = None,
     *,
     success: bool = True,
     error: str | None = None,
@@ -71,6 +72,7 @@ def build_extraction_report(
     preflight_result = preflight_result or {}
     opening_integration_result = opening_integration_result or {}
     derivation_info = derivation_info or None
+    gbxml_preflight_result = gbxml_preflight_result or {}
     geometry_by_express_id = {
         entity["express_id"]: entity for entity in preprocessing_result.get("entities", [])
     }
@@ -116,6 +118,7 @@ def build_extraction_report(
         if not entity["valid"]
     ]
     preflight_blocker_count = len(preflight_result.get("blockers", []))
+    gbxml_blocker_count = len(gbxml_preflight_result.get("blockers", []))
 
     return {
         "success": success,
@@ -127,7 +130,7 @@ def build_extraction_report(
             "number_of_spaces": len(spaces),
             "number_of_openings": len(openings),
             "entities_processed": len(spaces) + len(openings),
-            "issues_found": len(missing_spaces) + len(invalid_solids) + preflight_blocker_count,
+            "issues_found": len(missing_spaces) + len(invalid_solids) + preflight_blocker_count + gbxml_blocker_count,
         },
         "geometry_sanity": {
             "number_of_spaces": len(spaces),
@@ -185,6 +188,15 @@ def build_extraction_report(
             "summary": opening_integration_result.get("summary", {}),
             "opening_surfaces": opening_integration_result.get("opening_surfaces", []),
             "artifacts": opening_integration_result.get("artifacts", {}),
+        },
+        "gbxml_preflight": {
+            "status": gbxml_preflight_result.get("status"),
+            "summary": gbxml_preflight_result.get("summary", {}),
+            "warnings": gbxml_preflight_result.get("warnings", []),
+            "blockers": gbxml_preflight_result.get("blockers", []),
+            "omitted_entities": gbxml_preflight_result.get("omitted_entities", []),
+            "zone_summary": gbxml_preflight_result.get("zone_summary", []),
+            "artifacts": gbxml_preflight_result.get("artifacts", {}),
         },
     }
 

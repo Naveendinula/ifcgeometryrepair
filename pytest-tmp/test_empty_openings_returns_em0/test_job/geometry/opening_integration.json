@@ -2,7 +2,7 @@
   "job_id": "test-job-001",
   "threshold_m": 0.5,
   "min_area_m2": 0.01,
-  "clip_backend": "shapely",
+  "clip_backend": "pyclipper",
   "summary": {
     "openings_processed": 0,
     "opening_surfaces_created": 0,

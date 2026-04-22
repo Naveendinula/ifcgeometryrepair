@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gbXML xmlns="http://www.gbxml.org/schema" temperatureUnit="C" lengthUnit="Meters" areaUnit="SquareMeters" volumeUnit="CubicMeters" version="6.01">
+  <Campus id="campus_1">
+    <Building id="building_1" buildingType="Unknown" />
+  </Campus>
+</gbXML>

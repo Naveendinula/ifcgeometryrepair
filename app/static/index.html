@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IFC Geometry Repair</title>
-    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/styles.css?v=20260416-2" />
     <script type="importmap">
       {
         "imports": {
@@ -97,6 +97,10 @@
             <a id="status-link" href="#" class="quick-link hidden">Status JSON</a>
             <a id="output-link" href="#" class="quick-link hidden">Output JSON</a>
             <a id="viewer-manifest-link" href="#" class="quick-link hidden">Viewer Manifest</a>
+            <a id="gbxml-preflight-link" href="#" class="quick-link hidden">gbXML Preflight</a>
+            <a id="export-xml-link" href="#" class="quick-link hidden">2LSB XML</a>
+            <a id="export-obj-link" href="#" class="quick-link hidden">2LSB OBJ</a>
+            <a id="export-gbxml-link" href="#" class="quick-link hidden">2LSB gbXML</a>
           </div>
         </div>
       </header>
@@ -119,6 +123,8 @@
             <div class="viewer-stage">
               <canvas id="viewer-canvas"></canvas>
 
+              <div id="validation-legend" class="validation-legend hidden"></div>
+
               <div id="viewer-empty" class="viewer-empty">
                 <p class="viewer-empty__kicker">Workspace Ready</p>
                 <h3>Geometry workspace</h3>
@@ -134,8 +140,14 @@
             </div>
 
             <div class="stage-toolbar">
-              <p class="stage-toolbar__hint">Use the Inspect tab to toggle layers and browse entities.</p>
+              <p class="stage-toolbar__hint">Use Open Filters for visual checks and Open Exports for XML, OBJ, and gbXML downloads.</p>
               <div class="stage-toolbar__group">
+                <button id="open-filters-button" type="button" class="button button--ghost">
+                  Open Filters
+                </button>
+                <button id="open-exports-button" type="button" class="button button--ghost">
+                  Open Exports
+                </button>
                 <button id="reset-view-button" type="button" class="button button--slate button--ghost">
                   Reset View
                 </button>
@@ -399,6 +411,92 @@
                         <input data-layer-toggle="surfaces" type="checkbox" />
                       </span>
                     </label>
+
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Internal Boundaries</strong>
+                        <small>Adjacent space shared boundary surfaces</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-internal-boundaries-count" class="layer-count">0</span>
+                        <input data-layer-toggle="internalBoundaries" type="checkbox" />
+                      </span>
+                    </label>
+
+                    <label class="layer-row">
+                      <span class="layer-row__copy">
+                        <strong>Opening Surfaces</strong>
+                        <small>Projected opening cutouts on boundaries</small>
+                      </span>
+                      <span class="layer-row__actions">
+                        <span id="layer-opening-integration-count" class="layer-count">0</span>
+                        <input data-layer-toggle="openingIntegration" type="checkbox" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </section>
+
+              <section class="rail-section">
+                <button
+                  type="button"
+                  class="disclosure-toggle"
+                  data-disclosure-button="validationFilters"
+                  aria-expanded="false"
+                >
+                  <span>Validation Filters</span>
+                  <small>Visual checks for 2LSB surface quality</small>
+                </button>
+
+                <div id="validation-filters-panel" class="data-panel hidden">
+                  <div class="filter-list">
+                    <label class="filter-row">
+                      <input type="checkbox" data-validation-filter="semantic" />
+                      <span class="filter-row__copy">
+                        <strong>Semantic Classification</strong>
+                        <small>Internal vs External boundary coloring</small>
+                      </span>
+                    </label>
+
+                    <label class="filter-row">
+                      <input type="checkbox" data-validation-filter="voids" />
+                      <span class="filter-row__copy">
+                        <strong>2LSB-2b Voids</strong>
+                        <small>Highlight internal void surfaces</small>
+                      </span>
+                    </label>
+
+                    <label class="filter-row">
+                      <input type="checkbox" data-validation-filter="openings" />
+                      <span class="filter-row__copy">
+                        <strong>Opening vs Opaque</strong>
+                        <small>Show opening surface overlays</small>
+                      </span>
+                    </label>
+
+                    <label class="filter-row">
+                      <input type="checkbox" data-validation-filter="normals" />
+                      <span class="filter-row__copy">
+                        <strong>Surface Normals</strong>
+                        <small>Backface culling and normal direction arrows</small>
+                      </span>
+                    </label>
+
+                    <label class="filter-row">
+                      <input type="checkbox" data-validation-filter="lowArea" />
+                      <span class="filter-row__copy">
+                        <strong>Low-Area Surfaces</strong>
+                        <small>Highlight surfaces below area threshold</small>
+                      </span>
+                    </label>
+
+                    <label class="filter-row">
+                      <input type="checkbox" data-validation-filter="thinSpace" />
+                      <span class="filter-row__copy">
+                        <strong>Thin Space Proximity</strong>
+                        <small>Flag internal boundaries with near-zero thickness</small>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </section>
@@ -462,6 +560,24 @@
                   <a id="status-link-rail" href="#" class="quick-link hidden">Status JSON</a>
                   <a id="output-link-rail" href="#" class="quick-link hidden">Output JSON</a>
                   <a id="viewer-manifest-link-rail" href="#" class="quick-link hidden">Viewer Manifest</a>
+                </div>
+              </section>
+
+              <section class="rail-section rail-section--compact">
+                <div class="rail-card__header rail-card__header--tight">
+                  <h3>Exports</h3>
+                  <span class="card-caption">2LSB deliverables</span>
+                </div>
+
+                <p id="export-links-empty" class="viewer-selection-empty">
+                  Create or rerun a complete job to generate 2LSB XML, OBJ, and gbXML exports.
+                </p>
+                <p id="gbxml-readiness-note" class="viewer-selection-empty hidden"></p>
+                <div id="export-links-rail" class="quick-links quick-links--rail hidden">
+                  <a id="gbxml-preflight-link-rail" href="#" class="quick-link hidden">gbXML Preflight</a>
+                  <a id="export-xml-link-rail" href="#" class="quick-link hidden">2LSB XML</a>
+                  <a id="export-obj-link-rail" href="#" class="quick-link hidden">2LSB OBJ</a>
+                  <a id="export-gbxml-link-rail" href="#" class="quick-link hidden">2LSB gbXML</a>
                 </div>
               </section>
 
@@ -549,6 +665,24 @@
                       </div>
                     </dl>
                   </div>
+
+                  <div class="metrics-group">
+                    <h4>gbXML</h4>
+                    <dl class="stacked-detail-list">
+                      <div>
+                        <dt>Readiness</dt>
+                        <dd id="gbxml-status">-</dd>
+                      </div>
+                      <div>
+                        <dt>Blockers</dt>
+                        <dd id="gbxml-blocker-count">0</dd>
+                      </div>
+                      <div>
+                        <dt>Warnings</dt>
+                        <dd id="gbxml-warning-count">0</dd>
+                      </div>
+                    </dl>
+                  </div>
                 </div>
               </section>
 
@@ -587,6 +721,6 @@
       </section>
     </main>
 
-    <script type="module" src="/static/app.js?v=20260415-3"></script>
+    <script type="module" src="/static/app.js?v=20260417-1"></script>
   </body>
 </html>

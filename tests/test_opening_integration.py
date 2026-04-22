@@ -508,3 +508,182 @@ class TestMergeExternalSurfaces:
         assert len(merged) == 1
         assert merged[0]["classification"] == "roof"
         assert merged[0]["surface_id"] == "ext_orphan"
+
+
+# ===========================================================================
+# Phase 1 regression tests – classification-based opening dedup priority
+# ===========================================================================
+
+
+class TestOpeningDedupPriority:
+    """Opening dedup must prefer internal shared boundaries over internal_void."""
+
+    def test_internal_beats_internal_void_in_dedup(self) -> None:
+        """When an opening matches both an internal shared surface and an
+        internal_void shell surface, the shared internal should win because
+        classification priority: internal (1) < internal_void (2)."""
+        boundary_internal = self._make_boundary_surface(
+            surface_id="shared_wall",
+            normal=[0, 0, 1],
+            plane_point=[0, 0, 0],
+            ring_3d=[[0, 0, 0], [4, 0, 0], [4, 3, 0], [0, 3, 0]],
+        )
+        boundary_void = self._make_external_surface(
+            surface_id="void_wall",
+            classification="internal_void",
+            normal=[0, 0, 1],
+            plane_point=[0, 0, 0],
+            ring_3d=[[0, 0, 0], [4, 0, 0], [4, 3, 0], [0, 3, 0]],
+        )
+        opening = self._make_opening_entity(
+            center=(2.0, 1.5, 0.0),
+            width=1.0,
+            height=1.0,
+            depth=0.2,
+            face_normal=(0, 0, 1),
+        )
+
+        result = opening_integration.project_openings_onto_boundaries(
+            opening_entities=[opening],
+            internal_surfaces=[boundary_internal],
+            external_surfaces=[boundary_void],
+            threshold_m=0.5,
+            min_area_m2=0.01,
+        )
+
+        # Exactly one opening surface should survive dedup
+        assert result["summary"]["opening_surfaces_created"] == 1
+        # The surviving opening must be parented on the shared internal surface
+        surviving = result["opening_surfaces"][0]
+        assert surviving["boundary_surface_id"] == "shared_wall"
+        assert surviving["boundary_classification"] == "internal"
+
+    def test_external_wall_beats_internal_in_dedup(self) -> None:
+        """external_wall (priority 0) should beat internal (priority 1)."""
+        boundary_internal = self._make_boundary_surface(
+            surface_id="int_wall",
+            normal=[0, 0, 1],
+            plane_point=[0, 0, 0],
+            ring_3d=[[0, 0, 0], [4, 0, 0], [4, 3, 0], [0, 3, 0]],
+        )
+        boundary_ext = self._make_external_surface(
+            surface_id="ext_wall",
+            classification="external_wall",
+            normal=[0, 0, 1],
+            plane_point=[0, 0, 0],
+            ring_3d=[[0, 0, 0], [4, 0, 0], [4, 3, 0], [0, 3, 0]],
+        )
+        opening = self._make_opening_entity(
+            center=(2.0, 1.5, 0.0),
+            width=1.0,
+            height=1.0,
+            depth=0.2,
+            face_normal=(0, 0, 1),
+        )
+
+        result = opening_integration.project_openings_onto_boundaries(
+            opening_entities=[opening],
+            internal_surfaces=[boundary_internal],
+            external_surfaces=[boundary_ext],
+            threshold_m=0.5,
+            min_area_m2=0.01,
+        )
+
+        assert result["summary"]["opening_surfaces_created"] == 1
+        surviving = result["opening_surfaces"][0]
+        assert surviving["boundary_surface_id"] == "ext_wall"
+        assert surviving["boundary_classification"] == "external_wall"
+
+    # --- helpers (reuse the pattern from TestProjectOpeningsOntoBoundaries) ---
+
+    def _make_boundary_surface(
+        self,
+        *,
+        surface_id: str = "boundary_1",
+        normal: list[float] | None = None,
+        plane_point: list[float] | None = None,
+        ring_3d: list[list[float]] | None = None,
+    ) -> dict:
+        normal = normal or [0, 0, 1]
+        plane_point = plane_point or [0, 0, 0]
+        if ring_3d is None:
+            ring_3d = [[0, 0, 0], [4, 0, 0], [4, 3, 0], [0, 3, 0]]
+        return {
+            "oriented_surface_id": surface_id,
+            "space_global_id": "space-a",
+            "space_express_id": 1,
+            "space_name": "Space A",
+            "plane_normal": normal,
+            "plane_point": plane_point,
+            "centroid": [2, 1.5, 0],
+            "area_m2": 12.0,
+            "polygon_rings_3d": [ring_3d],
+        }
+
+    def _make_external_surface(
+        self,
+        *,
+        surface_id: str = "ext_1",
+        classification: str = "external_wall",
+        normal: list[float] | None = None,
+        plane_point: list[float] | None = None,
+        ring_3d: list[list[float]] | None = None,
+    ) -> dict:
+        normal = normal or [0, 0, 1]
+        plane_point = plane_point or [0, 0, 0]
+        if ring_3d is None:
+            ring_3d = [[0, 0, 0], [4, 0, 0], [4, 3, 0], [0, 3, 0]]
+        return {
+            "surface_id": surface_id,
+            "space_global_id": "space-a",
+            "space_express_id": 1,
+            "space_name": "Space A",
+            "classification": classification,
+            "normal": normal,
+            "plane_normal": normal,
+            "plane_point": plane_point,
+            "centroid": [2, 1.5, 0],
+            "area_m2": 12.0,
+            "polygon_rings_3d": [ring_3d],
+        }
+
+    def _make_opening_entity(
+        self,
+        *,
+        express_id: int = 100,
+        global_id: str = "opening-001",
+        name: str = "Window",
+        center: tuple[float, float, float] = (2.0, 1.5, 0.0),
+        width: float = 1.0,
+        height: float = 1.0,
+        depth: float = 0.2,
+        face_normal: tuple[float, float, float] = (0.0, 0.0, 1.0),
+    ) -> dict:
+        n = np.asarray(face_normal, dtype=np.float64)
+        n /= np.linalg.norm(n)
+        from app.external_shell import _plane_basis
+        bu, bv = _plane_basis(n)
+        c = np.asarray(center, dtype=np.float64)
+        w2, h2, d2 = width / 2, height / 2, depth / 2
+        corners_2d = [(-w2, -h2), (w2, -h2), (w2, h2), (-w2, h2)]
+        vertices = []
+        for u, v in corners_2d:
+            vertices.append((c + u * bu + v * bv + d2 * n).tolist())
+        for u, v in corners_2d:
+            vertices.append((c + u * bu + v * bv - d2 * n).tolist())
+        faces = [
+            [0, 1, 2], [0, 2, 3],
+            [4, 6, 5], [4, 7, 6],
+            [0, 4, 5], [0, 5, 1],
+            [2, 6, 7], [2, 7, 3],
+            [0, 3, 7], [0, 7, 4],
+            [1, 5, 6], [1, 6, 2],
+        ]
+        return {
+            "express_id": express_id,
+            "global_id": global_id,
+            "name": name,
+            "entity_type": "IfcOpeningElement",
+            "valid": True,
+            "mesh": {"vertices": vertices, "faces": faces},
+        }

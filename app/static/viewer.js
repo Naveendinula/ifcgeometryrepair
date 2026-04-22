@@ -1,10 +1,12 @@
 import {
   AmbientLight,
+  ArrowHelper,
   Box3,
   Color,
   DirectionalLight,
   DoubleSide,
   EdgesGeometry,
+  FrontSide,
   Group,
   LineBasicMaterial,
   LineSegments,
@@ -44,6 +46,8 @@ const LAYERS = {
   failed: "failed",
   shell: "envelopeShell",
   surfaces: "surfaceClassification",
+  internalBoundaries: "internalBoundaries",
+  openingIntegration: "openingIntegration",
 };
 
 const EMPTY = {
@@ -96,6 +100,17 @@ export class DebugViewer {
       gridFloorRoot: null,
       gridFloorMaterial: null,
       gridBaseSpan: 0,
+      validationFilters: {
+        semantic: false,
+        voids: false,
+        openings: false,
+        normals: false,
+        lowArea: false,
+        thinSpace: false,
+      },
+      savedMaterials: new Map(),
+      normalArrowGroup: null,
+      legendElement: options.legendElement || null,
     });
 
     this.layerObjectMaps = Object.fromEntries(Object.values(LAYERS).map((key) => [key, new Map()]));
@@ -107,6 +122,8 @@ export class DebugViewer {
       [LAYERS.failed]: normalizeElements(options.toggleFailed),
       [LAYERS.shell]: normalizeElements(options.toggleShell),
       [LAYERS.surfaces]: normalizeElements(options.toggleSurfaces),
+      [LAYERS.internalBoundaries]: normalizeElements(options.toggleInternalBoundaries),
+      [LAYERS.openingIntegration]: normalizeElements(options.toggleOpeningIntegration),
     };
     this.resetViewButtons = normalizeElements(options.resetViewButtons);
     this.fitViewButtons = normalizeElements(options.fitViewButtons);
@@ -184,19 +201,34 @@ export class DebugViewer {
 
     this.currentJobId = jobId;
     this.manifest = manifest;
-    this.entityMap = new Map([...manifest.entities, ...(manifest.surface_entities || [])].map((e) => [e.object_name, e]));
+    this.entityMap = new Map([
+      ...manifest.entities,
+      ...(manifest.surface_entities || []),
+      ...(manifest.opening_surface_entities || []),
+      ...(manifest.internal_boundary_entities || []),
+    ].map((e) => [e.object_name, e]));
     for (const link of this.manifestLinks) {
       link.href = manifestUrl;
       link.classList.remove("hidden");
     }
 
-    await Promise.all([
-      this.loadRawLayer(jobId, manifest.layers.raw_ifc_preview),
-      this.loadAggregateLayer(jobId, LAYERS.spaces, manifest.layers.normalized_spaces),
-      this.loadAggregateLayer(jobId, LAYERS.openings, manifest.layers.openings),
-      this.loadShellLayer(jobId, manifest.layers.envelope_shell),
-      this.loadAggregateLayer(jobId, LAYERS.surfaces, manifest.layers.surface_classification),
+    const layerResults = await Promise.allSettled([
+      this.loadLayerSafely("raw_ifc_preview", () => this.loadRawLayer(jobId, manifest.layers.raw_ifc_preview)),
+      this.loadLayerSafely("normalized_spaces", () => this.loadAggregateLayer(jobId, LAYERS.spaces, manifest.layers.normalized_spaces)),
+      this.loadLayerSafely("openings", () => this.loadAggregateLayer(jobId, LAYERS.openings, manifest.layers.openings)),
+      this.loadLayerSafely("envelope_shell", () => this.loadShellLayer(jobId, manifest.layers.envelope_shell)),
+      this.loadLayerSafely("surface_classification", () => this.loadAggregateLayer(jobId, LAYERS.surfaces, manifest.layers.surface_classification)),
+      this.loadLayerSafely("internal_boundaries", () => this.loadAggregateLayer(jobId, LAYERS.internalBoundaries, manifest.layers.internal_boundaries)),
+      this.loadLayerSafely("opening_integration", () => this.loadAggregateLayer(jobId, LAYERS.openingIntegration, manifest.layers.opening_integration)),
     ]);
+    const failedLayers = layerResults
+      .filter((result) => result.status === "rejected")
+      .map((result) => result.reason)
+      .filter(Boolean);
+    if (failedLayers.length > 0) {
+      console.warn("Viewer skipped one or more layers.", failedLayers);
+    }
+
     this.buildFailedLayer();
     this.contentBounds = this.computeContentBounds();
     this.focusBounds = this.computeFocusBounds() || this.contentBounds;
@@ -206,6 +238,10 @@ export class DebugViewer {
     this.setSceneActionState(true);
     this.refreshEntityBrowser();
     this.applyLayerVisibility();
+    if (!this.contentBounds && !this.focusBounds) {
+      this.renderEmptyState(EMPTY.unavailable);
+      return;
+    }
     this.renderInspectSummary(null);
     this.resize();
     this.fitCamera();
@@ -228,6 +264,9 @@ export class DebugViewer {
     this.gridFloorRoot = null;
     this.gridFloorMaterial = null;
     this.gridBaseSpan = 0;
+    this.validationFilters = { semantic: false, voids: false, openings: false, normals: false, lowArea: false, thinSpace: false };
+    this.savedMaterials.clear();
+    this.removeNormalArrows();
     this.modelRoot.position.set(0, 0, 0);
     for (const link of this.manifestLinks) {
       link.href = "#";
@@ -299,6 +338,15 @@ export class DebugViewer {
     this.modelRoot.add(object);
   }
 
+  async loadLayerSafely(layerName, loader) {
+    try {
+      await loader();
+    } catch (error) {
+      console.error(`Viewer layer "${layerName}" failed to load.`, error);
+      throw new Error(`Layer "${layerName}" failed to load: ${error?.message || "unknown error"}`);
+    }
+  }
+
   async loadAsset(jobId, objPath, glbPath) {
     const artifactPath = glbPath || objPath;
     if (!artifactPath) return new Group();
@@ -352,6 +400,8 @@ export class DebugViewer {
     if (layerId === LAYERS.failed) return new MeshBasicMaterial({ color: 0xda4757, transparent: true, opacity: 0.58, depthWrite: false, wireframe: true, side: DoubleSide });
     if (layerId === LAYERS.openings) return new MeshStandardMaterial({ color: 0x3259d7, transparent: true, opacity: 0.9, roughness: 0.58, metalness: 0.0, side: DoubleSide });
     if (layerId === LAYERS.surfaces) return new MeshStandardMaterial({ color: colorForSurfaceClassification(entity?.classification), transparent: true, opacity: 0.86, roughness: 0.46, metalness: 0.0, side: DoubleSide });
+    if (layerId === LAYERS.internalBoundaries) return new MeshStandardMaterial({ color: 0x95a3b2, transparent: true, opacity: 0.85, roughness: 0.5, metalness: 0.0, side: DoubleSide });
+    if (layerId === LAYERS.openingIntegration) return new MeshStandardMaterial({ color: 0x3259d7, transparent: true, opacity: 0.9, roughness: 0.46, metalness: 0.0, side: DoubleSide });
     return new MeshStandardMaterial({ color: colorForEntity(entity?.object_name || "entity"), transparent: true, opacity: 0.92, roughness: 0.72, metalness: 0.02, side: DoubleSide });
   }
 
@@ -398,6 +448,8 @@ export class DebugViewer {
     this.setToggleState(this.toggleGroups[LAYERS.failed], manifest.layers.failed_entities.available, true);
     this.setToggleState(this.toggleGroups[LAYERS.shell], manifest.layers.envelope_shell.available, false);
     this.setToggleState(this.toggleGroups[LAYERS.surfaces], manifest.layers.surface_classification.available, true);
+    this.setToggleState(this.toggleGroups[LAYERS.internalBoundaries], manifest.layers.internal_boundaries?.available || false, false);
+    this.setToggleState(this.toggleGroups[LAYERS.openingIntegration], manifest.layers.opening_integration?.available || false, false);
   }
 
   setToggleState(toggles, available, checkedByDefault) {
@@ -418,7 +470,10 @@ export class DebugViewer {
   }
 
   hasVisibleContentLayer() {
-    return [...this.layerRoots.entries()].some(([layerId, root]) => layerId !== LAYERS.grid && root?.visible);
+    return [...this.layerRoots.entries()].some(([layerId, root]) => {
+      if (layerId === LAYERS.grid || !root?.visible) return false;
+      return !new Box3().setFromObject(root).isEmpty();
+    });
   }
 
   handleCanvasClick(event) {
@@ -461,7 +516,7 @@ export class DebugViewer {
       return;
     }
 
-    const entities = [...this.manifest.entities, ...(this.manifest.surface_entities || [])];
+    const entities = [...this.manifest.entities, ...(this.manifest.surface_entities || []), ...(this.manifest.opening_surface_entities || []), ...(this.manifest.internal_boundary_entities || [])];
     this.reportBrowserStats(buildBrowserStats(entities, this.isPendingRemoval));
     const filtered = entities
       .filter((entity) => matchesBrowserFilter(entity, this.getBrowserFilter(), this.isPendingRemoval))
@@ -673,7 +728,7 @@ export class DebugViewer {
     this.clearSelectionOverlay();
     for (const key of this.highlightedKeys) {
       if (!key || key === this.selectedKey) continue;
-      const highlightedObject = this.findVisibleObject(LAYERS.failed, key) || this.findVisibleObject(LAYERS.surfaces, key) || this.findVisibleObject(LAYERS.openings, key) || this.findVisibleObject(LAYERS.spaces, key) || this.findVisibleObject(LAYERS.raw, key);
+      const highlightedObject = this.findVisibleObject(LAYERS.failed, key) || this.findVisibleObject(LAYERS.surfaces, key) || this.findVisibleObject(LAYERS.internalBoundaries, key) || this.findVisibleObject(LAYERS.openingIntegration, key) || this.findVisibleObject(LAYERS.openings, key) || this.findVisibleObject(LAYERS.spaces, key) || this.findVisibleObject(LAYERS.raw, key);
       if (!highlightedObject) continue;
       this.appendObjectOverlay(highlightedObject, this.entityMap.get(key) || null, {
         color: 0x3e63dd,
@@ -686,7 +741,7 @@ export class DebugViewer {
     if (!this.selectedKey) {
       return;
     }
-    const selectedObject = this.findVisibleObject(LAYERS.failed, this.selectedKey) || this.findVisibleObject(LAYERS.surfaces, this.selectedKey) || this.findVisibleObject(LAYERS.openings, this.selectedKey) || this.findVisibleObject(LAYERS.spaces, this.selectedKey) || this.findVisibleObject(LAYERS.raw, this.selectedKey);
+    const selectedObject = this.findVisibleObject(LAYERS.failed, this.selectedKey) || this.findVisibleObject(LAYERS.surfaces, this.selectedKey) || this.findVisibleObject(LAYERS.internalBoundaries, this.selectedKey) || this.findVisibleObject(LAYERS.openingIntegration, this.selectedKey) || this.findVisibleObject(LAYERS.openings, this.selectedKey) || this.findVisibleObject(LAYERS.spaces, this.selectedKey) || this.findVisibleObject(LAYERS.raw, this.selectedKey);
     if (!selectedObject) {
       return;
     }
@@ -784,7 +839,9 @@ export class DebugViewer {
     for (const [layerId, root] of this.layerRoots.entries()) {
       if (layerId === LAYERS.grid || !root) continue;
       if (visibleOnly && !isObjectVisible(root)) continue;
-      bounds.expandByObject(root);
+      const rootBounds = new Box3().setFromObject(root);
+      if (rootBounds.isEmpty()) continue;
+      bounds.union(rootBounds);
       hasContent = true;
     }
     return hasContent ? bounds : null;
@@ -888,7 +945,253 @@ export class DebugViewer {
       });
     }
   }
+
+  setValidationFilter(filterName, enabled) {
+    if (!(filterName in this.validationFilters)) return;
+    this.validationFilters[filterName] = enabled;
+    this.applyValidationFilters();
+  }
+
+  applyValidationFilters() {
+    this.restoreMaterials();
+    this.removeNormalArrows();
+
+    const anyActive = Object.values(this.validationFilters).some(Boolean);
+
+    if (this.validationFilters.semantic) this.applySemanticFilter();
+    if (this.validationFilters.voids) this.applyVoidFilter();
+    if (this.validationFilters.openings) this.applyOpeningFilter();
+    if (this.validationFilters.normals) this.applyNormalsFilter();
+    if (this.validationFilters.lowArea) this.applyLowAreaFilter();
+    if (this.validationFilters.thinSpace) this.applyThinSpaceFilter();
+
+    this.renderLegend();
+  }
+
+  saveMaterial(mesh) {
+    if (!this.savedMaterials.has(mesh)) {
+      this.savedMaterials.set(mesh, mesh.material);
+    }
+  }
+
+  restoreMaterials() {
+    for (const [mesh, material] of this.savedMaterials.entries()) {
+      mesh.material = material;
+    }
+    this.savedMaterials.clear();
+  }
+
+  applySemanticFilter() {
+    const surfaceMap = this.layerObjectMaps[LAYERS.surfaces];
+    for (const [key, root] of surfaceMap.entries()) {
+      const entity = this.entityMap.get(key);
+      if (!entity) continue;
+      const isInternal = entity.classification === "internal_void" || entity.classification === "internal_partition";
+      const color = isInternal ? 0x95a3b2 : 0xe8b931;
+      root.traverse((node) => {
+        if (!node.isMesh) return;
+        this.saveMaterial(node);
+        node.material = new MeshStandardMaterial({ color, transparent: true, opacity: 0.86, roughness: 0.46, metalness: 0.0, side: DoubleSide });
+      });
+    }
+    const ibMap = this.layerObjectMaps[LAYERS.internalBoundaries];
+    for (const [, root] of ibMap.entries()) {
+      root.traverse((node) => {
+        if (!node.isMesh) return;
+        this.saveMaterial(node);
+        node.material = new MeshStandardMaterial({ color: 0x95a3b2, transparent: true, opacity: 0.86, roughness: 0.46, metalness: 0.0, side: DoubleSide });
+      });
+    }
+  }
+
+  applyVoidFilter() {
+    const surfaceMap = this.layerObjectMaps[LAYERS.surfaces];
+    for (const [key, root] of surfaceMap.entries()) {
+      const entity = this.entityMap.get(key);
+      if (!entity) continue;
+      if (entity.classification === "internal_void") {
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = new MeshBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.9, wireframe: true, side: DoubleSide });
+        });
+      } else {
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = new MeshStandardMaterial({ color: node.material.color?.getHex?.() || 0x95a3b2, transparent: true, opacity: 0.15, roughness: 0.5, metalness: 0.0, side: DoubleSide });
+        });
+      }
+    }
+  }
+
+  applyOpeningFilter() {
+    const openingRoot = this.layerRoots.get(LAYERS.openingIntegration);
+    if (openingRoot) openingRoot.visible = true;
+    const surfaceMap = this.layerObjectMaps[LAYERS.surfaces];
+    for (const [, root] of surfaceMap.entries()) {
+      root.traverse((node) => {
+        if (!node.isMesh) return;
+        this.saveMaterial(node);
+        node.material = new MeshStandardMaterial({ color: node.material.color?.getHex?.() || 0x95a3b2, transparent: true, opacity: 0.3, roughness: 0.5, metalness: 0.0, side: DoubleSide });
+      });
+    }
+  }
+
+  applyNormalsFilter() {
+    const arrowGroup = new Group();
+    arrowGroup.name = "__normalArrows";
+
+    for (const layerId of [LAYERS.surfaces, LAYERS.internalBoundaries]) {
+      const objectMap = this.layerObjectMaps[layerId];
+      for (const [key, root] of objectMap.entries()) {
+        const entity = this.entityMap.get(key);
+        if (!entity?.centroid || !entity?.normal) continue;
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = node.material.clone();
+          node.material.side = FrontSide;
+        });
+        const origin = new Vector3(...entity.centroid);
+        const direction = new Vector3(...entity.normal).normalize();
+        const length = Math.max(Math.sqrt(entity.area_m2 || 1) * 0.3, 0.15);
+        const arrowColor = 0x22c55e;
+        const arrow = new ArrowHelper(direction, origin, length, arrowColor, length * 0.3, length * 0.15);
+        arrowGroup.add(arrow);
+      }
+    }
+
+    this.normalArrowGroup = arrowGroup;
+    this.scene.add(arrowGroup);
+  }
+
+  applyLowAreaFilter() {
+    const surfaceMap = this.layerObjectMaps[LAYERS.surfaces];
+    for (const [key, root] of surfaceMap.entries()) {
+      const entity = this.entityMap.get(key);
+      if (!entity) continue;
+      if (entity.below_area_threshold) {
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = new MeshBasicMaterial({ color: 0xda4757, transparent: true, opacity: 0.9, wireframe: true, side: DoubleSide });
+        });
+      } else {
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = new MeshStandardMaterial({ color: node.material.color?.getHex?.() || 0x95a3b2, transparent: true, opacity: 0.15, roughness: 0.5, metalness: 0.0, side: DoubleSide });
+        });
+      }
+    }
+  }
+
+  applyThinSpaceFilter() {
+    const ibMap = this.layerObjectMaps[LAYERS.internalBoundaries];
+    const ibRoot = this.layerRoots.get(LAYERS.internalBoundaries);
+    if (ibRoot) ibRoot.visible = true;
+    for (const [key, root] of ibMap.entries()) {
+      const entity = this.entityMap.get(key);
+      if (!entity) continue;
+      if (entity.proximity_conflict) {
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = new MeshBasicMaterial({ color: 0xda4757, transparent: true, opacity: 0.85, side: DoubleSide });
+        });
+      } else {
+        root.traverse((node) => {
+          if (!node.isMesh) return;
+          this.saveMaterial(node);
+          node.material = new MeshStandardMaterial({ color: 0x95a3b2, transparent: true, opacity: 0.2, roughness: 0.5, metalness: 0.0, side: DoubleSide });
+        });
+      }
+    }
+  }
+
+  removeNormalArrows() {
+    if (this.normalArrowGroup) {
+      this.normalArrowGroup.removeFromParent();
+      this.normalArrowGroup.traverse((node) => {
+        node.geometry?.dispose?.();
+        if (Array.isArray(node.material)) {
+          for (const material of node.material) material.dispose?.();
+        } else {
+          node.material?.dispose?.();
+        }
+      });
+      this.normalArrowGroup = null;
+    }
+  }
+
+  renderLegend() {
+    if (!this.legendElement) return;
+    const activeFilters = Object.entries(this.validationFilters).filter(([, v]) => v).map(([k]) => k);
+    if (activeFilters.length === 0) {
+      this.legendElement.classList.add("hidden");
+      this.legendElement.innerHTML = "";
+      return;
+    }
+    this.legendElement.classList.remove("hidden");
+    const sections = [];
+    for (const filter of activeFilters) {
+      const entries = LEGEND_ENTRIES[filter];
+      if (!entries) continue;
+      let html = `<div class="validation-legend__section"><div class="validation-legend__title">${entries.title}</div>`;
+      for (const row of entries.rows) {
+        const swatchClass = row.wireframe ? "validation-legend__swatch validation-legend__swatch--wireframe" : "validation-legend__swatch";
+        const style = row.wireframe ? `border-color:${row.color}` : `background:${row.color}`;
+        html += `<div class="validation-legend__row"><span class="${swatchClass}" style="${style}"></span>${escapeHtml(row.label)}</div>`;
+      }
+      html += `</div>`;
+      sections.push(html);
+    }
+    this.legendElement.innerHTML = sections.join("");
+  }
 }
+
+const LEGEND_ENTRIES = {
+  semantic: {
+    title: "Semantic",
+    rows: [
+      { color: "#95a3b2", label: "Internal (2LSB-2a)" },
+      { color: "#e8b931", label: "External (2LSB-2a)" },
+    ],
+  },
+  voids: {
+    title: "Voids",
+    rows: [
+      { color: "#f59e0b", label: "2LSB-2b (internal void)", wireframe: true },
+    ],
+  },
+  openings: {
+    title: "Openings",
+    rows: [
+      { color: "#3259d7", label: "Opening surface" },
+      { color: "#95a3b2", label: "Opaque boundary (dimmed)" },
+    ],
+  },
+  normals: {
+    title: "Normals",
+    rows: [
+      { color: "#22c55e", label: "Normal direction (arrow)" },
+    ],
+  },
+  lowArea: {
+    title: "Low Area",
+    rows: [
+      { color: "#da4757", label: "Below threshold", wireframe: true },
+    ],
+  },
+  thinSpace: {
+    title: "Thin Space",
+    rows: [
+      { color: "#da4757", label: "Proximity conflict" },
+      { color: "#95a3b2", label: "Normal boundary (dimmed)" },
+    ],
+  },
+};
 
 function normalizeElements(value) {
   if (!value) return [];
@@ -1021,6 +1324,8 @@ function isRemovalCandidate(entity) {
 
 function browserGroup(entity) {
   if (entity.selection_type === "surface") return "surfaces";
+  if (entity.selection_type === "internal_boundary") return "surfaces";
+  if (entity.selection_type === "opening_surface") return "surfaces";
   if (entity.failed) return "failed";
   if (entity.entity_type === "IfcSpace") return "spaces";
   if (entity.entity_type === "IfcOpeningElement") return "openings";
@@ -1036,6 +1341,8 @@ function compareBrowserEntities(left, right) {
 function browserBadgeKind(entity) {
   if (entity.failed) return "danger";
   if (entity.selection_type === "surface") return entity.classification || "surface";
+  if (entity.selection_type === "internal_boundary") return "neutral";
+  if (entity.selection_type === "opening_surface") return "info";
   if (entity.entity_type === "IfcSpace") return "accent";
   if (entity.entity_type === "IfcOpeningElement") return "info";
   return "neutral";
@@ -1043,6 +1350,8 @@ function browserBadgeKind(entity) {
 
 function browserBadgeLabel(entity) {
   if (entity.selection_type === "surface") return entity.classification || "surface";
+  if (entity.selection_type === "internal_boundary") return "internal boundary";
+  if (entity.selection_type === "opening_surface") return "opening surface";
   if (entity.failed) return "failed";
   if (entity.entity_type === "IfcSpace") return entity.storey?.name || "space";
   if (entity.entity_type === "IfcOpeningElement") return "opening";
@@ -1050,6 +1359,12 @@ function browserBadgeLabel(entity) {
 }
 
 function browserSecondaryText(entity) {
+  if (entity.selection_type === "internal_boundary") {
+    return `${entity.surface_id || entity.object_name} | ${entity.space_global_id || "-"} ↔ ${entity.adjacent_space_global_id || "-"}`;
+  }
+  if (entity.selection_type === "opening_surface") {
+    return `${entity.surface_id || entity.object_name} | ${entity.boundary_surface_id || "-"}`;
+  }
   const identifier = entity.selection_type === "surface" ? entity.surface_id || entity.object_name : entity.global_id || `#${entity.express_id}`;
   const location = entity.selection_type === "surface" ? entity.space_global_id || "-" : entity.storey?.name || entity.building?.name || entity.entity_type;
   return `${identifier} | ${location}`;
@@ -1059,6 +1374,16 @@ function describeEntityRow(entity) {
   if (entity.selection_type === "surface") {
     const area = typeof entity.area_m2 === "number" ? `${formatArea(entity.area_m2)} m2` : "-";
     return `${entity.classification || "surface"} | ${area}`;
+  }
+  if (entity.selection_type === "internal_boundary") {
+    const area = typeof entity.area_m2 === "number" ? `${formatArea(entity.area_m2)} m2` : "-";
+    const flags = [];
+    if (entity.proximity_conflict) flags.push("proximity conflict");
+    return `internal | ${area}${flags.length ? ` | ${flags.join(", ")}` : ""}`;
+  }
+  if (entity.selection_type === "opening_surface") {
+    const area = typeof entity.area_m2 === "number" ? `${formatArea(entity.area_m2)} m2` : "-";
+    return `${entity.boundary_classification || "opening"} | ${area}`;
   }
   if (entity.failed) return entity.reason || "Flagged geometry";
   if (Array.isArray(entity.clash_groups) && entity.clash_groups.length > 0) {
@@ -1102,6 +1427,9 @@ function matchesBrowserQuery(entity, queryValue) {
     entity.storey?.name,
     entity.building?.name,
     entity.express_id == null ? null : String(entity.express_id),
+    entity.adjacent_space_global_id,
+    entity.boundary_surface_id,
+    entity.opening_global_id,
     browserBadgeLabel(entity),
   ].filter(Boolean).join(" ").toLowerCase();
   return haystack.includes(query);
@@ -1140,6 +1468,34 @@ function colorForSurfaceClassification(classification) {
 }
 
 function detailFieldsForEntity(entity) {
+  if (entity.selection_type === "internal_boundary") {
+    return [
+      ["Surface ID", entity.surface_id || entity.object_name],
+      ["Space", entity.name || entity.object_name],
+      ["Space GlobalId", entity.space_global_id || "-"],
+      ["Adjacent Space", entity.adjacent_space_global_id || "-"],
+      ["Paired Surface", entity.paired_surface_id || "-"],
+      ["Classification", "internal"],
+      ["Area (m2)", formatArea(entity.area_m2)],
+      ["Thickness (m)", entity.thickness_m != null ? entity.thickness_m.toFixed(4) : "-"],
+      ["Proximity Conflict", entity.proximity_conflict ? "yes" : "no"],
+      ["Normal", formatOrigin(entity.normal)],
+      ["Centroid", formatOrigin(entity.centroid)],
+    ];
+  }
+  if (entity.selection_type === "opening_surface") {
+    return [
+      ["Surface ID", entity.surface_id || entity.object_name],
+      ["Opening GlobalId", entity.opening_global_id || "-"],
+      ["Boundary Surface", entity.boundary_surface_id || "-"],
+      ["Boundary Classification", entity.boundary_classification || "-"],
+      ["Boundary Type", entity.boundary_type || "-"],
+      ["Space GlobalId", entity.space_global_id || "-"],
+      ["Area (m2)", formatArea(entity.area_m2)],
+      ["Normal", formatOrigin(entity.normal)],
+      ["Centroid", formatOrigin(entity.centroid)],
+    ];
+  }
   return entity.selection_type === "surface"
     ? [
       ["Surface ID", entity.surface_id || entity.object_name],

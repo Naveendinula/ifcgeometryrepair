@@ -235,6 +235,9 @@ def project_openings_onto_boundaries(
     modified_boundaries: list[dict[str, Any]] = []
     openings_matched = 0
 
+    # Exclude unclassified surfaces from being opening parents.
+    _EXCLUDED_OPENING_PARENT_CLASSIFICATIONS = frozenset({"unclassified"})
+
     all_boundaries = [
         *[
             _boundary_record_from_internal(surface)
@@ -243,6 +246,7 @@ def project_openings_onto_boundaries(
         *[
             _boundary_record_from_external(surface)
             for surface in external_surfaces
+            if surface.get("classification", "unclassified") not in _EXCLUDED_OPENING_PARENT_CLASSIFICATIONS
         ],
     ]
 
@@ -326,6 +330,54 @@ def project_openings_onto_boundaries(
             modified["remainder_polygon_rings_3d"] = []
             modified["remainder_area_m2"] = 0.0
         modified_boundaries.append(modified)
+
+    # -----------------------------------------------------------------------
+    # Resolve each opening to one authoritative parent boundary.
+    # When the same opening face is projected onto multiple coplanar
+    # boundaries (e.g. an oriented internal surface AND a shell-derived
+    # external surface), keep only the best match per opening per normal
+    # direction.  Priority is based on classification (not boundary_type,
+    # because internal_void surfaces have boundary_type="external" which
+    # would incorrectly beat shared internal surfaces).
+    # -----------------------------------------------------------------------
+    _PARENT_CLASSIFICATION_PRIORITY = {
+        "external_wall": 0,
+        "roof": 0,
+        "ground_floor": 0,
+        "internal": 1,
+        "internal_void": 2,
+        "unknown": 3,
+        "unclassified": 3,
+    }
+
+    grouped: dict[tuple[int, tuple[float, ...]], list[dict[str, Any]]] = {}
+    for surface in opening_surfaces:
+        normal_key = tuple(round(float(v), 3) for v in surface.get("normal", [0, 0, 0]))
+        key = (surface["opening_express_id"], normal_key)
+        grouped.setdefault(key, []).append(surface)
+
+    deduplicated_opening_surfaces: list[dict[str, Any]] = []
+    deduplicated_ids: set[str] = set()
+    for _key, candidates in grouped.items():
+        best = min(
+            candidates,
+            key=lambda s: (
+                _PARENT_CLASSIFICATION_PRIORITY.get(s.get("boundary_classification", "unknown"), 3),
+                -s.get("area_m2", 0.0),
+            ),
+        )
+        deduplicated_opening_surfaces.append(best)
+        deduplicated_ids.add(best["surface_id"])
+
+    # Remove non-authoritative opening references from modified_boundaries.
+    for boundary in modified_boundaries:
+        boundary["opening_surface_ids"] = [
+            sid for sid in boundary.get("opening_surface_ids", [])
+            if sid in deduplicated_ids
+        ]
+
+    opening_surfaces = deduplicated_opening_surfaces
+    openings_matched = len(opening_surfaces)
 
     return {
         "opening_surfaces": opening_surfaces,
@@ -475,10 +527,13 @@ def _polygon_to_rings_3d(
     basis_u: np.ndarray,
     basis_v: np.ndarray,
 ) -> list[list[list[float]]]:
+    # Handle MultiPolygon by collecting rings from all constituent polygons.
+    parts = _extract_polygons(polygon) if not isinstance(polygon, Polygon) else [polygon]
     rings: list[list[list[float]]] = []
-    rings.append([_lift_point(c, plane_point, basis_u, basis_v) for c in list(polygon.exterior.coords)[:-1]])
-    for interior in polygon.interiors:
-        rings.append([_lift_point(c, plane_point, basis_u, basis_v) for c in list(interior.coords)[:-1]])
+    for part in parts:
+        rings.append([_lift_point(c, plane_point, basis_u, basis_v) for c in list(part.exterior.coords)[:-1]])
+        for interior in part.interiors:
+            rings.append([_lift_point(c, plane_point, basis_u, basis_v) for c in list(interior.coords)[:-1]])
     return rings
 
 

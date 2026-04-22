@@ -215,6 +215,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "external_candidates",
                 "external_shell",
                 "opening_integration",
+                "gbxml_preflight",
                 "classifying",
                 "complete",
             ]
@@ -245,6 +246,8 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
                 "geometry/external_shell/classes/ground_floor.obj",
                 "geometry/external_shell/classes/internal_void.obj",
                 "geometry/external_shell/classes/unclassified.obj",
+                "geometry/gbxml_preflight.json",
+                "geometry/2lsb_surfaces.gbxml",
                 "geometry/viewer_manifest.json",
                 "geometry/raw/spaces_all.obj",
                 "geometry/raw/openings.obj",
@@ -264,6 +267,7 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert output_payload["preprocessing"]["artifacts"]["viewer_manifest"] == "geometry/viewer_manifest.json"
             assert output_payload["preprocessing"]["artifacts"]["raw_spaces_all"] == "geometry/raw/spaces_all.obj"
             assert output_payload["internal_boundaries"]["summary"]["adjacent_pair_count"] == 0
+            assert output_payload["internal_boundaries"]["summary"]["rejected_shared_component_count"] == 0
             assert output_payload["internal_boundaries"]["artifacts"]["detail"] == "geometry/internal_boundaries.json"
             assert output_payload["external_candidates"]["summary"]["candidate_surface_count"] == 6
             assert output_payload["external_candidates"]["artifacts"]["result"] == "geometry/external_candidates/result.json"
@@ -272,6 +276,10 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert output_payload["external_shell"]["summary"]["per_class_counts"]["roof"] == 1
             assert output_payload["external_shell"]["summary"]["per_class_counts"]["ground_floor"] == 1
             assert output_payload["external_shell"]["artifacts"]["result"] == "geometry/external_shell/result.json"
+            assert output_payload["gbxml_preflight"]["status"] in ("valid", "warning")
+            assert output_payload["gbxml_preflight"]["summary"]["blocker_count"] == 0
+            assert output_payload["gbxml_preflight"]["summary"]["surface_count"] >= 2
+            assert output_payload["gbxml_preflight"]["artifacts"]["detail"] == "geometry/gbxml_preflight.json"
 
             room = output_payload["spaces"][0]
             assert room["name"] == fixture.represented_space_name
@@ -292,7 +300,9 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
 
             internal_boundaries = json.loads((job_dir / "geometry" / "internal_boundaries.json").read_text(encoding="utf-8"))
             assert internal_boundaries["summary"]["shared_surface_count"] == 0
+            assert internal_boundaries["summary"]["rejected_shared_component_count"] == 0
             assert internal_boundaries["adjacencies"] == []
+            assert internal_boundaries["rejected_shared_components"] == []
 
             external_candidates_payload = json.loads((job_dir / "geometry" / "external_candidates" / "result.json").read_text(encoding="utf-8"))
             assert external_candidates_payload["summary"]["candidate_surface_count"] == 6
@@ -309,6 +319,13 @@ def test_simple_room_preprocesses_to_valid_positive_solid() -> None:
             assert external_shell_payload["alpha_wrap"]["alpha_m_effective"] == pytest.approx(1.0)
             assert external_shell_payload["alpha_wrap"]["offset_m_effective"] == pytest.approx(0.01)
             assert external_shell_payload["summary"]["candidate_surface_count"] == 6
+
+            gbxml_preflight_payload = json.loads((job_dir / "geometry" / "gbxml_preflight.json").read_text(encoding="utf-8"))
+            assert gbxml_preflight_payload["status"] in ("valid", "warning")
+            assert gbxml_preflight_payload["summary"]["surface_count"] >= 2
+            assert gbxml_preflight_payload["summary"]["opening_count"] == 0
+            assert gbxml_preflight_payload["summary"]["blocker_count"] == 0
+            assert len(gbxml_preflight_payload["export_plan"]["surfaces"]) >= 2
 
             viewer_manifest = json.loads((job_dir / "geometry" / "viewer_manifest.json").read_text(encoding="utf-8"))
             assert viewer_manifest["summary"]["space_count"] == 1
@@ -1490,6 +1507,13 @@ def test_remove_spaces_rerun_creates_child_job_with_lineage_and_filtered_input()
             assert child_output["derivation"]["root_job_id"] == parent_job_id
             assert child_output["derivation"]["operation"] == "remove_spaces"
             assert child_output["derivation"]["removed_spaces"][0]["global_id"] == removed_space["global_id"]
+
+            child_manifest = json.loads(
+                client.get(f"/jobs/{child_job_id}/artifacts/geometry/viewer_manifest.json").text
+            )
+            assert child_manifest["layers"]["normalized_spaces"]["available"] is True
+            assert child_manifest["layers"]["openings"]["available"] is False
+            assert child_manifest["layers"]["internal_boundaries"]["available"] is False
 
             artifacts = {artifact["name"] for artifact in client.get(f"/jobs/{child_job_id}/artifacts").json()["artifacts"]}
             assert "input.ifc" in artifacts

@@ -1441,6 +1441,102 @@ select {
   display: none !important;
 }
 
+/* ── Validation Filters ───────────────────────────────── */
+
+.filter-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.filter-row {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  cursor: pointer;
+}
+
+.filter-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.1rem;
+  accent-color: var(--slate);
+  flex-shrink: 0;
+}
+
+.filter-row__copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.filter-row__copy strong {
+  font-size: 0.88rem;
+}
+
+.filter-row__copy small {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ── Validation Legend Overlay ─────────────────────────── */
+
+.validation-legend {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 20;
+  min-width: 180px;
+  max-width: 260px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 14px rgba(19, 39, 63, 0.1);
+  font-size: 0.82rem;
+  pointer-events: none;
+}
+
+.validation-legend__section {
+  margin-bottom: 0.45rem;
+}
+
+.validation-legend__section:last-child {
+  margin-bottom: 0;
+}
+
+.validation-legend__title {
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.validation-legend__row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  line-height: 1.6;
+}
+
+.validation-legend__swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.validation-legend__swatch--wireframe {
+  background: transparent;
+  border: 2px solid;
+}
+
 @media (max-width: 1220px) {
   body {
     height: auto;

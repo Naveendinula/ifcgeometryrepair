@@ -918,12 +918,30 @@ def _serialize_surface(surface: SurfacePatch) -> dict[str, Any]:
         "classification": surface.classification,
         "area_m2": round(float(surface.area_m2), 6),
         "normal": _round_vector(surface.normal),
+        "plane_normal": _round_vector(surface.normal),
+        "plane_point": _round_vector(surface.plane_point),
         "centroid": _round_vector(surface.centroid),
+        "polygon_components_3d": _serialize_polygon_components(surface),
+        "triangles": [[_round_vector(vertex) for vertex in triangle.tolist()] for triangle in surface.triangles_3d],
         "source_surface_id": surface.source_surface_id,
         "subtracted_internal_surface_ids": list(surface.subtracted_internal_surface_ids or []),
         "reason": surface.reason,
         "artifacts": surface.artifacts or {},
     }
+
+
+def _serialize_polygon_components(surface: SurfacePatch) -> list[list[list[list[float]]]]:
+    components: list[list[list[list[float]]]] = []
+    for polygon in _extract_polygons(surface.union_polygon_2d):
+        component_rings = [
+            [_round_vector(_lift_point(coordinate, surface.plane_point, surface.basis_u, surface.basis_v)) for coordinate in list(polygon.exterior.coords)[:-1]]
+        ]
+        for interior in polygon.interiors:
+            component_rings.append(
+                [_round_vector(_lift_point(coordinate, surface.plane_point, surface.basis_u, surface.basis_v)) for coordinate in list(interior.coords)[:-1]]
+            )
+        components.append(component_rings)
+    return components
 
 
 def _build_box_mesh(aabb_min: np.ndarray, aabb_max: np.ndarray) -> dict[str, Any]:

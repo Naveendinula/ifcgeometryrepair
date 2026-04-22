@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gbXML xmlns="http://www.gbxml.org/schema" temperatureUnit="C" lengthUnit="Meters" areaUnit="SquareMeters" volumeUnit="CubicMeters" version="6.01">
+  <Campus id="campus_1">
+    <Building id="building_1" buildingType="Unknown">
+      <Space id="space-a">
+        <Name>Room A</Name>
+      </Space>
+      <Space id="space-b">
+        <Name>Room B</Name>
+      </Space>
+    </Building>
+    <Surface id="ib_0_0" surfaceType="InteriorWall">
+      <AdjacentSpaceId spaceIdRef="space-a" />
+      <AdjacentSpaceId spaceIdRef="space-b" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>4.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+    <Surface id="ext_1" surfaceType="ExteriorWall">
+      <AdjacentSpaceId spaceIdRef="space-a" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>5.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.0</Coordinate>
+            <Coordinate>0.0</Coordinate>
+            <Coordinate>3.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+      <Opening id="oi_wall1_opening1" openingType="OperableWindow">
+        <PlanarGeometry>
+          <PolyLoop>
+            <CartesianPoint>
+              <Coordinate>5.0</Coordinate>
+              <Coordinate>1.0</Coordinate>
+              <Coordinate>1.0</Coordinate>
+            </CartesianPoint>
+            <CartesianPoint>
+              <Coordinate>5.0</Coordinate>
+              <Coordinate>2.0</Coordinate>
+              <Coordinate>1.0</Coordinate>
+            </CartesianPoint>
+            <CartesianPoint>
+              <Coordinate>5.0</Coordinate>
+              <Coordinate>2.0</Coordinate>
+              <Coordinate>2.5</Coordinate>
+            </CartesianPoint>
+            <CartesianPoint>
+              <Coordinate>5.0</Coordinate>
+              <Coordinate>1.0</Coordinate>
+              <Coordinate>2.5</Coordinate>
+            </CartesianPoint>
+          </PolyLoop>
+        </PlanarGeometry>
+      </Opening>
+    </Surface>
+  </Campus>
+</gbXML>

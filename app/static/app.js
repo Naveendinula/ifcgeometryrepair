@@ -1,4 +1,4 @@
-import { DebugViewer } from "./viewer.js?v=20260415-3";
+const VIEWER_MODULE_URL = "./viewer.js?v=20260417-1";
 
 const escapeHtml = globalThis.escapeHtml || ((value) =>
   String(value)
@@ -21,6 +21,12 @@ const selectedFileNameNode = document.querySelector("#selected-file-name");
 const emptyUploadButton = document.querySelector("#empty-upload-button");
 const submitButton = document.querySelector("#submit-button");
 const flashMessage = document.querySelector("#flash-message");
+const viewerPanelNode = document.querySelector("#viewer-panel");
+const viewerCanvasNode = document.querySelector("#viewer-canvas");
+const viewerEmptyStateNode = document.querySelector("#viewer-empty");
+const viewerEmptyMessageNode = document.querySelector("#viewer-empty-message");
+const viewerLegendNode = document.querySelector("#validation-legend");
+const viewerBrowserListNode = document.querySelector("#viewer-browser-list");
 
 const jobIdNode = document.querySelector("#job-id");
 const jobIdRailNode = document.querySelector("#job-id-rail");
@@ -45,6 +51,27 @@ const viewerManifestLinkNodes = [
   document.querySelector("#viewer-manifest-link"),
   document.querySelector("#viewer-manifest-link-rail"),
 ];
+const gbxmlPreflightLinkNodes = [
+  document.querySelector("#gbxml-preflight-link"),
+  document.querySelector("#gbxml-preflight-link-rail"),
+];
+const exportXmlLinkNodes = [
+  document.querySelector("#export-xml-link"),
+  document.querySelector("#export-xml-link-rail"),
+];
+const exportObjLinkNodes = [
+  document.querySelector("#export-obj-link"),
+  document.querySelector("#export-obj-link-rail"),
+];
+const exportGbxmlLinkNodes = [
+  document.querySelector("#export-gbxml-link"),
+  document.querySelector("#export-gbxml-link-rail"),
+];
+const exportLinksRailNode = document.querySelector("#export-links-rail");
+const exportLinksEmptyNode = document.querySelector("#export-links-empty");
+const gbxmlReadinessNoteNode = document.querySelector("#gbxml-readiness-note");
+const openFiltersButton = document.querySelector("#open-filters-button");
+const openExportsButton = document.querySelector("#open-exports-button");
 
 const pendingRemovalCountNode = document.querySelector("#pending-removal-count");
 const pendingRemovalEmptyNode = document.querySelector("#pending-removal-empty");
@@ -81,6 +108,9 @@ const internalVoidCountNode = document.querySelector("#internal-void-count");
 const shellBackendNode = document.querySelector("#shell-backend");
 const alphaWrapAlphaEffectiveNode = document.querySelector("#alpha-wrap-alpha-effective");
 const alphaWrapOffsetEffectiveNode = document.querySelector("#alpha-wrap-offset-effective");
+const gbxmlStatusNode = document.querySelector("#gbxml-status");
+const gbxmlBlockerCountNode = document.querySelector("#gbxml-blocker-count");
+const gbxmlWarningCountNode = document.querySelector("#gbxml-warning-count");
 
 const layerRawCountNode = document.querySelector("#layer-raw-count");
 const layerGridCountNode = document.querySelector("#layer-grid-count");
@@ -89,6 +119,8 @@ const layerOpeningsCountNode = document.querySelector("#layer-openings-count");
 const layerFailedCountNode = document.querySelector("#layer-failed-count");
 const layerShellCountNode = document.querySelector("#layer-shell-count");
 const layerSurfacesCountNode = document.querySelector("#layer-surfaces-count");
+const layerInternalBoundariesCountNode = document.querySelector("#layer-internal-boundaries-count");
+const layerOpeningIntegrationCountNode = document.querySelector("#layer-opening-integration-count");
 
 const artifactCountNode = document.querySelector("#artifact-count");
 const artifactListNode = document.querySelector("#artifact-list");
@@ -115,6 +147,10 @@ const disclosureNodes = {
   inspectLayers: {
     button: document.querySelector('[data-disclosure-button="inspectLayers"]'),
     panel: document.querySelector("#inspect-layers-panel"),
+  },
+  validationFilters: {
+    button: document.querySelector('[data-disclosure-button="validationFilters"]'),
+    panel: document.querySelector("#validation-filters-panel"),
   },
   metrics: {
     button: document.querySelector('[data-disclosure-button="metrics"]'),
@@ -147,46 +183,15 @@ let focusedClashGroupId = null;
 const dataDisclosureState = {
   overviewHistory: false,
   inspectLayers: false,
+  validationFilters: false,
   metrics: true,
   artifacts: false,
   dataHistory: false,
 };
 
 const terminalStates = new Set(["complete", "failed"]);
-
-const viewer = new DebugViewer({
-  panel: document.querySelector("#viewer-panel"),
-  manifestLinks: viewerManifestLinkNodes,
-  canvas: document.querySelector("#viewer-canvas"),
-  emptyState: document.querySelector("#viewer-empty"),
-  emptyStateMessage: document.querySelector("#viewer-empty-message"),
-  inspectSelectionName: inspectSelectionNameNode,
-  inspectSelectionMeta: inspectSelectionMetaNode,
-  inspectSelectionActions: inspectSelectionActionsNode,
-  browserList: document.querySelector("#viewer-browser-list"),
-  toggleGrid: document.querySelectorAll('[data-layer-toggle="grid"]'),
-  toggleRaw: document.querySelectorAll('[data-layer-toggle="raw"]'),
-  toggleNormalized: document.querySelectorAll('[data-layer-toggle="normalized"]'),
-  toggleOpenings: document.querySelectorAll('[data-layer-toggle="openings"]'),
-  toggleFailed: document.querySelectorAll('[data-layer-toggle="failed"]'),
-  toggleShell: document.querySelectorAll('[data-layer-toggle="shell"]'),
-  toggleSurfaces: document.querySelectorAll('[data-layer-toggle="surfaces"]'),
-  resetViewButtons: [document.querySelector("#reset-view-button")],
-  fitViewButtons: [document.querySelector("#fit-view-button")],
-  canTogglePendingRemoval: (entity) => canManageSpaceRemovals() && isRemovableSpaceEntity(entity),
-  isPendingRemoval: (entity) => isRemovableSpaceEntity(entity) && pendingRemovals.has(spaceRemovalKey(entity)),
-  onTogglePendingRemoval: (entity) => togglePendingRemoval(entity),
-  getBrowserQuery: () => entityBrowserQuery,
-  getBrowserFilter: () => entityBrowserFilter,
-  onBrowserStats: (stats) => renderBrowserStats(stats),
-  revealSelectionInBrowser: (entity) => revealEntityInBrowser(entity),
-  onSelectionChange: (entity) => {
-    if (entity) {
-      setActiveRailTab("inspect");
-    }
-  },
-  onError: (message) => setFlash(message, true),
-});
+let viewerAvailable = false;
+let viewer = createFallbackViewer();
 
 fileInput.addEventListener("change", () => updateSelectedFileName());
 emptyUploadButton.addEventListener("click", () => fileInput.click());
@@ -195,6 +200,8 @@ rerunRemoveSpacesButton.addEventListener("click", () => rerunWithoutMarkedSpaces
 acceptClashRecommendationsButton.addEventListener("click", () => acceptRecommendedClashResolutions());
 clearClashSelectionsButton.addEventListener("click", () => clearClashSelections());
 rerunResolveClashesButton.addEventListener("click", () => rerunWithResolvedClashes());
+openFiltersButton?.addEventListener("click", () => openValidationFilters());
+openExportsButton?.addEventListener("click", () => openExportsPanel());
 
 for (const button of railTabButtons) {
   button.addEventListener("click", () => setActiveRailTab(button.dataset.railTabButton));
@@ -217,6 +224,12 @@ for (const [key, disclosure] of Object.entries(disclosureNodes)) {
   disclosure.button?.addEventListener("click", () => {
     dataDisclosureState[key] = !dataDisclosureState[key];
     renderDisclosureState();
+  });
+}
+
+for (const checkbox of document.querySelectorAll("[data-validation-filter]")) {
+  checkbox.addEventListener("change", () => {
+    viewer.setValidationFilter(checkbox.dataset.validationFilter, checkbox.checked);
   });
 }
 
@@ -253,10 +266,7 @@ form.addEventListener("submit", async (event) => {
       method: "POST",
       body: payload,
     });
-    const body = await response.json();
-    if (!response.ok) {
-      throw new Error(body.detail || "Job creation failed.");
-    }
+    const body = await readApiResponse(response, "Job creation failed.");
 
     revealLinks(statusLinkNodes, body.status_url);
     updateJobHeader(body.job_id, body.state, body.created_at);
@@ -272,6 +282,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 initializeWorkspace();
+void bootstrapViewer();
 
 function initializeWorkspace() {
   updateSelectedFileName();
@@ -308,10 +319,14 @@ function resetRailState() {
   entityBrowserFilter = "all";
   dataDisclosureState.overviewHistory = false;
   dataDisclosureState.inspectLayers = false;
+  dataDisclosureState.validationFilters = false;
   dataDisclosureState.metrics = true;
   dataDisclosureState.artifacts = false;
   dataDisclosureState.dataHistory = false;
   browserSearchNode.value = "";
+  for (const checkbox of document.querySelectorAll("[data-validation-filter]")) {
+    checkbox.checked = false;
+  }
   renderRailTabs();
   renderBrowserFilterState();
   renderDisclosureState();
@@ -341,10 +356,7 @@ function stopPolling() {
 
 async function refreshStatus(jobId) {
   const response = await fetch(`/jobs/${jobId}`);
-  const body = await response.json();
-  if (!response.ok) {
-    throw new Error(body.detail || "Could not load job status.");
-  }
+  const body = await readApiResponse(response, "Could not load job status.");
 
   updateJobHeader(body.job_id, body.state, body.updated_at);
   renderDerivation(body.derivation || null);
@@ -359,7 +371,9 @@ async function refreshStatus(jobId) {
     renderDerivation(report.derivation || body.derivation || null);
     await viewer.loadJob(jobId, report);
     viewer.refreshRemovalControls();
-    setActiveRailTab("overview");
+    if (viewerAvailable && body.state === "complete") {
+      openValidationFilters();
+    }
   }
 
   if (terminalStates.has(body.state)) {
@@ -369,14 +383,12 @@ async function refreshStatus(jobId) {
 
 async function refreshArtifacts(jobId) {
   const response = await fetch(`/jobs/${jobId}/artifacts`);
-  const body = await response.json();
-  if (!response.ok) {
-    throw new Error(body.detail || "Could not load artifacts.");
-  }
+  const body = await readApiResponse(response, "Could not load artifacts.");
 
   renderArtifacts(body.artifacts);
 
   const artifactNames = new Set(body.artifacts.map((artifact) => artifact.name));
+  const artifactByName = new Map(body.artifacts.map((artifact) => [artifact.name, artifact]));
   revealLinks(statusLinkNodes, `/jobs/${jobId}`);
 
   if (artifactNames.has("output.json")) {
@@ -384,6 +396,8 @@ async function refreshArtifacts(jobId) {
   } else {
     hideLinkGroup(outputLinkNodes);
   }
+
+  syncExportLinks(artifactByName);
 }
 
 async function refreshReport(jobId) {
@@ -392,10 +406,7 @@ async function refreshReport(jobId) {
   }
 
   const response = await fetch(`/jobs/${jobId}/artifacts/output.json`);
-  const body = await response.json();
-  if (!response.ok) {
-    throw new Error(body.detail || "Could not load extraction report.");
-  }
+  const body = await readApiResponse(response, "Could not load extraction report.");
 
   renderedReportJobId = jobId;
   renderedReport = body;
@@ -488,6 +499,9 @@ function renderSummary(report) {
   const shellBackend = report.external_shell?.shell_backend || report.external_shell?.alpha_wrap?.backend || "-";
   const effectiveAlpha = report.external_shell?.alpha_wrap?.alpha_m_effective;
   const effectiveOffset = report.external_shell?.alpha_wrap?.offset_m_effective;
+  const gbxmlStatus = report.gbxml_preflight?.status || "-";
+  const gbxmlBlockerCount = report.gbxml_preflight?.summary?.blocker_count ?? 0;
+  const gbxmlWarningCount = report.gbxml_preflight?.summary?.warning_count ?? 0;
 
   const failedCount = [...(report.spaces || []), ...(report.openings || [])].filter(
     (entity) => entity.preflight_failed || !entity.geometry_ok,
@@ -514,6 +528,29 @@ function renderSummary(report) {
   shellBackendNode.textContent = shellBackend;
   alphaWrapAlphaEffectiveNode.textContent = effectiveAlpha == null ? "-" : Number(effectiveAlpha).toFixed(3);
   alphaWrapOffsetEffectiveNode.textContent = effectiveOffset == null ? "-" : Number(effectiveOffset).toFixed(3);
+  if (gbxmlStatusNode) {
+    gbxmlStatusNode.textContent = gbxmlStatus;
+  }
+  if (gbxmlBlockerCountNode) {
+    gbxmlBlockerCountNode.textContent = String(gbxmlBlockerCount);
+  }
+  if (gbxmlWarningCountNode) {
+    gbxmlWarningCountNode.textContent = String(gbxmlWarningCount);
+  }
+  if (gbxmlReadinessNoteNode) {
+    if (gbxmlStatus === "-" || !report.gbxml_preflight) {
+      gbxmlReadinessNoteNode.textContent = "";
+      gbxmlReadinessNoteNode.classList.add("hidden");
+    } else {
+      gbxmlReadinessNoteNode.textContent =
+        `gbXML readiness: ${gbxmlStatus}. ${gbxmlBlockerCount} blockers, ${gbxmlWarningCount} warnings. Download remains available when the file is marked invalid.`;
+      gbxmlReadinessNoteNode.classList.remove("hidden");
+    }
+  }
+  for (const node of exportGbxmlLinkNodes) {
+    if (!node) continue;
+    node.textContent = gbxmlStatus === "invalid" ? "2LSB gbXML (Invalid)" : "2LSB gbXML";
+  }
 
   const rawMeshCount = countArtifacts(report.spaces || [], "raw_obj") + countArtifacts(report.openings || [], "raw_obj");
   const normalizedSpaceCount = countArtifacts(report.spaces || [], "normalized_obj");
@@ -528,6 +565,14 @@ function renderSummary(report) {
   layerFailedCountNode.textContent = String(failedCount);
   layerShellCountNode.textContent = String(shellCount);
   layerSurfacesCountNode.textContent = String(surfaceCount);
+  const internalBoundaryCount = report.internal_boundaries?.summary?.oriented_surface_count ?? 0;
+  const openingSurfaceCount = report.opening_integration?.summary?.opening_surfaces_created ?? 0;
+  if (layerInternalBoundariesCountNode) {
+    layerInternalBoundariesCountNode.textContent = String(internalBoundaryCount);
+  }
+  if (layerOpeningIntegrationCountNode) {
+    layerOpeningIntegrationCountNode.textContent = String(openingSurfaceCount);
+  }
 }
 
 function resetSummary() {
@@ -552,6 +597,23 @@ function resetSummary() {
   shellBackendNode.textContent = "-";
   alphaWrapAlphaEffectiveNode.textContent = "-";
   alphaWrapOffsetEffectiveNode.textContent = "-";
+  if (gbxmlStatusNode) {
+    gbxmlStatusNode.textContent = "-";
+  }
+  if (gbxmlBlockerCountNode) {
+    gbxmlBlockerCountNode.textContent = "0";
+  }
+  if (gbxmlWarningCountNode) {
+    gbxmlWarningCountNode.textContent = "0";
+  }
+  if (gbxmlReadinessNoteNode) {
+    gbxmlReadinessNoteNode.textContent = "";
+    gbxmlReadinessNoteNode.classList.add("hidden");
+  }
+  for (const node of exportGbxmlLinkNodes) {
+    if (!node) continue;
+    node.textContent = "2LSB gbXML";
+  }
 
   layerRawCountNode.textContent = "n/a";
   layerGridCountNode.textContent = "0";
@@ -560,6 +622,12 @@ function resetSummary() {
   layerFailedCountNode.textContent = "0";
   layerShellCountNode.textContent = "0";
   layerSurfacesCountNode.textContent = "0";
+  if (layerInternalBoundariesCountNode) {
+    layerInternalBoundariesCountNode.textContent = "0";
+  }
+  if (layerOpeningIntegrationCountNode) {
+    layerOpeningIntegrationCountNode.textContent = "0";
+  }
 
   renderBrowserStats(emptyBrowserStats());
 }
@@ -853,10 +921,45 @@ function hideQuickLinks() {
   hideLinkGroup(statusLinkNodes);
   hideLinkGroup(outputLinkNodes);
   hideLinkGroup(viewerManifestLinkNodes);
+  hideLinkGroup(gbxmlPreflightLinkNodes);
+  hideLinkGroup(exportXmlLinkNodes);
+  hideLinkGroup(exportObjLinkNodes);
+  hideLinkGroup(exportGbxmlLinkNodes);
+  exportLinksRailNode?.classList.add("hidden");
+  exportLinksEmptyNode?.classList.remove("hidden");
+  gbxmlReadinessNoteNode?.classList.add("hidden");
+  if (gbxmlReadinessNoteNode) {
+    gbxmlReadinessNoteNode.textContent = "";
+  }
+}
+
+function syncExportLinks(artifactByName) {
+  const gbxmlPreflightArtifact = artifactByName.get("geometry/gbxml_preflight.json") || null;
+  const xmlArtifact = artifactByName.get("geometry/2lsb_surfaces.xml") || null;
+  const objArtifact = artifactByName.get("geometry/2lsb_surfaces.obj") || null;
+  const gbxmlArtifact = artifactByName.get("geometry/2lsb_surfaces.gbxml") || null;
+
+  syncOptionalArtifactLink(gbxmlPreflightLinkNodes, gbxmlPreflightArtifact);
+  syncOptionalArtifactLink(exportXmlLinkNodes, xmlArtifact);
+  syncOptionalArtifactLink(exportObjLinkNodes, objArtifact);
+  syncOptionalArtifactLink(exportGbxmlLinkNodes, gbxmlArtifact);
+
+  const hasAnyExports = Boolean(xmlArtifact || objArtifact || gbxmlArtifact);
+  exportLinksRailNode?.classList.toggle("hidden", !hasAnyExports);
+  exportLinksEmptyNode?.classList.toggle("hidden", hasAnyExports);
+}
+
+function syncOptionalArtifactLink(nodes, artifact) {
+  if (artifact?.url) {
+    revealLinks(nodes, artifact.url);
+    return;
+  }
+  hideLinkGroup(nodes);
 }
 
 function revealLinks(nodes, href) {
   for (const node of nodes) {
+    if (!node) continue;
     node.href = href;
     node.classList.remove("hidden");
   }
@@ -864,6 +967,7 @@ function revealLinks(nodes, href) {
 
 function hideLinkGroup(nodes) {
   for (const node of nodes) {
+    if (!node) continue;
     node.href = "#";
     node.classList.add("hidden");
   }
@@ -1016,10 +1120,7 @@ async function rerunWithoutMarkedSpaces() {
       },
       body: JSON.stringify(payload),
     });
-    const body = await response.json();
-    if (!response.ok) {
-      throw new Error(body.detail || "Could not create the derived rerun.");
-    }
+    const body = await readApiResponse(response, "Could not create the derived rerun.");
 
     stopPolling();
     renderedReportJobId = null;
@@ -1063,10 +1164,7 @@ async function rerunWithResolvedClashes() {
       },
       body: JSON.stringify(payload),
     });
-    const body = await response.json();
-    if (!response.ok) {
-      throw new Error(body.detail || "Could not create the clash-resolution rerun.");
-    }
+    const body = await readApiResponse(response, "Could not create the clash-resolution rerun.");
 
     stopPolling();
     renderedReportJobId = null;
@@ -1095,6 +1193,173 @@ async function rerunWithResolvedClashes() {
 function setActiveRailTab(tab) {
   activeRailTab = tab;
   renderRailTabs();
+}
+
+function openValidationFilters() {
+  dataDisclosureState.validationFilters = true;
+  setActiveRailTab("inspect");
+  renderDisclosureState();
+}
+
+function openExportsPanel() {
+  setActiveRailTab("data");
+}
+
+function createFallbackViewer() {
+  return {
+    clear(message = "Use the import control above to create a job and populate the 3D workspace.") {
+      renderViewerFallback(message);
+    },
+    async loadJob() {
+      renderViewerFallback("3D viewer unavailable. Uploads, status, and artifact downloads still work.");
+    },
+    refreshRemovalControls() {},
+    refreshEntityBrowser() {},
+    setValidationFilter() {},
+    setHighlightedKeys() {},
+    selectEntity() {},
+  };
+}
+
+function createConfiguredViewer(DebugViewer) {
+  return new DebugViewer({
+    panel: viewerPanelNode,
+    manifestLinks: viewerManifestLinkNodes,
+    canvas: viewerCanvasNode,
+    emptyState: viewerEmptyStateNode,
+    emptyStateMessage: viewerEmptyMessageNode,
+    legendElement: viewerLegendNode,
+    inspectSelectionName: inspectSelectionNameNode,
+    inspectSelectionMeta: inspectSelectionMetaNode,
+    inspectSelectionActions: inspectSelectionActionsNode,
+    browserList: viewerBrowserListNode,
+    toggleGrid: document.querySelectorAll('[data-layer-toggle="grid"]'),
+    toggleRaw: document.querySelectorAll('[data-layer-toggle="raw"]'),
+    toggleNormalized: document.querySelectorAll('[data-layer-toggle="normalized"]'),
+    toggleOpenings: document.querySelectorAll('[data-layer-toggle="openings"]'),
+    toggleFailed: document.querySelectorAll('[data-layer-toggle="failed"]'),
+    toggleShell: document.querySelectorAll('[data-layer-toggle="shell"]'),
+    toggleSurfaces: document.querySelectorAll('[data-layer-toggle="surfaces"]'),
+    toggleInternalBoundaries: document.querySelectorAll('[data-layer-toggle="internalBoundaries"]'),
+    toggleOpeningIntegration: document.querySelectorAll('[data-layer-toggle="openingIntegration"]'),
+    resetViewButtons: [document.querySelector("#reset-view-button")],
+    fitViewButtons: [document.querySelector("#fit-view-button")],
+    canTogglePendingRemoval: (entity) => canManageSpaceRemovals() && isRemovableSpaceEntity(entity),
+    isPendingRemoval: (entity) => isRemovableSpaceEntity(entity) && pendingRemovals.has(spaceRemovalKey(entity)),
+    onTogglePendingRemoval: (entity) => togglePendingRemoval(entity),
+    getBrowserQuery: () => entityBrowserQuery,
+    getBrowserFilter: () => entityBrowserFilter,
+    onBrowserStats: (stats) => renderBrowserStats(stats),
+    revealSelectionInBrowser: (entity) => revealEntityInBrowser(entity),
+    onSelectionChange: (entity) => {
+      if (entity) {
+        setActiveRailTab("inspect");
+      }
+    },
+    onError: (message) => setFlash(message, true),
+  });
+}
+
+async function bootstrapViewer() {
+  try {
+    const { DebugViewer } = await import(VIEWER_MODULE_URL);
+    viewer = createConfiguredViewer(DebugViewer);
+    viewerAvailable = true;
+    clearViewerFallbackWarning();
+    await syncViewerState();
+  } catch (error) {
+    viewerAvailable = false;
+    viewer = createFallbackViewer();
+    console.error("Viewer bootstrap failed.", error);
+    renderViewerFallback("3D viewer unavailable. Uploads, status, and artifact downloads still work.");
+    const detail = error?.message ? ` ${error.message}` : "";
+    setFlash(`3D viewer could not start.${detail}`.trim(), true);
+  }
+}
+
+async function syncViewerState() {
+  if (renderedReportJobId && renderedReport && currentJobId === renderedReportJobId) {
+    await viewer.loadJob(currentJobId, renderedReport);
+    viewer.refreshRemovalControls();
+    return;
+  }
+  if (currentJobId && !terminalStates.has(currentJobState)) {
+    viewer.clear("Viewer layers will appear once processing completes.");
+    return;
+  }
+  viewer.clear("Use the import control above to create a job and populate the 3D workspace.");
+}
+
+function renderViewerFallback(message) {
+  viewerLegendNode?.classList.add("hidden");
+  if (viewerLegendNode) {
+    viewerLegendNode.innerHTML = "";
+  }
+  if (viewerBrowserListNode) {
+    viewerBrowserListNode.innerHTML = "";
+  }
+  if (viewerEmptyMessageNode) {
+    viewerEmptyMessageNode.textContent = message;
+  }
+  viewerEmptyStateNode?.classList.remove("hidden");
+}
+
+function clearViewerFallbackWarning() {
+  if (flashMessage.dataset.state !== "error") {
+    return;
+  }
+  if (!flashMessage.textContent?.includes("viewer")) {
+    return;
+  }
+  setFlash("", false);
+}
+
+async function readApiResponse(response, fallbackMessage) {
+  const body = await readResponsePayload(response);
+  if (!response.ok) {
+    throw new Error(resolveApiErrorMessage(body, fallbackMessage));
+  }
+  return body || {};
+}
+
+async function readResponsePayload(response) {
+  const contentType = response.headers.get("content-type") || "";
+  if (contentType.includes("application/json")) {
+    try {
+      return await response.json();
+    } catch {
+      return null;
+    }
+  }
+
+  const text = await response.text();
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { detail: text };
+  }
+}
+
+function resolveApiErrorMessage(body, fallbackMessage) {
+  if (!body) {
+    return fallbackMessage;
+  }
+  if (typeof body.detail === "string" && body.detail.trim()) {
+    return body.detail;
+  }
+  if (Array.isArray(body.detail) && body.detail.length > 0) {
+    return body.detail
+      .map((item) => item?.msg || String(item))
+      .join("; ");
+  }
+  if (typeof body.message === "string" && body.message.trim()) {
+    return body.message;
+  }
+  return fallbackMessage;
 }
 
 function renderRailTabs() {

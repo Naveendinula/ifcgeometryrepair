@@ -17,6 +17,7 @@ from fastapi import UploadFile
 from .external_candidates import ExternalCandidatesResult, run_external_candidate_generation
 from .external_shell import ExternalShellResult, run_external_shell_classification
 from .geometry_worker import GeometryPreprocessingResult, run_geometry_preprocessing
+from .gbxml_export import GbxmlPreflightResult, run_gbxml_preflight
 from .ifc_editing import (
     InvalidSpaceRemovalRequestError,
     InvalidSpaceResolutionRequestError,
@@ -27,7 +28,7 @@ from .ifc_extractor import ParsedIFC, PreparedIFC, build_extraction_report, pars
 from .internal_boundaries import InternalBoundaryResult, run_internal_boundary_generation
 from .models import JobState
 from .opening_integration import OpeningIntegrationResult, run_opening_integration
-from .output_export import export_2lsb_obj, export_2lsb_xml
+from .output_export import export_2lsb_gbxml, export_2lsb_obj, export_2lsb_xml
 from .preflight import PreflightValidationResult, run_preflight_validation
 from .viewer_manifest import build_viewer_manifest
 
@@ -44,6 +45,7 @@ class JobProcessingBundle:
     external_candidates: ExternalCandidatesResult
     external_shell: ExternalShellResult
     opening_integration: OpeningIntegrationResult
+    gbxml_preflight: GbxmlPreflightResult
 
 
 class JobNotFoundError(FileNotFoundError):
@@ -72,6 +74,9 @@ class JobService:
         alpha_wrap_offset_m: float = 0.01,
         preflight_clash_tolerance_m: float = 0.01,
         min_surface_area_threshold_m2: float = 0.25,
+        gbxml_tolerance_m: float = 1e-3,
+        gbxml_emit_on_validation_failure: bool = True,
+        gbxml_min_surface_area_threshold_m2: float = 0.0,
     ) -> None:
         self.jobs_root = jobs_root
         self.stage_delay_seconds = stage_delay_seconds
@@ -85,6 +90,9 @@ class JobService:
         self.alpha_wrap_offset_m = alpha_wrap_offset_m
         self.preflight_clash_tolerance_m = preflight_clash_tolerance_m
         self.min_surface_area_threshold_m2 = min_surface_area_threshold_m2
+        self.gbxml_tolerance_m = gbxml_tolerance_m
+        self.gbxml_emit_on_validation_failure = gbxml_emit_on_validation_failure
+        self.gbxml_min_surface_area_threshold_m2 = gbxml_min_surface_area_threshold_m2
         self._queue: queue.Queue[str | None] = queue.Queue()
         self._stop_event = threading.Event()
         self._io_lock = threading.Lock()
@@ -497,6 +505,10 @@ class JobService:
             self._sleep_between_stages()
             bundle = self._run_opening_integration(job_id, bundle)
 
+            self._transition(job_id, "gbxml_preflight", "Validating gbXML export geometry and zone readiness")
+            self._sleep_between_stages()
+            bundle = self._run_gbxml_preflight(job_id, bundle)
+
             self._transition(job_id, "classifying", "Building extraction report")
             self._sleep_between_stages()
             self._run_classifying(job_id, bundle)
@@ -571,6 +583,7 @@ class JobService:
             external_candidates=ExternalCandidatesResult(payload={}),
             external_shell=ExternalShellResult(payload={}),
             opening_integration=OpeningIntegrationResult(payload={}),
+            gbxml_preflight=GbxmlPreflightResult(payload={}),
         )
 
     def _run_preflight(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -606,6 +619,7 @@ class JobService:
             external_candidates=bundle.external_candidates,
             external_shell=bundle.external_shell,
             opening_integration=bundle.opening_integration,
+            gbxml_preflight=bundle.gbxml_preflight,
         )
 
     def _run_internal_boundary(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -645,6 +659,7 @@ class JobService:
             external_candidates=bundle.external_candidates,
             external_shell=bundle.external_shell,
             opening_integration=bundle.opening_integration,
+            gbxml_preflight=bundle.gbxml_preflight,
         )
 
     def _run_external_candidates(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -678,6 +693,7 @@ class JobService:
             external_candidates=external_candidates,
             external_shell=bundle.external_shell,
             opening_integration=bundle.opening_integration,
+            gbxml_preflight=bundle.gbxml_preflight,
         )
 
     def _run_external_shell(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -739,6 +755,7 @@ class JobService:
             external_candidates=bundle.external_candidates,
             external_shell=external_shell,
             opening_integration=bundle.opening_integration,
+            gbxml_preflight=bundle.gbxml_preflight,
         )
 
     def _run_opening_integration(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
@@ -747,9 +764,12 @@ class JobService:
             debug_data.get("options", {}).get("internal_boundary_thickness_threshold_m")
             or self.internal_boundary_thickness_threshold_m
         )
-        min_area_m2 = float(
-            debug_data.get("options", {}).get("min_surface_area_threshold_m2")
-            or self.min_surface_area_threshold_m2
+        min_area_m2 = min(
+            float(
+                debug_data.get("options", {}).get("min_surface_area_threshold_m2")
+                or self.min_surface_area_threshold_m2
+            ),
+            float(self.gbxml_min_surface_area_threshold_m2),
         )
         opening_integration = run_opening_integration(
             job_id,
@@ -785,6 +805,47 @@ class JobService:
             external_candidates=bundle.external_candidates,
             external_shell=bundle.external_shell,
             opening_integration=opening_integration,
+            gbxml_preflight=bundle.gbxml_preflight,
+        )
+
+    def _run_gbxml_preflight(self, job_id: str, bundle: JobProcessingBundle) -> JobProcessingBundle:
+        gbxml_preflight = run_gbxml_preflight(
+            job_id,
+            self._job_dir(job_id),
+            bundle.preprocessing.result,
+            bundle.internal_boundaries.payload,
+            bundle.external_shell.payload,
+            bundle.opening_integration.payload,
+            tolerance_m=float(self.gbxml_tolerance_m),
+            min_area_m2=float(self.gbxml_min_surface_area_threshold_m2),
+        )
+
+        def mutator(debug_data: dict[str, Any]) -> None:
+            debug_data["gbxml_preflight_preview"] = {
+                "status": gbxml_preflight.payload.get("status"),
+                "summary": gbxml_preflight.payload.get("summary", {}),
+                "artifacts": gbxml_preflight.payload.get("artifacts", {}),
+            }
+
+        self._update_debug(job_id, mutator)
+        self._append_log(
+            job_id,
+            (
+                "gbXML preflight finished: "
+                f"status={gbxml_preflight.payload.get('status')}, "
+                f"{gbxml_preflight.payload.get('summary', {}).get('blocker_count', 0)} blockers, "
+                f"{gbxml_preflight.payload.get('summary', {}).get('warning_count', 0)} warnings"
+            ),
+        )
+        return JobProcessingBundle(
+            prepared_ifc=bundle.prepared_ifc,
+            preprocessing=bundle.preprocessing,
+            preflight=bundle.preflight,
+            internal_boundaries=bundle.internal_boundaries,
+            external_candidates=bundle.external_candidates,
+            external_shell=bundle.external_shell,
+            opening_integration=bundle.opening_integration,
+            gbxml_preflight=gbxml_preflight,
         )
 
     def _fail_external_shell_job(self, job_id: str, bundle: JobProcessingBundle, error_message: str) -> None:
@@ -837,10 +898,16 @@ class JobService:
             bundle.external_candidates.payload,
             external_shell_failure,
             derivation_info=debug_data.get("derivation"),
+            gbxml_preflight_result=bundle.gbxml_preflight.payload,
             success=False,
             error=error_message,
         )
-        viewer_manifest = build_viewer_manifest(job_id, output_payload)
+        viewer_manifest = build_viewer_manifest(
+            job_id,
+            output_payload,
+            internal_boundaries_payload=bundle.internal_boundaries.payload,
+            min_area_threshold_m2=float(self.min_surface_area_threshold_m2),
+        )
         self._fail_job(
             job_id,
             error_message,
@@ -860,6 +927,7 @@ class JobService:
             bundle.external_shell.payload,
             opening_integration_result=bundle.opening_integration.payload,
             derivation_info=self._load_debug(job_id).get("derivation"),
+            gbxml_preflight_result=bundle.gbxml_preflight.payload,
         )
         self._write_json_file(self._job_dir(job_id) / "output.json", output_payload)
 
@@ -871,6 +939,7 @@ class JobService:
                 bundle.internal_boundaries.payload,
                 bundle.external_shell.payload,
                 geometry_dir / "2lsb_surfaces.xml",
+                min_area_m2=float(self.min_surface_area_threshold_m2),
             )
         except Exception:
             self._append_log(job_id, "Warning: XML export failed")
@@ -880,11 +949,34 @@ class JobService:
                 bundle.internal_boundaries.payload,
                 bundle.external_shell.payload,
                 geometry_dir / "2lsb_surfaces.obj",
+                min_area_m2=float(self.min_surface_area_threshold_m2),
             )
         except Exception:
             self._append_log(job_id, "Warning: OBJ export failed")
+        try:
+            gbxml_status = str(bundle.gbxml_preflight.payload.get("status") or "").strip().lower()
+            if gbxml_status == "invalid" and not self.gbxml_emit_on_validation_failure:
+                self._append_log(job_id, "Warning: gbXML export skipped because gbXML preflight is invalid")
+            else:
+                export_2lsb_gbxml(
+                    bundle.opening_integration.payload,
+                    bundle.internal_boundaries.payload,
+                    bundle.external_shell.payload,
+                    geometry_dir / "2lsb_surfaces.gbxml",
+                    min_area_m2=float(self.gbxml_min_surface_area_threshold_m2),
+                    gbxml_tolerance_m=float(self.gbxml_tolerance_m),
+                    preprocessing_result=bundle.preprocessing.result,
+                    gbxml_preflight_payload=bundle.gbxml_preflight.payload,
+                )
+        except Exception:
+            self._append_log(job_id, "Warning: gbXML export failed")
 
-        viewer_manifest = build_viewer_manifest(job_id, output_payload)
+        viewer_manifest = build_viewer_manifest(
+            job_id,
+            output_payload,
+            internal_boundaries_payload=bundle.internal_boundaries.payload,
+            min_area_threshold_m2=float(self.min_surface_area_threshold_m2),
+        )
         self._write_json_file(geometry_dir / "viewer_manifest.json", viewer_manifest)
         self._update_debug(job_id, lambda debug_data: debug_data.update({"result": output_payload}))
         self._append_log(
@@ -918,10 +1010,15 @@ class JobService:
             {},
             {},
             derivation_info=self._load_debug(job_id).get("derivation"),
+            gbxml_preflight_result=bundle.gbxml_preflight.payload,
             success=False,
             error=error_message,
         )
-        viewer_manifest = build_viewer_manifest(job_id, output_payload)
+        viewer_manifest = build_viewer_manifest(
+            job_id,
+            output_payload,
+            min_area_threshold_m2=float(self.min_surface_area_threshold_m2),
+        )
         self._fail_job(
             job_id,
             error_message,

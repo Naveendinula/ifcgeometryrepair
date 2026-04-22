@@ -12,6 +12,7 @@ JobState = Literal[
     "external_candidates",
     "external_shell",
     "opening_integration",
+    "gbxml_preflight",
     "classifying",
     "complete",
     "failed",

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SecondLevelSpaceBoundaries>
+  <InternalBoundaries />
+  <ExternalBoundaries>
+    <Surface id="ext_1">
+      <Classification>external_wall</Classification>
+      <Space globalId="space-a" expressId="1" />
+      <Normal>1.0 0.0 0.0</Normal>
+      <Centroid>5.0 1.5 1.5</Centroid>
+      <AreaM2>9.0</AreaM2>
+    </Surface>
+  </ExternalBoundaries>
+  <OpeningSurfaces>
+    <Surface id="oi_wall1_opening1">
+      <Classification>opening</Classification>
+      <Space globalId="space-a" expressId="1" name="Room A" />
+      <Opening expressId="100" globalId="opening-001" />
+      <Normal>0.0 0.0 1.0</Normal>
+      <Centroid>2.0 1.5 0.0</Centroid>
+      <AreaM2>1.5</AreaM2>
+      <Geometry>
+        <Ring index="0">
+          <Point>5.0 1.0 1.0</Point>
+          <Point>5.0 2.0 1.0</Point>
+          <Point>5.0 2.0 2.5</Point>
+          <Point>5.0 1.0 2.5</Point>
+        </Ring>
+      </Geometry>
+    </Surface>
+  </OpeningSurfaces>
+  <Summary>
+    <InternalSurfaceCount>0</InternalSurfaceCount>
+    <ExternalSurfaceCount>1</ExternalSurfaceCount>
+    <OpeningSurfaceCount>1</OpeningSurfaceCount>
+    <TotalOpeningAreaM2>1.5</TotalOpeningAreaM2>
+    <MinSurfaceAreaThresholdM2>0.25</MinSurfaceAreaThresholdM2>
+  </Summary>
+</SecondLevelSpaceBoundaries>

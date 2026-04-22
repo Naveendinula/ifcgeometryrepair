@@ -21,6 +21,9 @@ class Settings:
     alpha_wrap_offset_m: float = 0.01
     preflight_clash_tolerance_m: float = 0.01
     min_surface_area_threshold_m2: float = 0.25
+    gbxml_tolerance_m: float = 1e-3
+    gbxml_emit_on_validation_failure: bool = True
+    gbxml_min_surface_area_threshold_m2: float = 0.01
 
     def __post_init__(self) -> None:
         resolved_exact_repair_binary = self.exact_repair_worker_binary or self.geometry_worker_binary or DEFAULT_EXACT_REPAIR_BINARY
