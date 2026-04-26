@@ -1,0 +1,641 @@
+{
+  "job_id": "d7bf5fd5-1cfa-46c6-895f-ad3cf712afde",
+  "status": "failed",
+  "summary": {
+    "space_count": 9,
+    "checked_space_count": 8,
+    "blocker_count": 4,
+    "warning_count": 9,
+    "self_intersection_space_count": 0,
+    "clash_pair_count": 3,
+    "clash_group_count": 3,
+    "exact_duplicate_group_count": 1,
+    "contained_fragment_group_count": 1,
+    "partial_overlap_group_count": 1,
+    "self_intersection_group_count": 0,
+    "recommended_resolution_group_count": 2,
+    "manual_resolution_group_count": 1
+  },
+  "blockers": [
+    {
+      "code": "invalid_space_solid",
+      "message": "Normalized space solid is missing or topologically invalid.",
+      "entity": {
+        "global_id": "2Nvj8YPGT7Euynmhl4mEfZ",
+        "express_id": 139,
+        "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE"
+      },
+      "reason": "Mesh data unavailable; Mesh is open; Mesh is non-manifold; Non-positive volume; Missing representation"
+    },
+    {
+      "code": "space_clash",
+      "message": "Detected duplicate intersecting IfcSpace volumes that require review before continuing.",
+      "clash_group_id": "cg_0",
+      "classification": "exact_duplicate",
+      "review_required": true,
+      "resolution_status": "recommended",
+      "entities": [
+        {
+          "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+          "express_id": 49,
+          "name": "EPLUS_ERROR_DUPLICATE_A",
+          "volume_m3": 33.6,
+          "recommended_action": "keep"
+        },
+        {
+          "global_id": "1QOh1Yr59Cdx$121NefYGT",
+          "express_id": 64,
+          "name": "EPLUS_ERROR_DUPLICATE_B",
+          "volume_m3": 33.6,
+          "recommended_action": "remove"
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_0",
+          "entities": [
+            {
+              "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+              "express_id": 49,
+              "name": "EPLUS_ERROR_DUPLICATE_A"
+            },
+            {
+              "global_id": "1QOh1Yr59Cdx$121NefYGT",
+              "express_id": 64,
+              "name": "EPLUS_ERROR_DUPLICATE_B"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+            "space_a_express_id": 49,
+            "space_b_global_id": "1QOh1Yr59Cdx$121NefYGT",
+            "space_b_express_id": 64
+          },
+          "detection": "triangle_intersection",
+          "classification": "exact_duplicate",
+          "evidence": {
+            "same_aabb": true,
+            "volume_ratio": 1.0,
+            "overlap_aabb_volume_m3": 33.6,
+            "overlap_to_smaller_volume_ratio": 1.0,
+            "left_centroid_in_right": true,
+            "right_centroid_in_left": true
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              8.666667,
+              -0.5,
+              2.8
+            ],
+            "triangle_b_centroid": [
+              8.666667,
+              -1.5,
+              0.933333
+            ]
+          }
+        }
+      ],
+      "recommended_resolution": {
+        "operation": "remove_spaces",
+        "reason": "Keep the highest-ranked duplicate space and remove the overlapping duplicates.",
+        "keeper": {
+          "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+          "express_id": 49,
+          "name": "EPLUS_ERROR_DUPLICATE_A"
+        },
+        "spaces_to_remove": [
+          {
+            "global_id": "1QOh1Yr59Cdx$121NefYGT",
+            "express_id": 64,
+            "name": "EPLUS_ERROR_DUPLICATE_B"
+          }
+        ]
+      }
+    },
+    {
+      "code": "space_clash",
+      "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_group_id": "cg_1",
+      "classification": "partial_overlap",
+      "review_required": true,
+      "resolution_status": "manual_required",
+      "entities": [
+        {
+          "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+          "express_id": 94,
+          "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+          "volume_m3": 33.6,
+          "recommended_action": null
+        },
+        {
+          "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+          "express_id": 79,
+          "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+          "volume_m3": 33.6,
+          "recommended_action": null
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_1",
+          "entities": [
+            {
+              "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+              "express_id": 79,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A"
+            },
+            {
+              "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+              "express_id": 94,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "2p9erXc6HCqAR9O8flpQ3o",
+            "space_a_express_id": 79,
+            "space_b_global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+            "space_b_express_id": 94
+          },
+          "detection": "triangle_intersection",
+          "classification": "partial_overlap",
+          "evidence": {
+            "same_aabb": false,
+            "volume_ratio": 1.0,
+            "overlap_aabb_volume_m3": 3.36,
+            "overlap_to_smaller_volume_ratio": 0.1,
+            "left_centroid_in_right": false,
+            "right_centroid_in_left": false
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              16.666667,
+              -0.5,
+              2.8
+            ],
+            "triangle_b_centroid": [
+              18.933333,
+              -1.5,
+              1.866667
+            ]
+          }
+        }
+      ],
+      "recommended_resolution": null
+    },
+    {
+      "code": "space_clash",
+      "message": "Detected fully contained IfcSpace fragments that require review before continuing.",
+      "clash_group_id": "cg_2",
+      "classification": "contained_fragment",
+      "review_required": true,
+      "resolution_status": "recommended",
+      "entities": [
+        {
+          "global_id": "0prGLsLID6lxkcF17mI8WC",
+          "express_id": 109,
+          "name": "EPLUS_ERROR_CONTAINED_OUTER",
+          "volume_m3": 75.0,
+          "recommended_action": "keep"
+        },
+        {
+          "global_id": "3zaURQFsT9SAlD70E2ATRm",
+          "express_id": 124,
+          "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+          "volume_m3": 1.5,
+          "recommended_action": "remove"
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_2",
+          "entities": [
+            {
+              "global_id": "0prGLsLID6lxkcF17mI8WC",
+              "express_id": 109,
+              "name": "EPLUS_ERROR_CONTAINED_OUTER"
+            },
+            {
+              "global_id": "3zaURQFsT9SAlD70E2ATRm",
+              "express_id": 124,
+              "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "0prGLsLID6lxkcF17mI8WC",
+            "space_a_express_id": 109,
+            "space_b_global_id": "3zaURQFsT9SAlD70E2ATRm",
+            "space_b_express_id": 124
+          },
+          "detection": "triangle_intersection",
+          "classification": "contained_fragment",
+          "evidence": {
+            "same_aabb": false,
+            "volume_ratio": 0.02,
+            "overlap_aabb_volume_m3": 1.5,
+            "overlap_to_smaller_volume_ratio": 1.0,
+            "left_centroid_in_right": false,
+            "right_centroid_in_left": true,
+            "contained_space_express_id": 124,
+            "keeper_space_express_id": 109
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              27.166667,
+              0.833333,
+              0.0
+            ],
+            "triangle_b_centroid": [
+              28.166667,
+              -0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "recommended_resolution": {
+        "operation": "remove_spaces",
+        "reason": "Keep the containing space and remove smaller fully-contained fragment spaces.",
+        "keeper": {
+          "global_id": "0prGLsLID6lxkcF17mI8WC",
+          "express_id": 109,
+          "name": "EPLUS_ERROR_CONTAINED_OUTER"
+        },
+        "spaces_to_remove": [
+          {
+            "global_id": "3zaURQFsT9SAlD70E2ATRm",
+            "express_id": 124,
+            "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+        "express_id": 94,
+        "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+        "express_id": 49,
+        "name": "EPLUS_ERROR_DUPLICATE_A"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "0prGLsLID6lxkcF17mI8WC",
+        "express_id": 109,
+        "name": "EPLUS_ERROR_CONTAINED_OUTER"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "1QOh1Yr59Cdx$121NefYGT",
+        "express_id": 64,
+        "name": "EPLUS_ERROR_DUPLICATE_B"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "1fMJ7YWVb6hOuhPFXiEwlV",
+        "express_id": 145,
+        "name": "EPLUS_WARNING_THIN_SLIVER_SPACE"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "space_skipped_nonblocking",
+      "message": "Skipped advanced preflight checks because the normalized space solid is invalid.",
+      "entity": {
+        "global_id": "2Nvj8YPGT7Euynmhl4mEfZ",
+        "express_id": 139,
+        "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE"
+      },
+      "reason": "Mesh data unavailable; Mesh is open; Mesh is non-manifold; Non-positive volume; Missing representation"
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "2glB5Fx0XDc93czxp$3FzF",
+        "express_id": 33,
+        "name": "EPLUS_CONTROL_VALID_ROOM"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+        "express_id": 79,
+        "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "3zaURQFsT9SAlD70E2ATRm",
+        "express_id": 124,
+        "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    }
+  ],
+  "clash_groups": [
+    {
+      "clash_group_id": "cg_0",
+      "classification": "exact_duplicate",
+      "review_required": true,
+      "resolution_status": "recommended",
+      "recommended_resolution": {
+        "operation": "remove_spaces",
+        "reason": "Keep the highest-ranked duplicate space and remove the overlapping duplicates.",
+        "keeper": {
+          "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+          "express_id": 49,
+          "name": "EPLUS_ERROR_DUPLICATE_A"
+        },
+        "spaces_to_remove": [
+          {
+            "global_id": "1QOh1Yr59Cdx$121NefYGT",
+            "express_id": 64,
+            "name": "EPLUS_ERROR_DUPLICATE_B"
+          }
+        ]
+      },
+      "spaces": [
+        {
+          "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+          "express_id": 49,
+          "name": "EPLUS_ERROR_DUPLICATE_A",
+          "volume_m3": 33.6,
+          "recommended_action": "keep"
+        },
+        {
+          "global_id": "1QOh1Yr59Cdx$121NefYGT",
+          "express_id": 64,
+          "name": "EPLUS_ERROR_DUPLICATE_B",
+          "volume_m3": 33.6,
+          "recommended_action": "remove"
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_0",
+          "entities": [
+            {
+              "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+              "express_id": 49,
+              "name": "EPLUS_ERROR_DUPLICATE_A"
+            },
+            {
+              "global_id": "1QOh1Yr59Cdx$121NefYGT",
+              "express_id": 64,
+              "name": "EPLUS_ERROR_DUPLICATE_B"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+            "space_a_express_id": 49,
+            "space_b_global_id": "1QOh1Yr59Cdx$121NefYGT",
+            "space_b_express_id": 64
+          },
+          "detection": "triangle_intersection",
+          "classification": "exact_duplicate",
+          "evidence": {
+            "same_aabb": true,
+            "volume_ratio": 1.0,
+            "overlap_aabb_volume_m3": 33.6,
+            "overlap_to_smaller_volume_ratio": 1.0,
+            "left_centroid_in_right": true,
+            "right_centroid_in_left": true
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              8.666667,
+              -0.5,
+              2.8
+            ],
+            "triangle_b_centroid": [
+              8.666667,
+              -1.5,
+              0.933333
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "clash_group_id": "cg_1",
+      "classification": "partial_overlap",
+      "review_required": true,
+      "resolution_status": "manual_required",
+      "recommended_resolution": null,
+      "spaces": [
+        {
+          "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+          "express_id": 94,
+          "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+          "volume_m3": 33.6,
+          "recommended_action": null
+        },
+        {
+          "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+          "express_id": 79,
+          "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+          "volume_m3": 33.6,
+          "recommended_action": null
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_1",
+          "entities": [
+            {
+              "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+              "express_id": 79,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A"
+            },
+            {
+              "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+              "express_id": 94,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "2p9erXc6HCqAR9O8flpQ3o",
+            "space_a_express_id": 79,
+            "space_b_global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+            "space_b_express_id": 94
+          },
+          "detection": "triangle_intersection",
+          "classification": "partial_overlap",
+          "evidence": {
+            "same_aabb": false,
+            "volume_ratio": 1.0,
+            "overlap_aabb_volume_m3": 3.36,
+            "overlap_to_smaller_volume_ratio": 0.1,
+            "left_centroid_in_right": false,
+            "right_centroid_in_left": false
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              16.666667,
+              -0.5,
+              2.8
+            ],
+            "triangle_b_centroid": [
+              18.933333,
+              -1.5,
+              1.866667
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "clash_group_id": "cg_2",
+      "classification": "contained_fragment",
+      "review_required": true,
+      "resolution_status": "recommended",
+      "recommended_resolution": {
+        "operation": "remove_spaces",
+        "reason": "Keep the containing space and remove smaller fully-contained fragment spaces.",
+        "keeper": {
+          "global_id": "0prGLsLID6lxkcF17mI8WC",
+          "express_id": 109,
+          "name": "EPLUS_ERROR_CONTAINED_OUTER"
+        },
+        "spaces_to_remove": [
+          {
+            "global_id": "3zaURQFsT9SAlD70E2ATRm",
+            "express_id": 124,
+            "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+          }
+        ]
+      },
+      "spaces": [
+        {
+          "global_id": "0prGLsLID6lxkcF17mI8WC",
+          "express_id": 109,
+          "name": "EPLUS_ERROR_CONTAINED_OUTER",
+          "volume_m3": 75.0,
+          "recommended_action": "keep"
+        },
+        {
+          "global_id": "3zaURQFsT9SAlD70E2ATRm",
+          "express_id": 124,
+          "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+          "volume_m3": 1.5,
+          "recommended_action": "remove"
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_2",
+          "entities": [
+            {
+              "global_id": "0prGLsLID6lxkcF17mI8WC",
+              "express_id": 109,
+              "name": "EPLUS_ERROR_CONTAINED_OUTER"
+            },
+            {
+              "global_id": "3zaURQFsT9SAlD70E2ATRm",
+              "express_id": 124,
+              "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "0prGLsLID6lxkcF17mI8WC",
+            "space_a_express_id": 109,
+            "space_b_global_id": "3zaURQFsT9SAlD70E2ATRm",
+            "space_b_express_id": 124
+          },
+          "detection": "triangle_intersection",
+          "classification": "contained_fragment",
+          "evidence": {
+            "same_aabb": false,
+            "volume_ratio": 0.02,
+            "overlap_aabb_volume_m3": 1.5,
+            "overlap_to_smaller_volume_ratio": 1.0,
+            "left_centroid_in_right": false,
+            "right_centroid_in_left": true,
+            "contained_space_express_id": 124,
+            "keeper_space_express_id": 109
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              27.166667,
+              0.833333,
+              0.0
+            ],
+            "triangle_b_centroid": [
+              28.166667,
+              -0.5,
+              0.5
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "recommended_resolution": {
+    "operation": "resolve_space_clashes",
+    "group_count": 2,
+    "clash_group_ids": [
+      "cg_0",
+      "cg_2"
+    ],
+    "space_global_ids": [
+      "1QOh1Yr59Cdx$121NefYGT",
+      "3zaURQFsT9SAlD70E2ATRm"
+    ],
+    "space_express_ids": [
+      64,
+      124
+    ]
+  },
+  "resolution_status": "review_required",
+  "review_required": true,
+  "artifacts": {
+    "detail": "geometry/preflight.json",
+    "clash_report": "geometry/clash_report.json"
+  }
+}

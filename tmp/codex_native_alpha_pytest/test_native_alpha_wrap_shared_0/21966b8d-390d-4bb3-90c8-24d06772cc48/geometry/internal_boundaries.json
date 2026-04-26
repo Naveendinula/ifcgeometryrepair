@@ -1,0 +1,380 @@
+{
+  "job_id": "21966b8d-390d-4bb3-90c8-24d06772cc48",
+  "threshold_m": 0.3,
+  "epsilon": 0.001,
+  "clip_backend": "pyclipper",
+  "summary": {
+    "space_count": 2,
+    "processed_space_count": 2,
+    "skipped_space_count": 0,
+    "candidate_pair_count": 1,
+    "adjacent_pair_count": 1,
+    "oriented_surface_count": 2,
+    "shared_surface_count": 1,
+    "rejected_shared_component_count": 0,
+    "total_oriented_area_m2": 16.799999999999997,
+    "total_shared_area_m2": 8.399999999999999
+  },
+  "adjacencies": [
+    {
+      "space_a_global_id": "0HAvAUq3D2K8b$Z7LfdONS",
+      "space_a_express_id": 33,
+      "space_b_global_id": "2hQSffUN511ATcLKc_oiZ5",
+      "space_b_express_id": 49,
+      "oriented_surface_ids": [
+        "ibo_0_0_a",
+        "ibo_0_0_b"
+      ],
+      "shared_surface_ids": [
+        "ib_0_0"
+      ],
+      "rejected_shared_surface_ids": [],
+      "rejected_shared_component_count": 0,
+      "shared_area_m2": 8.399999999999999
+    }
+  ],
+  "oriented_surfaces": [
+    {
+      "oriented_surface_id": "ibo_0_0_a",
+      "object_name": "ibo_0_0_a",
+      "space_global_id": "0HAvAUq3D2K8b$Z7LfdONS",
+      "space_express_id": 33,
+      "space_name": "Room A",
+      "adjacent_space_global_id": "2hQSffUN511ATcLKc_oiZ5",
+      "adjacent_space_express_id": 49,
+      "adjacent_space_name": "Room B",
+      "source_surface_id": "space_0_5",
+      "source_polygon_id": "space_0_5_poly_0",
+      "paired_surface_id": "ibo_0_0_b",
+      "shared_surface_id": "ib_0_0",
+      "area_m2": 8.399999999999999,
+      "plane_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "plane_point": [
+        2.2,
+        -0.0,
+        -0.0
+      ],
+      "centroid": [
+        2.2,
+        -0.0,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          2.2,
+          1.5,
+          -0.0
+        ],
+        [
+          2.2,
+          1.5,
+          2.8
+        ],
+        [
+          2.2,
+          -1.5,
+          2.8
+        ],
+        [
+          2.2,
+          -1.5,
+          0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            2.2,
+            1.5,
+            -0.0
+          ],
+          [
+            2.2,
+            1.5,
+            2.8
+          ],
+          [
+            2.2,
+            -1.5,
+            2.8
+          ],
+          [
+            2.2,
+            -1.5,
+            0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            2.2,
+            -1.5,
+            0.0
+          ],
+          [
+            2.2,
+            1.5,
+            2.8
+          ],
+          [
+            2.2,
+            -1.5,
+            2.8
+          ]
+        ],
+        [
+          [
+            2.2,
+            -1.5,
+            0.0
+          ],
+          [
+            2.2,
+            1.5,
+            -0.0
+          ],
+          [
+            2.2,
+            1.5,
+            2.8
+          ]
+        ]
+      ]
+    },
+    {
+      "oriented_surface_id": "ibo_0_0_b",
+      "object_name": "ibo_0_0_b",
+      "space_global_id": "2hQSffUN511ATcLKc_oiZ5",
+      "space_express_id": 49,
+      "space_name": "Room B",
+      "adjacent_space_global_id": "0HAvAUq3D2K8b$Z7LfdONS",
+      "adjacent_space_express_id": 33,
+      "adjacent_space_name": "Room A",
+      "source_surface_id": "space_1_0",
+      "source_polygon_id": "space_1_0_poly_0",
+      "paired_surface_id": "ibo_0_0_a",
+      "shared_surface_id": "ib_0_0",
+      "area_m2": 8.399999999999999,
+      "plane_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "plane_point": [
+        2.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        2.0,
+        0.0,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          2.0,
+          -1.5,
+          0.0
+        ],
+        [
+          2.0,
+          -1.5,
+          2.8
+        ],
+        [
+          2.0,
+          1.5,
+          2.8
+        ],
+        [
+          2.0,
+          1.5,
+          0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            2.0,
+            -1.5,
+            2.8
+          ],
+          [
+            2.0,
+            1.5,
+            2.8
+          ],
+          [
+            2.0,
+            1.5,
+            0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            2.0,
+            1.5,
+            0.0
+          ],
+          [
+            2.0,
+            -1.5,
+            2.8
+          ],
+          [
+            2.0,
+            1.5,
+            2.8
+          ]
+        ],
+        [
+          [
+            2.0,
+            1.5,
+            0.0
+          ],
+          [
+            2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            2.0,
+            -1.5,
+            2.8
+          ]
+        ]
+      ]
+    }
+  ],
+  "shared_surfaces": [
+    {
+      "shared_surface_id": "ib_0_0",
+      "object_name": "ib_0_0",
+      "space_a_global_id": "0HAvAUq3D2K8b$Z7LfdONS",
+      "space_a_express_id": 33,
+      "space_b_global_id": "2hQSffUN511ATcLKc_oiZ5",
+      "space_b_express_id": 49,
+      "oriented_surface_ids": [
+        "ibo_0_0_a",
+        "ibo_0_0_b"
+      ],
+      "area_m2": 8.399999999999999,
+      "plane_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "plane_point": [
+        2.1,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        2.1,
+        0.0,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          2.1,
+          -1.5,
+          0.0
+        ],
+        [
+          2.1,
+          1.5,
+          0.0
+        ],
+        [
+          2.1,
+          1.5,
+          2.8
+        ],
+        [
+          2.1,
+          -1.5,
+          2.8
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            2.1,
+            -1.5,
+            0.0
+          ],
+          [
+            2.1,
+            1.5,
+            0.0
+          ],
+          [
+            2.1,
+            1.5,
+            2.8
+          ],
+          [
+            2.1,
+            -1.5,
+            2.8
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            2.1,
+            1.5,
+            0.0
+          ],
+          [
+            2.1,
+            1.5,
+            2.8
+          ],
+          [
+            2.1,
+            -1.5,
+            2.8
+          ]
+        ],
+        [
+          [
+            2.1,
+            1.5,
+            0.0
+          ],
+          [
+            2.1,
+            -1.5,
+            2.8
+          ],
+          [
+            2.1,
+            -1.5,
+            0.0
+          ]
+        ]
+      ]
+    }
+  ],
+  "rejected_shared_components": [],
+  "skipped_spaces": [],
+  "artifacts": {
+    "detail": "geometry/internal_boundaries.json",
+    "obj": "geometry/internal_boundaries.obj"
+  }
+}

@@ -192,6 +192,31 @@ const dataDisclosureState = {
 const terminalStates = new Set(["complete", "failed"]);
 let viewerAvailable = false;
 let viewer = createFallbackViewer();
+let createJobInFlight = false;
+
+const uploadParameterFields = [
+  {
+    input: internalBoundaryThresholdInput,
+    formName: "internal_boundary_thickness_threshold_m",
+    label: "Boundary d",
+    errorNode: document.querySelector("#internal-boundary-threshold-error"),
+    errorMessage: "Boundary d must be greater than 0 m.",
+  },
+  {
+    input: alphaWrapAlphaInput,
+    formName: "alpha_wrap_alpha_m",
+    label: "Alpha wrap alpha",
+    errorNode: document.querySelector("#alpha-wrap-alpha-error"),
+    errorMessage: "Alpha wrap alpha must be greater than 0 m.",
+  },
+  {
+    input: alphaWrapOffsetInput,
+    formName: "alpha_wrap_offset_m",
+    label: "Alpha wrap offset",
+    errorNode: document.querySelector("#alpha-wrap-offset-error"),
+    errorMessage: "Alpha wrap offset must be greater than 0 m.",
+  },
+].filter((field) => field.input);
 
 fileInput.addEventListener("change", () => updateSelectedFileName());
 emptyUploadButton.addEventListener("click", () => fileInput.click());
@@ -233,8 +258,20 @@ for (const checkbox of document.querySelectorAll("[data-validation-filter]")) {
   });
 }
 
+for (const field of uploadParameterFields) {
+  field.input.addEventListener("input", () => validateUploadParameters());
+  field.input.addEventListener("change", () => validateUploadParameters());
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  const parameterValidation = validateUploadParameters();
+  if (!parameterValidation.valid) {
+    setFlash("Fix upload parameter values before creating a job.", true);
+    parameterValidation.firstInvalidInput?.focus();
+    return;
+  }
+
   const file = fileInput.files[0];
   if (!file) {
     setFlash("Choose an IFC file first.", true);
@@ -242,7 +279,8 @@ form.addEventListener("submit", async (event) => {
   }
 
   stopPolling();
-  submitButton.disabled = true;
+  createJobInFlight = true;
+  renderSubmitAvailability(parameterValidation);
   renderedReportJobId = null;
   renderedReport = null;
   clearWorkspaceForNewRun();
@@ -251,14 +289,11 @@ form.addEventListener("submit", async (event) => {
   const payload = new FormData();
   payload.append("file", file);
   payload.append("external_shell_mode", externalShellModeInput.value || "alpha_wrap");
-  if (internalBoundaryThresholdInput?.value) {
-    payload.append("internal_boundary_thickness_threshold_m", internalBoundaryThresholdInput.value);
-  }
-  if (alphaWrapAlphaInput?.value) {
-    payload.append("alpha_wrap_alpha_m", alphaWrapAlphaInput.value);
-  }
-  if (alphaWrapOffsetInput?.value) {
-    payload.append("alpha_wrap_offset_m", alphaWrapOffsetInput.value);
+  for (const field of uploadParameterFields) {
+    const value = parameterValidation.values[field.formName];
+    if (value) {
+      payload.append(field.formName, value);
+    }
   }
 
   try {
@@ -277,7 +312,8 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     setFlash(error.message, true);
   } finally {
-    submitButton.disabled = false;
+    createJobInFlight = false;
+    validateUploadParameters();
   }
 });
 
@@ -286,6 +322,7 @@ void bootstrapViewer();
 
 function initializeWorkspace() {
   updateSelectedFileName();
+  validateUploadParameters();
   updateJobHeader(null, "idle", null);
   renderHistory([]);
   renderError("");
@@ -331,6 +368,56 @@ function resetRailState() {
   renderBrowserFilterState();
   renderDisclosureState();
   renderBrowserStats(emptyBrowserStats());
+}
+
+function validateUploadParameters() {
+  const result = {
+    valid: true,
+    values: {},
+    firstInvalidInput: null,
+  };
+
+  for (const field of uploadParameterFields) {
+    const rawValue = field.input.value.trim();
+    let errorMessage = "";
+
+    if (field.input.validity.badInput) {
+      errorMessage = `${field.label} must be a number greater than 0 m.`;
+    } else if (rawValue === "") {
+      result.values[field.formName] = null;
+    } else {
+      const numericValue = Number(rawValue);
+      if (!Number.isFinite(numericValue) || numericValue <= 0) {
+        errorMessage = field.errorMessage;
+      } else {
+        result.values[field.formName] = rawValue;
+      }
+    }
+
+    renderParameterFieldState(field, errorMessage);
+    if (errorMessage) {
+      result.valid = false;
+      result.values[field.formName] = null;
+      result.firstInvalidInput = result.firstInvalidInput || field.input;
+    }
+  }
+
+  renderSubmitAvailability(result);
+  return result;
+}
+
+function renderParameterFieldState(field, errorMessage) {
+  const hasError = Boolean(errorMessage);
+  field.input.setAttribute("aria-invalid", hasError ? "true" : "false");
+  field.input.closest(".mode-picker")?.classList.toggle("mode-picker--invalid", hasError);
+  if (field.errorNode) {
+    field.errorNode.textContent = errorMessage;
+    field.errorNode.classList.toggle("hidden", !hasError);
+  }
+}
+
+function renderSubmitAvailability(validationResult) {
+  submitButton.disabled = createJobInFlight || !validationResult.valid;
 }
 
 function updateSelectedFileName() {

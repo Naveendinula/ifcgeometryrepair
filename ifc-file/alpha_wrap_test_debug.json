@@ -1,0 +1,203 @@
+[
+  {
+    "fixture": "single_room",
+    "job_id": "f7e4a98c-f23e-4ef3-a522-f731d39ae6e0",
+    "state": "complete",
+    "error": null,
+    "history_states": [
+      "uploaded",
+      "parsing",
+      "preprocessing",
+      "preflight",
+      "internal_boundary",
+      "external_candidates",
+      "external_shell",
+      "opening_integration",
+      "gbxml_preflight",
+      "classifying",
+      "complete"
+    ],
+    "preflight_status": "passed",
+    "preprocessing_backend": "hybrid",
+    "mode_requested": "alpha_wrap",
+    "mode_effective": "alpha_wrap",
+    "shell_backend": "cpp-cgal-alpha-wrap",
+    "alpha_status": "ok",
+    "alpha_backend": "cpp-cgal-alpha-wrap",
+    "alpha_m_effective": 1.0,
+    "offset_m_effective": 0.01,
+    "triangle_count": 90,
+    "vertex_count": 47,
+    "shell_generation_time_ms": 41.944,
+    "classification_time_ms": 7.824,
+    "external_shell_summary": {
+      "processed_space_count": 1,
+      "skipped_space_count": 0,
+      "candidate_surface_count": 6,
+      "internal_partition_match_count": 0,
+      "shell_match_count": 4,
+      "internal_void_count": 2,
+      "unclassified_count": 0,
+      "per_class_counts": {
+        "external_wall": 4,
+        "roof": 0,
+        "ground_floor": 0,
+        "internal_void": 2,
+        "unclassified": 0
+      },
+      "per_class_area_m2": {
+        "external_wall": 0.0392,
+        "roof": 0.0,
+        "ground_floor": 0.0,
+        "internal_void": 2.4e-05,
+        "unclassified": 0.0
+      },
+      "total_classified_area_m2": 0.039224,
+      "shell_generation_time_ms": 41.944,
+      "classification_time_ms": 7.824
+    },
+    "gbxml_status": "valid",
+    "gbxml_blockers": 0,
+    "exports": {
+      "xml": true,
+      "obj": true,
+      "gbxml": true,
+      "shell_obj": true,
+      "surfaces_all": true
+    }
+  },
+  {
+    "fixture": "shared_wall",
+    "job_id": "d69edd26-161c-45ec-965a-451b2c9c42a6",
+    "state": "complete",
+    "error": null,
+    "history_states": [
+      "uploaded",
+      "parsing",
+      "preprocessing",
+      "preflight",
+      "internal_boundary",
+      "external_candidates",
+      "external_shell",
+      "opening_integration",
+      "gbxml_preflight",
+      "classifying",
+      "complete"
+    ],
+    "preflight_status": "passed",
+    "preprocessing_backend": "hybrid",
+    "mode_requested": "alpha_wrap",
+    "mode_effective": "alpha_wrap",
+    "shell_backend": "cpp-cgal-alpha-wrap",
+    "alpha_status": "ok",
+    "alpha_backend": "cpp-cgal-alpha-wrap",
+    "alpha_m_effective": 1.0,
+    "offset_m_effective": 0.01,
+    "triangle_count": 436,
+    "vertex_count": 220,
+    "shell_generation_time_ms": 52.897,
+    "classification_time_ms": 30.048,
+    "external_shell_summary": {
+      "processed_space_count": 2,
+      "skipped_space_count": 0,
+      "candidate_surface_count": 10,
+      "internal_partition_match_count": 0,
+      "shell_match_count": 10,
+      "internal_void_count": 0,
+      "unclassified_count": 0,
+      "per_class_counts": {
+        "external_wall": 6,
+        "roof": 2,
+        "ground_floor": 2,
+        "internal_void": 0,
+        "unclassified": 0
+      },
+      "per_class_area_m2": {
+        "external_wall": 61.6,
+        "roof": 24.0,
+        "ground_floor": 24.0,
+        "internal_void": 0.0,
+        "unclassified": 0.0
+      },
+      "total_classified_area_m2": 109.6,
+      "shell_generation_time_ms": 52.897,
+      "classification_time_ms": 30.048
+    },
+    "gbxml_status": "valid",
+    "gbxml_blockers": 0,
+    "exports": {
+      "xml": true,
+      "obj": true,
+      "gbxml": true,
+      "shell_obj": true,
+      "surfaces_all": true
+    }
+  },
+  {
+    "fixture": "corridor_room",
+    "job_id": "ba7d8b2b-d59e-4043-802a-9cd4862b1c7e",
+    "state": "complete",
+    "error": null,
+    "history_states": [
+      "uploaded",
+      "parsing",
+      "preprocessing",
+      "preflight",
+      "internal_boundary",
+      "external_candidates",
+      "external_shell",
+      "opening_integration",
+      "gbxml_preflight",
+      "classifying",
+      "complete"
+    ],
+    "preflight_status": "passed",
+    "preprocessing_backend": "hybrid",
+    "mode_requested": "alpha_wrap",
+    "mode_effective": "alpha_wrap",
+    "shell_backend": "cpp-cgal-alpha-wrap",
+    "alpha_status": "ok",
+    "alpha_backend": "cpp-cgal-alpha-wrap",
+    "alpha_m_effective": 1.0,
+    "offset_m_effective": 0.01,
+    "triangle_count": 654,
+    "vertex_count": 329,
+    "shell_generation_time_ms": 53.691,
+    "classification_time_ms": 47.967,
+    "external_shell_summary": {
+      "processed_space_count": 3,
+      "skipped_space_count": 0,
+      "candidate_surface_count": 18,
+      "internal_partition_match_count": 0,
+      "shell_match_count": 18,
+      "internal_void_count": 0,
+      "unclassified_count": 0,
+      "per_class_counts": {
+        "external_wall": 12,
+        "roof": 3,
+        "ground_floor": 3,
+        "internal_void": 0,
+        "unclassified": 0
+      },
+      "per_class_area_m2": {
+        "external_wall": 120.0,
+        "roof": 40.0,
+        "ground_floor": 40.0,
+        "internal_void": 0.0,
+        "unclassified": 0.0
+      },
+      "total_classified_area_m2": 200.0,
+      "shell_generation_time_ms": 53.691,
+      "classification_time_ms": 47.967
+    },
+    "gbxml_status": "warning",
+    "gbxml_blockers": 0,
+    "exports": {
+      "xml": true,
+      "obj": true,
+      "gbxml": true,
+      "shell_obj": true,
+      "surfaces_all": true
+    }
+  }
+]

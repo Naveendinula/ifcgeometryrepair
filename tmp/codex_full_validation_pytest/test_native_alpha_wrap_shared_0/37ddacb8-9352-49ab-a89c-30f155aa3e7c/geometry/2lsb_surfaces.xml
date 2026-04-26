@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SecondLevelSpaceBoundaries>
+  <InternalBoundaries>
+    <Surface id="ibo_0_0_a">
+      <Classification>internal</Classification>
+      <Space globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" name="Room B" />
+      <AdjacentSpace globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" />
+      <Normal>-1.0 0.0 0.0</Normal>
+      <Centroid>2.0 0.0 1.4</Centroid>
+      <AreaM2>8.4</AreaM2>
+      <Geometry>
+        <Ring index="0">
+          <Point>2.0 -1.5 0.0</Point>
+          <Point>2.0 -1.5 2.8</Point>
+          <Point>2.0 1.5 2.8</Point>
+          <Point>2.0 1.5 0.0</Point>
+        </Ring>
+      </Geometry>
+    </Surface>
+    <Surface id="ibo_0_0_b">
+      <Classification>internal</Classification>
+      <Space globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" name="Room A" />
+      <AdjacentSpace globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" />
+      <Normal>1.0 0.0 0.0</Normal>
+      <Centroid>2.2 -0.0 1.4</Centroid>
+      <AreaM2>8.4</AreaM2>
+      <Geometry>
+        <Ring index="0">
+          <Point>2.2 1.5 -0.0</Point>
+          <Point>2.2 1.5 2.8</Point>
+          <Point>2.2 -1.5 2.8</Point>
+          <Point>2.2 -1.5 0.0</Point>
+        </Ring>
+      </Geometry>
+    </Surface>
+  </InternalBoundaries>
+  <ExternalBoundaries>
+    <Surface id="ec_1_0">
+      <Classification>external_wall</Classification>
+      <Space globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" name="Room A" />
+      <Normal>-1.0 0.0 0.0</Normal>
+      <Centroid>-2.0 0.0 1.4</Centroid>
+      <AreaM2>8.4</AreaM2>
+    </Surface>
+    <Surface id="ec_1_1">
+      <Classification>external_wall</Classification>
+      <Space globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" name="Room A" />
+      <Normal>0.0 -1.0 0.0</Normal>
+      <Centroid>0.0 -1.5 1.4</Centroid>
+      <AreaM2>11.2</AreaM2>
+    </Surface>
+    <Surface id="ec_1_2">
+      <Classification>ground_floor</Classification>
+      <Space globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" name="Room A" />
+      <Normal>0.0 0.0 -1.0</Normal>
+      <Centroid>0.0 0.0 0.0</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_3">
+      <Classification>roof</Classification>
+      <Space globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" name="Room A" />
+      <Normal>0.0 0.0 1.0</Normal>
+      <Centroid>0.0 0.0 2.8</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_4">
+      <Classification>external_wall</Classification>
+      <Space globalId="2LR1V26rb9sRNmpqr$jYpf" expressId="33" name="Room A" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>0.0 1.5 1.4</Centroid>
+      <AreaM2>11.2</AreaM2>
+    </Surface>
+    <Surface id="ec_0_0">
+      <Classification>external_wall</Classification>
+      <Space globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" name="Room B" />
+      <Normal>0.0 -1.0 0.0</Normal>
+      <Centroid>4.2 -1.5 1.4</Centroid>
+      <AreaM2>11.2</AreaM2>
+    </Surface>
+    <Surface id="ec_0_1">
+      <Classification>ground_floor</Classification>
+      <Space globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" name="Room B" />
+      <Normal>0.0 0.0 -1.0</Normal>
+      <Centroid>4.2 0.0 0.0</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_2">
+      <Classification>roof</Classification>
+      <Space globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" name="Room B" />
+      <Normal>0.0 0.0 1.0</Normal>
+      <Centroid>4.2 0.0 2.8</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_3">
+      <Classification>external_wall</Classification>
+      <Space globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" name="Room B" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>4.2 1.5 1.4</Centroid>
+      <AreaM2>11.2</AreaM2>
+    </Surface>
+    <Surface id="ec_0_4">
+      <Classification>external_wall</Classification>
+      <Space globalId="0c8RlCBvL2aBCpaU_FCa6K" expressId="49" name="Room B" />
+      <Normal>1.0 0.0 0.0</Normal>
+      <Centroid>6.2 0.0 1.4</Centroid>
+      <AreaM2>8.4</AreaM2>
+    </Surface>
+  </ExternalBoundaries>
+  <OpeningSurfaces />
+  <Summary>
+    <InternalSurfaceCount>2</InternalSurfaceCount>
+    <ExternalSurfaceCount>10</ExternalSurfaceCount>
+    <OpeningSurfaceCount>0</OpeningSurfaceCount>
+    <TotalOpeningAreaM2>0</TotalOpeningAreaM2>
+    <MinSurfaceAreaThresholdM2>0.25</MinSurfaceAreaThresholdM2>
+  </Summary>
+</SecondLevelSpaceBoundaries>

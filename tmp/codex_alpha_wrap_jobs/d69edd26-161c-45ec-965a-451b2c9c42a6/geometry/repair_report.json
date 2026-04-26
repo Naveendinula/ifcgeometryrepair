@@ -1,0 +1,46 @@
+{
+  "contract_version": 2,
+  "mode_requested": "preferred",
+  "effective_mode": "exact_repair",
+  "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+  "worker_available": true,
+  "worker_invoked": true,
+  "worker_backend": "cpp-cgal",
+  "response_status": "ok",
+  "fallback_reason": null,
+  "summary": {
+    "effective_mode": "exact_repair",
+    "space_count": 2,
+    "attempted_space_count": 2,
+    "exact_repaired_space_count": 2,
+    "exact_passthrough_space_count": 0,
+    "python_fallback_space_count": 0,
+    "not_attempted_space_count": 0
+  },
+  "spaces": [
+    {
+      "global_id": "2lo9ykrgz5rxEa57hxNYtF",
+      "express_id": 33,
+      "name": "Room A",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "2ZK$tfKWP6De1EtQFgk2i1",
+      "express_id": 49,
+      "name": "Room B",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "job_id": "f7e4a98c-f23e-4ef3-a522-f731d39ae6e0",
+  "threshold_m": 0.3,
+  "epsilon": 0.001,
+  "clip_backend": "pyclipper",
+  "summary": {
+    "space_count": 1,
+    "processed_space_count": 1,
+    "skipped_space_count": 0,
+    "candidate_pair_count": 0,
+    "adjacent_pair_count": 0,
+    "oriented_surface_count": 0,
+    "shared_surface_count": 0,
+    "rejected_shared_component_count": 0,
+    "total_oriented_area_m2": 0.0,
+    "total_shared_area_m2": 0.0
+  },
+  "adjacencies": [],
+  "oriented_surfaces": [],
+  "shared_surfaces": [],
+  "rejected_shared_components": [],
+  "skipped_spaces": [],
+  "artifacts": {
+    "detail": "geometry/internal_boundaries.json",
+    "obj": "geometry/internal_boundaries.obj"
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "job_id": "64769100-9305-4e92-b3fa-6fd08e2086ea",
+  "schema": "IFC4",
+  "unit": "meter",
+  "min_area_threshold_m2": 0.25,
+  "proximity_threshold_m": 0.05,
+  "summary": {
+    "space_count": 1,
+    "opening_count": 0,
+    "failed_count": 0,
+    "valid_count": 1,
+    "surface_count": 6,
+    "opening_surface_count": 0,
+    "internal_boundary_count": 0,
+    "unclassified_surface_count": 0,
+    "clash_group_count": 0
+  },
+  "layers": {
+    "raw_ifc_preview": {
+      "available": true,
+      "spaces_obj": "geometry/raw/spaces_all.obj",
+      "openings_obj": null,
+      "glb": null
+    },
+    "normalized_spaces": {
+      "available": true,
+      "obj": "geometry/spaces_all.obj",
+      "glb": null
+    },
+    "openings": {
+      "available": false,
+      "obj": null,
+      "glb": null
+    },
+    "failed_entities": {
+      "available": false,
+      "count": 0
+    },
+    "envelope_shell": {
+      "available": true,
+      "obj": "geometry/external_shell/shell.obj",
+      "glb": null
+    },
+    "surface_classification": {
+      "available": true,
+      "obj": "geometry/external_shell/surfaces_all.obj",
+      "glb": null,
+      "count": 6
+    },
+    "opening_integration": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    },
+    "internal_boundaries": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    }
+  },
+  "clash_review": {
+    "review_required": false,
+    "resolution_status": "clear",
+    "recommended_resolution": null,
+    "clash_groups": []
+  },
+  "entities": [
+    {
+      "object_name": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "selection_type": "entity",
+      "global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "express_id": 33,
+      "name": "Simple Room",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "0kA44aUxTF1B_YIW6ZsqAW",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2vB5$N9R9CLO9yrQkoG7Kt",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          5000.0,
+          6000.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            5000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            6000.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 3.360000001132827e-05,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        5000.0,
+        6000.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/3S3Zp4sOv1tvaDTwZCrlzD.obj",
+        "normalized_obj": "geometry/spaces/3S3Zp4sOv1tvaDTwZCrlzD.obj",
+        "glb": null
+      }
+    }
+  ],
+  "surface_entities": [
+    {
+      "object_name": "ec_0_0",
+      "selection_type": "surface",
+      "surface_id": "ec_0_0",
+      "name": "Simple Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_16",
+      "area_m2": 0.0084,
+      "below_area_threshold": true,
+      "normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        4.998,
+        6.0,
+        1.4
+      ],
+      "marker_origin": [
+        4.998,
+        6.0,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_1",
+      "selection_type": "surface",
+      "surface_id": "ec_0_1",
+      "name": "Simple Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_26",
+      "area_m2": 0.0112,
+      "below_area_threshold": true,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        5.0,
+        5.9985,
+        1.4
+      ],
+      "marker_origin": [
+        5.0,
+        5.9985,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_2",
+      "selection_type": "surface",
+      "surface_id": "ec_0_2",
+      "name": "Simple Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "classification": "internal_void",
+      "failed": false,
+      "valid": true,
+      "reason": "no_alpha_wrap_hit",
+      "area_m2": 1.2e-05,
+      "below_area_threshold": true,
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        5.0,
+        6.0,
+        0.0
+      ],
+      "marker_origin": [
+        5.0,
+        6.0,
+        0.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/internal_void.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_3",
+      "selection_type": "surface",
+      "surface_id": "ec_0_3",
+      "name": "Simple Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "classification": "internal_void",
+      "failed": false,
+      "valid": true,
+      "reason": "no_alpha_wrap_hit",
+      "area_m2": 1.2e-05,
+      "below_area_threshold": true,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "centroid": [
+        5.0,
+        6.0,
+        2.8
+      ],
+      "marker_origin": [
+        5.0,
+        6.0,
+        2.8
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/internal_void.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_4",
+      "selection_type": "surface",
+      "surface_id": "ec_0_4",
+      "name": "Simple Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_7",
+      "area_m2": 0.0112,
+      "below_area_threshold": true,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        5.0,
+        6.0015,
+        1.4
+      ],
+      "marker_origin": [
+        5.0,
+        6.0015,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_5",
+      "selection_type": "surface",
+      "surface_id": "ec_0_5",
+      "name": "Simple Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_87",
+      "area_m2": 0.0084,
+      "below_area_threshold": true,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        5.002,
+        6.0,
+        1.4
+      ],
+      "marker_origin": [
+        5.002,
+        6.0,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    }
+  ],
+  "opening_surface_entities": [],
+  "internal_boundary_entities": []
+}

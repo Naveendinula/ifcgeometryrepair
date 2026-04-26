@@ -1,0 +1,595 @@
+{
+  "job_id": "d7bf5fd5-1cfa-46c6-895f-ad3cf712afde",
+  "worker_backend": "hybrid",
+  "unit": "meter",
+  "source_unit_scale_to_meters": 0.001,
+  "summary": {
+    "entities_total": 10,
+    "entities_with_input_mesh": 9,
+    "normalized_entities": 9,
+    "valid_entities": 9,
+    "invalid_entities": 1,
+    "space_count": 9,
+    "opening_count": 1,
+    "valid_spaces": 8,
+    "invalid_spaces": 1,
+    "valid_openings": 1,
+    "invalid_openings": 0,
+    "spaces_with_obj_exports": 8,
+    "openings_with_obj_exports": 1,
+    "repair_effective_mode": "exact_repair",
+    "repair_exact_repaired_spaces": 8,
+    "repair_exact_passthrough_spaces": 0,
+    "repair_python_fallback_spaces": 0,
+    "repair_not_attempted_spaces": 1
+  },
+  "repair": {
+    "contract_version": 2,
+    "mode_requested": "preferred",
+    "effective_mode": "exact_repair",
+    "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+    "worker_available": true,
+    "worker_invoked": true,
+    "worker_backend": "cpp-cgal",
+    "response_status": "ok",
+    "fallback_reason": null,
+    "summary": {
+      "effective_mode": "exact_repair",
+      "space_count": 9,
+      "attempted_space_count": 8,
+      "exact_repaired_space_count": 8,
+      "exact_passthrough_space_count": 0,
+      "python_fallback_space_count": 0,
+      "not_attempted_space_count": 1
+    },
+    "spaces": [
+      {
+        "global_id": "2glB5Fx0XDc93czxp$3FzF",
+        "express_id": 33,
+        "name": "EPLUS_CONTROL_VALID_ROOM",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+        "express_id": 49,
+        "name": "EPLUS_ERROR_DUPLICATE_A",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "1QOh1Yr59Cdx$121NefYGT",
+        "express_id": 64,
+        "name": "EPLUS_ERROR_DUPLICATE_B",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+        "express_id": 79,
+        "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+        "express_id": 94,
+        "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0prGLsLID6lxkcF17mI8WC",
+        "express_id": 109,
+        "name": "EPLUS_ERROR_CONTAINED_OUTER",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "3zaURQFsT9SAlD70E2ATRm",
+        "express_id": 124,
+        "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "2Nvj8YPGT7Euynmhl4mEfZ",
+        "express_id": 139,
+        "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE",
+        "repair_backend": "none",
+        "repair_status": "not_attempted",
+        "repair_reason": "Missing representation",
+        "repair_actions": [],
+        "valid": false
+      },
+      {
+        "global_id": "1fMJ7YWVb6hOuhPFXiEwlV",
+        "express_id": 145,
+        "name": "EPLUS_WARNING_THIN_SLIVER_SPACE",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      }
+    ]
+  },
+  "invalid_entities": [
+    {
+      "object_name": "2Nvj8YPGT7Euynmhl4mEfZ",
+      "global_id": "2Nvj8YPGT7Euynmhl4mEfZ",
+      "express_id": 139,
+      "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE",
+      "entity_type": "IfcSpace",
+      "reason": "Missing representation",
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Missing representation",
+      "valid": false
+    }
+  ],
+  "artifacts": {
+    "request": "geometry/request.json",
+    "result": "geometry/result.json",
+    "summary": "geometry/geometry_summary.json",
+    "repair_request": "geometry/repair_request.json",
+    "repair_response": "geometry/repair_response.json",
+    "repair_report": "geometry/repair_report.json",
+    "viewer_manifest": "geometry/viewer_manifest.json",
+    "raw_spaces_all": "geometry/raw/spaces_all.obj",
+    "raw_openings": "geometry/raw/openings.obj",
+    "spaces_all": "geometry/spaces_all.obj",
+    "openings": "geometry/openings.obj",
+    "per_raw_space_objs": [
+      "geometry/raw/spaces/2glB5Fx0XDc93czxp$3FzF.obj",
+      "geometry/raw/spaces/0KZEaoBuX2_vYMDVFS1Ppi.obj",
+      "geometry/raw/spaces/1QOh1Yr59Cdx$121NefYGT.obj",
+      "geometry/raw/spaces/2p9erXc6HCqAR9O8flpQ3o.obj",
+      "geometry/raw/spaces/07lb7_Ym12ngwFZmG2f5Oo.obj",
+      "geometry/raw/spaces/0prGLsLID6lxkcF17mI8WC.obj",
+      "geometry/raw/spaces/3zaURQFsT9SAlD70E2ATRm.obj",
+      "geometry/raw/spaces/1fMJ7YWVb6hOuhPFXiEwlV.obj"
+    ],
+    "per_raw_opening_objs": [
+      "geometry/raw/openings/1cjY85MRT98gjX1ZUXYJnu.obj"
+    ],
+    "per_space_objs": [
+      "geometry/spaces/2glB5Fx0XDc93czxp$3FzF.obj",
+      "geometry/spaces/0KZEaoBuX2_vYMDVFS1Ppi.obj",
+      "geometry/spaces/1QOh1Yr59Cdx$121NefYGT.obj",
+      "geometry/spaces/2p9erXc6HCqAR9O8flpQ3o.obj",
+      "geometry/spaces/07lb7_Ym12ngwFZmG2f5Oo.obj",
+      "geometry/spaces/0prGLsLID6lxkcF17mI8WC.obj",
+      "geometry/spaces/3zaURQFsT9SAlD70E2ATRm.obj",
+      "geometry/spaces/1fMJ7YWVb6hOuhPFXiEwlV.obj"
+    ],
+    "per_opening_objs": [
+      "geometry/openings/1cjY85MRT98gjX1ZUXYJnu.obj"
+    ],
+    "preview": "preview.obj"
+  },
+  "entities": [
+    {
+      "object_name": "2glB5Fx0XDc93czxp$3FzF",
+      "global_id": "2glB5Fx0XDc93czxp$3FzF",
+      "express_id": 33,
+      "name": "EPLUS_CONTROL_VALID_ROOM",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.60000000000001,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/2glB5Fx0XDc93czxp$3FzF.obj",
+        "normalized_obj": "geometry/spaces/2glB5Fx0XDc93czxp$3FzF.obj",
+        "raw_obj": "geometry/raw/spaces/2glB5Fx0XDc93czxp$3FzF.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0KZEaoBuX2_vYMDVFS1Ppi",
+      "global_id": "0KZEaoBuX2_vYMDVFS1Ppi",
+      "express_id": 49,
+      "name": "EPLUS_ERROR_DUPLICATE_A",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.6,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0KZEaoBuX2_vYMDVFS1Ppi.obj",
+        "normalized_obj": "geometry/spaces/0KZEaoBuX2_vYMDVFS1Ppi.obj",
+        "raw_obj": "geometry/raw/spaces/0KZEaoBuX2_vYMDVFS1Ppi.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1QOh1Yr59Cdx$121NefYGT",
+      "global_id": "1QOh1Yr59Cdx$121NefYGT",
+      "express_id": 64,
+      "name": "EPLUS_ERROR_DUPLICATE_B",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.6,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/1QOh1Yr59Cdx$121NefYGT.obj",
+        "normalized_obj": "geometry/spaces/1QOh1Yr59Cdx$121NefYGT.obj",
+        "raw_obj": "geometry/raw/spaces/1QOh1Yr59Cdx$121NefYGT.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2p9erXc6HCqAR9O8flpQ3o",
+      "global_id": "2p9erXc6HCqAR9O8flpQ3o",
+      "express_id": 79,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.600000000000016,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.6
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/2p9erXc6HCqAR9O8flpQ3o.obj",
+        "normalized_obj": "geometry/spaces/2p9erXc6HCqAR9O8flpQ3o.obj",
+        "raw_obj": "geometry/raw/spaces/2p9erXc6HCqAR9O8flpQ3o.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "07lb7_Ym12ngwFZmG2f5Oo",
+      "global_id": "07lb7_Ym12ngwFZmG2f5Oo",
+      "express_id": 94,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.600000000000016,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/07lb7_Ym12ngwFZmG2f5Oo.obj",
+        "normalized_obj": "geometry/spaces/07lb7_Ym12ngwFZmG2f5Oo.obj",
+        "raw_obj": "geometry/raw/spaces/07lb7_Ym12ngwFZmG2f5Oo.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0prGLsLID6lxkcF17mI8WC",
+      "global_id": "0prGLsLID6lxkcF17mI8WC",
+      "express_id": 109,
+      "name": "EPLUS_ERROR_CONTAINED_OUTER",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 75.0,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 75.0
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0prGLsLID6lxkcF17mI8WC.obj",
+        "normalized_obj": "geometry/spaces/0prGLsLID6lxkcF17mI8WC.obj",
+        "raw_obj": "geometry/raw/spaces/0prGLsLID6lxkcF17mI8WC.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3zaURQFsT9SAlD70E2ATRm",
+      "global_id": "3zaURQFsT9SAlD70E2ATRm",
+      "express_id": 124,
+      "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.5,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 1.5
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/3zaURQFsT9SAlD70E2ATRm.obj",
+        "normalized_obj": "geometry/spaces/3zaURQFsT9SAlD70E2ATRm.obj",
+        "raw_obj": "geometry/raw/spaces/3zaURQFsT9SAlD70E2ATRm.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2Nvj8YPGT7Euynmhl4mEfZ",
+      "global_id": "2Nvj8YPGT7Euynmhl4mEfZ",
+      "express_id": 139,
+      "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE",
+      "entity_type": "IfcSpace",
+      "valid": false,
+      "closed": false,
+      "manifold": false,
+      "outward_normals": false,
+      "volume_m3": 0.0,
+      "face_count": 0,
+      "vertex_count": 0,
+      "component_count": 0,
+      "components": [],
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Missing representation",
+      "repair_actions": [],
+      "reason": "Missing representation",
+      "artifacts": {
+        "obj": null,
+        "normalized_obj": null,
+        "raw_obj": null,
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1fMJ7YWVb6hOuhPFXiEwlV",
+      "global_id": "1fMJ7YWVb6hOuhPFXiEwlV",
+      "express_id": 145,
+      "name": "EPLUS_WARNING_THIN_SLIVER_SPACE",
+      "entity_type": "IfcSpace",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.4199999999999638,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 0.4199999999999591
+        }
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/1fMJ7YWVb6hOuhPFXiEwlV.obj",
+        "normalized_obj": "geometry/spaces/1fMJ7YWVb6hOuhPFXiEwlV.obj",
+        "raw_obj": "geometry/raw/spaces/1fMJ7YWVb6hOuhPFXiEwlV.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1cjY85MRT98gjX1ZUXYJnu",
+      "global_id": "1cjY85MRT98gjX1ZUXYJnu",
+      "express_id": 160,
+      "name": "EPLUS_WARNING_FLOATING_OPENING",
+      "entity_type": "IfcOpeningElement",
+      "valid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.5,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.5,
+          "flipped_winding": false
+        }
+      ],
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/openings/1cjY85MRT98gjX1ZUXYJnu.obj",
+        "normalized_obj": "geometry/openings/1cjY85MRT98gjX1ZUXYJnu.obj",
+        "raw_obj": "geometry/raw/openings/1cjY85MRT98gjX1ZUXYJnu.obj",
+        "glb": null
+      }
+    }
+  ]
+}

@@ -44,7 +44,7 @@
         </div>
 
         <div class="topbar-actions">
-          <form id="upload-form" class="upload-form">
+          <form id="upload-form" class="upload-form" novalidate>
             <label class="upload-picker" for="file-input">
               <span class="upload-picker__label">Import IFC</span>
               <strong id="selected-file-name">No file selected</strong>
@@ -63,21 +63,29 @@
                 id="internal-boundary-threshold-input"
                 type="number"
                 name="internal_boundary_thickness_threshold_m"
-                min="0.001"
-                step="0.05"
+                min="0"
+                step="0.01"
                 value="0.30"
+                aria-describedby="internal-boundary-threshold-hint internal-boundary-threshold-error"
+                aria-invalid="false"
               />
+              <span id="internal-boundary-threshold-hint" class="field-hint">Default 0.30 m. Must be greater than 0.</span>
+              <span id="internal-boundary-threshold-error" class="field-error hidden" aria-live="polite"></span>
             </label>
             <label class="mode-picker" for="alpha-wrap-alpha-input">
-              <span class="upload-picker__label">Alpha Wrap α (m)</span>
+              <span class="upload-picker__label">Alpha Wrap &alpha; (m)</span>
               <input
                 id="alpha-wrap-alpha-input"
                 type="number"
                 name="alpha_wrap_alpha_m"
-                min="0.001"
-                step="0.05"
+                min="0"
+                step="0.01"
                 value="1.00"
+                aria-describedby="alpha-wrap-alpha-hint alpha-wrap-alpha-error"
+                aria-invalid="false"
               />
+              <span id="alpha-wrap-alpha-hint" class="field-hint">Default 1.00 m. May be raised to boundary + 0.05 m.</span>
+              <span id="alpha-wrap-alpha-error" class="field-error hidden" aria-live="polite"></span>
             </label>
             <label class="mode-picker" for="alpha-wrap-offset-input">
               <span class="upload-picker__label">Alpha Wrap Offset (m)</span>
@@ -85,10 +93,14 @@
                 id="alpha-wrap-offset-input"
                 type="number"
                 name="alpha_wrap_offset_m"
-                min="0.001"
-                step="0.005"
+                min="0"
+                step="0.001"
                 value="0.01"
+                aria-describedby="alpha-wrap-offset-hint alpha-wrap-offset-error"
+                aria-invalid="false"
               />
+              <span id="alpha-wrap-offset-hint" class="field-hint">Default 0.01 m. Must be greater than 0.</span>
+              <span id="alpha-wrap-offset-error" class="field-error hidden" aria-live="polite"></span>
             </label>
             <button id="submit-button" type="submit" class="button button--primary">Create Job</button>
           </form>
@@ -656,7 +668,7 @@
                         <dd id="shell-backend">-</dd>
                       </div>
                       <div>
-                        <dt>Wrap α (m)</dt>
+                        <dt>Wrap &alpha; (m)</dt>
                         <dd id="alpha-wrap-alpha-effective">-</dd>
                       </div>
                       <div>
@@ -721,6 +733,6 @@
       </section>
     </main>
 
-    <script type="module" src="/static/app.js?v=20260417-1"></script>
+    <script type="module" src="/static/app.js?v=20260425-1"></script>
   </body>
 </html>

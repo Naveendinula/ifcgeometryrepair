@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gbXML xmlns="http://www.gbxml.org/schema" temperatureUnit="C" lengthUnit="Meters" areaUnit="SquareMeters" volumeUnit="CubicMeters" version="6.01">
+  <Campus id="campus_1">
+    <Building id="building_1" buildingType="Unknown">
+      <Space id="1U_tAX_eL5eA5kFlE4HAA_">
+        <Name>Simple Room</Name>
+      </Space>
+    </Building>
+    <Surface id="ec_0_0" surfaceType="ExteriorWall">
+      <AdjacentSpaceId spaceIdRef="1U_tAX_eL5eA5kFlE4HAA_" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+    <Surface id="ec_0_1" surfaceType="ExteriorWall">
+      <AdjacentSpaceId spaceIdRef="1U_tAX_eL5eA5kFlE4HAA_" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+    <Surface id="ec_0_2" surfaceType="InteriorWall">
+      <AdjacentSpaceId spaceIdRef="1U_tAX_eL5eA5kFlE4HAA_" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+    <Surface id="ec_0_3" surfaceType="InteriorWall">
+      <AdjacentSpaceId spaceIdRef="1U_tAX_eL5eA5kFlE4HAA_" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+    <Surface id="ec_0_4" surfaceType="ExteriorWall">
+      <AdjacentSpaceId spaceIdRef="1U_tAX_eL5eA5kFlE4HAA_" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>4.998</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+    <Surface id="ec_0_5" surfaceType="ExteriorWall">
+      <AdjacentSpaceId spaceIdRef="1U_tAX_eL5eA5kFlE4HAA_" />
+      <PlanarGeometry>
+        <PolyLoop>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>6.0015</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>2.8</Coordinate>
+          </CartesianPoint>
+          <CartesianPoint>
+            <Coordinate>5.002</Coordinate>
+            <Coordinate>5.9985</Coordinate>
+            <Coordinate>0.0</Coordinate>
+          </CartesianPoint>
+        </PolyLoop>
+      </PlanarGeometry>
+    </Surface>
+  </Campus>
+</gbXML>

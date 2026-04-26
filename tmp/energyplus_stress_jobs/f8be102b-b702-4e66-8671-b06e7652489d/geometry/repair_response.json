@@ -1,0 +1,1112 @@
+{
+  "contract_version": 2,
+  "reason": null,
+  "spaces": [
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "express_id": 33,
+      "face_count": 12,
+      "global_id": "0DsxTCdR92jgaFCSd2doff",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            -2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            2.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            1.5,
+            0.0
+          ],
+          [
+            2.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            2.0,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_CONTROL_VALID_ROOM",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 33.60000000000001
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "express_id": 49,
+      "face_count": 12,
+      "global_id": "34K8A29HXDaf3KqKHhE9cv",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            10.0,
+            -1.5,
+            0.0
+          ],
+          [
+            6.0,
+            -1.5,
+            0.0
+          ],
+          [
+            10.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            1.5,
+            0.0
+          ],
+          [
+            10.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_ERROR_DUPLICATE_A",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 33.6
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "express_id": 64,
+      "face_count": 12,
+      "global_id": "1blcD87zT9N9$HtCu2td0y",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            10.0,
+            -1.5,
+            0.0
+          ],
+          [
+            6.0,
+            -1.5,
+            0.0
+          ],
+          [
+            10.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            1.5,
+            0.0
+          ],
+          [
+            10.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_ERROR_DUPLICATE_B",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 33.6
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.6
+        }
+      ],
+      "express_id": 79,
+      "face_count": 12,
+      "global_id": "1qZci0mHX8kh5lJJ_k4Xj6",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            18.0,
+            -1.5,
+            0.0
+          ],
+          [
+            14.0,
+            -1.5,
+            0.0
+          ],
+          [
+            18.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            14.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            14.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            14.0,
+            1.5,
+            0.0
+          ],
+          [
+            18.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            18.0,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 33.600000000000016
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "express_id": 94,
+      "face_count": 12,
+      "global_id": "0QOclR5wz5Qh_B3oEYQgdB",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            21.6,
+            -1.5,
+            0.0
+          ],
+          [
+            17.6,
+            -1.5,
+            0.0
+          ],
+          [
+            21.6,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            17.6,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            17.6,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            17.6,
+            1.5,
+            0.0
+          ],
+          [
+            21.6,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            21.6,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 33.600000000000016
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 75.0
+        }
+      ],
+      "express_id": 109,
+      "face_count": 12,
+      "global_id": "1IXPXiMmD8Se7dUSWIRGXY",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            30.5,
+            -2.5,
+            0.0
+          ],
+          [
+            25.5,
+            -2.5,
+            0.0
+          ],
+          [
+            30.5,
+            -2.5,
+            3.0
+          ],
+          [
+            25.5,
+            -2.5,
+            3.0
+          ],
+          [
+            25.5,
+            2.5,
+            3.0
+          ],
+          [
+            25.5,
+            2.5,
+            0.0
+          ],
+          [
+            30.5,
+            2.5,
+            3.0
+          ],
+          [
+            30.5,
+            2.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_ERROR_CONTAINED_OUTER",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 75.0
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 1.5
+        }
+      ],
+      "express_id": 124,
+      "face_count": 12,
+      "global_id": "31DelQuEnCRBNvu71higMj",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            28.5,
+            -0.5,
+            0.0
+          ],
+          [
+            27.5,
+            -0.5,
+            0.0
+          ],
+          [
+            28.5,
+            -0.5,
+            1.5
+          ],
+          [
+            27.5,
+            -0.5,
+            1.5
+          ],
+          [
+            27.5,
+            0.5,
+            1.5
+          ],
+          [
+            27.5,
+            0.5,
+            0.0
+          ],
+          [
+            28.5,
+            0.5,
+            1.5
+          ],
+          [
+            28.5,
+            0.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 1.5
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 0.4199999999999591
+        }
+      ],
+      "express_id": 145,
+      "face_count": 12,
+      "global_id": "0o$mW1C1D35hkjvZ7COaV2",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            44.025,
+            -1.5,
+            0.0
+          ],
+          [
+            43.975,
+            -1.5,
+            0.0
+          ],
+          [
+            44.025,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            43.975,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            43.975,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            43.975,
+            1.5,
+            0.0
+          ],
+          [
+            44.025,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            44.025,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "name": "EPLUS_WARNING_THIN_SLIVER_SPACE",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 0.4199999999999638
+    }
+  ],
+  "status": "ok",
+  "worker_backend": "cpp-cgal"
+}

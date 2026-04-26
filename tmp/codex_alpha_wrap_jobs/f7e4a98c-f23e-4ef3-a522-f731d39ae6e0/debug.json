@@ -1,0 +1,2186 @@
+{
+  "job_id": "f7e4a98c-f23e-4ef3-a522-f731d39ae6e0",
+  "state": "complete",
+  "created_at": "2026-04-25T17:15:23.885885Z",
+  "updated_at": "2026-04-25T17:15:24.468991Z",
+  "error": null,
+  "history": [
+    {
+      "state": "uploaded",
+      "timestamp": "2026-04-25T17:15:23.885885Z",
+      "message": "Upload received"
+    },
+    {
+      "state": "parsing",
+      "timestamp": "2026-04-25T17:15:23.901662Z",
+      "message": "Parsing IFC and detecting schema"
+    },
+    {
+      "state": "preprocessing",
+      "timestamp": "2026-04-25T17:15:23.934379Z",
+      "message": "Normalizing tessellated geometry"
+    },
+    {
+      "state": "preflight",
+      "timestamp": "2026-04-25T17:15:24.058647Z",
+      "message": "Validating normalized spaces for topology and clashes"
+    },
+    {
+      "state": "internal_boundary",
+      "timestamp": "2026-04-25T17:15:24.100235Z",
+      "message": "Detecting shared boundaries between adjacent spaces"
+    },
+    {
+      "state": "external_candidates",
+      "timestamp": "2026-04-25T17:15:24.137871Z",
+      "message": "Subtracting shared boundaries from each space shell"
+    },
+    {
+      "state": "external_shell",
+      "timestamp": "2026-04-25T17:15:24.185098Z",
+      "message": "Classifying space surfaces against the building shell"
+    },
+    {
+      "state": "opening_integration",
+      "timestamp": "2026-04-25T17:15:24.318195Z",
+      "message": "Projecting openings onto boundary surfaces"
+    },
+    {
+      "state": "gbxml_preflight",
+      "timestamp": "2026-04-25T17:15:24.365049Z",
+      "message": "Validating gbXML export geometry and zone readiness"
+    },
+    {
+      "state": "classifying",
+      "timestamp": "2026-04-25T17:15:24.415198Z",
+      "message": "Building extraction report"
+    },
+    {
+      "state": "complete",
+      "timestamp": "2026-04-25T17:15:24.468976Z",
+      "message": "Job complete"
+    }
+  ],
+  "input": {
+    "original_filename": "alpha_single_room.ifc",
+    "size_bytes": 2373,
+    "validated": true,
+    "schema": "IFC4"
+  },
+  "options": {
+    "external_shell_mode": "alpha_wrap",
+    "internal_boundary_thickness_threshold_m": 0.3,
+    "alpha_wrap_alpha_m": 1.0,
+    "alpha_wrap_offset_m": 0.01,
+    "exact_repair_mode": "preferred"
+  },
+  "derivation": null,
+  "preflight_preview": {
+    "status": "passed",
+    "summary": {
+      "space_count": 1,
+      "checked_space_count": 1,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "self_intersection_space_count": 0,
+      "clash_pair_count": 0,
+      "clash_group_count": 0,
+      "exact_duplicate_group_count": 0,
+      "contained_fragment_group_count": 0,
+      "partial_overlap_group_count": 0,
+      "self_intersection_group_count": 0,
+      "recommended_resolution_group_count": 0,
+      "manual_resolution_group_count": 0
+    },
+    "artifacts": {
+      "detail": "geometry/preflight.json",
+      "clash_report": "geometry/clash_report.json"
+    }
+  },
+  "external_candidates_preview": {
+    "summary": {
+      "space_count": 1,
+      "processed_space_count": 1,
+      "skipped_space_count": 0,
+      "source_polygon_count": 6,
+      "subtracted_source_polygon_count": 0,
+      "candidate_surface_count": 6,
+      "total_candidate_area_m2": 0.03922399999999817
+    },
+    "artifacts": {
+      "result": "geometry/external_candidates/result.json",
+      "candidates_all": "geometry/external_candidates/candidates_all.obj"
+    }
+  },
+  "external_shell_preview": {
+    "mode_requested": "alpha_wrap",
+    "mode_effective": "alpha_wrap",
+    "fallback_reason": null,
+    "alpha_wrap": {
+      "status": "ok",
+      "backend": "cpp-cgal-alpha-wrap",
+      "epsilon": 0.001,
+      "alpha_m_requested": 1.0,
+      "alpha_m_effective": 1.0,
+      "offset_m_requested": 0.01,
+      "offset_m_effective": 0.01,
+      "generation_time_ms": 41.944,
+      "classification_time_ms": 7.824,
+      "triangle_count": 90,
+      "vertex_count": 47,
+      "error": null
+    },
+    "summary": {
+      "processed_space_count": 1,
+      "skipped_space_count": 0,
+      "candidate_surface_count": 6,
+      "internal_partition_match_count": 0,
+      "shell_match_count": 4,
+      "internal_void_count": 2,
+      "unclassified_count": 0,
+      "per_class_counts": {
+        "external_wall": 4,
+        "roof": 0,
+        "ground_floor": 0,
+        "internal_void": 2,
+        "unclassified": 0
+      },
+      "per_class_area_m2": {
+        "external_wall": 0.0392,
+        "roof": 0.0,
+        "ground_floor": 0.0,
+        "internal_void": 2.4e-05,
+        "unclassified": 0.0
+      },
+      "total_classified_area_m2": 0.039224,
+      "shell_generation_time_ms": 41.944,
+      "classification_time_ms": 7.824
+    },
+    "artifacts": {
+      "request": "geometry/external_shell/request.json",
+      "result": "geometry/external_shell/result.json",
+      "shell_obj": "geometry/external_shell/shell.obj",
+      "surfaces_all": "geometry/external_shell/surfaces_all.obj",
+      "classes": {
+        "external_wall": "geometry/external_shell/classes/external_wall.obj",
+        "roof": "geometry/external_shell/classes/roof.obj",
+        "ground_floor": "geometry/external_shell/classes/ground_floor.obj",
+        "internal_void": "geometry/external_shell/classes/internal_void.obj",
+        "unclassified": "geometry/external_shell/classes/unclassified.obj"
+      }
+    }
+  },
+  "artifacts": {
+    "debug.json": {
+      "name": "debug.json",
+      "available": true,
+      "size_bytes": 60336,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/debug.json"
+    },
+    "geometry/2lsb_surfaces.gbxml": {
+      "name": "geometry/2lsb_surfaces.gbxml",
+      "available": true,
+      "size_bytes": 6251,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/2lsb_surfaces.gbxml"
+    },
+    "geometry/2lsb_surfaces.obj": {
+      "name": "geometry/2lsb_surfaces.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/2lsb_surfaces.obj"
+    },
+    "geometry/2lsb_surfaces.xml": {
+      "name": "geometry/2lsb_surfaces.xml",
+      "available": true,
+      "size_bytes": 468,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/2lsb_surfaces.xml"
+    },
+    "geometry/clash_report.json": {
+      "name": "geometry/clash_report.json",
+      "available": true,
+      "size_bytes": 497,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/clash_report.json"
+    },
+    "geometry/external_candidates/candidates_all.obj": {
+      "name": "geometry/external_candidates/candidates_all.obj",
+      "available": true,
+      "size_bytes": 1176,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_candidates/candidates_all.obj"
+    },
+    "geometry/external_candidates/result.json": {
+      "name": "geometry/external_candidates/result.json",
+      "available": true,
+      "size_bytes": 12657,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_candidates/result.json"
+    },
+    "geometry/external_shell/_worker/request.json": {
+      "name": "geometry/external_shell/_worker/request.json",
+      "available": true,
+      "size_bytes": 4177,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/_worker/request.json"
+    },
+    "geometry/external_shell/_worker/result.json": {
+      "name": "geometry/external_shell/_worker/result.json",
+      "available": true,
+      "size_bytes": 10060,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/_worker/result.json"
+    },
+    "geometry/external_shell/classes/external_wall.obj": {
+      "name": "geometry/external_shell/classes/external_wall.obj",
+      "available": true,
+      "size_bytes": 797,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/classes/external_wall.obj"
+    },
+    "geometry/external_shell/classes/ground_floor.obj": {
+      "name": "geometry/external_shell/classes/ground_floor.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/classes/ground_floor.obj"
+    },
+    "geometry/external_shell/classes/internal_void.obj": {
+      "name": "geometry/external_shell/classes/internal_void.obj",
+      "available": true,
+      "size_bytes": 414,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/classes/internal_void.obj"
+    },
+    "geometry/external_shell/classes/roof.obj": {
+      "name": "geometry/external_shell/classes/roof.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/classes/roof.obj"
+    },
+    "geometry/external_shell/classes/unclassified.obj": {
+      "name": "geometry/external_shell/classes/unclassified.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/classes/unclassified.obj"
+    },
+    "geometry/external_shell/request.json": {
+      "name": "geometry/external_shell/request.json",
+      "available": true,
+      "size_bytes": 4177,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/request.json"
+    },
+    "geometry/external_shell/result.json": {
+      "name": "geometry/external_shell/result.json",
+      "available": true,
+      "size_bytes": 14056,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/result.json"
+    },
+    "geometry/external_shell/shell.obj": {
+      "name": "geometry/external_shell/shell.obj",
+      "available": true,
+      "size_bytes": 2924,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/shell.obj"
+    },
+    "geometry/external_shell/surfaces_all.obj": {
+      "name": "geometry/external_shell/surfaces_all.obj",
+      "available": true,
+      "size_bytes": 1176,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/external_shell/surfaces_all.obj"
+    },
+    "geometry/gbxml_preflight.json": {
+      "name": "geometry/gbxml_preflight.json",
+      "available": true,
+      "size_bytes": 5337,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/gbxml_preflight.json"
+    },
+    "geometry/geometry_summary.json": {
+      "name": "geometry/geometry_summary.json",
+      "available": true,
+      "size_bytes": 3900,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/geometry_summary.json"
+    },
+    "geometry/internal_boundaries.json": {
+      "name": "geometry/internal_boundaries.json",
+      "available": true,
+      "size_bytes": 743,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/internal_boundaries.json"
+    },
+    "geometry/internal_boundaries.obj": {
+      "name": "geometry/internal_boundaries.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/internal_boundaries.obj"
+    },
+    "geometry/opening_integration.json": {
+      "name": "geometry/opening_integration.json",
+      "available": true,
+      "size_bytes": 369,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/opening_integration.json"
+    },
+    "geometry/openings.obj": {
+      "name": "geometry/openings.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/openings.obj"
+    },
+    "geometry/preflight.json": {
+      "name": "geometry/preflight.json",
+      "available": true,
+      "size_bytes": 1181,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/preflight.json"
+    },
+    "geometry/raw/openings.obj": {
+      "name": "geometry/raw/openings.obj",
+      "available": true,
+      "size_bytes": 46,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/raw/openings.obj"
+    },
+    "geometry/raw/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj": {
+      "name": "geometry/raw/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj",
+      "available": true,
+      "size_bytes": 492,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/raw/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj"
+    },
+    "geometry/raw/spaces_all.obj": {
+      "name": "geometry/raw/spaces_all.obj",
+      "available": true,
+      "size_bytes": 492,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/raw/spaces_all.obj"
+    },
+    "geometry/repair_report.json": {
+      "name": "geometry/repair_report.json",
+      "available": true,
+      "size_bytes": 976,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/repair_report.json"
+    },
+    "geometry/repair_request.json": {
+      "name": "geometry/repair_request.json",
+      "available": true,
+      "size_bytes": 2045,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/repair_request.json"
+    },
+    "geometry/repair_response.json": {
+      "name": "geometry/repair_response.json",
+      "available": true,
+      "size_bytes": 2706,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/repair_response.json"
+    },
+    "geometry/request.json": {
+      "name": "geometry/request.json",
+      "available": true,
+      "size_bytes": 3110,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/request.json"
+    },
+    "geometry/result.json": {
+      "name": "geometry/result.json",
+      "available": true,
+      "size_bytes": 5648,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/result.json"
+    },
+    "geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj": {
+      "name": "geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj",
+      "available": true,
+      "size_bytes": 492,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj"
+    },
+    "geometry/spaces_all.obj": {
+      "name": "geometry/spaces_all.obj",
+      "available": true,
+      "size_bytes": 492,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/spaces_all.obj"
+    },
+    "geometry/viewer_manifest.json": {
+      "name": "geometry/viewer_manifest.json",
+      "available": true,
+      "size_bytes": 9158,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/geometry/viewer_manifest.json"
+    },
+    "input.ifc": {
+      "name": "input.ifc",
+      "available": true,
+      "size_bytes": 2373,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/input.ifc"
+    },
+    "logs.txt": {
+      "name": "logs.txt",
+      "available": true,
+      "size_bytes": 1915,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/logs.txt"
+    },
+    "output.json": {
+      "name": "output.json",
+      "available": true,
+      "size_bytes": 37430,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/output.json"
+    },
+    "preview.obj": {
+      "name": "preview.obj",
+      "available": true,
+      "size_bytes": 492,
+      "url": "/jobs/f7e4a98c-f23e-4ef3-a522-f731d39ae6e0/artifacts/preview.obj"
+    }
+  },
+  "extraction_preview": {
+    "schema": "IFC4",
+    "number_of_spaces": 1,
+    "number_of_openings": 0,
+    "source_unit_scale_to_meters": 0.001
+  },
+  "preprocessing_preview": {
+    "worker_backend": "hybrid",
+    "unit": "meter",
+    "summary": {
+      "entities_total": 1,
+      "entities_with_input_mesh": 1,
+      "normalized_entities": 1,
+      "valid_entities": 1,
+      "invalid_entities": 0,
+      "space_count": 1,
+      "opening_count": 0,
+      "valid_spaces": 1,
+      "invalid_spaces": 0,
+      "valid_openings": 0,
+      "invalid_openings": 0,
+      "spaces_with_obj_exports": 1,
+      "openings_with_obj_exports": 0,
+      "repair_effective_mode": "exact_repair",
+      "repair_exact_repaired_spaces": 1,
+      "repair_exact_passthrough_spaces": 0,
+      "repair_python_fallback_spaces": 0,
+      "repair_not_attempted_spaces": 0
+    },
+    "repair": {
+      "contract_version": 2,
+      "mode_requested": "preferred",
+      "effective_mode": "exact_repair",
+      "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+      "worker_available": true,
+      "worker_invoked": true,
+      "worker_backend": "cpp-cgal",
+      "response_status": "ok",
+      "fallback_reason": null,
+      "summary": {
+        "effective_mode": "exact_repair",
+        "space_count": 1,
+        "attempted_space_count": 1,
+        "exact_repaired_space_count": 1,
+        "exact_passthrough_space_count": 0,
+        "python_fallback_space_count": 0,
+        "not_attempted_space_count": 0
+      },
+      "spaces": [
+        {
+          "global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "express_id": 33,
+          "name": "Simple Room",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        }
+      ]
+    },
+    "artifacts": {
+      "request": "geometry/request.json",
+      "result": "geometry/result.json",
+      "summary": "geometry/geometry_summary.json",
+      "repair_request": "geometry/repair_request.json",
+      "repair_response": "geometry/repair_response.json",
+      "repair_report": "geometry/repair_report.json",
+      "viewer_manifest": "geometry/viewer_manifest.json",
+      "raw_spaces_all": "geometry/raw/spaces_all.obj",
+      "raw_openings": "geometry/raw/openings.obj",
+      "spaces_all": "geometry/spaces_all.obj",
+      "openings": "geometry/openings.obj",
+      "per_raw_space_objs": [
+        "geometry/raw/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj"
+      ],
+      "per_raw_opening_objs": [],
+      "per_space_objs": [
+        "geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj"
+      ],
+      "per_opening_objs": [],
+      "preview": "preview.obj"
+    }
+  },
+  "internal_boundaries_preview": {
+    "threshold_m": 0.3,
+    "summary": {
+      "space_count": 1,
+      "processed_space_count": 1,
+      "skipped_space_count": 0,
+      "candidate_pair_count": 0,
+      "adjacent_pair_count": 0,
+      "oriented_surface_count": 0,
+      "shared_surface_count": 0,
+      "rejected_shared_component_count": 0,
+      "total_oriented_area_m2": 0.0,
+      "total_shared_area_m2": 0.0
+    },
+    "artifacts": {
+      "detail": "geometry/internal_boundaries.json",
+      "obj": "geometry/internal_boundaries.obj"
+    }
+  },
+  "opening_integration_preview": {
+    "summary": {
+      "openings_processed": 0,
+      "opening_surfaces_created": 0,
+      "boundaries_with_openings": 0,
+      "total_opening_area_m2": 0.0
+    },
+    "artifacts": {}
+  },
+  "gbxml_preflight_preview": {
+    "status": "valid",
+    "summary": {
+      "space_count": 1,
+      "surface_count": 6,
+      "opening_count": 0,
+      "blocker_count": 0,
+      "warning_count": 0,
+      "omitted_entity_count": 0,
+      "zone_status_counts": {
+        "complete": 1,
+        "partial": 0,
+        "invalid": 0
+      }
+    },
+    "artifacts": {
+      "detail": "geometry/gbxml_preflight.json"
+    }
+  },
+  "result": {
+    "success": true,
+    "job_id": "f7e4a98c-f23e-4ef3-a522-f731d39ae6e0",
+    "error": null,
+    "derivation": null,
+    "schema": "IFC4",
+    "summary": {
+      "number_of_spaces": 1,
+      "number_of_openings": 0,
+      "entities_processed": 1,
+      "issues_found": 0
+    },
+    "geometry_sanity": {
+      "number_of_spaces": 1,
+      "number_of_openings": 0,
+      "spaces_with_missing_representation": [],
+      "invalid_solids": []
+    },
+    "spaces": [
+      {
+        "express_id": 33,
+        "global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+        "name": "Simple Room",
+        "entity_type": "IfcSpace",
+        "storey": {
+          "express_id": 14,
+          "global_id": "2EQvreAfr94AS9bRI7gf9O",
+          "name": "Level 1",
+          "entity_type": "IfcBuildingStorey"
+        },
+        "building": {
+          "express_id": 13,
+          "global_id": "1n$NQDfAH0XRif6PnRGc$m",
+          "name": "Building A",
+          "entity_type": "IfcBuilding"
+        },
+        "placement": {
+          "available": true,
+          "origin": [
+            5000.0,
+            6000.0,
+            0.0
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              5000.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              6000.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "has_representation": true,
+        "geometry_ok": true,
+        "geometry_error": null,
+        "valid_solid": true,
+        "closed": true,
+        "manifold": true,
+        "outward_normals": true,
+        "volume_m3": 3.360000001132827e-05,
+        "face_count": 12,
+        "vertex_count": 8,
+        "component_count": 1,
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "artifacts": {
+          "obj": "geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj",
+          "normalized_obj": "geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj",
+          "raw_obj": "geometry/raw/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj",
+          "glb": null
+        },
+        "preflight_blockers": [],
+        "preflight_warnings": [
+          {
+            "code": "auto_repair_applied",
+            "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+          }
+        ],
+        "preflight_failed": false,
+        "preflight_reason": null,
+        "clash_groups": [],
+        "clash_group_ids": [],
+        "recommended_clash_action": null
+      }
+    ],
+    "openings": [],
+    "preprocessing": {
+      "worker_backend": "hybrid",
+      "unit": "meter",
+      "source_unit_scale_to_meters": 0.001,
+      "summary": {
+        "entities_total": 1,
+        "entities_with_input_mesh": 1,
+        "normalized_entities": 1,
+        "valid_entities": 1,
+        "invalid_entities": 0,
+        "space_count": 1,
+        "opening_count": 0,
+        "valid_spaces": 1,
+        "invalid_spaces": 0,
+        "valid_openings": 0,
+        "invalid_openings": 0,
+        "spaces_with_obj_exports": 1,
+        "openings_with_obj_exports": 0,
+        "repair_effective_mode": "exact_repair",
+        "repair_exact_repaired_spaces": 1,
+        "repair_exact_passthrough_spaces": 0,
+        "repair_python_fallback_spaces": 0,
+        "repair_not_attempted_spaces": 0
+      },
+      "repair": {
+        "contract_version": 2,
+        "mode_requested": "preferred",
+        "effective_mode": "exact_repair",
+        "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+        "worker_available": true,
+        "worker_invoked": true,
+        "worker_backend": "cpp-cgal",
+        "response_status": "ok",
+        "fallback_reason": null,
+        "summary": {
+          "effective_mode": "exact_repair",
+          "space_count": 1,
+          "attempted_space_count": 1,
+          "exact_repaired_space_count": 1,
+          "exact_passthrough_space_count": 0,
+          "python_fallback_space_count": 0,
+          "not_attempted_space_count": 0
+        },
+        "spaces": [
+          {
+            "global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+            "express_id": 33,
+            "name": "Simple Room",
+            "repair_backend": "cpp-cgal",
+            "repair_status": "exact_repaired",
+            "repair_reason": null,
+            "repair_actions": [
+              "cgal_nef_regularization"
+            ],
+            "valid": true
+          }
+        ]
+      },
+      "invalid_entities": [],
+      "artifacts": {
+        "request": "geometry/request.json",
+        "result": "geometry/result.json",
+        "summary": "geometry/geometry_summary.json",
+        "repair_request": "geometry/repair_request.json",
+        "repair_response": "geometry/repair_response.json",
+        "repair_report": "geometry/repair_report.json",
+        "viewer_manifest": "geometry/viewer_manifest.json",
+        "raw_spaces_all": "geometry/raw/spaces_all.obj",
+        "raw_openings": "geometry/raw/openings.obj",
+        "spaces_all": "geometry/spaces_all.obj",
+        "openings": "geometry/openings.obj",
+        "per_raw_space_objs": [
+          "geometry/raw/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj"
+        ],
+        "per_raw_opening_objs": [],
+        "per_space_objs": [
+          "geometry/spaces/1U_tAX_eL5eA5kFlE4HAA_.obj"
+        ],
+        "per_opening_objs": [],
+        "preview": "preview.obj"
+      }
+    },
+    "preflight": {
+      "status": "passed",
+      "summary": {
+        "space_count": 1,
+        "checked_space_count": 1,
+        "blocker_count": 0,
+        "warning_count": 1,
+        "self_intersection_space_count": 0,
+        "clash_pair_count": 0,
+        "clash_group_count": 0,
+        "exact_duplicate_group_count": 0,
+        "contained_fragment_group_count": 0,
+        "partial_overlap_group_count": 0,
+        "self_intersection_group_count": 0,
+        "recommended_resolution_group_count": 0,
+        "manual_resolution_group_count": 0
+      },
+      "blockers": [],
+      "warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+            "express_id": 33,
+            "name": "Simple Room"
+          },
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ]
+        }
+      ],
+      "clash_groups": [],
+      "recommended_resolution": null,
+      "resolution_status": "clear",
+      "review_required": false,
+      "artifacts": {
+        "detail": "geometry/preflight.json",
+        "clash_report": "geometry/clash_report.json"
+      }
+    },
+    "internal_boundaries": {
+      "threshold_m": 0.3,
+      "epsilon": 0.001,
+      "summary": {
+        "space_count": 1,
+        "processed_space_count": 1,
+        "skipped_space_count": 0,
+        "candidate_pair_count": 0,
+        "adjacent_pair_count": 0,
+        "oriented_surface_count": 0,
+        "shared_surface_count": 0,
+        "rejected_shared_component_count": 0,
+        "total_oriented_area_m2": 0.0,
+        "total_shared_area_m2": 0.0
+      },
+      "adjacencies": [],
+      "artifacts": {
+        "detail": "geometry/internal_boundaries.json",
+        "obj": "geometry/internal_boundaries.obj"
+      }
+    },
+    "external_candidates": {
+      "epsilon": 0.001,
+      "summary": {
+        "space_count": 1,
+        "processed_space_count": 1,
+        "skipped_space_count": 0,
+        "source_polygon_count": 6,
+        "subtracted_source_polygon_count": 0,
+        "candidate_surface_count": 6,
+        "total_candidate_area_m2": 0.03922399999999817
+      },
+      "spaces": [
+        {
+          "global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "express_id": 33,
+          "name": "Simple Room",
+          "candidate_surface_ids": [
+            "ec_0_0",
+            "ec_0_1",
+            "ec_0_2",
+            "ec_0_3",
+            "ec_0_4",
+            "ec_0_5"
+          ]
+        }
+      ],
+      "candidate_surfaces": [
+        {
+          "surface_id": "ec_0_0",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "source_surface_id": "space_0_0",
+          "source_polygon_id": "space_0_0_poly_0",
+          "area_m2": 0.008400000000000319,
+          "plane_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "plane_point": [
+            4.998,
+            -0.0,
+            -0.0
+          ],
+          "centroid": [
+            4.998,
+            6.0,
+            1.4
+          ],
+          "polygon_vertices_3d": [
+            [
+              4.998,
+              5.9985,
+              2.8
+            ],
+            [
+              4.998,
+              6.0015,
+              2.8
+            ],
+            [
+              4.998,
+              6.0015,
+              -0.0
+            ],
+            [
+              4.998,
+              5.9985,
+              -0.0
+            ]
+          ],
+          "polygon_rings_3d": [
+            [
+              [
+                4.998,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                -0.0
+              ],
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ]
+            ],
+            [
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                -0.0
+              ]
+            ]
+          ],
+          "subtracted_internal_surface_ids": [],
+          "object_name": "ec_0_0",
+          "fragment_index": 0
+        },
+        {
+          "surface_id": "ec_0_1",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "source_surface_id": "space_0_1",
+          "source_polygon_id": "space_0_1_poly_0",
+          "area_m2": 0.011199999999998768,
+          "plane_normal": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "plane_point": [
+            -0.0,
+            5.9985,
+            -0.0
+          ],
+          "centroid": [
+            5.0,
+            5.9985,
+            1.4
+          ],
+          "polygon_vertices_3d": [
+            [
+              5.002,
+              5.9985,
+              -0.0
+            ],
+            [
+              5.002,
+              5.9985,
+              2.8
+            ],
+            [
+              4.998,
+              5.9985,
+              2.8
+            ],
+            [
+              4.998,
+              5.9985,
+              -0.0
+            ]
+          ],
+          "polygon_rings_3d": [
+            [
+              [
+                5.002,
+                5.9985,
+                -0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                5.002,
+                5.9985,
+                -0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ]
+            ],
+            [
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ]
+            ]
+          ],
+          "subtracted_internal_surface_ids": [],
+          "object_name": "ec_0_1",
+          "fragment_index": 0
+        },
+        {
+          "surface_id": "ec_0_2",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "source_surface_id": "space_0_2",
+          "source_polygon_id": "space_0_2_poly_0",
+          "area_m2": 1.1999999999999133e-05,
+          "plane_normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "plane_point": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "centroid": [
+            5.0,
+            6.0,
+            0.0
+          ],
+          "polygon_vertices_3d": [
+            [
+              4.998,
+              6.0015,
+              0.0
+            ],
+            [
+              5.002,
+              6.0015,
+              0.0
+            ],
+            [
+              5.002,
+              5.9985,
+              0.0
+            ],
+            [
+              4.998,
+              5.9985,
+              0.0
+            ]
+          ],
+          "polygon_rings_3d": [
+            [
+              [
+                4.998,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                0.0
+              ],
+              [
+                4.998,
+                5.9985,
+                0.0
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                4.998,
+                5.9985,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ]
+            ],
+            [
+              [
+                4.998,
+                5.9985,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                0.0
+              ]
+            ]
+          ],
+          "subtracted_internal_surface_ids": [],
+          "object_name": "ec_0_2",
+          "fragment_index": 0
+        },
+        {
+          "surface_id": "ec_0_3",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "source_surface_id": "space_0_3",
+          "source_polygon_id": "space_0_3_poly_0",
+          "area_m2": 1.1999999999999133e-05,
+          "plane_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "plane_point": [
+            0.0,
+            0.0,
+            2.8
+          ],
+          "centroid": [
+            5.0,
+            6.0,
+            2.8
+          ],
+          "polygon_vertices_3d": [
+            [
+              5.002,
+              5.9985,
+              2.8
+            ],
+            [
+              5.002,
+              6.0015,
+              2.8
+            ],
+            [
+              4.998,
+              6.0015,
+              2.8
+            ],
+            [
+              4.998,
+              5.9985,
+              2.8
+            ]
+          ],
+          "polygon_rings_3d": [
+            [
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ]
+            ],
+            [
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ]
+            ]
+          ],
+          "subtracted_internal_surface_ids": [],
+          "object_name": "ec_0_3",
+          "fragment_index": 0
+        },
+        {
+          "surface_id": "ec_0_4",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "source_surface_id": "space_0_4",
+          "source_polygon_id": "space_0_4_poly_0",
+          "area_m2": 0.011199999999998768,
+          "plane_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "plane_point": [
+            0.0,
+            6.0015,
+            0.0
+          ],
+          "centroid": [
+            5.0,
+            6.0015,
+            1.4
+          ],
+          "polygon_vertices_3d": [
+            [
+              4.998,
+              6.0015,
+              2.8
+            ],
+            [
+              5.002,
+              6.0015,
+              2.8
+            ],
+            [
+              5.002,
+              6.0015,
+              0.0
+            ],
+            [
+              4.998,
+              6.0015,
+              0.0
+            ]
+          ],
+          "polygon_rings_3d": [
+            [
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                0.0
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                4.998,
+                6.0015,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ]
+            ],
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ]
+            ]
+          ],
+          "subtracted_internal_surface_ids": [],
+          "object_name": "ec_0_4",
+          "fragment_index": 0
+        },
+        {
+          "surface_id": "ec_0_5",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "source_surface_id": "space_0_5",
+          "source_polygon_id": "space_0_5_poly_0",
+          "area_m2": 0.008400000000000319,
+          "plane_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "plane_point": [
+            5.002,
+            0.0,
+            0.0
+          ],
+          "centroid": [
+            5.002,
+            6.0,
+            1.4
+          ],
+          "polygon_vertices_3d": [
+            [
+              5.002,
+              6.0015,
+              0.0
+            ],
+            [
+              5.002,
+              6.0015,
+              2.8
+            ],
+            [
+              5.002,
+              5.9985,
+              2.8
+            ],
+            [
+              5.002,
+              5.9985,
+              0.0
+            ]
+          ],
+          "polygon_rings_3d": [
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                5.002,
+                5.9985,
+                0.0
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ]
+            ],
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                5.002,
+                5.9985,
+                0.0
+              ]
+            ]
+          ],
+          "subtracted_internal_surface_ids": [],
+          "object_name": "ec_0_5",
+          "fragment_index": 0
+        }
+      ],
+      "artifacts": {
+        "result": "geometry/external_candidates/result.json",
+        "candidates_all": "geometry/external_candidates/candidates_all.obj"
+      }
+    },
+    "external_shell": {
+      "mode_requested": "alpha_wrap",
+      "mode_effective": "alpha_wrap",
+      "fallback_reason": null,
+      "shell_backend": "cpp-cgal-alpha-wrap",
+      "alpha_wrap": {
+        "status": "ok",
+        "backend": "cpp-cgal-alpha-wrap",
+        "epsilon": 0.001,
+        "alpha_m_requested": 1.0,
+        "alpha_m_effective": 1.0,
+        "offset_m_requested": 0.01,
+        "offset_m_effective": 0.01,
+        "generation_time_ms": 41.944,
+        "classification_time_ms": 7.824,
+        "triangle_count": 90,
+        "vertex_count": 47,
+        "error": null
+      },
+      "summary": {
+        "processed_space_count": 1,
+        "skipped_space_count": 0,
+        "candidate_surface_count": 6,
+        "internal_partition_match_count": 0,
+        "shell_match_count": 4,
+        "internal_void_count": 2,
+        "unclassified_count": 0,
+        "per_class_counts": {
+          "external_wall": 4,
+          "roof": 0,
+          "ground_floor": 0,
+          "internal_void": 2,
+          "unclassified": 0
+        },
+        "per_class_area_m2": {
+          "external_wall": 0.0392,
+          "roof": 0.0,
+          "ground_floor": 0.0,
+          "internal_void": 2.4e-05,
+          "unclassified": 0.0
+        },
+        "total_classified_area_m2": 0.039224,
+        "shell_generation_time_ms": 41.944,
+        "classification_time_ms": 7.824
+      },
+      "surfaces": [
+        {
+          "surface_id": "ec_0_0",
+          "object_name": "ec_0_0",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "classification": "external_wall",
+          "area_m2": 0.0084,
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "plane_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "plane_point": [
+            4.998,
+            -0.0,
+            -0.0
+          ],
+          "centroid": [
+            4.998,
+            6.0,
+            1.4
+          ],
+          "polygon_components_3d": [
+            [
+              [
+                [
+                  4.998,
+                  5.9985,
+                  2.8
+                ],
+                [
+                  4.998,
+                  6.0015,
+                  2.8
+                ],
+                [
+                  4.998,
+                  6.0015,
+                  -0.0
+                ],
+                [
+                  4.998,
+                  5.9985,
+                  -0.0
+                ]
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ]
+            ],
+            [
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                -0.0
+              ]
+            ]
+          ],
+          "source_surface_id": "space_0_0",
+          "subtracted_internal_surface_ids": [],
+          "reason": "alpha_wrap_hit:aw_16",
+          "artifacts": {
+            "classified_obj": "geometry/external_shell/surfaces_all.obj",
+            "class_obj": "geometry/external_shell/classes/external_wall.obj",
+            "shell_obj": "geometry/external_shell/shell.obj"
+          }
+        },
+        {
+          "surface_id": "ec_0_1",
+          "object_name": "ec_0_1",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "classification": "external_wall",
+          "area_m2": 0.0112,
+          "normal": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "plane_normal": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "plane_point": [
+            -0.0,
+            5.9985,
+            -0.0
+          ],
+          "centroid": [
+            5.0,
+            5.9985,
+            1.4
+          ],
+          "polygon_components_3d": [
+            [
+              [
+                [
+                  5.002,
+                  5.9985,
+                  -0.0
+                ],
+                [
+                  5.002,
+                  5.9985,
+                  2.8
+                ],
+                [
+                  4.998,
+                  5.9985,
+                  2.8
+                ],
+                [
+                  4.998,
+                  5.9985,
+                  -0.0
+                ]
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                5.002,
+                5.9985,
+                -0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ]
+            ],
+            [
+              [
+                4.998,
+                5.9985,
+                -0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ]
+            ]
+          ],
+          "source_surface_id": "space_0_1",
+          "subtracted_internal_surface_ids": [],
+          "reason": "alpha_wrap_hit:aw_26",
+          "artifacts": {
+            "classified_obj": "geometry/external_shell/surfaces_all.obj",
+            "class_obj": "geometry/external_shell/classes/external_wall.obj",
+            "shell_obj": "geometry/external_shell/shell.obj"
+          }
+        },
+        {
+          "surface_id": "ec_0_2",
+          "object_name": "ec_0_2",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "classification": "internal_void",
+          "area_m2": 1.2e-05,
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "plane_normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "plane_point": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "centroid": [
+            5.0,
+            6.0,
+            0.0
+          ],
+          "polygon_components_3d": [
+            [
+              [
+                [
+                  4.998,
+                  6.0015,
+                  0.0
+                ],
+                [
+                  5.002,
+                  6.0015,
+                  0.0
+                ],
+                [
+                  5.002,
+                  5.9985,
+                  0.0
+                ],
+                [
+                  4.998,
+                  5.9985,
+                  0.0
+                ]
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                4.998,
+                5.9985,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ]
+            ],
+            [
+              [
+                4.998,
+                5.9985,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                0.0
+              ]
+            ]
+          ],
+          "source_surface_id": "space_0_2",
+          "subtracted_internal_surface_ids": [],
+          "reason": "no_alpha_wrap_hit",
+          "artifacts": {
+            "classified_obj": "geometry/external_shell/surfaces_all.obj",
+            "class_obj": "geometry/external_shell/classes/internal_void.obj",
+            "shell_obj": "geometry/external_shell/shell.obj"
+          }
+        },
+        {
+          "surface_id": "ec_0_3",
+          "object_name": "ec_0_3",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "classification": "internal_void",
+          "area_m2": 1.2e-05,
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "plane_normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "plane_point": [
+            0.0,
+            0.0,
+            2.8
+          ],
+          "centroid": [
+            5.0,
+            6.0,
+            2.8
+          ],
+          "polygon_components_3d": [
+            [
+              [
+                [
+                  5.002,
+                  5.9985,
+                  2.8
+                ],
+                [
+                  5.002,
+                  6.0015,
+                  2.8
+                ],
+                [
+                  4.998,
+                  6.0015,
+                  2.8
+                ],
+                [
+                  4.998,
+                  5.9985,
+                  2.8
+                ]
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ]
+            ],
+            [
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                4.998,
+                5.9985,
+                2.8
+              ]
+            ]
+          ],
+          "source_surface_id": "space_0_3",
+          "subtracted_internal_surface_ids": [],
+          "reason": "no_alpha_wrap_hit",
+          "artifacts": {
+            "classified_obj": "geometry/external_shell/surfaces_all.obj",
+            "class_obj": "geometry/external_shell/classes/internal_void.obj",
+            "shell_obj": "geometry/external_shell/shell.obj"
+          }
+        },
+        {
+          "surface_id": "ec_0_4",
+          "object_name": "ec_0_4",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "classification": "external_wall",
+          "area_m2": 0.0112,
+          "normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "plane_normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "plane_point": [
+            0.0,
+            6.0015,
+            0.0
+          ],
+          "centroid": [
+            5.0,
+            6.0015,
+            1.4
+          ],
+          "polygon_components_3d": [
+            [
+              [
+                [
+                  4.998,
+                  6.0015,
+                  2.8
+                ],
+                [
+                  5.002,
+                  6.0015,
+                  2.8
+                ],
+                [
+                  5.002,
+                  6.0015,
+                  0.0
+                ],
+                [
+                  4.998,
+                  6.0015,
+                  0.0
+                ]
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                4.998,
+                6.0015,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                0.0
+              ]
+            ],
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                4.998,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ]
+            ]
+          ],
+          "source_surface_id": "space_0_4",
+          "subtracted_internal_surface_ids": [],
+          "reason": "alpha_wrap_hit:aw_7",
+          "artifacts": {
+            "classified_obj": "geometry/external_shell/surfaces_all.obj",
+            "class_obj": "geometry/external_shell/classes/external_wall.obj",
+            "shell_obj": "geometry/external_shell/shell.obj"
+          }
+        },
+        {
+          "surface_id": "ec_0_5",
+          "object_name": "ec_0_5",
+          "space_global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "space_express_id": 33,
+          "space_name": "Simple Room",
+          "classification": "external_wall",
+          "area_m2": 0.0084,
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "plane_normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "plane_point": [
+            5.002,
+            0.0,
+            0.0
+          ],
+          "centroid": [
+            5.002,
+            6.0,
+            1.4
+          ],
+          "polygon_components_3d": [
+            [
+              [
+                [
+                  5.002,
+                  6.0015,
+                  0.0
+                ],
+                [
+                  5.002,
+                  6.0015,
+                  2.8
+                ],
+                [
+                  5.002,
+                  5.9985,
+                  2.8
+                ],
+                [
+                  5.002,
+                  5.9985,
+                  0.0
+                ]
+              ]
+            ]
+          ],
+          "triangles": [
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                6.0015,
+                2.8
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ]
+            ],
+            [
+              [
+                5.002,
+                6.0015,
+                0.0
+              ],
+              [
+                5.002,
+                5.9985,
+                2.8
+              ],
+              [
+                5.002,
+                5.9985,
+                0.0
+              ]
+            ]
+          ],
+          "source_surface_id": "space_0_5",
+          "subtracted_internal_surface_ids": [],
+          "reason": "alpha_wrap_hit:aw_87",
+          "artifacts": {
+            "classified_obj": "geometry/external_shell/surfaces_all.obj",
+            "class_obj": "geometry/external_shell/classes/external_wall.obj",
+            "shell_obj": "geometry/external_shell/shell.obj"
+          }
+        }
+      ],
+      "artifacts": {
+        "request": "geometry/external_shell/request.json",
+        "result": "geometry/external_shell/result.json",
+        "shell_obj": "geometry/external_shell/shell.obj",
+        "surfaces_all": "geometry/external_shell/surfaces_all.obj",
+        "classes": {
+          "external_wall": "geometry/external_shell/classes/external_wall.obj",
+          "roof": "geometry/external_shell/classes/roof.obj",
+          "ground_floor": "geometry/external_shell/classes/ground_floor.obj",
+          "internal_void": "geometry/external_shell/classes/internal_void.obj",
+          "unclassified": "geometry/external_shell/classes/unclassified.obj"
+        }
+      }
+    },
+    "opening_integration": {
+      "summary": {
+        "openings_processed": 0,
+        "opening_surfaces_created": 0,
+        "boundaries_with_openings": 0,
+        "total_opening_area_m2": 0.0
+      },
+      "opening_surfaces": [],
+      "artifacts": {}
+    },
+    "gbxml_preflight": {
+      "status": "valid",
+      "summary": {
+        "space_count": 1,
+        "surface_count": 6,
+        "opening_count": 0,
+        "blocker_count": 0,
+        "warning_count": 0,
+        "omitted_entity_count": 0,
+        "zone_status_counts": {
+          "complete": 1,
+          "partial": 0,
+          "invalid": 0
+        }
+      },
+      "warnings": [],
+      "blockers": [],
+      "omitted_entities": [],
+      "zone_summary": [
+        {
+          "space_id": "1U_tAX_eL5eA5kFlE4HAA_",
+          "name": "Simple Room",
+          "status": "complete",
+          "exported_surface_count": 6,
+          "omitted_surface_count": 0,
+          "warning_count": 0,
+          "blocker_count": 0
+        }
+      ],
+      "artifacts": {
+        "detail": "geometry/gbxml_preflight.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SecondLevelSpaceBoundaries>
+  <InternalBoundaries>
+    <Surface id="ibo_0_0_a">
+      <Classification>internal</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <AdjacentSpace globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>0.0 1.0 1.5</Centroid>
+      <AreaM2>12.0</AreaM2>
+      <Geometry>
+        <Ring index="0">
+          <Point>-2.0 1.0 0.0</Point>
+          <Point>-2.0 1.0 3.0</Point>
+          <Point>2.0 1.0 3.0</Point>
+          <Point>2.0 1.0 -0.0</Point>
+        </Ring>
+      </Geometry>
+    </Surface>
+    <Surface id="ibo_0_0_b">
+      <Classification>internal</Classification>
+      <Space globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" name="Touching Room" />
+      <AdjacentSpace globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" />
+      <Normal>0.0 -1.0 0.0</Normal>
+      <Centroid>0.0 1.0 1.5</Centroid>
+      <AreaM2>12.0</AreaM2>
+      <Geometry>
+        <Ring index="0">
+          <Point>2.0 1.0 0.0</Point>
+          <Point>2.0 1.0 3.0</Point>
+          <Point>-2.0 1.0 3.0</Point>
+          <Point>-2.0 1.0 0.0</Point>
+        </Ring>
+      </Geometry>
+    </Surface>
+  </InternalBoundaries>
+  <ExternalBoundaries>
+    <Surface id="ec_0_0">
+      <Classification>external_wall</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>-1.0 0.0 0.0</Normal>
+      <Centroid>-4.0 0.0 1.5</Centroid>
+      <AreaM2>6.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_4">
+      <Classification>external_wall</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>-3.0 1.0 1.5</Centroid>
+      <AreaM2>6.0</AreaM2>
+    </Surface>
+    <Surface id="ec_2_0">
+      <Classification>external_wall</Classification>
+      <Space globalId="3iqr$IY6L7O9HpziyT7fFe" expressId="64" name="Far Room" />
+      <Normal>-1.0 0.0 0.0</Normal>
+      <Centroid>-2.0 -4.1 1.5</Centroid>
+      <AreaM2>9.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_0">
+      <Classification>external_wall</Classification>
+      <Space globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" name="Touching Room" />
+      <Normal>-1.0 0.0 0.0</Normal>
+      <Centroid>-2.0 2.5 1.5</Centroid>
+      <AreaM2>9.0</AreaM2>
+    </Surface>
+    <Surface id="ec_2_1">
+      <Classification>external_wall</Classification>
+      <Space globalId="3iqr$IY6L7O9HpziyT7fFe" expressId="64" name="Far Room" />
+      <Normal>0.0 -1.0 0.0</Normal>
+      <Centroid>0.0 -5.6 1.5</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_2_2">
+      <Classification>ground_floor</Classification>
+      <Space globalId="3iqr$IY6L7O9HpziyT7fFe" expressId="64" name="Far Room" />
+      <Normal>0.0 0.0 -1.0</Normal>
+      <Centroid>0.0 -4.1 -0.0</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_2_3">
+      <Classification>roof</Classification>
+      <Space globalId="3iqr$IY6L7O9HpziyT7fFe" expressId="64" name="Far Room" />
+      <Normal>0.0 0.0 1.0</Normal>
+      <Centroid>0.0 -4.1 3.0</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_2_4">
+      <Classification>external_wall</Classification>
+      <Space globalId="3iqr$IY6L7O9HpziyT7fFe" expressId="64" name="Far Room" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>-0.0 -2.6 1.5</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_1">
+      <Classification>external_wall</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>0.0 -1.0 0.0</Normal>
+      <Centroid>0.0 -1.0 1.5</Centroid>
+      <AreaM2>24.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_2">
+      <Classification>ground_floor</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>0.0 0.0 -1.0</Normal>
+      <Centroid>0.0 0.0 0.0</Centroid>
+      <AreaM2>16.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_3">
+      <Classification>roof</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>0.0 0.0 1.0</Normal>
+      <Centroid>0.0 0.0 3.0</Centroid>
+      <AreaM2>16.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_1">
+      <Classification>ground_floor</Classification>
+      <Space globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" name="Touching Room" />
+      <Normal>0.0 0.0 -1.0</Normal>
+      <Centroid>0.0 2.5 0.0</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_2">
+      <Classification>roof</Classification>
+      <Space globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" name="Touching Room" />
+      <Normal>0.0 0.0 1.0</Normal>
+      <Centroid>0.0 2.5 3.0</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_3">
+      <Classification>external_wall</Classification>
+      <Space globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" name="Touching Room" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>0.0 4.0 1.5</Centroid>
+      <AreaM2>12.0</AreaM2>
+    </Surface>
+    <Surface id="ec_2_5">
+      <Classification>external_wall</Classification>
+      <Space globalId="3iqr$IY6L7O9HpziyT7fFe" expressId="64" name="Far Room" />
+      <Normal>1.0 0.0 0.0</Normal>
+      <Centroid>2.0 -4.1 1.5</Centroid>
+      <AreaM2>9.0</AreaM2>
+    </Surface>
+    <Surface id="ec_1_4">
+      <Classification>external_wall</Classification>
+      <Space globalId="3G3ffe8PvAJRRInUGzmS7L" expressId="49" name="Touching Room" />
+      <Normal>1.0 0.0 0.0</Normal>
+      <Centroid>2.0 2.5 1.5</Centroid>
+      <AreaM2>9.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_5">
+      <Classification>external_wall</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>0.0 1.0 0.0</Normal>
+      <Centroid>3.0 1.0 1.5</Centroid>
+      <AreaM2>6.0</AreaM2>
+    </Surface>
+    <Surface id="ec_0_6">
+      <Classification>external_wall</Classification>
+      <Space globalId="0eNX4svZr368wj6zFQzd8A" expressId="33" name="Corridor" />
+      <Normal>1.0 0.0 0.0</Normal>
+      <Centroid>4.0 0.0 1.5</Centroid>
+      <AreaM2>6.0</AreaM2>
+    </Surface>
+  </ExternalBoundaries>
+  <OpeningSurfaces />
+  <Summary>
+    <InternalSurfaceCount>2</InternalSurfaceCount>
+    <ExternalSurfaceCount>18</ExternalSurfaceCount>
+    <OpeningSurfaceCount>0</OpeningSurfaceCount>
+    <TotalOpeningAreaM2>0</TotalOpeningAreaM2>
+    <MinSurfaceAreaThresholdM2>0.25</MinSurfaceAreaThresholdM2>
+  </Summary>
+</SecondLevelSpaceBoundaries>

@@ -1,0 +1,5283 @@
+{
+  "success": false,
+  "job_id": "1f4e4216-9f4e-43ff-b779-1a20d2d4e5ab",
+  "error": "Preflight failed: Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+  "derivation": null,
+  "schema": "IFC4X3",
+  "summary": {
+    "number_of_spaces": 12,
+    "number_of_openings": 31,
+    "entities_processed": 43,
+    "issues_found": 1
+  },
+  "geometry_sanity": {
+    "number_of_spaces": 12,
+    "number_of_openings": 31,
+    "spaces_with_missing_representation": [],
+    "invalid_solids": []
+  },
+  "spaces": [
+    {
+      "express_id": 93,
+      "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+      "name": "1",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          -300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 273.75999999999993,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "normalized_obj": "geometry/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "raw_obj": "geometry/raw/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 109,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+      "name": "3",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 16.822265625000043,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 123,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+      "name": "4",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 17.05429687500002,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 137,
+      "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+      "name": "5",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 35.38476562500002,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 151,
+      "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+      "name": "6",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 7.850390624999915,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 165,
+      "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+      "name": "7",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 7.904531249999941,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 179,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE6",
+      "name": "8",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 43.22250000000014,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 193,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+      "name": "9",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 35.38476562500243,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 207,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+      "name": "10",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 35.38476562500279,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 221,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+      "name": "11",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 9.86184375000079,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 235,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+      "name": "12",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 9.861843750000775,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 249,
+      "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+      "name": "13",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            0.0
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 35.38476562500265,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+        "glb": null
+      },
+      "preflight_blockers": [
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing."
+        }
+      ],
+      "preflight_warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh."
+        }
+      ],
+      "preflight_failed": true,
+      "preflight_reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": null
+    }
+  ],
+  "openings": [
+    {
+      "express_id": 90695,
+      "global_id": "0tWZaphRKAxG_g6y5ahA_O",
+      "name": "M_Fixed:4000 X 2200:352674:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -4141.9038750016125,
+          5870.658590843674,
+          50.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -4141.9038750016125
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            5870.658590843674
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6720000000000006,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "normalized_obj": "geometry/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "raw_obj": "geometry/raw/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90710,
+      "global_id": "2S5xf4S$fCRQT2ntmXkwO9",
+      "name": "M_Fixed:4000 X 2200:352887:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -2773.823301698934,
+          9629.429073987307,
+          50.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -2773.823301698934
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            9629.429073987307
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6719999999999982,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "normalized_obj": "geometry/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "raw_obj": "geometry/raw/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90726,
+      "global_id": "0OAoI8Bi$1$MojHEKS0Cv9",
+      "name": "M_Fixed:4000 X 2200:352908:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -5509.984448304291,
+          2111.888107700042,
+          50.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -5509.984448304291
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            2111.888107700042
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6719999999999946,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "normalized_obj": "geometry/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "raw_obj": "geometry/raw/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90742,
+      "global_id": "0_Nnp8jxWhkNE$TEQybvYw",
+      "name": "M_Fixed:4000 X 2200:354144:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -4141.9038750016125,
+          5870.658590843674,
+          3350.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -4141.9038750016125
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            5870.658590843674
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6720000000000101,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "normalized_obj": "geometry/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "raw_obj": "geometry/raw/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90757,
+      "global_id": "2Sq3rnJ6rWHSmYzPlLFRKX",
+      "name": "M_Fixed:4000 X 2200:354145:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -2773.823301698934,
+          9629.429073987307,
+          3350.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -2773.823301698934
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            9629.429073987307
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.671999999999997,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "normalized_obj": "geometry/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "raw_obj": "geometry/raw/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90773,
+      "global_id": "2yGyYVW4sxmbDznW9sCHLU",
+      "name": "M_Fixed:4000 X 2200:354146:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -5509.984448304291,
+          2111.888107700042,
+          3350.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -5509.984448304291
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            2111.888107700042
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.67199999999999,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "normalized_obj": "geometry/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "raw_obj": "geometry/raw/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90789,
+      "global_id": "2CY5cGV_Qc8ddlQHLAkL$f",
+      "name": "M_Single-Flush:0915 x 2134mm EXT:352938:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          2385.329688586916,
+          12008.362041401431,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            2385.329688586916
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            12008.362041401431
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.4179999999999975,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "normalized_obj": "geometry/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "raw_obj": "geometry/raw/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90804,
+      "global_id": "15E8Vbrel1CPHZLHya6edm",
+      "name": "M_Fixed:3000 X 2200:352928:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -1468.2736781814772,
+          13198.123407077972,
+          50.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            -1468.2736781814772
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            13198.123407077972
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999947,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "normalized_obj": "geometry/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "raw_obj": "geometry/raw/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90819,
+      "global_id": "3telsqPy5jtAYfsyTZwu8x",
+      "name": "M_Fixed:3000 X 2200:354147:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -1468.2736781814772,
+          13198.123407077972,
+          3350.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            -1468.2736781814772
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            13198.123407077972
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999947,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "normalized_obj": "geometry/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "raw_obj": "geometry/raw/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90834,
+      "global_id": "18_j_L7XUZg9BtRoEeHFId",
+      "name": "M_Fixed:3000 X 2200:354191:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          1339.0580264164955,
+          12176.338228892508,
+          3350.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            1339.0580264164955
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            12176.338228892508
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999922,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "normalized_obj": "geometry/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "raw_obj": "geometry/raw/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90850,
+      "global_id": "2L4YQz8vDo7zpANHyV5gVl",
+      "name": "M_Fixed:750 X 2200:352285:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          2602.688557972653,
+          7443.208482919063,
+          50.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            2602.688557972653
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            7443.208482919063
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.330000000000002,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "normalized_obj": "geometry/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "raw_obj": "geometry/raw/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90865,
+      "global_id": "31xIQbs6ruQC6nO5xMDuhF",
+      "name": "M_Fixed:750 X 2200:352507:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          1578.6802488556013,
+          4629.768776286063,
+          50.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            1578.6802488556013
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            4629.768776286063
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.32999999999999935,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "normalized_obj": "geometry/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "raw_obj": "geometry/raw/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90881,
+      "global_id": "18g5nNBS4dNBnGz2L4Av5b",
+      "name": "M_Fixed:750 X 2200:352520:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          3962.218627692205,
+          11178.48665054309,
+          50.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            3962.218627692205
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            11178.48665054309
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3299999999999974,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "normalized_obj": "geometry/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "raw_obj": "geometry/raw/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90896,
+      "global_id": "3U6fcnxpVfzjD4zv4GTMn1",
+      "name": "M_Fixed:750 X 2200:354105:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          2602.688557972653,
+          7443.208482919063,
+          3350.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            2602.688557972653
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            7443.208482919063
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.32999999999998425,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "normalized_obj": "geometry/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "raw_obj": "geometry/raw/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90911,
+      "global_id": "3CqRIidhtnkplkRtWrS$yX",
+      "name": "M_Fixed:750 X 2200:354106:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          1578.6802488556013,
+          4629.768776286063,
+          3350.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            1578.6802488556013
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            4629.768776286063
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.33000000000000074,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "normalized_obj": "geometry/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "raw_obj": "geometry/raw/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90927,
+      "global_id": "1AfrghL9UdZSb$jFKVN$bq",
+      "name": "M_Fixed:750 X 2200:354107:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          3962.218627692205,
+          11178.48665054309,
+          3350.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            3962.218627692205
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            11178.48665054309
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3299999999999678,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "normalized_obj": "geometry/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "raw_obj": "geometry/raw/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90942,
+      "global_id": "2LWFy07q16RthzSG4xBKIk",
+      "name": "M_Fixed:750 X 2200:354122:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          1226.057481086848,
+          3660.9456842558247,
+          3350.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            1226.057481086848
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            3660.9456842558247
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3299999999999985,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "normalized_obj": "geometry/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "raw_obj": "geometry/raw/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90957,
+      "global_id": "2iliIrZjYVkMNyGFU$QJtB",
+      "name": "M_Fixed:3000 X 2200:352538:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -65.64032662593686,
+          130.3089023069436,
+          50.0
+        ],
+        "matrix": [
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            -65.64032662593686
+          ],
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            130.3089023069436
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999984,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "normalized_obj": "geometry/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "raw_obj": "geometry/raw/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90972,
+      "global_id": "0nz1H9tCPcHWsuWg7a5RQG",
+      "name": "M_Fixed:3000 X 2200:352647:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -2872.9720312238355,
+          1152.0940804923812,
+          50.0
+        ],
+        "matrix": [
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            -2872.9720312238355
+          ],
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            1152.0940804923812
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            50.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999995,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "normalized_obj": "geometry/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "raw_obj": "geometry/raw/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 90988,
+      "global_id": "3xHx5qi$DYbOY_H6BzkeHG",
+      "name": "M_Fixed:3000 X 2200:354143:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -2872.9720312238355,
+          1152.0940804923812,
+          3350.0
+        ],
+        "matrix": [
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            -2872.9720312238355
+          ],
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            1152.0940804923812
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999993,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "normalized_obj": "geometry/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "raw_obj": "geometry/raw/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91004,
+      "global_id": "16DZ5BKlZYRvf8PCfkGZRk",
+      "name": "M_Fixed:3000 X 2200:354162:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 38,
+        "global_id": "2L1aZE$XjEIOtolM95UN09",
+        "name": "Level 0",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -65.64032662593686,
+          130.3089023069436,
+          3350.0
+        ],
+        "matrix": [
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            -65.64032662593686
+          ],
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            130.3089023069436
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3350.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999978,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "normalized_obj": "geometry/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "raw_obj": "geometry/raw/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91019,
+      "global_id": "3FlIiGarUwrH9MmaSMqQw7",
+      "name": "M_Single-Flush:0915 x 2134mm:351691:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -1631.5511845799313,
+          4544.596047185694,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            -1631.5511845799313
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            4544.596047185694
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999988,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "normalized_obj": "geometry/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "raw_obj": "geometry/raw/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91034,
+      "global_id": "3Vw1coSerOZbreKZZpRIK1",
+      "name": "M_Single-Flush:0915 x 2134mm:352101:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          1864.3106208855338,
+          9763.69081899122,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            1864.3106208855338
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            9763.69081899122
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.35227500000000056,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "normalized_obj": "geometry/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "raw_obj": "geometry/raw/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91049,
+      "global_id": "0CuWGnW6Jr6YG4o3CO8LJO",
+      "name": "M_Single-Flush:0915 x 2134mm:352204:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          2544.075655745297,
+          11631.329902803178,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.34202014332566966,
+            -0.9396926207859081,
+            0.0,
+            2544.075655745297
+          ],
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            11631.329902803178
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999946,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "normalized_obj": "geometry/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "raw_obj": "geometry/raw/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91064,
+      "global_id": "1nY8PEtIKNR1u2WNtxpT04",
+      "name": "M_Single-Flush:0915 x 2134mm:351889:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          181.14796513628733,
+          6239.320834612286,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            181.14796513628733
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            6239.320834612286
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999988,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "normalized_obj": "geometry/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "raw_obj": "geometry/raw/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91079,
+      "global_id": "0USjcYbZe$kWK8FISkVQHw",
+      "name": "M_Single-Flush:0915 x 2134mm:351784:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 41,
+        "global_id": "3Zu5Bv0LOHrPC10026FoQQ",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -507.16757330662847,
+          4348.1894352806485,
+          0.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            -507.16757330662847
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            4348.1894352806485
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999994,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "normalized_obj": "geometry/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "raw_obj": "geometry/raw/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91094,
+      "global_id": "03OGAzj$8K4Us8RcsM9Hal",
+      "name": "M_Single-Flush:0915 x 2134mm:355129:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          9.316562408832093,
+          8416.915673313166,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            9.316562408832093
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            8416.915673313166
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.35227499999999995,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "normalized_obj": "geometry/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "raw_obj": "geometry/raw/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91109,
+      "global_id": "1dhjajbDDbAHDoImuOGHco",
+      "name": "M_Single-Flush:0915 x 2134mm:355450:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          2578.149384989196,
+          7668.168099271165,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            2578.149384989196
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            7668.168099271165
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522750000000112,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "normalized_obj": "geometry/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "raw_obj": "geometry/raw/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91124,
+      "global_id": "2SRhAIz6YAop4gByXnsG7t",
+      "name": "M_Single-Flush:0915 x 2134mm:355076:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -439.09173779276136,
+          4509.6429676640855,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            -439.09173779276136
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            4509.6429676640855
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522750000000001,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "normalized_obj": "geometry/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "raw_obj": "geometry/raw/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91139,
+      "global_id": "20ZUlaiLYsxWyiPsZ_s3Fy",
+      "name": "M_Single-Flush:0915 x 2134mm:355350:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          290.3965385854117,
+          4057.8998386329854,
+          3300.0
+        ],
+        "matrix": [
+          [
+            0.9396926207859081,
+            0.34202014332566966,
+            0.0,
+            290.3965385854117
+          ],
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            4057.8998386329854
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.35227500000000117,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "normalized_obj": "geometry/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "raw_obj": "geometry/raw/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    },
+    {
+      "express_id": 91154,
+      "global_id": "3bUWJ6AtIzfVCEXf0UPr4B",
+      "name": "M_Single-Flush:0915 x 2134mm:386110:1",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 45,
+        "global_id": "15Z0v90RiHrPC20026FoKR",
+        "name": "Level 2",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 34,
+        "global_id": "35dyTrKLDA6wq0o933TuW0",
+        "name": "",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          -7469.811862145036,
+          -2724.4801328248986,
+          3300.0
+        ],
+        "matrix": [
+          [
+            -0.34202014332566966,
+            0.9396926207859081,
+            0.0,
+            -7469.811862145036
+          ],
+          [
+            -0.9396926207859081,
+            -0.34202014332566966,
+            0.0,
+            -2724.4801328248986
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            3300.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "has_representation": true,
+      "geometry_ok": true,
+      "geometry_error": null,
+      "valid_solid": true,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999899,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "artifacts": {
+        "obj": "geometry/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj",
+        "normalized_obj": "geometry/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj",
+        "raw_obj": "geometry/raw/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj",
+        "glb": null
+      },
+      "preflight_blockers": [],
+      "preflight_warnings": [],
+      "preflight_failed": false,
+      "preflight_reason": null,
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null
+    }
+  ],
+  "preprocessing": {
+    "worker_backend": "hybrid",
+    "unit": "meter",
+    "source_unit_scale_to_meters": 0.001,
+    "summary": {
+      "entities_total": 43,
+      "entities_with_input_mesh": 43,
+      "normalized_entities": 43,
+      "valid_entities": 43,
+      "invalid_entities": 0,
+      "space_count": 12,
+      "opening_count": 31,
+      "valid_spaces": 12,
+      "invalid_spaces": 0,
+      "valid_openings": 31,
+      "invalid_openings": 0,
+      "spaces_with_obj_exports": 12,
+      "openings_with_obj_exports": 31,
+      "repair_effective_mode": "exact_repair",
+      "repair_exact_repaired_spaces": 12,
+      "repair_exact_passthrough_spaces": 0,
+      "repair_python_fallback_spaces": 0,
+      "repair_not_attempted_spaces": 0
+    },
+    "repair": {
+      "contract_version": 2,
+      "mode_requested": "preferred",
+      "effective_mode": "exact_repair",
+      "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+      "worker_available": true,
+      "worker_invoked": true,
+      "worker_backend": "cpp-cgal",
+      "response_status": "ok",
+      "fallback_reason": null,
+      "summary": {
+        "effective_mode": "exact_repair",
+        "space_count": 12,
+        "attempted_space_count": 12,
+        "exact_repaired_space_count": 12,
+        "exact_passthrough_space_count": 0,
+        "python_fallback_space_count": 0,
+        "not_attempted_space_count": 0
+      },
+      "spaces": [
+        {
+          "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+          "express_id": 93,
+          "name": "1",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+          "express_id": 109,
+          "name": "3",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+          "express_id": 123,
+          "name": "4",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+          "express_id": 137,
+          "name": "5",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+          "express_id": 151,
+          "name": "6",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+          "express_id": 165,
+          "name": "7",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE6",
+          "express_id": 179,
+          "name": "8",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+          "express_id": 193,
+          "name": "9",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+          "express_id": 207,
+          "name": "10",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+          "express_id": 221,
+          "name": "11",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+          "express_id": 235,
+          "name": "12",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        },
+        {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+          "express_id": 249,
+          "name": "13",
+          "repair_backend": "cpp-cgal",
+          "repair_status": "exact_repaired",
+          "repair_reason": null,
+          "repair_actions": [
+            "cgal_nef_regularization"
+          ],
+          "valid": true
+        }
+      ]
+    },
+    "invalid_entities": [],
+    "artifacts": {
+      "request": "geometry/request.json",
+      "result": "geometry/result.json",
+      "summary": "geometry/geometry_summary.json",
+      "repair_request": "geometry/repair_request.json",
+      "repair_response": "geometry/repair_response.json",
+      "repair_report": "geometry/repair_report.json",
+      "viewer_manifest": "geometry/viewer_manifest.json",
+      "raw_spaces_all": "geometry/raw/spaces_all.obj",
+      "raw_openings": "geometry/raw/openings.obj",
+      "spaces_all": "geometry/spaces_all.obj",
+      "openings": "geometry/openings.obj",
+      "per_raw_space_objs": [
+        "geometry/raw/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE3.obj"
+      ],
+      "per_raw_opening_objs": [
+        "geometry/raw/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "geometry/raw/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "geometry/raw/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "geometry/raw/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "geometry/raw/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "geometry/raw/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "geometry/raw/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "geometry/raw/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "geometry/raw/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "geometry/raw/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "geometry/raw/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "geometry/raw/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "geometry/raw/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "geometry/raw/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "geometry/raw/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "geometry/raw/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "geometry/raw/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "geometry/raw/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "geometry/raw/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "geometry/raw/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "geometry/raw/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "geometry/raw/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "geometry/raw/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "geometry/raw/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "geometry/raw/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "geometry/raw/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "geometry/raw/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "geometry/raw/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "geometry/raw/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "geometry/raw/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "geometry/raw/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj"
+      ],
+      "per_space_objs": [
+        "geometry/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "geometry/spaces/0ZJGyRZaj36fppkc2yhKE3.obj"
+      ],
+      "per_opening_objs": [
+        "geometry/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "geometry/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "geometry/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "geometry/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "geometry/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "geometry/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "geometry/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "geometry/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "geometry/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "geometry/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "geometry/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "geometry/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "geometry/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "geometry/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "geometry/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "geometry/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "geometry/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "geometry/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "geometry/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "geometry/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "geometry/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "geometry/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "geometry/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "geometry/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "geometry/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "geometry/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "geometry/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "geometry/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "geometry/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "geometry/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "geometry/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj"
+      ],
+      "preview": "preview.obj"
+    }
+  },
+  "preflight": {
+    "status": "failed",
+    "summary": {
+      "space_count": 12,
+      "checked_space_count": 12,
+      "blocker_count": 1,
+      "warning_count": 12,
+      "self_intersection_space_count": 0,
+      "clash_pair_count": 10,
+      "clash_group_count": 1,
+      "exact_duplicate_group_count": 0,
+      "contained_fragment_group_count": 0,
+      "partial_overlap_group_count": 1,
+      "self_intersection_group_count": 0,
+      "recommended_resolution_group_count": 0,
+      "manual_resolution_group_count": 1
+    },
+    "blockers": [
+      {
+        "code": "space_clash",
+        "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+        "clash_group_id": "cg_0",
+        "classification": "partial_overlap",
+        "review_required": true,
+        "resolution_status": "manual_required",
+        "entities": [
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+            "express_id": 123,
+            "name": "4",
+            "volume_m3": 17.054297,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+            "express_id": 235,
+            "name": "12",
+            "volume_m3": 9.861844,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+            "express_id": 249,
+            "name": "13",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+            "express_id": 207,
+            "name": "10",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+            "express_id": 221,
+            "name": "11",
+            "volume_m3": 9.861844,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+            "express_id": 193,
+            "name": "9",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+            "express_id": 109,
+            "name": "3",
+            "volume_m3": 16.822266,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+            "express_id": 165,
+            "name": "7",
+            "volume_m3": 7.904531,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+            "express_id": 137,
+            "name": "5",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+            "express_id": 151,
+            "name": "6",
+            "volume_m3": 7.850391,
+            "recommended_action": null
+          },
+          {
+            "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+            "express_id": 93,
+            "name": "1",
+            "volume_m3": 273.76,
+            "recommended_action": null
+          }
+        ],
+        "pairs": [
+          {
+            "pair_id": "pair_0",
+            "entities": [
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+                "express_id": 249,
+                "name": "13"
+              },
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "0ZJGyRZaj36fppkc2yhKE3",
+              "space_a_express_id": 249,
+              "space_b_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_b_express_id": 93
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 7.174576,
+              "overlap_to_smaller_volume_ratio": 0.202759,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -3.748061,
+                1.4706,
+                4.4
+              ],
+              "triangle_b_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_2",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+                "express_id": 137,
+                "name": "5"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKEy",
+              "space_b_express_id": 137
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 59.190254,
+              "overlap_to_smaller_volume_ratio": 1.672761,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 137,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -1.876506,
+                0.78941,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                -0.506078,
+                1.643008,
+                3.3
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_4",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+                "express_id": 207,
+                "name": "10"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE4",
+              "space_b_express_id": 207
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 7.174576,
+              "overlap_to_smaller_volume_ratio": 0.202759,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                -0.940729,
+                0.448815,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_6",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+                "express_id": 123,
+                "name": "4"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE$",
+              "space_b_express_id": 123
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.062297,
+              "overlap_aabb_volume_m3": 29.02482,
+              "overlap_to_smaller_volume_ratio": 1.701907,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 123,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                2.630791,
+                7.52042,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                0.423076,
+                4.195839,
+                1.1
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_9",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+                "express_id": 109,
+                "name": "3"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE_",
+              "space_b_express_id": 109
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.061449,
+              "overlap_aabb_volume_m3": 28.696009,
+              "overlap_to_smaller_volume_ratio": 1.705835,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 109,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                2.630791,
+                7.52042,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                1.111392,
+                6.086971,
+                1.1
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_11",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+                "express_id": 235,
+                "name": "12"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE2",
+              "space_b_express_id": 235
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.036024,
+              "overlap_aabb_volume_m3": 1.968267,
+              "overlap_to_smaller_volume_ratio": 0.199584,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                0.791123,
+                4.061882,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_16",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+                "express_id": 193,
+                "name": "9"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE7",
+              "space_b_express_id": 193
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 7.174576,
+              "overlap_to_smaller_volume_ratio": 0.202759,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                1.791157,
+                7.95461,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_18",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+                "express_id": 221,
+                "name": "11"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE5",
+              "space_b_express_id": 221
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.036024,
+              "overlap_aabb_volume_m3": 1.968267,
+              "overlap_to_smaller_volume_ratio": 0.199584,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                1.475163,
+                5.941267,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_23",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+                "express_id": 165,
+                "name": "7"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKEw",
+              "space_b_express_id": 165
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.028874,
+              "overlap_aabb_volume_m3": 13.264039,
+              "overlap_to_smaller_volume_ratio": 1.67803,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 165,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                2.630791,
+                7.52042,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                2.261003,
+                7.7836,
+                1.1
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_27",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+                "express_id": 151,
+                "name": "6"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKEz",
+              "space_b_express_id": 151
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.028676,
+              "overlap_aabb_volume_m3": 13.161674,
+              "overlap_to_smaller_volume_ratio": 1.676563,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 151,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                0.342592,
+                12.539022,
+                2.366667
+              ],
+              "triangle_b_centroid": [
+                2.32945,
+                10.529984,
+                2.2
+              ]
+            }
+          }
+        ],
+        "recommended_resolution": null
+      }
+    ],
+    "warnings": [
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+          "express_id": 123,
+          "name": "4"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+          "express_id": 235,
+          "name": "12"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+          "express_id": 249,
+          "name": "13"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+          "express_id": 207,
+          "name": "10"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+          "express_id": 221,
+          "name": "11"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE6",
+          "express_id": 179,
+          "name": "8"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+          "express_id": 193,
+          "name": "9"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+          "express_id": 109,
+          "name": "3"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+          "express_id": 165,
+          "name": "7"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+          "express_id": 137,
+          "name": "5"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+          "express_id": 151,
+          "name": "6"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      },
+      {
+        "code": "auto_repair_applied",
+        "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+        "entity": {
+          "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+          "express_id": 93,
+          "name": "1"
+        },
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ]
+      }
+    ],
+    "clash_groups": [
+      {
+        "clash_group_id": "cg_0",
+        "classification": "partial_overlap",
+        "review_required": true,
+        "resolution_status": "manual_required",
+        "recommended_resolution": null,
+        "spaces": [
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+            "express_id": 123,
+            "name": "4",
+            "volume_m3": 17.054297,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+            "express_id": 235,
+            "name": "12",
+            "volume_m3": 9.861844,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+            "express_id": 249,
+            "name": "13",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+            "express_id": 207,
+            "name": "10",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+            "express_id": 221,
+            "name": "11",
+            "volume_m3": 9.861844,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+            "express_id": 193,
+            "name": "9",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+            "express_id": 109,
+            "name": "3",
+            "volume_m3": 16.822266,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+            "express_id": 165,
+            "name": "7",
+            "volume_m3": 7.904531,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+            "express_id": 137,
+            "name": "5",
+            "volume_m3": 35.384766,
+            "recommended_action": null
+          },
+          {
+            "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+            "express_id": 151,
+            "name": "6",
+            "volume_m3": 7.850391,
+            "recommended_action": null
+          },
+          {
+            "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+            "express_id": 93,
+            "name": "1",
+            "volume_m3": 273.76,
+            "recommended_action": null
+          }
+        ],
+        "pairs": [
+          {
+            "pair_id": "pair_0",
+            "entities": [
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+                "express_id": 249,
+                "name": "13"
+              },
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "0ZJGyRZaj36fppkc2yhKE3",
+              "space_a_express_id": 249,
+              "space_b_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_b_express_id": 93
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 7.174576,
+              "overlap_to_smaller_volume_ratio": 0.202759,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -3.748061,
+                1.4706,
+                4.4
+              ],
+              "triangle_b_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_2",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+                "express_id": 137,
+                "name": "5"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKEy",
+              "space_b_express_id": 137
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 59.190254,
+              "overlap_to_smaller_volume_ratio": 1.672761,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 137,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -1.876506,
+                0.78941,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                -0.506078,
+                1.643008,
+                3.3
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_4",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+                "express_id": 207,
+                "name": "10"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE4",
+              "space_b_express_id": 207
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 7.174576,
+              "overlap_to_smaller_volume_ratio": 0.202759,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                -0.940729,
+                0.448815,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_6",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+                "express_id": 123,
+                "name": "4"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE$",
+              "space_b_express_id": 123
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.062297,
+              "overlap_aabb_volume_m3": 29.02482,
+              "overlap_to_smaller_volume_ratio": 1.701907,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 123,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                2.630791,
+                7.52042,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                0.423076,
+                4.195839,
+                1.1
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_9",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+                "express_id": 109,
+                "name": "3"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE_",
+              "space_b_express_id": 109
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.061449,
+              "overlap_aabb_volume_m3": 28.696009,
+              "overlap_to_smaller_volume_ratio": 1.705835,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 109,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                2.630791,
+                7.52042,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                1.111392,
+                6.086971,
+                1.1
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_11",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+                "express_id": 235,
+                "name": "12"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE2",
+              "space_b_express_id": 235
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.036024,
+              "overlap_aabb_volume_m3": 1.968267,
+              "overlap_to_smaller_volume_ratio": 0.199584,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                0.791123,
+                4.061882,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_16",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+                "express_id": 193,
+                "name": "9"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE7",
+              "space_b_express_id": 193
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.129255,
+              "overlap_aabb_volume_m3": 7.174576,
+              "overlap_to_smaller_volume_ratio": 0.202759,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                1.791157,
+                7.95461,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_18",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+                "express_id": 221,
+                "name": "11"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKE5",
+              "space_b_express_id": 221
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.036024,
+              "overlap_aabb_volume_m3": 1.968267,
+              "overlap_to_smaller_volume_ratio": 0.199584,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                -0.531227,
+                4.485535,
+                3.7
+              ],
+              "triangle_b_centroid": [
+                1.475163,
+                5.941267,
+                4.4
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_23",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+                "express_id": 165,
+                "name": "7"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKEw",
+              "space_b_express_id": 165
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.028874,
+              "overlap_aabb_volume_m3": 13.264039,
+              "overlap_to_smaller_volume_ratio": 1.67803,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 165,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                2.630791,
+                7.52042,
+                1.033333
+              ],
+              "triangle_b_centroid": [
+                2.261003,
+                7.7836,
+                1.1
+              ]
+            }
+          },
+          {
+            "pair_id": "pair_27",
+            "entities": [
+              {
+                "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+                "express_id": 93,
+                "name": "1"
+              },
+              {
+                "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+                "express_id": 151,
+                "name": "6"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2puJI5Ci99RgxZaQWdLc1V",
+              "space_a_express_id": 93,
+              "space_b_global_id": "0ZJGyRZaj36fppkc2yhKEz",
+              "space_b_express_id": 151
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.028676,
+              "overlap_aabb_volume_m3": 13.161674,
+              "overlap_to_smaller_volume_ratio": 1.676563,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 151,
+              "keeper_space_express_id": 93
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                0.342592,
+                12.539022,
+                2.366667
+              ],
+              "triangle_b_centroid": [
+                2.32945,
+                10.529984,
+                2.2
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "recommended_resolution": null,
+    "resolution_status": "review_required",
+    "review_required": true,
+    "artifacts": {
+      "detail": "geometry/preflight.json",
+      "clash_report": "geometry/clash_report.json"
+    }
+  },
+  "internal_boundaries": {
+    "threshold_m": null,
+    "epsilon": null,
+    "summary": {},
+    "adjacencies": [],
+    "artifacts": {}
+  },
+  "external_candidates": {
+    "epsilon": null,
+    "summary": {},
+    "spaces": [],
+    "candidate_surfaces": [],
+    "artifacts": {}
+  },
+  "external_shell": {
+    "mode_requested": null,
+    "mode_effective": null,
+    "fallback_reason": null,
+    "shell_backend": null,
+    "alpha_wrap": {},
+    "summary": {},
+    "surfaces": [],
+    "artifacts": {}
+  },
+  "opening_integration": {
+    "summary": {},
+    "opening_surfaces": [],
+    "artifacts": {}
+  },
+  "gbxml_preflight": {
+    "status": null,
+    "summary": {},
+    "warnings": [],
+    "blockers": [],
+    "omitted_entities": [],
+    "zone_summary": [],
+    "artifacts": {}
+  }
+}

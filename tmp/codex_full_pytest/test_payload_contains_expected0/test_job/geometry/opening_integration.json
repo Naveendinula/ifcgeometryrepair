@@ -1,0 +1,15 @@
+{
+  "job_id": "test-job-002",
+  "threshold_m": 0.5,
+  "min_area_m2": 0.01,
+  "clip_backend": "pyclipper",
+  "summary": {
+    "openings_processed": 0,
+    "opening_surfaces_created": 0,
+    "boundaries_with_openings": 0,
+    "total_opening_area_m2": 0.0
+  },
+  "opening_surfaces": [],
+  "modified_boundaries": [],
+  "artifacts": {}
+}

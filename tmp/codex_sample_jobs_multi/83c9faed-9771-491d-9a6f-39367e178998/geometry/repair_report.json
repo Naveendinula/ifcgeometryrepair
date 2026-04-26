@@ -1,0 +1,166 @@
+{
+  "contract_version": 2,
+  "mode_requested": "preferred",
+  "effective_mode": "exact_repair",
+  "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+  "worker_available": true,
+  "worker_invoked": true,
+  "worker_backend": "cpp-cgal",
+  "response_status": "ok",
+  "fallback_reason": null,
+  "summary": {
+    "effective_mode": "exact_repair",
+    "space_count": 12,
+    "attempted_space_count": 12,
+    "exact_repaired_space_count": 12,
+    "exact_passthrough_space_count": 0,
+    "python_fallback_space_count": 0,
+    "not_attempted_space_count": 0
+  },
+  "spaces": [
+    {
+      "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+      "express_id": 93,
+      "name": "1",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+      "express_id": 109,
+      "name": "3",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+      "express_id": 123,
+      "name": "4",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+      "express_id": 137,
+      "name": "5",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+      "express_id": 151,
+      "name": "6",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+      "express_id": 165,
+      "name": "7",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+      "express_id": 181,
+      "name": "9",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+      "express_id": 195,
+      "name": "10",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+      "express_id": 209,
+      "name": "11",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+      "express_id": 223,
+      "name": "12",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+      "express_id": 245,
+      "name": "13",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "3y5ARzA6jBBPO2wQq_rOHK",
+      "express_id": 273,
+      "name": "17",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    }
+  ]
+}

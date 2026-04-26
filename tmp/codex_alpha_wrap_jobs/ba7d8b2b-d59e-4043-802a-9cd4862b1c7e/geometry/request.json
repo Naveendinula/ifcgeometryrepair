@@ -1,0 +1,494 @@
+{
+  "job_id": "ba7d8b2b-d59e-4043-802a-9cd4862b1c7e",
+  "schema": "IFC4",
+  "unit": "meter",
+  "source_unit_scale_to_meters": 0.001,
+  "entities": [
+    {
+      "object_name": "0eNX4svZr368wj6zFQzd8A",
+      "global_id": "0eNX4svZr368wj6zFQzd8A",
+      "express_id": 33,
+      "name": "Corridor",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "0_PLHfp51D98Iv6GTC3vGX",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1TDHVbUBrFTxPVN8uqxr2M",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            -4.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -4.0,
+            -1.0,
+            3.0
+          ],
+          [
+            4.0,
+            -1.0,
+            3.0
+          ],
+          [
+            4.0,
+            -1.0,
+            0.0
+          ],
+          [
+            4.0,
+            1.0,
+            3.0
+          ],
+          [
+            4.0,
+            1.0,
+            0.0
+          ],
+          [
+            -4.0,
+            1.0,
+            3.0
+          ],
+          [
+            -4.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "3G3ffe8PvAJRRInUGzmS7L",
+      "global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "express_id": 49,
+      "name": "Touching Room",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "0_PLHfp51D98Iv6GTC3vGX",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1TDHVbUBrFTxPVN8uqxr2M",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          2500.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            2500.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            -2.0,
+            1.0,
+            0.0
+          ],
+          [
+            -2.0,
+            1.0,
+            3.0
+          ],
+          [
+            2.0,
+            1.0,
+            3.0
+          ],
+          [
+            2.0,
+            1.0,
+            0.0
+          ],
+          [
+            2.0,
+            4.0,
+            3.0
+          ],
+          [
+            2.0,
+            4.0,
+            0.0
+          ],
+          [
+            -2.0,
+            4.0,
+            3.0
+          ],
+          [
+            -2.0,
+            4.0,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "3iqr$IY6L7O9HpziyT7fFe",
+      "global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "express_id": 64,
+      "name": "Far Room",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "0_PLHfp51D98Iv6GTC3vGX",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1TDHVbUBrFTxPVN8uqxr2M",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          -4100.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -4100.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            -2.0,
+            -5.6,
+            0.0
+          ],
+          [
+            -2.0,
+            -5.6,
+            3.0
+          ],
+          [
+            2.0,
+            -5.6,
+            3.0
+          ],
+          [
+            2.0,
+            -5.6,
+            0.0
+          ],
+          [
+            2.0,
+            -2.5999999999999996,
+            3.0
+          ],
+          [
+            2.0,
+            -2.5999999999999996,
+            0.0
+          ],
+          [
+            -2.0,
+            -2.5999999999999996,
+            3.0
+          ],
+          [
+            -2.0,
+            -2.5999999999999996,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    }
+  ]
+}

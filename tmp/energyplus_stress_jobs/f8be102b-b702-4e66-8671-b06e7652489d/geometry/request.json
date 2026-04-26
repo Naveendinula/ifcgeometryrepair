@@ -1,0 +1,1523 @@
+{
+  "job_id": "f8be102b-b702-4e66-8671-b06e7652489d",
+  "schema": "IFC4",
+  "unit": "meter",
+  "source_unit_scale_to_meters": 0.001,
+  "entities": [
+    {
+      "object_name": "0DsxTCdR92jgaFCSd2doff",
+      "global_id": "0DsxTCdR92jgaFCSd2doff",
+      "express_id": 33,
+      "name": "EPLUS_CONTROL_VALID_ROOM",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            -2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            -2.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            2.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            2.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            2.0,
+            1.5,
+            0.0
+          ],
+          [
+            -2.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            1.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "34K8A29HXDaf3KqKHhE9cv",
+      "global_id": "34K8A29HXDaf3KqKHhE9cv",
+      "express_id": 49,
+      "name": "EPLUS_ERROR_DUPLICATE_A",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          8000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            8000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            6.0,
+            -1.5,
+            0.0
+          ],
+          [
+            6.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            -1.5,
+            0.0
+          ],
+          [
+            10.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            1.5,
+            0.0
+          ],
+          [
+            6.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            1.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "1blcD87zT9N9$HtCu2td0y",
+      "global_id": "1blcD87zT9N9$HtCu2td0y",
+      "express_id": 64,
+      "name": "EPLUS_ERROR_DUPLICATE_B",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          8000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            8000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            6.0,
+            -1.5,
+            0.0
+          ],
+          [
+            6.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            -1.5,
+            0.0
+          ],
+          [
+            10.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            10.0,
+            1.5,
+            0.0
+          ],
+          [
+            6.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            6.0,
+            1.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "1qZci0mHX8kh5lJJ_k4Xj6",
+      "global_id": "1qZci0mHX8kh5lJJ_k4Xj6",
+      "express_id": 79,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          16000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            16000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            14.0,
+            -1.5,
+            0.0
+          ],
+          [
+            14.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            18.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            18.0,
+            -1.5,
+            0.0
+          ],
+          [
+            18.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            18.0,
+            1.5,
+            0.0
+          ],
+          [
+            14.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            14.0,
+            1.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "0QOclR5wz5Qh_B3oEYQgdB",
+      "global_id": "0QOclR5wz5Qh_B3oEYQgdB",
+      "express_id": 94,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          19600.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            19600.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            17.6,
+            -1.5,
+            0.0
+          ],
+          [
+            17.6,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            21.6,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            21.6,
+            -1.5,
+            0.0
+          ],
+          [
+            21.6,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            21.6,
+            1.5,
+            0.0
+          ],
+          [
+            17.6,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            17.6,
+            1.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "1IXPXiMmD8Se7dUSWIRGXY",
+      "global_id": "1IXPXiMmD8Se7dUSWIRGXY",
+      "express_id": 109,
+      "name": "EPLUS_ERROR_CONTAINED_OUTER",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          28000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            28000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            25.5,
+            -2.5,
+            0.0
+          ],
+          [
+            25.5,
+            -2.5,
+            3.0
+          ],
+          [
+            30.5,
+            -2.5,
+            3.0
+          ],
+          [
+            30.5,
+            -2.5,
+            0.0
+          ],
+          [
+            30.5,
+            2.5,
+            3.0
+          ],
+          [
+            30.5,
+            2.5,
+            0.0
+          ],
+          [
+            25.5,
+            2.5,
+            3.0
+          ],
+          [
+            25.5,
+            2.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "31DelQuEnCRBNvu71higMj",
+      "global_id": "31DelQuEnCRBNvu71higMj",
+      "express_id": 124,
+      "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          28000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            28000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            27.5,
+            -0.5,
+            0.0
+          ],
+          [
+            27.5,
+            -0.5,
+            1.5
+          ],
+          [
+            28.5,
+            -0.5,
+            1.5
+          ],
+          [
+            28.5,
+            -0.5,
+            0.0
+          ],
+          [
+            28.5,
+            0.5,
+            1.5
+          ],
+          [
+            28.5,
+            0.5,
+            0.0
+          ],
+          [
+            27.5,
+            0.5,
+            1.5
+          ],
+          [
+            27.5,
+            0.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "1JAgJknNrE6h4OTjYby7qF",
+      "global_id": "1JAgJknNrE6h4OTjYby7qF",
+      "express_id": 139,
+      "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE",
+      "entity_type": "IfcSpace",
+      "has_representation": false,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          36000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            36000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": null,
+      "skip_reason": "Missing representation"
+    },
+    {
+      "object_name": "0o$mW1C1D35hkjvZ7COaV2",
+      "global_id": "0o$mW1C1D35hkjvZ7COaV2",
+      "express_id": 145,
+      "name": "EPLUS_WARNING_THIN_SLIVER_SPACE",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          44000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            44000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            43.975,
+            -1.5,
+            0.0
+          ],
+          [
+            43.975,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            44.025,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            44.025,
+            -1.5,
+            0.0
+          ],
+          [
+            44.025,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            44.025,
+            1.5,
+            0.0
+          ],
+          [
+            43.975,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            43.975,
+            1.5,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    },
+    {
+      "object_name": "3wyhAhawz7oQJO5DHhoX0o",
+      "global_id": "3wyhAhawz7oQJO5DHhoX0o",
+      "express_id": 160,
+      "name": "EPLUS_WARNING_FLOATING_OPENING",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "storey": {
+        "express_id": 14,
+        "global_id": "3DwghhbOnDrwg9cqyfv$DV",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2w0vGY5x981uYsslEGZA7Q",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          52000.0,
+          0.0,
+          1000.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            52000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1000.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "source_unit_scale_to_meters": 0.001,
+      "mesh": {
+        "vertices": [
+          [
+            51.5,
+            -0.125,
+            1.0
+          ],
+          [
+            51.5,
+            -0.125,
+            3.0
+          ],
+          [
+            52.5,
+            -0.125,
+            3.0
+          ],
+          [
+            52.5,
+            -0.125,
+            1.0
+          ],
+          [
+            52.5,
+            0.125,
+            3.0
+          ],
+          [
+            52.5,
+            0.125,
+            1.0
+          ],
+          [
+            51.5,
+            0.125,
+            3.0
+          ],
+          [
+            51.5,
+            0.125,
+            1.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "skip_reason": null
+    }
+  ]
+}

@@ -1,0 +1,445 @@
+{
+  "status": "valid",
+  "tolerance_m": 0.001,
+  "min_area_m2": 0.01,
+  "summary": {
+    "space_count": 2,
+    "surface_count": 11,
+    "opening_count": 0,
+    "blocker_count": 0,
+    "warning_count": 0,
+    "omitted_entity_count": 0,
+    "zone_status_counts": {
+      "complete": 2,
+      "partial": 0,
+      "invalid": 0
+    }
+  },
+  "warnings": [],
+  "blockers": [],
+  "omitted_entities": [],
+  "zone_summary": [
+    {
+      "space_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "name": "Room B",
+      "status": "complete",
+      "exported_surface_count": 6,
+      "omitted_surface_count": 0,
+      "warning_count": 0,
+      "blocker_count": 0
+    },
+    {
+      "space_id": "36ELDHTGb9JeYbq7M3yhng",
+      "name": "Room A",
+      "status": "complete",
+      "exported_surface_count": 6,
+      "omitted_surface_count": 0,
+      "warning_count": 0,
+      "blocker_count": 0
+    }
+  ],
+  "artifacts": {
+    "detail": "geometry/gbxml_preflight.json"
+  },
+  "export_plan": {
+    "spaces": [
+      {
+        "id": "0t5HBTMgf4xg$2Qk454_H0",
+        "name": "Room B"
+      },
+      {
+        "id": "36ELDHTGb9JeYbq7M3yhng",
+        "name": "Room A"
+      }
+    ],
+    "surfaces": [
+      {
+        "id": "ib_0_0",
+        "xml_id": "ib_0_0",
+        "source_surface_id": "ib_0_0",
+        "surface_type": "InteriorWall",
+        "adjacent_space_ids": [
+          "0t5HBTMgf4xg$2Qk454_H0",
+          "36ELDHTGb9JeYbq7M3yhng"
+        ],
+        "rings_3d": [
+          [
+            [
+              2.1,
+              1.5,
+              0.0
+            ],
+            [
+              2.1,
+              -1.5,
+              0.0
+            ],
+            [
+              2.1,
+              -1.5,
+              2.8
+            ],
+            [
+              2.1,
+              1.5,
+              2.8
+            ]
+          ]
+        ],
+        "area_m2": 8.4,
+        "openings": []
+      },
+      {
+        "id": "ec_1_0",
+        "xml_id": "ec_1_0",
+        "source_surface_id": "ec_1_0",
+        "surface_type": "ExteriorWall",
+        "adjacent_space_ids": [
+          "36ELDHTGb9JeYbq7M3yhng"
+        ],
+        "rings_3d": [
+          [
+            [
+              -2.0,
+              -1.5,
+              2.8
+            ],
+            [
+              -2.0,
+              1.5,
+              2.8
+            ],
+            [
+              -2.0,
+              1.5,
+              0.0
+            ],
+            [
+              -2.0,
+              -1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 8.4,
+        "openings": []
+      },
+      {
+        "id": "ec_1_1",
+        "xml_id": "ec_1_1",
+        "source_surface_id": "ec_1_1",
+        "surface_type": "ExteriorWall",
+        "adjacent_space_ids": [
+          "36ELDHTGb9JeYbq7M3yhng"
+        ],
+        "rings_3d": [
+          [
+            [
+              2.0,
+              -1.5,
+              0.0
+            ],
+            [
+              2.0,
+              -1.5,
+              2.8
+            ],
+            [
+              -2.0,
+              -1.5,
+              2.8
+            ],
+            [
+              -2.0,
+              -1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 11.2,
+        "openings": []
+      },
+      {
+        "id": "ec_1_2",
+        "xml_id": "ec_1_2",
+        "source_surface_id": "ec_1_2",
+        "surface_type": "UndergroundSlab",
+        "adjacent_space_ids": [
+          "36ELDHTGb9JeYbq7M3yhng"
+        ],
+        "rings_3d": [
+          [
+            [
+              -2.0,
+              1.5,
+              0.0
+            ],
+            [
+              2.0,
+              1.5,
+              0.0
+            ],
+            [
+              2.0,
+              -1.5,
+              -0.0
+            ],
+            [
+              -2.0,
+              -1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 12.0,
+        "openings": []
+      },
+      {
+        "id": "ec_1_3",
+        "xml_id": "ec_1_3",
+        "source_surface_id": "ec_1_3",
+        "surface_type": "Roof",
+        "adjacent_space_ids": [
+          "36ELDHTGb9JeYbq7M3yhng"
+        ],
+        "rings_3d": [
+          [
+            [
+              2.0,
+              -1.5,
+              2.8
+            ],
+            [
+              2.0,
+              1.5,
+              2.8
+            ],
+            [
+              -2.0,
+              1.5,
+              2.8
+            ],
+            [
+              -2.0,
+              -1.5,
+              2.8
+            ]
+          ]
+        ],
+        "area_m2": 12.0,
+        "openings": []
+      },
+      {
+        "id": "ec_1_4",
+        "xml_id": "ec_1_4",
+        "source_surface_id": "ec_1_4",
+        "surface_type": "ExteriorWall",
+        "adjacent_space_ids": [
+          "36ELDHTGb9JeYbq7M3yhng"
+        ],
+        "rings_3d": [
+          [
+            [
+              -2.0,
+              1.5,
+              2.8
+            ],
+            [
+              2.0,
+              1.5,
+              2.8
+            ],
+            [
+              2.0,
+              1.5,
+              0.0
+            ],
+            [
+              -2.0,
+              1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 11.2,
+        "openings": []
+      },
+      {
+        "id": "ec_0_0",
+        "xml_id": "ec_0_0",
+        "source_surface_id": "ec_0_0",
+        "surface_type": "ExteriorWall",
+        "adjacent_space_ids": [
+          "0t5HBTMgf4xg$2Qk454_H0"
+        ],
+        "rings_3d": [
+          [
+            [
+              6.2,
+              -1.5,
+              0.0
+            ],
+            [
+              6.2,
+              -1.5,
+              2.8
+            ],
+            [
+              2.2,
+              -1.5,
+              2.8
+            ],
+            [
+              2.2,
+              -1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 11.2,
+        "openings": []
+      },
+      {
+        "id": "ec_0_1",
+        "xml_id": "ec_0_1",
+        "source_surface_id": "ec_0_1",
+        "surface_type": "UndergroundSlab",
+        "adjacent_space_ids": [
+          "0t5HBTMgf4xg$2Qk454_H0"
+        ],
+        "rings_3d": [
+          [
+            [
+              2.2,
+              1.5,
+              0.0
+            ],
+            [
+              6.2,
+              1.5,
+              0.0
+            ],
+            [
+              6.2,
+              -1.5,
+              -0.0
+            ],
+            [
+              2.2,
+              -1.5,
+              -0.0
+            ]
+          ]
+        ],
+        "area_m2": 12.0,
+        "openings": []
+      },
+      {
+        "id": "ec_0_2",
+        "xml_id": "ec_0_2",
+        "source_surface_id": "ec_0_2",
+        "surface_type": "Roof",
+        "adjacent_space_ids": [
+          "0t5HBTMgf4xg$2Qk454_H0"
+        ],
+        "rings_3d": [
+          [
+            [
+              6.2,
+              -1.5,
+              2.8
+            ],
+            [
+              6.2,
+              1.5,
+              2.8
+            ],
+            [
+              2.2,
+              1.5,
+              2.8
+            ],
+            [
+              2.2,
+              -1.5,
+              2.8
+            ]
+          ]
+        ],
+        "area_m2": 12.0,
+        "openings": []
+      },
+      {
+        "id": "ec_0_3",
+        "xml_id": "ec_0_3",
+        "source_surface_id": "ec_0_3",
+        "surface_type": "ExteriorWall",
+        "adjacent_space_ids": [
+          "0t5HBTMgf4xg$2Qk454_H0"
+        ],
+        "rings_3d": [
+          [
+            [
+              2.2,
+              1.5,
+              2.8
+            ],
+            [
+              6.2,
+              1.5,
+              2.8
+            ],
+            [
+              6.2,
+              1.5,
+              0.0
+            ],
+            [
+              2.2,
+              1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 11.2,
+        "openings": []
+      },
+      {
+        "id": "ec_0_4",
+        "xml_id": "ec_0_4",
+        "source_surface_id": "ec_0_4",
+        "surface_type": "ExteriorWall",
+        "adjacent_space_ids": [
+          "0t5HBTMgf4xg$2Qk454_H0"
+        ],
+        "rings_3d": [
+          [
+            [
+              6.2,
+              1.5,
+              0.0
+            ],
+            [
+              6.2,
+              1.5,
+              2.8
+            ],
+            [
+              6.2,
+              -1.5,
+              2.8
+            ],
+            [
+              6.2,
+              -1.5,
+              0.0
+            ]
+          ]
+        ],
+        "area_m2": 8.4,
+        "openings": []
+      }
+    ]
+  },
+  "job_id": "31d02742-1894-40ef-80e1-238ae7408ca4"
+}

@@ -1,0 +1,1192 @@
+{
+  "job_id": "cd0f4745-5b72-4e07-b33b-8e5899bf33f1",
+  "schema": "IFC4",
+  "unit": "meter",
+  "min_area_threshold_m2": 0.25,
+  "proximity_threshold_m": 0.05,
+  "summary": {
+    "space_count": 9,
+    "opening_count": 1,
+    "failed_count": 7,
+    "valid_count": 3,
+    "surface_count": 0,
+    "opening_surface_count": 0,
+    "internal_boundary_count": 0,
+    "unclassified_surface_count": 0,
+    "clash_group_count": 3
+  },
+  "layers": {
+    "raw_ifc_preview": {
+      "available": true,
+      "spaces_obj": "geometry/raw/spaces_all.obj",
+      "openings_obj": "geometry/raw/openings.obj",
+      "glb": null
+    },
+    "normalized_spaces": {
+      "available": true,
+      "obj": "geometry/spaces_all.obj",
+      "glb": null
+    },
+    "openings": {
+      "available": true,
+      "obj": "geometry/openings.obj",
+      "glb": null
+    },
+    "failed_entities": {
+      "available": true,
+      "count": 7
+    },
+    "envelope_shell": {
+      "available": false,
+      "obj": null,
+      "glb": null
+    },
+    "surface_classification": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    },
+    "opening_integration": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    },
+    "internal_boundaries": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    }
+  },
+  "clash_review": {
+    "review_required": true,
+    "resolution_status": "review_required",
+    "recommended_resolution": {
+      "operation": "resolve_space_clashes",
+      "group_count": 2,
+      "clash_group_ids": [
+        "cg_0",
+        "cg_2"
+      ],
+      "space_global_ids": [
+        "0r$3NHucH39egPbVd6af4Z",
+        "2algwQqYHFuBe1K_MXtOPJ"
+      ],
+      "space_express_ids": [
+        64,
+        124
+      ]
+    },
+    "clash_groups": [
+      {
+        "clash_group_id": "cg_0",
+        "classification": "exact_duplicate",
+        "review_required": true,
+        "resolution_status": "recommended",
+        "recommended_resolution": {
+          "operation": "remove_spaces",
+          "reason": "Keep the highest-ranked duplicate space and remove the overlapping duplicates.",
+          "keeper": {
+            "global_id": "1qxPZVMk97ROnmAGbkhJxK",
+            "express_id": 49,
+            "name": "EPLUS_ERROR_DUPLICATE_A"
+          },
+          "spaces_to_remove": [
+            {
+              "global_id": "0r$3NHucH39egPbVd6af4Z",
+              "express_id": 64,
+              "name": "EPLUS_ERROR_DUPLICATE_B"
+            }
+          ]
+        },
+        "spaces": [
+          {
+            "global_id": "0r$3NHucH39egPbVd6af4Z",
+            "express_id": 64,
+            "name": "EPLUS_ERROR_DUPLICATE_B",
+            "volume_m3": 33.6,
+            "recommended_action": "remove"
+          },
+          {
+            "global_id": "1qxPZVMk97ROnmAGbkhJxK",
+            "express_id": 49,
+            "name": "EPLUS_ERROR_DUPLICATE_A",
+            "volume_m3": 33.6,
+            "recommended_action": "keep"
+          }
+        ],
+        "pairs": [
+          {
+            "pair_id": "pair_0",
+            "entities": [
+              {
+                "global_id": "0r$3NHucH39egPbVd6af4Z",
+                "express_id": 64,
+                "name": "EPLUS_ERROR_DUPLICATE_B"
+              },
+              {
+                "global_id": "1qxPZVMk97ROnmAGbkhJxK",
+                "express_id": 49,
+                "name": "EPLUS_ERROR_DUPLICATE_A"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "0r$3NHucH39egPbVd6af4Z",
+              "space_a_express_id": 64,
+              "space_b_global_id": "1qxPZVMk97ROnmAGbkhJxK",
+              "space_b_express_id": 49
+            },
+            "detection": "triangle_intersection",
+            "classification": "exact_duplicate",
+            "evidence": {
+              "same_aabb": true,
+              "volume_ratio": 1.0,
+              "overlap_aabb_volume_m3": 33.6,
+              "overlap_to_smaller_volume_ratio": 1.0,
+              "left_centroid_in_right": true,
+              "right_centroid_in_left": true
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                8.666667,
+                -0.5,
+                2.8
+              ],
+              "triangle_b_centroid": [
+                8.666667,
+                -1.5,
+                0.933333
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "clash_group_id": "cg_1",
+        "classification": "partial_overlap",
+        "review_required": true,
+        "resolution_status": "manual_required",
+        "recommended_resolution": null,
+        "spaces": [
+          {
+            "global_id": "1LYrBRYE54Y8uuYIv_LqVk",
+            "express_id": 79,
+            "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+            "volume_m3": 33.6,
+            "recommended_action": null
+          },
+          {
+            "global_id": "3qZ7piZEf1DOsIQwl$2Q01",
+            "express_id": 94,
+            "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+            "volume_m3": 33.6,
+            "recommended_action": null
+          }
+        ],
+        "pairs": [
+          {
+            "pair_id": "pair_1",
+            "entities": [
+              {
+                "global_id": "1LYrBRYE54Y8uuYIv_LqVk",
+                "express_id": 79,
+                "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A"
+              },
+              {
+                "global_id": "3qZ7piZEf1DOsIQwl$2Q01",
+                "express_id": 94,
+                "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "1LYrBRYE54Y8uuYIv_LqVk",
+              "space_a_express_id": 79,
+              "space_b_global_id": "3qZ7piZEf1DOsIQwl$2Q01",
+              "space_b_express_id": 94
+            },
+            "detection": "triangle_intersection",
+            "classification": "partial_overlap",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 1.0,
+              "overlap_aabb_volume_m3": 3.36,
+              "overlap_to_smaller_volume_ratio": 0.1,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": false
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                16.666667,
+                -0.5,
+                2.8
+              ],
+              "triangle_b_centroid": [
+                18.933333,
+                -1.5,
+                1.866667
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "clash_group_id": "cg_2",
+        "classification": "contained_fragment",
+        "review_required": true,
+        "resolution_status": "recommended",
+        "recommended_resolution": {
+          "operation": "remove_spaces",
+          "reason": "Keep the containing space and remove smaller fully-contained fragment spaces.",
+          "keeper": {
+            "global_id": "2g6YT7H3v5l8ltdn44GHeR",
+            "express_id": 109,
+            "name": "EPLUS_ERROR_CONTAINED_OUTER"
+          },
+          "spaces_to_remove": [
+            {
+              "global_id": "2algwQqYHFuBe1K_MXtOPJ",
+              "express_id": 124,
+              "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+            }
+          ]
+        },
+        "spaces": [
+          {
+            "global_id": "2algwQqYHFuBe1K_MXtOPJ",
+            "express_id": 124,
+            "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+            "volume_m3": 1.5,
+            "recommended_action": "remove"
+          },
+          {
+            "global_id": "2g6YT7H3v5l8ltdn44GHeR",
+            "express_id": 109,
+            "name": "EPLUS_ERROR_CONTAINED_OUTER",
+            "volume_m3": 75.0,
+            "recommended_action": "keep"
+          }
+        ],
+        "pairs": [
+          {
+            "pair_id": "pair_2",
+            "entities": [
+              {
+                "global_id": "2g6YT7H3v5l8ltdn44GHeR",
+                "express_id": 109,
+                "name": "EPLUS_ERROR_CONTAINED_OUTER"
+              },
+              {
+                "global_id": "2algwQqYHFuBe1K_MXtOPJ",
+                "express_id": 124,
+                "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+              }
+            ],
+            "pair": {
+              "space_a_global_id": "2g6YT7H3v5l8ltdn44GHeR",
+              "space_a_express_id": 109,
+              "space_b_global_id": "2algwQqYHFuBe1K_MXtOPJ",
+              "space_b_express_id": 124
+            },
+            "detection": "triangle_intersection",
+            "classification": "contained_fragment",
+            "evidence": {
+              "same_aabb": false,
+              "volume_ratio": 0.02,
+              "overlap_aabb_volume_m3": 1.5,
+              "overlap_to_smaller_volume_ratio": 1.0,
+              "left_centroid_in_right": false,
+              "right_centroid_in_left": true,
+              "contained_space_express_id": 124,
+              "keeper_space_express_id": 109
+            },
+            "sample_points": {
+              "triangle_a_centroid": [
+                27.166667,
+                0.833333,
+                0.0
+              ],
+              "triangle_b_centroid": [
+                28.166667,
+                -0.5,
+                0.5
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "entities": [
+    {
+      "object_name": "0fSvOyxfv5ReVku4I$0uo3",
+      "selection_type": "entity",
+      "global_id": "0fSvOyxfv5ReVku4I$0uo3",
+      "express_id": 33,
+      "name": "EPLUS_CONTROL_VALID_ROOM",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 33.60000000000001,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/0fSvOyxfv5ReVku4I$0uo3.obj",
+        "normalized_obj": "geometry/spaces/0fSvOyxfv5ReVku4I$0uo3.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1qxPZVMk97ROnmAGbkhJxK",
+      "selection_type": "entity",
+      "global_id": "1qxPZVMk97ROnmAGbkhJxK",
+      "express_id": 49,
+      "name": "EPLUS_ERROR_DUPLICATE_A",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          8000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            8000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Detected duplicate intersecting IfcSpace volumes that require review before continuing.",
+      "has_representation": true,
+      "volume_m3": 33.6,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "exact_duplicate",
+          "resolution_status": "recommended",
+          "review_required": true,
+          "recommended_action": "keep"
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": "keep",
+      "marker_origin": [
+        8000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/1qxPZVMk97ROnmAGbkhJxK.obj",
+        "normalized_obj": "geometry/spaces/1qxPZVMk97ROnmAGbkhJxK.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0r$3NHucH39egPbVd6af4Z",
+      "selection_type": "entity",
+      "global_id": "0r$3NHucH39egPbVd6af4Z",
+      "express_id": 64,
+      "name": "EPLUS_ERROR_DUPLICATE_B",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          8000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            8000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Detected duplicate intersecting IfcSpace volumes that require review before continuing.",
+      "has_representation": true,
+      "volume_m3": 33.6,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "exact_duplicate",
+          "resolution_status": "recommended",
+          "review_required": true,
+          "recommended_action": "remove"
+        }
+      ],
+      "clash_group_ids": [
+        "cg_0"
+      ],
+      "recommended_clash_action": "remove",
+      "marker_origin": [
+        8000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/0r$3NHucH39egPbVd6af4Z.obj",
+        "normalized_obj": "geometry/spaces/0r$3NHucH39egPbVd6af4Z.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1LYrBRYE54Y8uuYIv_LqVk",
+      "selection_type": "entity",
+      "global_id": "1LYrBRYE54Y8uuYIv_LqVk",
+      "express_id": 79,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          16000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            16000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "has_representation": true,
+      "volume_m3": 33.600000000000016,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_1",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_1"
+      ],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        16000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/1LYrBRYE54Y8uuYIv_LqVk.obj",
+        "normalized_obj": "geometry/spaces/1LYrBRYE54Y8uuYIv_LqVk.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3qZ7piZEf1DOsIQwl$2Q01",
+      "selection_type": "entity",
+      "global_id": "3qZ7piZEf1DOsIQwl$2Q01",
+      "express_id": 94,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          19600.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            19600.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+      "has_representation": true,
+      "volume_m3": 33.600000000000016,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_1",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "review_required": true,
+          "recommended_action": null
+        }
+      ],
+      "clash_group_ids": [
+        "cg_1"
+      ],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        19600.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/3qZ7piZEf1DOsIQwl$2Q01.obj",
+        "normalized_obj": "geometry/spaces/3qZ7piZEf1DOsIQwl$2Q01.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2g6YT7H3v5l8ltdn44GHeR",
+      "selection_type": "entity",
+      "global_id": "2g6YT7H3v5l8ltdn44GHeR",
+      "express_id": 109,
+      "name": "EPLUS_ERROR_CONTAINED_OUTER",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          28000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            28000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Detected fully contained IfcSpace fragments that require review before continuing.",
+      "has_representation": true,
+      "volume_m3": 75.0,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_2",
+          "classification": "contained_fragment",
+          "resolution_status": "recommended",
+          "review_required": true,
+          "recommended_action": "keep"
+        }
+      ],
+      "clash_group_ids": [
+        "cg_2"
+      ],
+      "recommended_clash_action": "keep",
+      "marker_origin": [
+        28000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/2g6YT7H3v5l8ltdn44GHeR.obj",
+        "normalized_obj": "geometry/spaces/2g6YT7H3v5l8ltdn44GHeR.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2algwQqYHFuBe1K_MXtOPJ",
+      "selection_type": "entity",
+      "global_id": "2algwQqYHFuBe1K_MXtOPJ",
+      "express_id": 124,
+      "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          28000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            28000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Detected fully contained IfcSpace fragments that require review before continuing.",
+      "has_representation": true,
+      "volume_m3": 1.5,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_2",
+          "classification": "contained_fragment",
+          "resolution_status": "recommended",
+          "review_required": true,
+          "recommended_action": "remove"
+        }
+      ],
+      "clash_group_ids": [
+        "cg_2"
+      ],
+      "recommended_clash_action": "remove",
+      "marker_origin": [
+        28000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/2algwQqYHFuBe1K_MXtOPJ.obj",
+        "normalized_obj": "geometry/spaces/2algwQqYHFuBe1K_MXtOPJ.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "23O9uaPrnCTxD2VAL_1WkR",
+      "selection_type": "entity",
+      "global_id": "23O9uaPrnCTxD2VAL_1WkR",
+      "express_id": 139,
+      "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          36000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            36000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": false,
+      "failed": true,
+      "reason": "Normalized space solid is missing or topologically invalid.",
+      "has_representation": false,
+      "volume_m3": 0.0,
+      "face_count": 0,
+      "vertex_count": 0,
+      "component_count": 0,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Missing representation",
+      "repair_actions": [],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        36000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": null,
+        "normalized_obj": null,
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0qYCBgZSf199rOBYyPflfZ",
+      "selection_type": "entity",
+      "global_id": "0qYCBgZSf199rOBYyPflfZ",
+      "express_id": 145,
+      "name": "EPLUS_WARNING_THIN_SLIVER_SPACE",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          44000.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            44000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 0.4199999999999638,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        44000.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/0qYCBgZSf199rOBYyPflfZ.obj",
+        "normalized_obj": "geometry/spaces/0qYCBgZSf199rOBYyPflfZ.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1in83uhlD3zQlwYjgDlMCU",
+      "selection_type": "entity",
+      "global_id": "1in83uhlD3zQlwYjgDlMCU",
+      "express_id": 160,
+      "name": "EPLUS_WARNING_FLOATING_OPENING",
+      "entity_type": "IfcOpeningElement",
+      "storey": {
+        "express_id": 14,
+        "global_id": "00Lij5Ngb09fysnb0o9olv",
+        "name": "Stress Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "2d8Y8CGiH2ZvyQWKko5lot",
+        "name": "EnergyPlus Stress Building",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          52000.0,
+          0.0,
+          1000.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            52000.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1000.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 0.5,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "repair_actions": [],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        52000.0,
+        0.0,
+        1000.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/openings/1in83uhlD3zQlwYjgDlMCU.obj",
+        "normalized_obj": "geometry/openings/1in83uhlD3zQlwYjgDlMCU.obj",
+        "glb": null
+      }
+    }
+  ],
+  "surface_entities": [],
+  "opening_surface_entities": [],
+  "internal_boundary_entities": []
+}

@@ -1,0 +1,42 @@
+{
+  "job_id": "f7e4a98c-f23e-4ef3-a522-f731d39ae6e0",
+  "status": "passed",
+  "summary": {
+    "space_count": 1,
+    "checked_space_count": 1,
+    "blocker_count": 0,
+    "warning_count": 1,
+    "self_intersection_space_count": 0,
+    "clash_pair_count": 0,
+    "clash_group_count": 0,
+    "exact_duplicate_group_count": 0,
+    "contained_fragment_group_count": 0,
+    "partial_overlap_group_count": 0,
+    "self_intersection_group_count": 0,
+    "recommended_resolution_group_count": 0,
+    "manual_resolution_group_count": 0
+  },
+  "blockers": [],
+  "warnings": [
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "1U_tAX_eL5eA5kFlE4HAA_",
+        "express_id": 33,
+        "name": "Simple Room"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    }
+  ],
+  "clash_groups": [],
+  "recommended_resolution": null,
+  "resolution_status": "clear",
+  "review_required": false,
+  "artifacts": {
+    "detail": "geometry/preflight.json",
+    "clash_report": "geometry/clash_report.json"
+  }
+}

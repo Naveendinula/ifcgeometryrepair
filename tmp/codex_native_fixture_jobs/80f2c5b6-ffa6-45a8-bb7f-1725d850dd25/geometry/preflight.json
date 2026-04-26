@@ -1,0 +1,54 @@
+{
+  "job_id": "80f2c5b6-ffa6-45a8-bb7f-1725d850dd25",
+  "status": "passed",
+  "summary": {
+    "space_count": 2,
+    "checked_space_count": 2,
+    "blocker_count": 0,
+    "warning_count": 2,
+    "self_intersection_space_count": 0,
+    "clash_pair_count": 0,
+    "clash_group_count": 0,
+    "exact_duplicate_group_count": 0,
+    "contained_fragment_group_count": 0,
+    "partial_overlap_group_count": 0,
+    "self_intersection_group_count": 0,
+    "recommended_resolution_group_count": 0,
+    "manual_resolution_group_count": 0
+  },
+  "blockers": [],
+  "warnings": [
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "0TZ6M4G_1CvucQW_jWm4lf",
+        "express_id": 49,
+        "name": "Room B"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    },
+    {
+      "code": "auto_repair_applied",
+      "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+      "entity": {
+        "global_id": "0_9mcps$fFlw11lxoe3dLD",
+        "express_id": 33,
+        "name": "Room A"
+      },
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ]
+    }
+  ],
+  "clash_groups": [],
+  "recommended_resolution": null,
+  "resolution_status": "clear",
+  "review_required": false,
+  "artifacts": {
+    "detail": "geometry/preflight.json",
+    "clash_report": "geometry/clash_report.json"
+  }
+}

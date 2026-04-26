@@ -1,0 +1,1017 @@
+{
+  "job_id": "ba7d8b2b-d59e-4043-802a-9cd4862b1c7e",
+  "schema": "IFC4",
+  "unit": "meter",
+  "min_area_threshold_m2": 0.25,
+  "proximity_threshold_m": 0.05,
+  "summary": {
+    "space_count": 3,
+    "opening_count": 0,
+    "failed_count": 0,
+    "valid_count": 3,
+    "surface_count": 18,
+    "opening_surface_count": 0,
+    "internal_boundary_count": 2,
+    "unclassified_surface_count": 0,
+    "clash_group_count": 0
+  },
+  "layers": {
+    "raw_ifc_preview": {
+      "available": true,
+      "spaces_obj": "geometry/raw/spaces_all.obj",
+      "openings_obj": null,
+      "glb": null
+    },
+    "normalized_spaces": {
+      "available": true,
+      "obj": "geometry/spaces_all.obj",
+      "glb": null
+    },
+    "openings": {
+      "available": false,
+      "obj": null,
+      "glb": null
+    },
+    "failed_entities": {
+      "available": false,
+      "count": 0
+    },
+    "envelope_shell": {
+      "available": true,
+      "obj": "geometry/external_shell/shell.obj",
+      "glb": null
+    },
+    "surface_classification": {
+      "available": true,
+      "obj": "geometry/external_shell/surfaces_all.obj",
+      "glb": null,
+      "count": 18
+    },
+    "opening_integration": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    },
+    "internal_boundaries": {
+      "available": true,
+      "obj": "geometry/internal_boundaries.obj",
+      "glb": null,
+      "count": 2
+    }
+  },
+  "clash_review": {
+    "review_required": false,
+    "resolution_status": "clear",
+    "recommended_resolution": null,
+    "clash_groups": []
+  },
+  "entities": [
+    {
+      "object_name": "0eNX4svZr368wj6zFQzd8A",
+      "selection_type": "entity",
+      "global_id": "0eNX4svZr368wj6zFQzd8A",
+      "express_id": 33,
+      "name": "Corridor",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "0_PLHfp51D98Iv6GTC3vGX",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1TDHVbUBrFTxPVN8uqxr2M",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 48.0,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/0eNX4svZr368wj6zFQzd8A.obj",
+        "normalized_obj": "geometry/spaces/0eNX4svZr368wj6zFQzd8A.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3G3ffe8PvAJRRInUGzmS7L",
+      "selection_type": "entity",
+      "global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "express_id": 49,
+      "name": "Touching Room",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "0_PLHfp51D98Iv6GTC3vGX",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1TDHVbUBrFTxPVN8uqxr2M",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          2500.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            2500.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 36.0,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        0.0,
+        2500.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/3G3ffe8PvAJRRInUGzmS7L.obj",
+        "normalized_obj": "geometry/spaces/3G3ffe8PvAJRRInUGzmS7L.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3iqr$IY6L7O9HpziyT7fFe",
+      "selection_type": "entity",
+      "global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "express_id": 64,
+      "name": "Far Room",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "0_PLHfp51D98Iv6GTC3vGX",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1TDHVbUBrFTxPVN8uqxr2M",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          -4100.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -4100.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 36.0,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        0.0,
+        -4100.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/3iqr$IY6L7O9HpziyT7fFe.obj",
+        "normalized_obj": "geometry/spaces/3iqr$IY6L7O9HpziyT7fFe.obj",
+        "glb": null
+      }
+    }
+  ],
+  "surface_entities": [
+    {
+      "object_name": "ec_0_0",
+      "selection_type": "surface",
+      "surface_id": "ec_0_0",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_265",
+      "area_m2": 6.0,
+      "below_area_threshold": false,
+      "normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        -4.0,
+        0.0,
+        1.5
+      ],
+      "marker_origin": [
+        -4.0,
+        0.0,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_4",
+      "selection_type": "surface",
+      "surface_id": "ec_0_4",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_416",
+      "area_m2": 6.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        -3.0,
+        1.0,
+        1.5
+      ],
+      "marker_origin": [
+        -3.0,
+        1.0,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_2_0",
+      "selection_type": "surface",
+      "surface_id": "ec_2_0",
+      "name": "Far Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "space_express_id": 64,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_607",
+      "area_m2": 9.0,
+      "below_area_threshold": false,
+      "normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        -2.0,
+        -4.1,
+        1.5
+      ],
+      "marker_origin": [
+        -2.0,
+        -4.1,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_0",
+      "selection_type": "surface",
+      "surface_id": "ec_1_0",
+      "name": "Touching Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "space_express_id": 49,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_317",
+      "area_m2": 9.0,
+      "below_area_threshold": false,
+      "normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        -2.0,
+        2.5,
+        1.5
+      ],
+      "marker_origin": [
+        -2.0,
+        2.5,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_2_1",
+      "selection_type": "surface",
+      "surface_id": "ec_2_1",
+      "name": "Far Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "space_express_id": 64,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_637",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        -5.6,
+        1.5
+      ],
+      "marker_origin": [
+        0.0,
+        -5.6,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_2_2",
+      "selection_type": "surface",
+      "surface_id": "ec_2_2",
+      "name": "Far Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "space_express_id": 64,
+      "classification": "ground_floor",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_498",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        0.0,
+        -4.1,
+        -0.0
+      ],
+      "marker_origin": [
+        0.0,
+        -4.1,
+        -0.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/ground_floor.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_2_3",
+      "selection_type": "surface",
+      "surface_id": "ec_2_3",
+      "name": "Far Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "space_express_id": 64,
+      "classification": "roof",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_306",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "centroid": [
+        0.0,
+        -4.1,
+        3.0
+      ],
+      "marker_origin": [
+        0.0,
+        -4.1,
+        3.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/roof.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_2_4",
+      "selection_type": "surface",
+      "surface_id": "ec_2_4",
+      "name": "Far Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "space_express_id": 64,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_312",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        -0.0,
+        -2.6,
+        1.5
+      ],
+      "marker_origin": [
+        -0.0,
+        -2.6,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_1",
+      "selection_type": "surface",
+      "surface_id": "ec_0_1",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_499",
+      "area_m2": 24.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        -1.0,
+        1.5
+      ],
+      "marker_origin": [
+        0.0,
+        -1.0,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_2",
+      "selection_type": "surface",
+      "surface_id": "ec_0_2",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "ground_floor",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_282",
+      "area_m2": 16.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "marker_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/ground_floor.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_3",
+      "selection_type": "surface",
+      "surface_id": "ec_0_3",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "roof",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_429",
+      "area_m2": 16.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "centroid": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "marker_origin": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/roof.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_1",
+      "selection_type": "surface",
+      "surface_id": "ec_1_1",
+      "name": "Touching Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "space_express_id": 49,
+      "classification": "ground_floor",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_531",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        0.0,
+        2.5,
+        0.0
+      ],
+      "marker_origin": [
+        0.0,
+        2.5,
+        0.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/ground_floor.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_2",
+      "selection_type": "surface",
+      "surface_id": "ec_1_2",
+      "name": "Touching Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "space_express_id": 49,
+      "classification": "roof",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_542",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "centroid": [
+        0.0,
+        2.5,
+        3.0
+      ],
+      "marker_origin": [
+        0.0,
+        2.5,
+        3.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/roof.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_3",
+      "selection_type": "surface",
+      "surface_id": "ec_1_3",
+      "name": "Touching Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "space_express_id": 49,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_586",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        4.0,
+        1.5
+      ],
+      "marker_origin": [
+        0.0,
+        4.0,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_2_5",
+      "selection_type": "surface",
+      "surface_id": "ec_2_5",
+      "name": "Far Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "space_express_id": 64,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_200",
+      "area_m2": 9.0,
+      "below_area_threshold": false,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        2.0,
+        -4.1,
+        1.5
+      ],
+      "marker_origin": [
+        2.0,
+        -4.1,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_4",
+      "selection_type": "surface",
+      "surface_id": "ec_1_4",
+      "name": "Touching Room",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "space_express_id": 49,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_365",
+      "area_m2": 9.0,
+      "below_area_threshold": false,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        2.0,
+        2.5,
+        1.5
+      ],
+      "marker_origin": [
+        2.0,
+        2.5,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_5",
+      "selection_type": "surface",
+      "surface_id": "ec_0_5",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_64",
+      "area_m2": 6.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        3.0,
+        1.0,
+        1.5
+      ],
+      "marker_origin": [
+        3.0,
+        1.0,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_6",
+      "selection_type": "surface",
+      "surface_id": "ec_0_6",
+      "name": "Corridor",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_4",
+      "area_m2": 6.0,
+      "below_area_threshold": false,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        4.0,
+        0.0,
+        1.5
+      ],
+      "marker_origin": [
+        4.0,
+        0.0,
+        1.5
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    }
+  ],
+  "opening_surface_entities": [],
+  "internal_boundary_entities": [
+    {
+      "object_name": "ibo_0_0_a",
+      "selection_type": "internal_boundary",
+      "surface_id": "ibo_0_0_a",
+      "name": "Corridor",
+      "entity_type": "InternalBoundary",
+      "space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "space_express_id": 33,
+      "adjacent_space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "adjacent_space_express_id": 49,
+      "paired_surface_id": "ibo_0_0_b",
+      "shared_surface_id": "ib_0_0",
+      "classification": "internal",
+      "failed": false,
+      "valid": true,
+      "area_m2": 12.0,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        1.0,
+        1.5
+      ],
+      "marker_origin": [
+        0.0,
+        1.0,
+        1.5
+      ],
+      "thickness_m": 0.0,
+      "proximity_conflict": true
+    },
+    {
+      "object_name": "ibo_0_0_b",
+      "selection_type": "internal_boundary",
+      "surface_id": "ibo_0_0_b",
+      "name": "Touching Room",
+      "entity_type": "InternalBoundary",
+      "space_global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "space_express_id": 49,
+      "adjacent_space_global_id": "0eNX4svZr368wj6zFQzd8A",
+      "adjacent_space_express_id": 33,
+      "paired_surface_id": "ibo_0_0_a",
+      "shared_surface_id": "ib_0_0",
+      "classification": "internal",
+      "failed": false,
+      "valid": true,
+      "area_m2": 12.0,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        1.0,
+        1.5
+      ],
+      "marker_origin": [
+        0.0,
+        1.0,
+        1.5
+      ],
+      "thickness_m": 0.0,
+      "proximity_conflict": true
+    }
+  ]
+}

@@ -1,0 +1,422 @@
+{
+  "contract_version": 2,
+  "reason": null,
+  "spaces": [
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 48.0
+        }
+      ],
+      "express_id": 33,
+      "face_count": 12,
+      "global_id": "0eNX4svZr368wj6zFQzd8A",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            4.0,
+            -1.0,
+            0.0
+          ],
+          [
+            -4.0,
+            -1.0,
+            0.0
+          ],
+          [
+            4.0,
+            -1.0,
+            3.0
+          ],
+          [
+            -4.0,
+            -1.0,
+            3.0
+          ],
+          [
+            -4.0,
+            1.0,
+            3.0
+          ],
+          [
+            -4.0,
+            1.0,
+            0.0
+          ],
+          [
+            4.0,
+            1.0,
+            3.0
+          ],
+          [
+            4.0,
+            1.0,
+            0.0
+          ]
+        ]
+      },
+      "name": "Corridor",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 48.0
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 36.0
+        }
+      ],
+      "express_id": 49,
+      "face_count": 12,
+      "global_id": "3G3ffe8PvAJRRInUGzmS7L",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            2.0,
+            1.0,
+            0.0
+          ],
+          [
+            -2.0,
+            1.0,
+            0.0
+          ],
+          [
+            2.0,
+            1.0,
+            3.0
+          ],
+          [
+            -2.0,
+            1.0,
+            3.0
+          ],
+          [
+            -2.0,
+            4.0,
+            3.0
+          ],
+          [
+            -2.0,
+            4.0,
+            0.0
+          ],
+          [
+            2.0,
+            4.0,
+            3.0
+          ],
+          [
+            2.0,
+            4.0,
+            0.0
+          ]
+        ]
+      },
+      "name": "Touching Room",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 36.0
+    },
+    {
+      "closed": true,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 35.99999999999999
+        }
+      ],
+      "express_id": 64,
+      "face_count": 12,
+      "global_id": "3iqr$IY6L7O9HpziyT7fFe",
+      "manifold": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            2.0,
+            -5.6,
+            0.0
+          ],
+          [
+            -2.0,
+            -5.6,
+            0.0
+          ],
+          [
+            2.0,
+            -5.6,
+            3.0
+          ],
+          [
+            -2.0,
+            -5.6,
+            3.0
+          ],
+          [
+            -2.0,
+            -2.5999999999999996,
+            3.0
+          ],
+          [
+            -2.0,
+            -2.5999999999999996,
+            0.0
+          ],
+          [
+            2.0,
+            -2.5999999999999996,
+            3.0
+          ],
+          [
+            2.0,
+            -2.5999999999999996,
+            0.0
+          ]
+        ]
+      },
+      "name": "Far Room",
+      "outward_normals": true,
+      "reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_reason": null,
+      "repair_status": "exact_repaired",
+      "valid": true,
+      "vertex_count": 8,
+      "volume_m3": 36.0
+    }
+  ],
+  "status": "ok",
+  "worker_backend": "cpp-cgal"
+}

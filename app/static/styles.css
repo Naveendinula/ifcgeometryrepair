@@ -234,6 +234,11 @@ select {
   background: var(--surface);
 }
 
+.mode-picker--invalid {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
 .mode-picker select,
 .mode-picker input {
   border: 0;
@@ -243,6 +248,27 @@ select {
   font-size: 0.93rem;
   font-weight: 700;
   outline: none;
+}
+
+.mode-picker input[aria-invalid="true"] {
+  color: var(--danger);
+}
+
+.field-hint,
+.field-error {
+  display: block;
+  max-width: 16rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.field-hint {
+  color: var(--muted);
+}
+
+.field-error {
+  color: var(--danger);
 }
 
 .button {

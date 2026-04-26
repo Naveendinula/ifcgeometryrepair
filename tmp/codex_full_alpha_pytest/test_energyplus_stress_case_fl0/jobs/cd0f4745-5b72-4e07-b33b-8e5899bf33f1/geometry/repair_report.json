@@ -1,0 +1,128 @@
+{
+  "contract_version": 2,
+  "mode_requested": "preferred",
+  "effective_mode": "exact_repair",
+  "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+  "worker_available": true,
+  "worker_invoked": true,
+  "worker_backend": "cpp-cgal",
+  "response_status": "ok",
+  "fallback_reason": null,
+  "summary": {
+    "effective_mode": "exact_repair",
+    "space_count": 9,
+    "attempted_space_count": 8,
+    "exact_repaired_space_count": 8,
+    "exact_passthrough_space_count": 0,
+    "python_fallback_space_count": 0,
+    "not_attempted_space_count": 1
+  },
+  "spaces": [
+    {
+      "global_id": "0fSvOyxfv5ReVku4I$0uo3",
+      "express_id": 33,
+      "name": "EPLUS_CONTROL_VALID_ROOM",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "1qxPZVMk97ROnmAGbkhJxK",
+      "express_id": 49,
+      "name": "EPLUS_ERROR_DUPLICATE_A",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0r$3NHucH39egPbVd6af4Z",
+      "express_id": 64,
+      "name": "EPLUS_ERROR_DUPLICATE_B",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "1LYrBRYE54Y8uuYIv_LqVk",
+      "express_id": 79,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "3qZ7piZEf1DOsIQwl$2Q01",
+      "express_id": 94,
+      "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "2g6YT7H3v5l8ltdn44GHeR",
+      "express_id": 109,
+      "name": "EPLUS_ERROR_CONTAINED_OUTER",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "2algwQqYHFuBe1K_MXtOPJ",
+      "express_id": 124,
+      "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "23O9uaPrnCTxD2VAL_1WkR",
+      "express_id": 139,
+      "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE",
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Missing representation",
+      "repair_actions": [],
+      "valid": false
+    },
+    {
+      "global_id": "0qYCBgZSf199rOBYyPflfZ",
+      "express_id": 145,
+      "name": "EPLUS_WARNING_THIN_SLIVER_SPACE",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    }
+  ]
+}

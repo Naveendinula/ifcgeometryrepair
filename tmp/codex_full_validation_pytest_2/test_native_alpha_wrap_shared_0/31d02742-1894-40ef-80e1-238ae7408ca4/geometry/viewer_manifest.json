@@ -1,0 +1,656 @@
+{
+  "job_id": "31d02742-1894-40ef-80e1-238ae7408ca4",
+  "schema": "IFC4",
+  "unit": "meter",
+  "min_area_threshold_m2": 0.25,
+  "proximity_threshold_m": 0.05,
+  "summary": {
+    "space_count": 2,
+    "opening_count": 0,
+    "failed_count": 0,
+    "valid_count": 2,
+    "surface_count": 10,
+    "opening_surface_count": 0,
+    "internal_boundary_count": 2,
+    "unclassified_surface_count": 0,
+    "clash_group_count": 0
+  },
+  "layers": {
+    "raw_ifc_preview": {
+      "available": true,
+      "spaces_obj": "geometry/raw/spaces_all.obj",
+      "openings_obj": null,
+      "glb": null
+    },
+    "normalized_spaces": {
+      "available": true,
+      "obj": "geometry/spaces_all.obj",
+      "glb": null
+    },
+    "openings": {
+      "available": false,
+      "obj": null,
+      "glb": null
+    },
+    "failed_entities": {
+      "available": false,
+      "count": 0
+    },
+    "envelope_shell": {
+      "available": true,
+      "obj": "geometry/external_shell/shell.obj",
+      "glb": null
+    },
+    "surface_classification": {
+      "available": true,
+      "obj": "geometry/external_shell/surfaces_all.obj",
+      "glb": null,
+      "count": 10
+    },
+    "opening_integration": {
+      "available": false,
+      "obj": null,
+      "glb": null,
+      "count": 0
+    },
+    "internal_boundaries": {
+      "available": true,
+      "obj": "geometry/internal_boundaries.obj",
+      "glb": null,
+      "count": 2
+    }
+  },
+  "clash_review": {
+    "review_required": false,
+    "resolution_status": "clear",
+    "recommended_resolution": null,
+    "clash_groups": []
+  },
+  "entities": [
+    {
+      "object_name": "36ELDHTGb9JeYbq7M3yhng",
+      "selection_type": "entity",
+      "global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "express_id": 33,
+      "name": "Room A",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "29FFFbvFD8LRS$cq3nUkL5",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1yKFHH2kr8pRh9UvcnJxxM",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 33.60000000000001,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+        "normalized_obj": "geometry/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0t5HBTMgf4xg$2Qk454_H0",
+      "selection_type": "entity",
+      "global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "express_id": 49,
+      "name": "Room B",
+      "entity_type": "IfcSpace",
+      "storey": {
+        "express_id": 14,
+        "global_id": "29FFFbvFD8LRS$cq3nUkL5",
+        "name": "Level 1",
+        "entity_type": "IfcBuildingStorey"
+      },
+      "building": {
+        "express_id": 13,
+        "global_id": "1yKFHH2kr8pRh9UvcnJxxM",
+        "name": "Building A",
+        "entity_type": "IfcBuilding"
+      },
+      "placement": {
+        "available": true,
+        "origin": [
+          4200.0,
+          0.0,
+          0.0
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            4200.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "valid": true,
+      "failed": false,
+      "reason": null,
+      "has_representation": true,
+      "volume_m3": 33.6,
+      "face_count": 12,
+      "vertex_count": 8,
+      "component_count": 1,
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "clash_groups": [],
+      "clash_group_ids": [],
+      "recommended_clash_action": null,
+      "marker_origin": [
+        4200.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "raw_obj": "geometry/raw/spaces/0t5HBTMgf4xg$2Qk454_H0.obj",
+        "normalized_obj": "geometry/spaces/0t5HBTMgf4xg$2Qk454_H0.obj",
+        "glb": null
+      }
+    }
+  ],
+  "surface_entities": [
+    {
+      "object_name": "ec_1_0",
+      "selection_type": "surface",
+      "surface_id": "ec_1_0",
+      "name": "Room A",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_203",
+      "area_m2": 8.4,
+      "below_area_threshold": false,
+      "normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        -2.0,
+        0.0,
+        1.4
+      ],
+      "marker_origin": [
+        -2.0,
+        0.0,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_1",
+      "selection_type": "surface",
+      "surface_id": "ec_1_1",
+      "name": "Room A",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_79",
+      "area_m2": 11.2,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        -1.5,
+        1.4
+      ],
+      "marker_origin": [
+        0.0,
+        -1.5,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_2",
+      "selection_type": "surface",
+      "surface_id": "ec_1_2",
+      "name": "Room A",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "space_express_id": 33,
+      "classification": "ground_floor",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_196",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "marker_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/ground_floor.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_3",
+      "selection_type": "surface",
+      "surface_id": "ec_1_3",
+      "name": "Room A",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "space_express_id": 33,
+      "classification": "roof",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_53",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "centroid": [
+        0.0,
+        0.0,
+        2.8
+      ],
+      "marker_origin": [
+        0.0,
+        0.0,
+        2.8
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/roof.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_1_4",
+      "selection_type": "surface",
+      "surface_id": "ec_1_4",
+      "name": "Room A",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "space_express_id": 33,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_212",
+      "area_m2": 11.2,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        0.0,
+        1.5,
+        1.4
+      ],
+      "marker_origin": [
+        0.0,
+        1.5,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_0",
+      "selection_type": "surface",
+      "surface_id": "ec_0_0",
+      "name": "Room B",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "space_express_id": 49,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_213",
+      "area_m2": 11.2,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        4.2,
+        -1.5,
+        1.4
+      ],
+      "marker_origin": [
+        4.2,
+        -1.5,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_1",
+      "selection_type": "surface",
+      "surface_id": "ec_0_1",
+      "name": "Room B",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "space_express_id": 49,
+      "classification": "ground_floor",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_260",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        4.2,
+        0.0,
+        0.0
+      ],
+      "marker_origin": [
+        4.2,
+        0.0,
+        0.0
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/ground_floor.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_2",
+      "selection_type": "surface",
+      "surface_id": "ec_0_2",
+      "name": "Room B",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "space_express_id": 49,
+      "classification": "roof",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_51",
+      "area_m2": 12.0,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "centroid": [
+        4.2,
+        0.0,
+        2.8
+      ],
+      "marker_origin": [
+        4.2,
+        0.0,
+        2.8
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/roof.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_3",
+      "selection_type": "surface",
+      "surface_id": "ec_0_3",
+      "name": "Room B",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "space_express_id": 49,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_342",
+      "area_m2": 11.2,
+      "below_area_threshold": false,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "centroid": [
+        4.2,
+        1.5,
+        1.4
+      ],
+      "marker_origin": [
+        4.2,
+        1.5,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    },
+    {
+      "object_name": "ec_0_4",
+      "selection_type": "surface",
+      "surface_id": "ec_0_4",
+      "name": "Room B",
+      "entity_type": "SpaceSurface",
+      "space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "space_express_id": 49,
+      "classification": "external_wall",
+      "failed": false,
+      "valid": true,
+      "reason": "alpha_wrap_hit:aw_160",
+      "area_m2": 8.4,
+      "below_area_threshold": false,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        6.2,
+        0.0,
+        1.4
+      ],
+      "marker_origin": [
+        6.2,
+        0.0,
+        1.4
+      ],
+      "artifacts": {
+        "classified_obj": "geometry/external_shell/surfaces_all.obj",
+        "class_obj": "geometry/external_shell/classes/external_wall.obj",
+        "shell_obj": "geometry/external_shell/shell.obj"
+      }
+    }
+  ],
+  "opening_surface_entities": [],
+  "internal_boundary_entities": [
+    {
+      "object_name": "ibo_0_0_a",
+      "selection_type": "internal_boundary",
+      "surface_id": "ibo_0_0_a",
+      "name": "Room B",
+      "entity_type": "InternalBoundary",
+      "space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "space_express_id": 49,
+      "adjacent_space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "adjacent_space_express_id": 33,
+      "paired_surface_id": "ibo_0_0_b",
+      "shared_surface_id": "ib_0_0",
+      "classification": "internal",
+      "failed": false,
+      "valid": true,
+      "area_m2": 8.399999999999999,
+      "normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        2.0,
+        0.0,
+        1.4
+      ],
+      "marker_origin": [
+        2.0,
+        0.0,
+        1.4
+      ],
+      "thickness_m": 0.20000000000000018,
+      "proximity_conflict": false
+    },
+    {
+      "object_name": "ibo_0_0_b",
+      "selection_type": "internal_boundary",
+      "surface_id": "ibo_0_0_b",
+      "name": "Room A",
+      "entity_type": "InternalBoundary",
+      "space_global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "space_express_id": 33,
+      "adjacent_space_global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "adjacent_space_express_id": 49,
+      "paired_surface_id": "ibo_0_0_a",
+      "shared_surface_id": "ib_0_0",
+      "classification": "internal",
+      "failed": false,
+      "valid": true,
+      "area_m2": 8.399999999999999,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        2.2,
+        -0.0,
+        1.4
+      ],
+      "marker_origin": [
+        2.2,
+        -0.0,
+        1.4
+      ],
+      "thickness_m": 0.20000000000000018,
+      "proximity_conflict": false
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "job_id": "31d02742-1894-40ef-80e1-238ae7408ca4",
+  "status": "passed",
+  "summary": {
+    "clash_group_count": 0,
+    "exact_duplicate_group_count": 0,
+    "contained_fragment_group_count": 0,
+    "partial_overlap_group_count": 0,
+    "self_intersection_group_count": 0,
+    "recommended_resolution_group_count": 0,
+    "manual_resolution_group_count": 0
+  },
+  "clash_groups": [],
+  "recommended_resolution": null,
+  "resolution_status": "clear",
+  "review_required": false
+}

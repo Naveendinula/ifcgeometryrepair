@@ -1,0 +1,269 @@
+{
+  "job_id": "73f99284-cbd0-4172-92a3-c128ba8ee887",
+  "status": "failed",
+  "summary": {
+    "clash_group_count": 3,
+    "exact_duplicate_group_count": 1,
+    "contained_fragment_group_count": 1,
+    "partial_overlap_group_count": 1,
+    "self_intersection_group_count": 0,
+    "recommended_resolution_group_count": 2,
+    "manual_resolution_group_count": 1
+  },
+  "clash_groups": [
+    {
+      "clash_group_id": "cg_0",
+      "classification": "exact_duplicate",
+      "review_required": true,
+      "resolution_status": "recommended",
+      "recommended_resolution": {
+        "operation": "remove_spaces",
+        "reason": "Keep the highest-ranked duplicate space and remove the overlapping duplicates.",
+        "keeper": {
+          "global_id": "07QhY9q7bCPx12UzpSAAsj",
+          "express_id": 49,
+          "name": "EPLUS_ERROR_DUPLICATE_A"
+        },
+        "spaces_to_remove": [
+          {
+            "global_id": "2rUuFWcSn4jOGeYyAYXWr_",
+            "express_id": 64,
+            "name": "EPLUS_ERROR_DUPLICATE_B"
+          }
+        ]
+      },
+      "spaces": [
+        {
+          "global_id": "07QhY9q7bCPx12UzpSAAsj",
+          "express_id": 49,
+          "name": "EPLUS_ERROR_DUPLICATE_A",
+          "volume_m3": 33.6,
+          "recommended_action": "keep"
+        },
+        {
+          "global_id": "2rUuFWcSn4jOGeYyAYXWr_",
+          "express_id": 64,
+          "name": "EPLUS_ERROR_DUPLICATE_B",
+          "volume_m3": 33.6,
+          "recommended_action": "remove"
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_0",
+          "entities": [
+            {
+              "global_id": "07QhY9q7bCPx12UzpSAAsj",
+              "express_id": 49,
+              "name": "EPLUS_ERROR_DUPLICATE_A"
+            },
+            {
+              "global_id": "2rUuFWcSn4jOGeYyAYXWr_",
+              "express_id": 64,
+              "name": "EPLUS_ERROR_DUPLICATE_B"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "07QhY9q7bCPx12UzpSAAsj",
+            "space_a_express_id": 49,
+            "space_b_global_id": "2rUuFWcSn4jOGeYyAYXWr_",
+            "space_b_express_id": 64
+          },
+          "detection": "triangle_intersection",
+          "classification": "exact_duplicate",
+          "evidence": {
+            "same_aabb": true,
+            "volume_ratio": 1.0,
+            "overlap_aabb_volume_m3": 33.6,
+            "overlap_to_smaller_volume_ratio": 1.0,
+            "left_centroid_in_right": true,
+            "right_centroid_in_left": true
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              8.666667,
+              -0.5,
+              2.8
+            ],
+            "triangle_b_centroid": [
+              8.666667,
+              -1.5,
+              0.933333
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "clash_group_id": "cg_1",
+      "classification": "partial_overlap",
+      "review_required": true,
+      "resolution_status": "manual_required",
+      "recommended_resolution": null,
+      "spaces": [
+        {
+          "global_id": "2MW0fK8oX7IPLCC1um3i4$",
+          "express_id": 79,
+          "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+          "volume_m3": 33.6,
+          "recommended_action": null
+        },
+        {
+          "global_id": "2bcNIg4099nAmBaHiMGyDo",
+          "express_id": 94,
+          "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+          "volume_m3": 33.6,
+          "recommended_action": null
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_1",
+          "entities": [
+            {
+              "global_id": "2MW0fK8oX7IPLCC1um3i4$",
+              "express_id": 79,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A"
+            },
+            {
+              "global_id": "2bcNIg4099nAmBaHiMGyDo",
+              "express_id": 94,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "2MW0fK8oX7IPLCC1um3i4$",
+            "space_a_express_id": 79,
+            "space_b_global_id": "2bcNIg4099nAmBaHiMGyDo",
+            "space_b_express_id": 94
+          },
+          "detection": "triangle_intersection",
+          "classification": "partial_overlap",
+          "evidence": {
+            "same_aabb": false,
+            "volume_ratio": 1.0,
+            "overlap_aabb_volume_m3": 3.36,
+            "overlap_to_smaller_volume_ratio": 0.1,
+            "left_centroid_in_right": false,
+            "right_centroid_in_left": false
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              16.666667,
+              -0.5,
+              2.8
+            ],
+            "triangle_b_centroid": [
+              18.933333,
+              -1.5,
+              1.866667
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "clash_group_id": "cg_2",
+      "classification": "contained_fragment",
+      "review_required": true,
+      "resolution_status": "recommended",
+      "recommended_resolution": {
+        "operation": "remove_spaces",
+        "reason": "Keep the containing space and remove smaller fully-contained fragment spaces.",
+        "keeper": {
+          "global_id": "124wyvjmf2qP9oQC8ZRrEy",
+          "express_id": 109,
+          "name": "EPLUS_ERROR_CONTAINED_OUTER"
+        },
+        "spaces_to_remove": [
+          {
+            "global_id": "2NK$EFUajFnui3ekKPSENf",
+            "express_id": 124,
+            "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+          }
+        ]
+      },
+      "spaces": [
+        {
+          "global_id": "124wyvjmf2qP9oQC8ZRrEy",
+          "express_id": 109,
+          "name": "EPLUS_ERROR_CONTAINED_OUTER",
+          "volume_m3": 75.0,
+          "recommended_action": "keep"
+        },
+        {
+          "global_id": "2NK$EFUajFnui3ekKPSENf",
+          "express_id": 124,
+          "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+          "volume_m3": 1.5,
+          "recommended_action": "remove"
+        }
+      ],
+      "pairs": [
+        {
+          "pair_id": "pair_2",
+          "entities": [
+            {
+              "global_id": "124wyvjmf2qP9oQC8ZRrEy",
+              "express_id": 109,
+              "name": "EPLUS_ERROR_CONTAINED_OUTER"
+            },
+            {
+              "global_id": "2NK$EFUajFnui3ekKPSENf",
+              "express_id": 124,
+              "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+            }
+          ],
+          "pair": {
+            "space_a_global_id": "124wyvjmf2qP9oQC8ZRrEy",
+            "space_a_express_id": 109,
+            "space_b_global_id": "2NK$EFUajFnui3ekKPSENf",
+            "space_b_express_id": 124
+          },
+          "detection": "triangle_intersection",
+          "classification": "contained_fragment",
+          "evidence": {
+            "same_aabb": false,
+            "volume_ratio": 0.02,
+            "overlap_aabb_volume_m3": 1.5,
+            "overlap_to_smaller_volume_ratio": 1.0,
+            "left_centroid_in_right": false,
+            "right_centroid_in_left": true,
+            "contained_space_express_id": 124,
+            "keeper_space_express_id": 109
+          },
+          "sample_points": {
+            "triangle_a_centroid": [
+              27.166667,
+              0.833333,
+              0.0
+            ],
+            "triangle_b_centroid": [
+              28.166667,
+              -0.5,
+              0.5
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "recommended_resolution": {
+    "operation": "resolve_space_clashes",
+    "group_count": 2,
+    "clash_group_ids": [
+      "cg_0",
+      "cg_2"
+    ],
+    "space_global_ids": [
+      "2rUuFWcSn4jOGeYyAYXWr_",
+      "2NK$EFUajFnui3ekKPSENf"
+    ],
+    "space_express_ids": [
+      64,
+      124
+    ]
+  },
+  "resolution_status": "review_required",
+  "review_required": true
+}

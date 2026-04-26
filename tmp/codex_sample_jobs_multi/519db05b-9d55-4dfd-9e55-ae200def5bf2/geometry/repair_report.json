@@ -1,0 +1,310 @@
+{
+  "contract_version": 2,
+  "mode_requested": "preferred",
+  "effective_mode": "exact_repair",
+  "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+  "worker_available": true,
+  "worker_invoked": true,
+  "worker_backend": "cpp-cgal",
+  "response_status": "ok",
+  "fallback_reason": null,
+  "summary": {
+    "effective_mode": "exact_repair",
+    "space_count": 24,
+    "attempted_space_count": 24,
+    "exact_repaired_space_count": 24,
+    "exact_passthrough_space_count": 0,
+    "python_fallback_space_count": 0,
+    "not_attempted_space_count": 0
+  },
+  "spaces": [
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVeO",
+      "express_id": 93,
+      "name": "1",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVeR",
+      "express_id": 107,
+      "name": "2",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVeM",
+      "express_id": 121,
+      "name": "3",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVeH",
+      "express_id": 135,
+      "name": "4",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVeC",
+      "express_id": 149,
+      "name": "5",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVeF",
+      "express_id": 171,
+      "name": "6",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVe5",
+      "express_id": 185,
+      "name": "7",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVe1",
+      "express_id": 199,
+      "name": "8",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVey",
+      "express_id": 213,
+      "name": "9",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "275uc_d0D37ggfbUf7EVe$",
+      "express_id": 227,
+      "name": "10",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+      "express_id": 241,
+      "name": "1",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEn",
+      "express_id": 263,
+      "name": "2",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+      "express_id": 277,
+      "name": "3",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+      "express_id": 291,
+      "name": "4",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+      "express_id": 305,
+      "name": "5",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+      "express_id": 319,
+      "name": "6",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+      "express_id": 333,
+      "name": "7",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE6",
+      "express_id": 347,
+      "name": "8",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+      "express_id": 361,
+      "name": "9",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+      "express_id": 375,
+      "name": "10",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+      "express_id": 389,
+      "name": "11",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+      "express_id": 403,
+      "name": "12",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+      "express_id": 417,
+      "name": "13",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    },
+    {
+      "global_id": "0ZJGyRZaj36fppkc2yhKE0",
+      "express_id": 441,
+      "name": "14",
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "valid": true
+    }
+  ]
+}

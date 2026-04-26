@@ -1,0 +1,22 @@
+[2026-04-25T17:16:56.583782Z] Upload received: native-alpha-shared-wall.ifc (2972 bytes)
+[2026-04-25T17:16:56.608432Z] Parsing IFC and detecting schema
+[2026-04-25T17:16:56.652336Z] Parsed IFC schema IFC4 (2972 bytes)
+[2026-04-25T17:16:56.678340Z] Normalizing tessellated geometry
+[2026-04-25T17:16:56.788367Z] Prepared extraction targets and normalized geometry: 2 spaces, 0 openings, backend=hybrid, repair_status=exact_repair
+[2026-04-25T17:16:56.789012Z] Wrote geometry request/result, summary, and OBJ debug artifacts
+[2026-04-25T17:16:56.812835Z] Validating normalized spaces for topology and clashes
+[2026-04-25T17:16:56.842582Z] Preflight validation finished: status=passed, 0 blockers, 2 warnings
+[2026-04-25T17:16:56.867855Z] Detecting shared boundaries between adjacent spaces
+[2026-04-25T17:16:56.912370Z] Generated internal boundary graph: 1 adjacency pairs, 1 shared surfaces
+[2026-04-25T17:16:56.937828Z] Subtracting shared boundaries from each space shell
+[2026-04-25T17:16:56.974391Z] Generated external candidate surfaces: 10 candidates across 2 spaces
+[2026-04-25T17:16:56.992396Z] Classifying space surfaces against the building shell
+[2026-04-25T17:16:57.231477Z] Classified space surfaces against shell: mode=alpha_wrap, 10 surfaces, 0 unclassified
+[2026-04-25T17:16:57.252389Z] Projecting openings onto boundary surfaces
+[2026-04-25T17:16:57.269276Z] Opening integration complete: 0 openings processed, 0 opening surfaces created
+[2026-04-25T17:16:57.291063Z] Validating gbXML export geometry and zone readiness
+[2026-04-25T17:16:57.320812Z] gbXML preflight finished: status=valid, 0 blockers, 0 warnings
+[2026-04-25T17:16:57.338699Z] Building extraction report
+[2026-04-25T17:16:57.368153Z] Wrote output.json extraction report and viewer manifest (2 spaces, 0 openings, 2 valid normalized entities, 0 preflight blockers, 1 adjacency pairs, 10 C2 candidates, 10 classified surfaces)
+[2026-04-25T17:16:57.389496Z] Job complete
+[2026-04-25T17:16:57.389801Z] Job finished successfully

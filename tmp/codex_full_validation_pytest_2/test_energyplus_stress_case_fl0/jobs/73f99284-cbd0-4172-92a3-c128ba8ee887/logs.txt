@@ -1,0 +1,9 @@
+[2026-04-25T18:18:18.603173Z] Upload received: energyplus_fault_stress.ifc (8126 bytes)
+[2026-04-25T18:18:18.635055Z] Parsing IFC and detecting schema
+[2026-04-25T18:18:18.657701Z] Parsed IFC schema IFC4 (8126 bytes)
+[2026-04-25T18:18:18.674300Z] Normalizing tessellated geometry
+[2026-04-25T18:18:18.860599Z] Prepared extraction targets and normalized geometry: 9 spaces, 1 openings, backend=hybrid, repair_status=exact_repair
+[2026-04-25T18:18:18.873715Z] Wrote geometry request/result, summary, and OBJ debug artifacts
+[2026-04-25T18:18:18.886823Z] Validating normalized spaces for topology and clashes
+[2026-04-25T18:18:18.939130Z] Preflight validation finished: status=failed, 4 blockers, 9 warnings
+[2026-04-25T18:18:18.958297Z] Job failed: Preflight failed: Normalized space solid is missing or topologically invalid. (+3 more blockers)

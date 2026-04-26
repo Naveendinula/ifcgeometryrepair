@@ -1,0 +1,9 @@
+[2026-04-25T09:52:26.197408Z] Upload received: testifc.ifc (4732401 bytes)
+[2026-04-25T09:52:26.216837Z] Parsing IFC and detecting schema
+[2026-04-25T09:52:26.555785Z] Parsed IFC schema IFC4X3 (4732401 bytes)
+[2026-04-25T09:52:26.574832Z] Normalizing tessellated geometry
+[2026-04-25T09:52:27.097821Z] Prepared extraction targets and normalized geometry: 24 spaces, 31 openings, backend=hybrid, repair_status=exact_repair
+[2026-04-25T09:52:27.098206Z] Wrote geometry request/result, summary, and OBJ debug artifacts
+[2026-04-25T09:52:27.123610Z] Validating normalized spaces for topology and clashes
+[2026-04-25T09:52:27.983931Z] Preflight validation finished: status=failed, 1 blockers, 24 warnings
+[2026-04-25T09:52:28.012092Z] Job failed: Preflight failed: Detected partially overlapping IfcSpace volumes that must be resolved before continuing.

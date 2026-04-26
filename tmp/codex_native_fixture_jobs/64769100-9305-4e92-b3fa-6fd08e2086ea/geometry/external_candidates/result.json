@@ -1,0 +1,691 @@
+{
+  "job_id": "64769100-9305-4e92-b3fa-6fd08e2086ea",
+  "epsilon": 0.001,
+  "plane_offset_tolerance_m": 0.001,
+  "clip_backend": "pyclipper",
+  "summary": {
+    "space_count": 1,
+    "processed_space_count": 1,
+    "skipped_space_count": 0,
+    "source_polygon_count": 6,
+    "subtracted_source_polygon_count": 0,
+    "candidate_surface_count": 6,
+    "total_candidate_area_m2": 0.03922399999999817
+  },
+  "spaces": [
+    {
+      "global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "express_id": 33,
+      "name": "Simple Room",
+      "candidate_surface_ids": [
+        "ec_0_0",
+        "ec_0_1",
+        "ec_0_2",
+        "ec_0_3",
+        "ec_0_4",
+        "ec_0_5"
+      ]
+    }
+  ],
+  "candidate_surfaces": [
+    {
+      "surface_id": "ec_0_0",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "space_name": "Simple Room",
+      "source_surface_id": "space_0_0",
+      "source_polygon_id": "space_0_0_poly_0",
+      "area_m2": 0.008400000000000319,
+      "plane_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "plane_point": [
+        4.998,
+        -0.0,
+        -0.0
+      ],
+      "centroid": [
+        4.998,
+        6.0,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          4.998,
+          5.9985,
+          2.8
+        ],
+        [
+          4.998,
+          6.0015,
+          2.8
+        ],
+        [
+          4.998,
+          6.0015,
+          -0.0
+        ],
+        [
+          4.998,
+          5.9985,
+          -0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            4.998,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            -0.0
+          ],
+          [
+            4.998,
+            5.9985,
+            -0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            4.998,
+            5.9985,
+            -0.0
+          ],
+          [
+            4.998,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ]
+        ],
+        [
+          [
+            4.998,
+            5.9985,
+            -0.0
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            -0.0
+          ]
+        ]
+      ],
+      "subtracted_internal_surface_ids": [],
+      "object_name": "ec_0_0",
+      "fragment_index": 0
+    },
+    {
+      "surface_id": "ec_0_1",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "space_name": "Simple Room",
+      "source_surface_id": "space_0_1",
+      "source_polygon_id": "space_0_1_poly_0",
+      "area_m2": 0.011199999999998768,
+      "plane_normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "plane_point": [
+        -0.0,
+        5.9985,
+        -0.0
+      ],
+      "centroid": [
+        5.0,
+        5.9985,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          5.002,
+          5.9985,
+          -0.0
+        ],
+        [
+          5.002,
+          5.9985,
+          2.8
+        ],
+        [
+          4.998,
+          5.9985,
+          2.8
+        ],
+        [
+          4.998,
+          5.9985,
+          -0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            5.002,
+            5.9985,
+            -0.0
+          ],
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            5.9985,
+            -0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            5.002,
+            5.9985,
+            -0.0
+          ],
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            5.9985,
+            -0.0
+          ]
+        ],
+        [
+          [
+            4.998,
+            5.9985,
+            -0.0
+          ],
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            5.9985,
+            2.8
+          ]
+        ]
+      ],
+      "subtracted_internal_surface_ids": [],
+      "object_name": "ec_0_1",
+      "fragment_index": 0
+    },
+    {
+      "surface_id": "ec_0_2",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "space_name": "Simple Room",
+      "source_surface_id": "space_0_2",
+      "source_polygon_id": "space_0_2_poly_0",
+      "area_m2": 1.1999999999999133e-05,
+      "plane_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "plane_point": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "centroid": [
+        5.0,
+        6.0,
+        0.0
+      ],
+      "polygon_vertices_3d": [
+        [
+          4.998,
+          6.0015,
+          0.0
+        ],
+        [
+          5.002,
+          6.0015,
+          0.0
+        ],
+        [
+          5.002,
+          5.9985,
+          0.0
+        ],
+        [
+          4.998,
+          5.9985,
+          0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            4.998,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            5.9985,
+            0.0
+          ],
+          [
+            4.998,
+            5.9985,
+            0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            4.998,
+            5.9985,
+            0.0
+          ],
+          [
+            4.998,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            6.0015,
+            0.0
+          ]
+        ],
+        [
+          [
+            4.998,
+            5.9985,
+            0.0
+          ],
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            5.9985,
+            0.0
+          ]
+        ]
+      ],
+      "subtracted_internal_surface_ids": [],
+      "object_name": "ec_0_2",
+      "fragment_index": 0
+    },
+    {
+      "surface_id": "ec_0_3",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "space_name": "Simple Room",
+      "source_surface_id": "space_0_3",
+      "source_polygon_id": "space_0_3_poly_0",
+      "area_m2": 1.1999999999999133e-05,
+      "plane_normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "plane_point": [
+        0.0,
+        0.0,
+        2.8
+      ],
+      "centroid": [
+        5.0,
+        6.0,
+        2.8
+      ],
+      "polygon_vertices_3d": [
+        [
+          5.002,
+          5.9985,
+          2.8
+        ],
+        [
+          5.002,
+          6.0015,
+          2.8
+        ],
+        [
+          4.998,
+          6.0015,
+          2.8
+        ],
+        [
+          4.998,
+          5.9985,
+          2.8
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            5.002,
+            6.0015,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            4.998,
+            5.9985,
+            2.8
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            5.002,
+            6.0015,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ]
+        ],
+        [
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            4.998,
+            5.9985,
+            2.8
+          ]
+        ]
+      ],
+      "subtracted_internal_surface_ids": [],
+      "object_name": "ec_0_3",
+      "fragment_index": 0
+    },
+    {
+      "surface_id": "ec_0_4",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "space_name": "Simple Room",
+      "source_surface_id": "space_0_4",
+      "source_polygon_id": "space_0_4_poly_0",
+      "area_m2": 0.011199999999998768,
+      "plane_normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "plane_point": [
+        0.0,
+        6.0015,
+        0.0
+      ],
+      "centroid": [
+        5.0,
+        6.0015,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          4.998,
+          6.0015,
+          2.8
+        ],
+        [
+          5.002,
+          6.0015,
+          2.8
+        ],
+        [
+          5.002,
+          6.0015,
+          0.0
+        ],
+        [
+          4.998,
+          6.0015,
+          0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            5.002,
+            6.0015,
+            2.8
+          ],
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            4.998,
+            6.0015,
+            0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            4.998,
+            6.0015,
+            0.0
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            5.002,
+            6.0015,
+            0.0
+          ]
+        ],
+        [
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            4.998,
+            6.0015,
+            2.8
+          ],
+          [
+            5.002,
+            6.0015,
+            2.8
+          ]
+        ]
+      ],
+      "subtracted_internal_surface_ids": [],
+      "object_name": "ec_0_4",
+      "fragment_index": 0
+    },
+    {
+      "surface_id": "ec_0_5",
+      "space_global_id": "3S3Zp4sOv1tvaDTwZCrlzD",
+      "space_express_id": 33,
+      "space_name": "Simple Room",
+      "source_surface_id": "space_0_5",
+      "source_polygon_id": "space_0_5_poly_0",
+      "area_m2": 0.008400000000000319,
+      "plane_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "plane_point": [
+        5.002,
+        0.0,
+        0.0
+      ],
+      "centroid": [
+        5.002,
+        6.0,
+        1.4
+      ],
+      "polygon_vertices_3d": [
+        [
+          5.002,
+          6.0015,
+          0.0
+        ],
+        [
+          5.002,
+          6.0015,
+          2.8
+        ],
+        [
+          5.002,
+          5.9985,
+          2.8
+        ],
+        [
+          5.002,
+          5.9985,
+          0.0
+        ]
+      ],
+      "polygon_rings_3d": [
+        [
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            6.0015,
+            2.8
+          ],
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            5.002,
+            5.9985,
+            0.0
+          ]
+        ]
+      ],
+      "triangles": [
+        [
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            6.0015,
+            2.8
+          ],
+          [
+            5.002,
+            5.9985,
+            2.8
+          ]
+        ],
+        [
+          [
+            5.002,
+            6.0015,
+            0.0
+          ],
+          [
+            5.002,
+            5.9985,
+            2.8
+          ],
+          [
+            5.002,
+            5.9985,
+            0.0
+          ]
+        ]
+      ],
+      "subtracted_internal_surface_ids": [],
+      "object_name": "ec_0_5",
+      "fragment_index": 0
+    }
+  ],
+  "skipped_spaces": [],
+  "artifacts": {
+    "result": "geometry/external_candidates/result.json",
+    "candidates_all": "geometry/external_candidates/candidates_all.obj"
+  }
+}

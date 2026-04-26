@@ -1,0 +1,393 @@
+{
+  "job_id": "31d02742-1894-40ef-80e1-238ae7408ca4",
+  "schema": "IFC4",
+  "entities": [
+    {
+      "object_name": "36ELDHTGb9JeYbq7M3yhng",
+      "global_id": "36ELDHTGb9JeYbq7M3yhng",
+      "express_id": 33,
+      "name": "Room A",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            -2.0,
+            -1.5,
+            0.0
+          ],
+          [
+            2.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            -2.0,
+            1.5,
+            0.0
+          ],
+          [
+            2.0,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            2.0,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.600000000000016
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.60000000000001,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+        "normalized_obj": "geometry/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+        "raw_obj": "geometry/raw/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0t5HBTMgf4xg$2Qk454_H0",
+      "global_id": "0t5HBTMgf4xg$2Qk454_H0",
+      "express_id": 49,
+      "name": "Room B",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            6,
+            4,
+            3
+          ],
+          [
+            6,
+            0,
+            7
+          ],
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            4
+          ],
+          [
+            5,
+            1,
+            4
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            7,
+            5,
+            6
+          ],
+          [
+            1,
+            5,
+            7
+          ],
+          [
+            0,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            6.2,
+            -1.5,
+            0.0
+          ],
+          [
+            2.2,
+            -1.5,
+            0.0
+          ],
+          [
+            6.2,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            2.2,
+            -1.5,
+            2.8000000000000003
+          ],
+          [
+            2.2,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            2.2,
+            1.5,
+            0.0
+          ],
+          [
+            6.2,
+            1.5,
+            2.8000000000000003
+          ],
+          [
+            6.2,
+            1.5,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.6
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.6,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0t5HBTMgf4xg$2Qk454_H0.obj",
+        "normalized_obj": "geometry/spaces/0t5HBTMgf4xg$2Qk454_H0.obj",
+        "raw_obj": "geometry/raw/spaces/0t5HBTMgf4xg$2Qk454_H0.obj",
+        "glb": null
+      }
+    }
+  ],
+  "worker_backend": "hybrid",
+  "unit": "meter",
+  "source_unit_scale_to_meters": 0.001,
+  "repair": {
+    "contract_version": 2,
+    "mode_requested": "preferred",
+    "effective_mode": "exact_repair",
+    "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+    "worker_available": true,
+    "worker_invoked": true,
+    "worker_backend": "cpp-cgal",
+    "response_status": "ok",
+    "fallback_reason": null,
+    "summary": {
+      "effective_mode": "exact_repair",
+      "space_count": 2,
+      "attempted_space_count": 2,
+      "exact_repaired_space_count": 2,
+      "exact_passthrough_space_count": 0,
+      "python_fallback_space_count": 0,
+      "not_attempted_space_count": 0
+    },
+    "spaces": [
+      {
+        "global_id": "36ELDHTGb9JeYbq7M3yhng",
+        "express_id": 33,
+        "name": "Room A",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0t5HBTMgf4xg$2Qk454_H0",
+        "express_id": 49,
+        "name": "Room B",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      }
+    ]
+  },
+  "artifacts": {
+    "request": "geometry/request.json",
+    "result": "geometry/result.json",
+    "summary": "geometry/geometry_summary.json",
+    "repair_request": "geometry/repair_request.json",
+    "repair_response": "geometry/repair_response.json",
+    "repair_report": "geometry/repair_report.json",
+    "viewer_manifest": "geometry/viewer_manifest.json",
+    "raw_spaces_all": "geometry/raw/spaces_all.obj",
+    "raw_openings": "geometry/raw/openings.obj",
+    "spaces_all": "geometry/spaces_all.obj",
+    "openings": "geometry/openings.obj",
+    "per_raw_space_objs": [
+      "geometry/raw/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+      "geometry/raw/spaces/0t5HBTMgf4xg$2Qk454_H0.obj"
+    ],
+    "per_raw_opening_objs": [],
+    "per_space_objs": [
+      "geometry/spaces/36ELDHTGb9JeYbq7M3yhng.obj",
+      "geometry/spaces/0t5HBTMgf4xg$2Qk454_H0.obj"
+    ],
+    "per_opening_objs": [],
+    "preview": "preview.obj"
+  },
+  "summary": {
+    "entities_total": 2,
+    "entities_with_input_mesh": 2,
+    "normalized_entities": 2,
+    "valid_entities": 2,
+    "invalid_entities": 0,
+    "space_count": 2,
+    "opening_count": 0,
+    "valid_spaces": 2,
+    "invalid_spaces": 0,
+    "valid_openings": 0,
+    "invalid_openings": 0,
+    "spaces_with_obj_exports": 2,
+    "openings_with_obj_exports": 0,
+    "repair_effective_mode": "exact_repair",
+    "repair_exact_repaired_spaces": 2,
+    "repair_exact_passthrough_spaces": 0,
+    "repair_python_fallback_spaces": 0,
+    "repair_not_attempted_spaces": 0
+  }
+}

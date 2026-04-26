@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "purpose": "Portable IFC geometry stress case for checking whether the app catches common EnergyPlus/gBXML blocking geometry defects before clean export.",
+  "generated_ifc": {
+    "ifc_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\tmp\\codex_full_pytest\\test_energyplus_stress_case_fl0\\energyplus_fault_stress.ifc",
+    "building_name": "EnergyPlus Stress Building",
+    "storey_name": "Stress Level 1",
+    "space_count": 9,
+    "opening_count": 1,
+    "fault_expectations": [
+      {
+        "fault_id": "exact_duplicate_spaces",
+        "entity_names": [
+          "EPLUS_ERROR_DUPLICATE_A",
+          "EPLUS_ERROR_DUPLICATE_B"
+        ],
+        "energyplus_risk": "Coincident zones/surfaces; EnergyPlus commonly reports duplicate or overlapping heat-transfer surfaces.",
+        "expected_app_signal": "preflight.clash_groups[].classification == \"exact_duplicate\"",
+        "expected_stage": "preflight"
+      },
+      {
+        "fault_id": "partial_overlap_spaces",
+        "entity_names": [
+          "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+          "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+        ],
+        "energyplus_risk": "Partially overlapping zones; downstream surfaces cannot form a clean thermal zone enclosure.",
+        "expected_app_signal": "preflight.clash_groups[].classification == \"partial_overlap\"",
+        "expected_stage": "preflight"
+      },
+      {
+        "fault_id": "contained_fragment_space",
+        "entity_names": [
+          "EPLUS_ERROR_CONTAINED_OUTER",
+          "EPLUS_ERROR_CONTAINED_FRAGMENT"
+        ],
+        "energyplus_risk": "Nested zone fragment; EnergyPlus export should not include a fully contained duplicate volume.",
+        "expected_app_signal": "preflight.clash_groups[].classification == \"contained_fragment\"",
+        "expected_stage": "preflight"
+      },
+      {
+        "fault_id": "missing_space_representation",
+        "entity_names": [
+          "EPLUS_ERROR_MISSING_GEOMETRY_SPACE"
+        ],
+        "energyplus_risk": "Zone has no closed solid to export; EnergyPlus cannot receive a valid zone enclosure.",
+        "expected_app_signal": "preflight.blockers[].code == \"invalid_space_solid\"",
+        "expected_stage": "preflight"
+      },
+      {
+        "fault_id": "thin_sliver_space",
+        "entity_names": [
+          "EPLUS_WARNING_THIN_SLIVER_SPACE"
+        ],
+        "energyplus_risk": "Very thin zone can lead to tiny/near-coincident surfaces and poor EnergyPlus geometry robustness.",
+        "expected_app_signal": "coverage_gap: current preflight does not hard-fail thin-but-closed spaces",
+        "expected_stage": "preflight_or_later_visual_validation"
+      },
+      {
+        "fault_id": "floating_opening_candidate",
+        "entity_names": [
+          "EPLUS_WARNING_FLOATING_OPENING"
+        ],
+        "energyplus_risk": "Subsurface/opening not hosted by a coplanar parent surface; EnergyPlus typically rejects or warns on invalid subsurfaces.",
+        "expected_app_signal": "not_reached_when_preflight_blocks; should be checked with a separate gbXML-stage fixture",
+        "expected_stage": "opening_integration_or_gbxml_preflight"
+      }
+    ]
+  },
+  "expected_terminal_behavior": "This combined stress IFC is expected to fail at preflight. Later stages are intentionally not expected to run until the blocking spaces are removed or split into separate stage fixtures.",
+  "robustness_notes": [
+    "Use this as a hard-failure smoke test, not as the only export-readiness test.",
+    "A separate clean-control IFC should complete through gbXML preflight with zero blockers.",
+    "A separate gbXML-stage fixture is needed for coplanar/non-coplanar opening validation because this file stops at preflight.",
+    "Thin but closed spaces are included as a current coverage gap: the app may not fail them before visual/gbXML validation."
+  ],
+  "app_run": {
+    "job_id": "1540a20b-255d-4830-a512-2c30a8286f0b",
+    "job_dir": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\tmp\\codex_full_pytest\\test_energyplus_stress_case_fl0\\jobs\\1540a20b-255d-4830-a512-2c30a8286f0b",
+    "state": "failed",
+    "error": "Preflight failed: Normalized space solid is missing or topologically invalid. (+3 more blockers)",
+    "history_states": [
+      "uploaded",
+      "parsing",
+      "preprocessing",
+      "preflight",
+      "failed"
+    ],
+    "artifact_names": [
+      "debug.json",
+      "geometry/clash_report.json",
+      "geometry/geometry_summary.json",
+      "geometry/openings/2i11grU410vunQQCebshhx.obj",
+      "geometry/openings.obj",
+      "geometry/preflight.json",
+      "geometry/raw/openings/2i11grU410vunQQCebshhx.obj",
+      "geometry/raw/openings.obj",
+      "geometry/raw/spaces/0$6ZCUNT1BOAHWDGKFwgal.obj",
+      "geometry/raw/spaces/0ftitKOzL2kAXRShezoCe4.obj",
+      "geometry/raw/spaces/0Fy3fRCHr2GuYNH$oN5efd.obj",
+      "geometry/raw/spaces/1hhWvR5Y10re8sNU_9YBRw.obj",
+      "geometry/raw/spaces/1lMQ9qDpfDGuLvL_Op0fXN.obj",
+      "geometry/raw/spaces/2AC$5otmj5sOSJfQdVypQt.obj",
+      "geometry/raw/spaces/2CHo4qn9fBq9$8DwMZsBvp.obj",
+      "geometry/raw/spaces/3fs0scVwv3B9I12qoiA3DU.obj",
+      "geometry/raw/spaces_all.obj",
+      "geometry/repair_report.json",
+      "geometry/repair_request.json",
+      "geometry/repair_response.json",
+      "geometry/request.json",
+      "geometry/result.json",
+      "geometry/spaces/0$6ZCUNT1BOAHWDGKFwgal.obj",
+      "geometry/spaces/0ftitKOzL2kAXRShezoCe4.obj",
+      "geometry/spaces/0Fy3fRCHr2GuYNH$oN5efd.obj",
+      "geometry/spaces/1hhWvR5Y10re8sNU_9YBRw.obj",
+      "geometry/spaces/1lMQ9qDpfDGuLvL_Op0fXN.obj",
+      "geometry/spaces/2AC$5otmj5sOSJfQdVypQt.obj",
+      "geometry/spaces/2CHo4qn9fBq9$8DwMZsBvp.obj",
+      "geometry/spaces/3fs0scVwv3B9I12qoiA3DU.obj",
+      "geometry/spaces_all.obj",
+      "geometry/viewer_manifest.json",
+      "input.ifc",
+      "logs.txt",
+      "output.json",
+      "preview.obj"
+    ],
+    "output_summary": {
+      "number_of_spaces": 9,
+      "number_of_openings": 1,
+      "entities_processed": 10,
+      "issues_found": 5
+    },
+    "preprocessing_summary": {
+      "entities_total": 10,
+      "entities_with_input_mesh": 9,
+      "normalized_entities": 9,
+      "valid_entities": 9,
+      "invalid_entities": 1,
+      "space_count": 9,
+      "opening_count": 1,
+      "valid_spaces": 8,
+      "invalid_spaces": 1,
+      "valid_openings": 1,
+      "invalid_openings": 0,
+      "spaces_with_obj_exports": 8,
+      "openings_with_obj_exports": 1,
+      "repair_effective_mode": "exact_repair",
+      "repair_exact_repaired_spaces": 8,
+      "repair_exact_passthrough_spaces": 0,
+      "repair_python_fallback_spaces": 0,
+      "repair_not_attempted_spaces": 1
+    },
+    "preflight": {
+      "status": "failed",
+      "summary": {
+        "space_count": 9,
+        "checked_space_count": 8,
+        "blocker_count": 4,
+        "warning_count": 9,
+        "self_intersection_space_count": 0,
+        "clash_pair_count": 3,
+        "clash_group_count": 3,
+        "exact_duplicate_group_count": 1,
+        "contained_fragment_group_count": 1,
+        "partial_overlap_group_count": 1,
+        "self_intersection_group_count": 0,
+        "recommended_resolution_group_count": 2,
+        "manual_resolution_group_count": 1
+      },
+      "blockers": [
+        {
+          "code": "invalid_space_solid",
+          "message": "Normalized space solid is missing or topologically invalid.",
+          "entity": {
+            "global_id": "0NCcnYz9HFDAiwngxFc$zR",
+            "express_id": 139,
+            "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE"
+          }
+        },
+        {
+          "code": "space_clash",
+          "message": "Detected duplicate intersecting IfcSpace volumes that require review before continuing.",
+          "entity": null
+        },
+        {
+          "code": "space_clash",
+          "message": "Detected partially overlapping IfcSpace volumes that must be resolved before continuing.",
+          "entity": null
+        },
+        {
+          "code": "space_clash",
+          "message": "Detected fully contained IfcSpace fragments that require review before continuing.",
+          "entity": null
+        }
+      ],
+      "warnings": [
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "0$6ZCUNT1BOAHWDGKFwgal",
+            "express_id": 33,
+            "name": "EPLUS_CONTROL_VALID_ROOM"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "0Fy3fRCHr2GuYNH$oN5efd",
+            "express_id": 109,
+            "name": "EPLUS_ERROR_CONTAINED_OUTER"
+          }
+        },
+        {
+          "code": "space_skipped_nonblocking",
+          "message": "Skipped advanced preflight checks because the normalized space solid is invalid.",
+          "entity": {
+            "global_id": "0NCcnYz9HFDAiwngxFc$zR",
+            "express_id": 139,
+            "name": "EPLUS_ERROR_MISSING_GEOMETRY_SPACE"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "0ftitKOzL2kAXRShezoCe4",
+            "express_id": 49,
+            "name": "EPLUS_ERROR_DUPLICATE_A"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "1hhWvR5Y10re8sNU_9YBRw",
+            "express_id": 64,
+            "name": "EPLUS_ERROR_DUPLICATE_B"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "1lMQ9qDpfDGuLvL_Op0fXN",
+            "express_id": 124,
+            "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "2AC$5otmj5sOSJfQdVypQt",
+            "express_id": 94,
+            "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "2CHo4qn9fBq9$8DwMZsBvp",
+            "express_id": 145,
+            "name": "EPLUS_WARNING_THIN_SLIVER_SPACE"
+          }
+        },
+        {
+          "code": "auto_repair_applied",
+          "message": "Automatic mesh cleanup actions were applied to the normalized space mesh.",
+          "entity": {
+            "global_id": "3fs0scVwv3B9I12qoiA3DU",
+            "express_id": 79,
+            "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A"
+          }
+        }
+      ],
+      "clash_groups": [
+        {
+          "clash_group_id": "cg_0",
+          "classification": "exact_duplicate",
+          "resolution_status": "recommended",
+          "recommended_resolution": {
+            "operation": "remove_spaces",
+            "reason": "Keep the highest-ranked duplicate space and remove the overlapping duplicates.",
+            "keeper": {
+              "global_id": "0ftitKOzL2kAXRShezoCe4",
+              "express_id": 49,
+              "name": "EPLUS_ERROR_DUPLICATE_A"
+            },
+            "spaces_to_remove": [
+              {
+                "global_id": "1hhWvR5Y10re8sNU_9YBRw",
+                "express_id": 64,
+                "name": "EPLUS_ERROR_DUPLICATE_B"
+              }
+            ]
+          },
+          "spaces": [
+            {
+              "global_id": "0ftitKOzL2kAXRShezoCe4",
+              "express_id": 49,
+              "name": "EPLUS_ERROR_DUPLICATE_A",
+              "volume_m3": 33.6,
+              "recommended_action": "keep"
+            },
+            {
+              "global_id": "1hhWvR5Y10re8sNU_9YBRw",
+              "express_id": 64,
+              "name": "EPLUS_ERROR_DUPLICATE_B",
+              "volume_m3": 33.6,
+              "recommended_action": "remove"
+            }
+          ],
+          "pair_count": 1
+        },
+        {
+          "clash_group_id": "cg_1",
+          "classification": "partial_overlap",
+          "resolution_status": "manual_required",
+          "recommended_resolution": null,
+          "spaces": [
+            {
+              "global_id": "2AC$5otmj5sOSJfQdVypQt",
+              "express_id": 94,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_B",
+              "volume_m3": 33.6,
+              "recommended_action": null
+            },
+            {
+              "global_id": "3fs0scVwv3B9I12qoiA3DU",
+              "express_id": 79,
+              "name": "EPLUS_ERROR_PARTIAL_OVERLAP_A",
+              "volume_m3": 33.6,
+              "recommended_action": null
+            }
+          ],
+          "pair_count": 1
+        },
+        {
+          "clash_group_id": "cg_2",
+          "classification": "contained_fragment",
+          "resolution_status": "recommended",
+          "recommended_resolution": {
+            "operation": "remove_spaces",
+            "reason": "Keep the containing space and remove smaller fully-contained fragment spaces.",
+            "keeper": {
+              "global_id": "0Fy3fRCHr2GuYNH$oN5efd",
+              "express_id": 109,
+              "name": "EPLUS_ERROR_CONTAINED_OUTER"
+            },
+            "spaces_to_remove": [
+              {
+                "global_id": "1lMQ9qDpfDGuLvL_Op0fXN",
+                "express_id": 124,
+                "name": "EPLUS_ERROR_CONTAINED_FRAGMENT"
+              }
+            ]
+          },
+          "spaces": [
+            {
+              "global_id": "0Fy3fRCHr2GuYNH$oN5efd",
+              "express_id": 109,
+              "name": "EPLUS_ERROR_CONTAINED_OUTER",
+              "volume_m3": 75.0,
+              "recommended_action": "keep"
+            },
+            {
+              "global_id": "1lMQ9qDpfDGuLvL_Op0fXN",
+              "express_id": 124,
+              "name": "EPLUS_ERROR_CONTAINED_FRAGMENT",
+              "volume_m3": 1.5,
+              "recommended_action": "remove"
+            }
+          ],
+          "pair_count": 1
+        }
+      ]
+    },
+    "external_shell_summary": {},
+    "opening_integration_summary": {},
+    "gbxml_preflight": {
+      "status": null,
+      "summary": {},
+      "blockers": [],
+      "warnings": []
+    }
+  },
+  "checks": [
+    {
+      "check_id": "stops_at_preflight",
+      "status": "pass",
+      "expectation": "Job should stop at preflight because this file intentionally contains hard blockers.",
+      "observed": {
+        "state": "failed",
+        "history_states": [
+          "uploaded",
+          "parsing",
+          "preprocessing",
+          "preflight",
+          "failed"
+        ]
+      }
+    },
+    {
+      "check_id": "detects_invalid_space_solid",
+      "status": "pass",
+      "expectation": "Missing IfcSpace geometry should produce an invalid_space_solid preflight blocker.",
+      "observed": {
+        "blocker_codes": [
+          "invalid_space_solid",
+          "space_clash"
+        ]
+      }
+    },
+    {
+      "check_id": "detects_exact_duplicate",
+      "status": "pass",
+      "expectation": "Coincident spaces should be classified as exact_duplicate.",
+      "observed": {
+        "clash_classes": [
+          "contained_fragment",
+          "exact_duplicate",
+          "partial_overlap"
+        ]
+      }
+    },
+    {
+      "check_id": "detects_partial_overlap",
+      "status": "pass",
+      "expectation": "Partially intersecting spaces should be classified as partial_overlap.",
+      "observed": {
+        "clash_classes": [
+          "contained_fragment",
+          "exact_duplicate",
+          "partial_overlap"
+        ]
+      }
+    },
+    {
+      "check_id": "detects_contained_fragment",
+      "status": "pass",
+      "expectation": "Nested fragment spaces should be classified as contained_fragment.",
+      "observed": {
+        "clash_classes": [
+          "contained_fragment",
+          "exact_duplicate",
+          "partial_overlap"
+        ]
+      }
+    },
+    {
+      "check_id": "manual_resolution_required",
+      "status": "pass",
+      "expectation": "Partial overlaps should force manual review rather than automatic clean export.",
+      "observed": {
+        "summary": {
+          "space_count": 9,
+          "checked_space_count": 8,
+          "blocker_count": 4,
+          "warning_count": 9,
+          "self_intersection_space_count": 0,
+          "clash_pair_count": 3,
+          "clash_group_count": 3,
+          "exact_duplicate_group_count": 1,
+          "contained_fragment_group_count": 1,
+          "partial_overlap_group_count": 1,
+          "self_intersection_group_count": 0,
+          "recommended_resolution_group_count": 2,
+          "manual_resolution_group_count": 1
+        }
+      }
+    },
+    {
+      "check_id": "later_export_stages_not_run",
+      "status": "pass",
+      "expectation": "External shell, opening integration, and gbXML preflight should not run after hard preflight failure.",
+      "observed": {
+        "external_shell_summary": {},
+        "gbxml_status": null
+      }
+    }
+  ]
+}

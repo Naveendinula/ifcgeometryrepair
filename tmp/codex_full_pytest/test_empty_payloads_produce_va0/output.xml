@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SecondLevelSpaceBoundaries>
+  <InternalBoundaries />
+  <ExternalBoundaries />
+  <OpeningSurfaces />
+  <Summary>
+    <InternalSurfaceCount>0</InternalSurfaceCount>
+    <ExternalSurfaceCount>0</ExternalSurfaceCount>
+    <OpeningSurfaceCount>0</OpeningSurfaceCount>
+    <TotalOpeningAreaM2>0</TotalOpeningAreaM2>
+    <MinSurfaceAreaThresholdM2>0.25</MinSurfaceAreaThresholdM2>
+  </Summary>
+</SecondLevelSpaceBoundaries>

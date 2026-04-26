@@ -1,0 +1,8734 @@
+{
+  "job_id": "3bfdf3df-00a0-4903-a8bd-4a3d5e51d915",
+  "schema": "IFC4X3",
+  "entities": [
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVeO",
+      "global_id": "275uc_d0D37ggfbUf7EVeO",
+      "express_id": 93,
+      "name": "1",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -0.059767247746016175,
+            0.12817127641116027,
+            0.0
+          ],
+          [
+            1.2441845486830998,
+            3.710749393157436,
+            3.149363154849614
+          ],
+          [
+            -2.7026527437063836,
+            1.0901029295146065,
+            0.0
+          ],
+          [
+            -0.059767247746016175,
+            0.12817127641116027,
+            3.149363154849614
+          ],
+          [
+            -2.7026527437063836,
+            1.0901029295146065,
+            3.149363154849614
+          ],
+          [
+            -1.3987009472772676,
+            4.672681046260882,
+            3.149363154849614
+          ],
+          [
+            -1.3987009472772676,
+            4.672681046260882,
+            0.0
+          ],
+          [
+            1.2441845486830998,
+            3.710749393157436,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 33.76953851586796
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 33.76953851586794,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeO.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeO.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeO.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVeR",
+      "global_id": "275uc_d0D37ggfbUf7EVeR",
+      "express_id": 107,
+      "name": "2",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.3040380737651014,
+            3.875195601794967,
+            0.0
+          ],
+          [
+            1.9325000871260196,
+            5.601880792489073,
+            3.15
+          ],
+          [
+            -1.3388474221952664,
+            4.837127254898413,
+            0.0
+          ],
+          [
+            1.3040380737651014,
+            3.875195601794967,
+            3.15
+          ],
+          [
+            -1.3388474221952664,
+            4.837127254898413,
+            3.15
+          ],
+          [
+            -0.7103854088343482,
+            6.56381244559252,
+            3.15
+          ],
+          [
+            -0.7103854088343482,
+            6.56381244559252,
+            0.0
+          ],
+          [
+            1.9325000871260196,
+            5.601880792489073,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 16.279101562500014
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 16.279101562500014,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeR.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeR.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeR.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVeM",
+      "global_id": "275uc_d0D37ggfbUf7EVeM",
+      "express_id": 121,
+      "name": "3",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.9923536122080174,
+            5.766327001126605,
+            0.0
+          ],
+          [
+            2.6122651219857946,
+            7.4695198763010655,
+            3.15
+          ],
+          [
+            -0.6505318837523499,
+            6.728258654230051,
+            0.0
+          ],
+          [
+            1.9923536122080174,
+            5.766327001126605,
+            3.15
+          ],
+          [
+            -0.6505318837523499,
+            6.728258654230051,
+            3.15
+          ],
+          [
+            -0.030620373974572956,
+            8.431451529404512,
+            3.15
+          ],
+          [
+            -0.030620373974572956,
+            8.431451529404512,
+            0.0
+          ],
+          [
+            2.6122651219857946,
+            7.4695198763010655,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 16.05761718750003
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 16.05761718750003,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeM.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeM.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeM.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVeH",
+      "global_id": "275uc_d0D37ggfbUf7EVeH",
+      "express_id": 135,
+      "name": "4",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            2.6721186470677916,
+            7.633966084938594,
+            0.0
+          ],
+          [
+            3.2963054086371337,
+            9.348905117872862,
+            3.15
+          ],
+          [
+            1.438772082286287,
+            8.082867523053535,
+            0.0
+          ],
+          [
+            2.6721186470677916,
+            7.633966084938594,
+            3.15
+          ],
+          [
+            1.438772082286287,
+            8.082867523053535,
+            3.15
+          ],
+          [
+            2.062958843855629,
+            9.797806555987803,
+            3.15
+          ],
+          [
+            2.062958843855629,
+            9.797806555987803,
+            0.0
+          ],
+          [
+            3.2963054086371337,
+            9.348905117872862,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 7.54523437499994
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 7.545234374999937,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeH.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeH.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeH.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVeC",
+      "global_id": "275uc_d0D37ggfbUf7EVeC",
+      "express_id": 149,
+      "name": "5",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            5,
+            3,
+            1
+          ],
+          [
+            0,
+            5,
+            1
+          ],
+          [
+            7,
+            0,
+            1
+          ],
+          [
+            7,
+            6,
+            0
+          ],
+          [
+            3,
+            2,
+            7
+          ],
+          [
+            1,
+            3,
+            7
+          ],
+          [
+            5,
+            4,
+            2
+          ],
+          [
+            3,
+            5,
+            2
+          ],
+          [
+            6,
+            5,
+            0
+          ],
+          [
+            6,
+            4,
+            5
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            7,
+            2,
+            4
+          ]
+        ],
+        "vertices": [
+          [
+            3.3561589337191324,
+            9.513351326510396,
+            0.0
+          ],
+          [
+            3.9760704434969014,
+            11.216544201684833,
+            0.0
+          ],
+          [
+            2.742723878715397,
+            11.665445639799774,
+            3.15
+          ],
+          [
+            2.742723878715397,
+            11.665445639799774,
+            0.0
+          ],
+          [
+            2.1228123689376277,
+            9.962252764625337,
+            3.15
+          ],
+          [
+            2.1228123689376277,
+            9.962252764625337,
+            0.0
+          ],
+          [
+            3.3561589337191324,
+            9.513351326510396,
+            3.15
+          ],
+          [
+            3.9760704434969014,
+            11.216544201684833,
+            3.15
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 7.493554687499905
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 7.493554687499902,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeC.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeC.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeC.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVeF",
+      "global_id": "275uc_d0D37ggfbUf7EVeF",
+      "express_id": 171,
+      "name": "6",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            7,
+            5,
+            4
+          ],
+          [
+            7,
+            2,
+            0
+          ],
+          [
+            4,
+            2,
+            7
+          ],
+          [
+            8,
+            7,
+            0
+          ],
+          [
+            2,
+            1,
+            11
+          ],
+          [
+            0,
+            2,
+            11
+          ],
+          [
+            4,
+            3,
+            1
+          ],
+          [
+            2,
+            4,
+            1
+          ],
+          [
+            6,
+            4,
+            5
+          ],
+          [
+            6,
+            3,
+            4
+          ],
+          [
+            10,
+            5,
+            7
+          ],
+          [
+            10,
+            6,
+            5
+          ],
+          [
+            9,
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            7
+          ],
+          [
+            11,
+            8,
+            0
+          ],
+          [
+            11,
+            9,
+            8
+          ],
+          [
+            10,
+            3,
+            6
+          ],
+          [
+            10,
+            1,
+            3
+          ],
+          [
+            10,
+            9,
+            11
+          ],
+          [
+            10,
+            11,
+            1
+          ]
+        ],
+        "vertices": [
+          [
+            2.578277670077875,
+            11.725299164881793,
+            0.0
+          ],
+          [
+            -1.4741467570613898,
+            13.200261032973756,
+            6.3
+          ],
+          [
+            -1.4741467570613898,
+            13.200261032973756,
+            0.0
+          ],
+          [
+            -5.509984448304292,
+            2.1118881077000418,
+            6.3
+          ],
+          [
+            -5.509984448304292,
+            2.1118881077000418,
+            0.0
+          ],
+          [
+            -2.8670989523439254,
+            1.1499564545965961,
+            0.0
+          ],
+          [
+            -2.8670989523439254,
+            1.1499564545965961,
+            6.3
+          ],
+          [
+            -0.13521305753011115,
+            8.655751263124037,
+            0.0
+          ],
+          [
+            1.27432587364875,
+            8.14272104813553,
+            0.0
+          ],
+          [
+            1.27432587364875,
+            8.14272104813553,
+            6.3
+          ],
+          [
+            -0.13521305753011115,
+            8.655751263124037,
+            6.3
+          ],
+          [
+            2.578277670077875,
+            11.725299164881793,
+            6.3
+          ]
+        ]
+      },
+      "vertex_count": 12,
+      "face_count": 20,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 20,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 12,
+          "volume_m3": 245.10937500000134
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 245.10937500000134,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeF.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVeF.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeF.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVe5",
+      "global_id": "275uc_d0D37ggfbUf7EVe5",
+      "express_id": 185,
+      "name": "7",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -0.05976724774601597,
+            0.12817127641116022,
+            3.3000000000000003
+          ],
+          [
+            1.2441845486831,
+            3.7107493931574353,
+            6.310491711364465
+          ],
+          [
+            -2.702652743706383,
+            1.0901029295146063,
+            3.3000000000000003
+          ],
+          [
+            -0.05976724774601597,
+            0.12817127641116022,
+            6.310491711364465
+          ],
+          [
+            -2.702652743706383,
+            1.0901029295146063,
+            6.310491711364465
+          ],
+          [
+            -1.3987009472772671,
+            4.672681046260881,
+            6.310491711364465
+          ],
+          [
+            -1.3987009472772671,
+            4.672681046260881,
+            3.3000000000000003
+          ],
+          [
+            1.2441845486831,
+            3.7107493931574353,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 32.2804677644354
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 32.28046776443539,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVe5.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVe5.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVe5.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVe1",
+      "global_id": "275uc_d0D37ggfbUf7EVe1",
+      "express_id": 199,
+      "name": "8",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            5,
+            3,
+            1
+          ],
+          [
+            0,
+            5,
+            1
+          ],
+          [
+            7,
+            0,
+            1
+          ],
+          [
+            7,
+            6,
+            0
+          ],
+          [
+            3,
+            2,
+            7
+          ],
+          [
+            1,
+            3,
+            7
+          ],
+          [
+            5,
+            4,
+            2
+          ],
+          [
+            3,
+            5,
+            2
+          ],
+          [
+            6,
+            5,
+            0
+          ],
+          [
+            6,
+            4,
+            5
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            7,
+            2,
+            4
+          ]
+        ],
+        "vertices": [
+          [
+            2.672118647067795,
+            7.633966084938595,
+            3.3000000000000003
+          ],
+          [
+            3.9760704434968983,
+            11.216544201684835,
+            3.3000000000000003
+          ],
+          [
+            1.3331849475365316,
+            12.178475854788282,
+            6.300000000000001
+          ],
+          [
+            1.3331849475365316,
+            12.178475854788282,
+            3.3000000000000003
+          ],
+          [
+            0.029233151107428412,
+            8.59589773804204,
+            6.300000000000001
+          ],
+          [
+            0.029233151107428412,
+            8.59589773804204,
+            3.3000000000000003
+          ],
+          [
+            2.672118647067795,
+            7.633966084938595,
+            6.300000000000001
+          ],
+          [
+            3.9760704434968983,
+            11.216544201684835,
+            6.300000000000001
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 32.1679687499997
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 32.167968749999694,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVe1.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVe1.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVe1.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVey",
+      "global_id": "275uc_d0D37ggfbUf7EVey",
+      "express_id": 213,
+      "name": "9",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.304038073765101,
+            3.875195601794966,
+            3.3000000000000003
+          ],
+          [
+            1.928224835334448,
+            5.590134634729248,
+            6.300000000000001
+          ],
+          [
+            -0.23470859277182354,
+            4.4352535864907505,
+            3.3000000000000003
+          ],
+          [
+            1.304038073765101,
+            3.875195601794966,
+            6.300000000000001
+          ],
+          [
+            -0.23470859277182354,
+            4.4352535864907505,
+            6.300000000000001
+          ],
+          [
+            0.3894781687975235,
+            6.150192619425032,
+            6.300000000000001
+          ],
+          [
+            0.3894781687975235,
+            6.150192619425032,
+            3.3000000000000003
+          ],
+          [
+            1.928224835334448,
+            5.590134634729248,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 8.965312499999996
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 8.965312500000005,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVey.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVey.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVey.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "275uc_d0D37ggfbUf7EVe$",
+      "global_id": "275uc_d0D37ggfbUf7EVe$",
+      "express_id": 227,
+      "name": "10",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.9880783604164456,
+            5.754580843366779,
+            3.3000000000000003
+          ],
+          [
+            2.6122651219857937,
+            7.469519876301064,
+            6.300000000000001
+          ],
+          [
+            0.4493316938795213,
+            6.314638828062563,
+            3.3000000000000003
+          ],
+          [
+            1.9880783604164456,
+            5.754580843366779,
+            6.300000000000001
+          ],
+          [
+            0.4493316938795213,
+            6.314638828062563,
+            6.300000000000001
+          ],
+          [
+            1.0735184554488697,
+            8.029577860996847,
+            6.300000000000001
+          ],
+          [
+            1.0735184554488697,
+            8.029577860996847,
+            3.3000000000000003
+          ],
+          [
+            2.6122651219857937,
+            7.469519876301064,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 8.96531250000001
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 8.965312500000012,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/275uc_d0D37ggfbUf7EVe$.obj",
+        "normalized_obj": "geometry/spaces/275uc_d0D37ggfbUf7EVe$.obj",
+        "raw_obj": "geometry/raw/spaces/275uc_d0D37ggfbUf7EVe$.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2puJI5Ci99RgxZaQWdLc1V",
+      "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+      "express_id": 241,
+      "name": "1",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            1,
+            3
+          ],
+          [
+            4,
+            3,
+            6
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            6,
+            5,
+            7
+          ],
+          [
+            6,
+            0,
+            5
+          ],
+          [
+            1,
+            4,
+            7
+          ],
+          [
+            5,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -0.05976724774600368,
+            0.1281712764111576,
+            3.700000000000001
+          ],
+          [
+            -5.509984448304271,
+            2.1118881077000418,
+            -0.3
+          ],
+          [
+            -5.509984448304271,
+            2.1118881077000418,
+            3.700000000000001
+          ],
+          [
+            -1.4741467570613729,
+            13.200261032973748,
+            3.700000000000001
+          ],
+          [
+            -1.4741467570613729,
+            13.200261032973748,
+            -0.3
+          ],
+          [
+            -0.05976724774600368,
+            0.1281712764111576,
+            -0.3
+          ],
+          [
+            3.9760704434968948,
+            11.216544201684863,
+            3.700000000000001
+          ],
+          [
+            3.9760704434968948,
+            11.216544201684863,
+            -0.3
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 273.7599999999998
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 273.75999999999993,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "normalized_obj": "geometry/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "raw_obj": "geometry/raw/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKEn",
+      "global_id": "0ZJGyRZaj36fppkc2yhKEn",
+      "express_id": 263,
+      "name": "2",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            9,
+            1,
+            0
+          ],
+          [
+            9,
+            2,
+            1
+          ],
+          [
+            9,
+            7,
+            5
+          ],
+          [
+            9,
+            5,
+            2
+          ],
+          [
+            0,
+            10,
+            8
+          ],
+          [
+            0,
+            1,
+            10
+          ],
+          [
+            10,
+            1,
+            2
+          ],
+          [
+            3,
+            10,
+            2
+          ],
+          [
+            3,
+            2,
+            5
+          ],
+          [
+            11,
+            3,
+            5
+          ],
+          [
+            5,
+            4,
+            11
+          ],
+          [
+            5,
+            7,
+            4
+          ],
+          [
+            7,
+            6,
+            4
+          ],
+          [
+            7,
+            9,
+            6
+          ],
+          [
+            9,
+            8,
+            6
+          ],
+          [
+            9,
+            0,
+            8
+          ],
+          [
+            6,
+            8,
+            10
+          ],
+          [
+            6,
+            3,
+            11
+          ],
+          [
+            10,
+            3,
+            6
+          ],
+          [
+            4,
+            6,
+            11
+          ]
+        ],
+        "vertices": [
+          [
+            -2.8670989523439254,
+            1.1499564545965961,
+            4.000000000000001
+          ],
+          [
+            -5.509984448304292,
+            2.1118881077000418,
+            4.000000000000001
+          ],
+          [
+            -1.4741467570613898,
+            13.200261032973756,
+            4.000000000000001
+          ],
+          [
+            -1.4741467570613898,
+            13.200261032973756,
+            0.0
+          ],
+          [
+            1.27432587364875,
+            8.14272104813553,
+            0.0
+          ],
+          [
+            2.578277670077875,
+            11.725299164881793,
+            4.000000000000001
+          ],
+          [
+            -0.13521305753011115,
+            8.655751263124037,
+            0.0
+          ],
+          [
+            1.27432587364875,
+            8.14272104813553,
+            4.000000000000001
+          ],
+          [
+            -2.8670989523439254,
+            1.1499564545965961,
+            0.0
+          ],
+          [
+            -0.13521305753011115,
+            8.655751263124037,
+            4.000000000000001
+          ],
+          [
+            -5.509984448304292,
+            2.1118881077000418,
+            0.0
+          ],
+          [
+            2.578277670077875,
+            11.725299164881793,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 12,
+      "face_count": 20,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 20,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 12,
+          "volume_m3": 155.62500000000088
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 155.62500000000088,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEn.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEn.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEn.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE_",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+      "express_id": 277,
+      "name": "3",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.9923536122080174,
+            5.766327001126605,
+            0.0
+          ],
+          [
+            2.6122651219857946,
+            7.4695198763010655,
+            4.000000000000001
+          ],
+          [
+            -0.6505318837523499,
+            6.728258654230051,
+            0.0
+          ],
+          [
+            1.9923536122080174,
+            5.766327001126605,
+            4.000000000000001
+          ],
+          [
+            -0.6505318837523499,
+            6.728258654230051,
+            4.000000000000001
+          ],
+          [
+            -0.030620373974572956,
+            8.431451529404512,
+            4.000000000000001
+          ],
+          [
+            -0.030620373974572956,
+            8.431451529404512,
+            0.0
+          ],
+          [
+            2.6122651219857946,
+            7.4695198763010655,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 20.390625000000043
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 20.390625000000046,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE$",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+      "express_id": 291,
+      "name": "4",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.3040380737651014,
+            3.875195601794967,
+            0.0
+          ],
+          [
+            1.9325000871260196,
+            5.601880792489073,
+            4.000000000000001
+          ],
+          [
+            -1.3388474221952664,
+            4.837127254898413,
+            0.0
+          ],
+          [
+            1.3040380737651014,
+            3.875195601794967,
+            4.000000000000001
+          ],
+          [
+            -1.3388474221952664,
+            4.837127254898413,
+            4.000000000000001
+          ],
+          [
+            -0.7103854088343482,
+            6.56381244559252,
+            4.000000000000001
+          ],
+          [
+            -0.7103854088343482,
+            6.56381244559252,
+            0.0
+          ],
+          [
+            1.9325000871260196,
+            5.601880792489073,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 20.67187500000002
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 20.67187500000001,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKEy",
+      "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+      "express_id": 305,
+      "name": "5",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -0.059767247746016175,
+            0.12817127641116027,
+            0.0
+          ],
+          [
+            1.2441845486830998,
+            3.710749393157436,
+            4.000000000000001
+          ],
+          [
+            -2.7026527437063836,
+            1.0901029295146065,
+            0.0
+          ],
+          [
+            -0.059767247746016175,
+            0.12817127641116027,
+            4.000000000000001
+          ],
+          [
+            -2.7026527437063836,
+            1.0901029295146065,
+            4.000000000000001
+          ],
+          [
+            -1.3987009472772676,
+            4.672681046260882,
+            4.000000000000001
+          ],
+          [
+            -1.3987009472772676,
+            4.672681046260882,
+            0.0
+          ],
+          [
+            1.2441845486830998,
+            3.710749393157436,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 42.89062500000005
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 42.890625000000036,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKEz",
+      "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+      "express_id": 319,
+      "name": "6",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            5,
+            3,
+            1
+          ],
+          [
+            0,
+            5,
+            1
+          ],
+          [
+            7,
+            0,
+            1
+          ],
+          [
+            7,
+            6,
+            0
+          ],
+          [
+            3,
+            2,
+            7
+          ],
+          [
+            1,
+            3,
+            7
+          ],
+          [
+            5,
+            4,
+            2
+          ],
+          [
+            3,
+            5,
+            2
+          ],
+          [
+            6,
+            5,
+            0
+          ],
+          [
+            6,
+            4,
+            5
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            7,
+            2,
+            4
+          ]
+        ],
+        "vertices": [
+          [
+            3.3561589337191324,
+            9.513351326510396,
+            0.0
+          ],
+          [
+            3.9760704434969014,
+            11.216544201684833,
+            0.0
+          ],
+          [
+            2.742723878715397,
+            11.665445639799774,
+            4.000000000000001
+          ],
+          [
+            2.742723878715397,
+            11.665445639799774,
+            0.0
+          ],
+          [
+            2.1228123689376277,
+            9.962252764625337,
+            4.000000000000001
+          ],
+          [
+            2.1228123689376277,
+            9.962252764625337,
+            0.0
+          ],
+          [
+            3.3561589337191324,
+            9.513351326510396,
+            4.000000000000001
+          ],
+          [
+            3.9760704434969014,
+            11.216544201684833,
+            4.000000000000001
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 9.515624999999893
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 9.515624999999886,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKEw",
+      "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+      "express_id": 333,
+      "name": "7",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            2.6721186470677916,
+            7.633966084938594,
+            0.0
+          ],
+          [
+            3.2963054086371337,
+            9.348905117872862,
+            4.000000000000001
+          ],
+          [
+            1.438772082286287,
+            8.082867523053535,
+            0.0
+          ],
+          [
+            2.6721186470677916,
+            7.633966084938594,
+            4.000000000000001
+          ],
+          [
+            1.438772082286287,
+            8.082867523053535,
+            4.000000000000001
+          ],
+          [
+            2.062958843855629,
+            9.797806555987803,
+            4.000000000000001
+          ],
+          [
+            2.062958843855629,
+            9.797806555987803,
+            0.0
+          ],
+          [
+            3.2963054086371337,
+            9.348905117872862,
+            0.0
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 9.581249999999926
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 9.581249999999928,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE6",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE6",
+      "express_id": 347,
+      "name": "8",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -5.004724848129355,
+            -4.723122425315308,
+            3.3000000000000003
+          ],
+          [
+            -3.6964977999086712,
+            -1.1287981508092173,
+            7.300000000000001
+          ],
+          [
+            -7.65935650184956,
+            -3.756915520420286,
+            3.3000000000000003
+          ],
+          [
+            -5.004724848129355,
+            -4.723122425315308,
+            7.300000000000001
+          ],
+          [
+            -7.65935650184956,
+            -3.756915520420286,
+            7.300000000000001
+          ],
+          [
+            -6.351129453628876,
+            -0.16259124591419516,
+            7.300000000000001
+          ],
+          [
+            -6.351129453628876,
+            -0.16259124591419516,
+            3.3000000000000003
+          ],
+          [
+            -3.6964977999086712,
+            -1.1287981508092173,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 43.22250000000014
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 43.22250000000014,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE7",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+      "express_id": 361,
+      "name": "9",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            5,
+            3,
+            1
+          ],
+          [
+            0,
+            5,
+            1
+          ],
+          [
+            7,
+            0,
+            1
+          ],
+          [
+            7,
+            6,
+            0
+          ],
+          [
+            3,
+            2,
+            7
+          ],
+          [
+            1,
+            3,
+            7
+          ],
+          [
+            5,
+            4,
+            2
+          ],
+          [
+            3,
+            5,
+            2
+          ],
+          [
+            6,
+            5,
+            0
+          ],
+          [
+            6,
+            4,
+            5
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            7,
+            2,
+            4
+          ]
+        ],
+        "vertices": [
+          [
+            2.672118647067795,
+            7.633966084938595,
+            3.3000000000000003
+          ],
+          [
+            3.9760704434968983,
+            11.216544201684835,
+            3.3000000000000003
+          ],
+          [
+            1.3331849475365316,
+            12.178475854788282,
+            7.300000000000001
+          ],
+          [
+            1.3331849475365316,
+            12.178475854788282,
+            3.3000000000000003
+          ],
+          [
+            0.029233151107428412,
+            8.59589773804204,
+            7.300000000000001
+          ],
+          [
+            0.029233151107428412,
+            8.59589773804204,
+            3.3000000000000003
+          ],
+          [
+            2.672118647067795,
+            7.633966084938595,
+            7.300000000000001
+          ],
+          [
+            3.9760704434968983,
+            11.216544201684835,
+            7.300000000000001
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 42.89062499999957
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 42.89062499999957,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE4",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+      "express_id": 375,
+      "name": "10",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -0.05976724774601597,
+            0.12817127641116022,
+            3.3000000000000003
+          ],
+          [
+            1.2441845486831,
+            3.7107493931574353,
+            7.300000000000001
+          ],
+          [
+            -2.702652743706383,
+            1.0901029295146063,
+            3.3000000000000003
+          ],
+          [
+            -0.05976724774601597,
+            0.12817127641116022,
+            7.300000000000001
+          ],
+          [
+            -2.702652743706383,
+            1.0901029295146063,
+            7.300000000000001
+          ],
+          [
+            -1.3987009472772671,
+            4.672681046260881,
+            7.300000000000001
+          ],
+          [
+            -1.3987009472772671,
+            4.672681046260881,
+            3.3000000000000003
+          ],
+          [
+            1.2441845486831,
+            3.7107493931574353,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 42.89062500000002
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 42.89062500000003,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE5",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+      "express_id": 389,
+      "name": "11",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.9880783604164456,
+            5.754580843366779,
+            3.3000000000000003
+          ],
+          [
+            2.6122651219857937,
+            7.469519876301064,
+            7.300000000000001
+          ],
+          [
+            0.4493316938795213,
+            6.314638828062563,
+            3.3000000000000003
+          ],
+          [
+            1.9880783604164456,
+            5.754580843366779,
+            7.300000000000001
+          ],
+          [
+            0.4493316938795213,
+            6.314638828062563,
+            7.300000000000001
+          ],
+          [
+            1.0735184554488697,
+            8.029577860996847,
+            7.300000000000001
+          ],
+          [
+            1.0735184554488697,
+            8.029577860996847,
+            3.3000000000000003
+          ],
+          [
+            2.6122651219857937,
+            7.469519876301064,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 11.953750000000015
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 11.953750000000014,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE2",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+      "express_id": 403,
+      "name": "12",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            6,
+            5,
+            1
+          ],
+          [
+            7,
+            6,
+            1
+          ],
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            5
+          ],
+          [
+            6,
+            2,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            2,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            1.304038073765101,
+            3.875195601794966,
+            3.3000000000000003
+          ],
+          [
+            1.928224835334448,
+            5.590134634729248,
+            7.300000000000001
+          ],
+          [
+            -0.23470859277182354,
+            4.4352535864907505,
+            3.3000000000000003
+          ],
+          [
+            1.304038073765101,
+            3.875195601794966,
+            7.300000000000001
+          ],
+          [
+            -0.23470859277182354,
+            4.4352535864907505,
+            7.300000000000001
+          ],
+          [
+            0.3894781687975235,
+            6.150192619425032,
+            7.300000000000001
+          ],
+          [
+            0.3894781687975235,
+            6.150192619425032,
+            3.3000000000000003
+          ],
+          [
+            1.928224835334448,
+            5.590134634729248,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 11.95374999999999
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 11.953749999999992,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE3",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+      "express_id": 417,
+      "name": "13",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            6,
+            2,
+            0
+          ],
+          [
+            6,
+            3,
+            2
+          ],
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            1,
+            3
+          ],
+          [
+            4,
+            3,
+            6
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            6,
+            5,
+            7
+          ],
+          [
+            6,
+            0,
+            5
+          ],
+          [
+            1,
+            4,
+            7
+          ],
+          [
+            5,
+            1,
+            7
+          ]
+        ],
+        "vertices": [
+          [
+            -2.867098952343916,
+            1.1499564545966032,
+            7.300000000000001
+          ],
+          [
+            -5.509984448304283,
+            2.111888107700049,
+            3.3000000000000003
+          ],
+          [
+            -5.509984448304283,
+            2.111888107700049,
+            7.300000000000001
+          ],
+          [
+            -4.206032651875173,
+            5.694466224446309,
+            7.300000000000001
+          ],
+          [
+            -4.206032651875173,
+            5.694466224446309,
+            3.3000000000000003
+          ],
+          [
+            -2.867098952343916,
+            1.1499564545966032,
+            3.3000000000000003
+          ],
+          [
+            -1.5631471559148058,
+            4.732534571342864,
+            7.300000000000001
+          ],
+          [
+            -1.5631471559148058,
+            4.732534571342864,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 12,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 8,
+          "volume_m3": 42.89062499999985
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 42.89062499999985,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0ZJGyRZaj36fppkc2yhKE0",
+      "global_id": "0ZJGyRZaj36fppkc2yhKE0",
+      "express_id": 441,
+      "name": "14",
+      "entity_type": "IfcSpace",
+      "has_representation": true,
+      "mesh": {
+        "faces": [
+          [
+            13,
+            2,
+            0
+          ],
+          [
+            11,
+            10,
+            2
+          ],
+          [
+            13,
+            11,
+            2
+          ],
+          [
+            10,
+            3,
+            2
+          ],
+          [
+            8,
+            6,
+            10
+          ],
+          [
+            6,
+            3,
+            10
+          ],
+          [
+            0,
+            1,
+            12
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            1,
+            3
+          ],
+          [
+            4,
+            3,
+            6
+          ],
+          [
+            14,
+            4,
+            6
+          ],
+          [
+            6,
+            5,
+            14
+          ],
+          [
+            6,
+            8,
+            5
+          ],
+          [
+            8,
+            7,
+            5
+          ],
+          [
+            8,
+            10,
+            7
+          ],
+          [
+            10,
+            9,
+            7
+          ],
+          [
+            10,
+            11,
+            9
+          ],
+          [
+            9,
+            11,
+            13
+          ],
+          [
+            15,
+            9,
+            13
+          ],
+          [
+            13,
+            12,
+            15
+          ],
+          [
+            13,
+            0,
+            12
+          ],
+          [
+            7,
+            4,
+            14
+          ],
+          [
+            1,
+            4,
+            7
+          ],
+          [
+            9,
+            15,
+            1
+          ],
+          [
+            1,
+            7,
+            9
+          ],
+          [
+            12,
+            1,
+            15
+          ],
+          [
+            5,
+            7,
+            14
+          ]
+        ],
+        "vertices": [
+          [
+            -0.3991548014093602,
+            4.495107111572744,
+            7.300000000000001
+          ],
+          [
+            -4.146179126793185,
+            5.858912433083847,
+            3.3000000000000003
+          ],
+          [
+            -4.146179126793185,
+            5.858912433083847,
+            7.300000000000001
+          ],
+          [
+            -1.4741467570613898,
+            13.200261032973756,
+            7.300000000000001
+          ],
+          [
+            -1.4741467570613898,
+            13.200261032973756,
+            3.3000000000000003
+          ],
+          [
+            -0.13521305753011204,
+            8.655751263124035,
+            3.3000000000000003
+          ],
+          [
+            1.168738738899013,
+            12.238329379870299,
+            7.300000000000001
+          ],
+          [
+            -1.8196120802888744,
+            9.268822370035311,
+            3.3000000000000003
+          ],
+          [
+            -0.13521305753011204,
+            8.655751263124035,
+            7.300000000000001
+          ],
+          [
+            -1.879465605370866,
+            9.104376161397777,
+            3.3000000000000003
+          ],
+          [
+            -1.8196120802888744,
+            9.268822370035311,
+            7.300000000000001
+          ],
+          [
+            -1.879465605370866,
+            9.104376161397777,
+            7.300000000000001
+          ],
+          [
+            -0.3991548014093602,
+            4.495107111572744,
+            3.3000000000000003
+          ],
+          [
+            0.9090722468113384,
+            8.08943138607884,
+            7.300000000000001
+          ],
+          [
+            1.168738738899013,
+            12.238329379870299,
+            3.3000000000000003
+          ],
+          [
+            0.9090722468113384,
+            8.08943138607884,
+            3.3000000000000003
+          ]
+        ]
+      },
+      "vertex_count": 16,
+      "face_count": 28,
+      "component_count": 1,
+      "components": [
+        {
+          "closed": true,
+          "component_index": 0,
+          "face_count": 28,
+          "flipped_winding": false,
+          "manifold": true,
+          "outward_normals": true,
+          "vertex_count": 16,
+          "volume_m3": 104.61337500000083
+        }
+      ],
+      "repair_actions": [
+        "cgal_nef_regularization"
+      ],
+      "repair_backend": "cpp-cgal",
+      "repair_status": "exact_repaired",
+      "repair_reason": null,
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 104.61337500000077,
+      "valid": true,
+      "reason": null,
+      "artifacts": {
+        "obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE0.obj",
+        "normalized_obj": "geometry/spaces/0ZJGyRZaj36fppkc2yhKE0.obj",
+        "raw_obj": "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE0.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0tWZaphRKAxG_g6y5ahA_O",
+      "global_id": "0tWZaphRKAxG_g6y5ahA_O",
+      "express_id": 90896,
+      "name": "M_Fixed:4000 X 2200:352674:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -4.141903875001612,
+            5.870658590843675,
+            0.050000000000000044
+          ],
+          [
+            -4.329842399158793,
+            5.9390626195088085,
+            0.050000000000000044
+          ],
+          [
+            -4.329842399158793,
+            5.9390626195088085,
+            2.2499999999999973
+          ],
+          [
+            -4.141903875001612,
+            5.870658590843675,
+            2.2499999999999973
+          ],
+          [
+            -3.030165854521248,
+            9.50989457849526,
+            2.2499999999999973
+          ],
+          [
+            -2.8422273303640666,
+            9.441490549830126,
+            2.2499999999999973
+          ],
+          [
+            -3.030165854521248,
+            9.50989457849526,
+            0.050000000000000044
+          ],
+          [
+            -2.8422273303640666,
+            9.441490549830126,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.672,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6720000000000006,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "normalized_obj": "geometry/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "raw_obj": "geometry/raw/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2S5xf4S$fCRQT2ntmXkwO9",
+      "global_id": "2S5xf4S$fCRQT2ntmXkwO9",
+      "express_id": 90911,
+      "name": "M_Fixed:4000 X 2200:352887:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -2.773823301698934,
+            9.629429073987305,
+            0.050000000000000044
+          ],
+          [
+            -2.9617618258561156,
+            9.697833102652439,
+            0.050000000000000044
+          ],
+          [
+            -2.9617618258561156,
+            9.697833102652439,
+            2.2499999999999973
+          ],
+          [
+            -2.773823301698934,
+            9.629429073987305,
+            2.2499999999999973
+          ],
+          [
+            -1.662085281218571,
+            13.26866506163889,
+            2.2499999999999973
+          ],
+          [
+            -1.4741467570613893,
+            13.200261032973756,
+            2.2499999999999973
+          ],
+          [
+            -1.662085281218571,
+            13.26866506163889,
+            0.050000000000000044
+          ],
+          [
+            -1.4741467570613893,
+            13.200261032973756,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.6719999999999982,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6719999999999982,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "normalized_obj": "geometry/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "raw_obj": "geometry/raw/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0OAoI8Bi$1$MojHEKS0Cv9",
+      "global_id": "0OAoI8Bi$1$MojHEKS0Cv9",
+      "express_id": 90927,
+      "name": "M_Fixed:4000 X 2200:352908:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -5.509984448304291,
+            2.1118881077000418,
+            0.050000000000000044
+          ],
+          [
+            -5.697922972461472,
+            2.1802921363651757,
+            0.050000000000000044
+          ],
+          [
+            -5.697922972461472,
+            2.1802921363651757,
+            2.2499999999999973
+          ],
+          [
+            -5.509984448304291,
+            2.1118881077000418,
+            2.2499999999999973
+          ],
+          [
+            -4.398246427823928,
+            5.751124095351626,
+            2.2499999999999973
+          ],
+          [
+            -4.210307903666746,
+            5.6827200666864925,
+            2.2499999999999973
+          ],
+          [
+            -4.398246427823928,
+            5.751124095351626,
+            0.050000000000000044
+          ],
+          [
+            -4.210307903666746,
+            5.6827200666864925,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.671999999999996,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6719999999999946,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "normalized_obj": "geometry/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "raw_obj": "geometry/raw/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0_Nnp8jxWhkNE$TEQybvYw",
+      "global_id": "0_Nnp8jxWhkNE$TEQybvYw",
+      "express_id": 90943,
+      "name": "M_Fixed:4000 X 2200:354144:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -4.141903875001612,
+            5.870658590843675,
+            3.35
+          ],
+          [
+            -4.329842399158793,
+            5.9390626195088085,
+            3.35
+          ],
+          [
+            -4.329842399158793,
+            5.9390626195088085,
+            5.549999999999997
+          ],
+          [
+            -4.141903875001612,
+            5.870658590843675,
+            5.549999999999997
+          ],
+          [
+            -3.030165854521248,
+            9.50989457849526,
+            5.549999999999997
+          ],
+          [
+            -2.8422273303640666,
+            9.441490549830126,
+            5.549999999999997
+          ],
+          [
+            -3.030165854521248,
+            9.50989457849526,
+            3.35
+          ],
+          [
+            -2.8422273303640666,
+            9.441490549830126,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.6720000000000124,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.6720000000000101,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "normalized_obj": "geometry/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "raw_obj": "geometry/raw/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2Sq3rnJ6rWHSmYzPlLFRKX",
+      "global_id": "2Sq3rnJ6rWHSmYzPlLFRKX",
+      "express_id": 90958,
+      "name": "M_Fixed:4000 X 2200:354145:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -2.773823301698934,
+            9.629429073987305,
+            3.35
+          ],
+          [
+            -2.9617618258561156,
+            9.697833102652439,
+            3.35
+          ],
+          [
+            -2.9617618258561156,
+            9.697833102652439,
+            5.549999999999997
+          ],
+          [
+            -2.773823301698934,
+            9.629429073987305,
+            5.549999999999997
+          ],
+          [
+            -1.662085281218571,
+            13.26866506163889,
+            5.549999999999997
+          ],
+          [
+            -1.4741467570613893,
+            13.200261032973756,
+            5.549999999999997
+          ],
+          [
+            -1.662085281218571,
+            13.26866506163889,
+            3.35
+          ],
+          [
+            -1.4741467570613893,
+            13.200261032973756,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.671999999999997,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.671999999999997,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "normalized_obj": "geometry/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "raw_obj": "geometry/raw/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2yGyYVW4sxmbDznW9sCHLU",
+      "global_id": "2yGyYVW4sxmbDznW9sCHLU",
+      "express_id": 90974,
+      "name": "M_Fixed:4000 X 2200:354146:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -5.509984448304291,
+            2.1118881077000418,
+            3.35
+          ],
+          [
+            -5.697922972461472,
+            2.1802921363651757,
+            3.35
+          ],
+          [
+            -5.697922972461472,
+            2.1802921363651757,
+            5.549999999999997
+          ],
+          [
+            -5.509984448304291,
+            2.1118881077000418,
+            5.549999999999997
+          ],
+          [
+            -4.398246427823928,
+            5.751124095351626,
+            5.549999999999997
+          ],
+          [
+            -4.210307903666746,
+            5.6827200666864925,
+            5.549999999999997
+          ],
+          [
+            -4.398246427823928,
+            5.751124095351626,
+            3.35
+          ],
+          [
+            -4.210307903666746,
+            5.6827200666864925,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.6719999999999875,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.67199999999999,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "normalized_obj": "geometry/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "raw_obj": "geometry/raw/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2CY5cGV_Qc8ddlQHLAkL$f",
+      "global_id": "2CY5cGV_Qc8ddlQHLAkL$f",
+      "express_id": 90990,
+      "name": "M_Single-Flush:0915 x 2134mm EXT:352938:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            2.3853296885869155,
+            12.008362041401432,
+            2.1999999999999997
+          ],
+          [
+            2.3169256599217816,
+            11.82042351724425,
+            2.1999999999999997
+          ],
+          [
+            1.4242176701751683,
+            12.145342653403636,
+            2.1999999999999997
+          ],
+          [
+            1.4926216988403023,
+            12.333281177560817,
+            2.1999999999999997
+          ],
+          [
+            1.4242176701751683,
+            12.145342653403636,
+            0.0
+          ],
+          [
+            1.4926216988403023,
+            12.333281177560817,
+            0.0
+          ],
+          [
+            2.3169256599217816,
+            11.82042351724425,
+            0.0
+          ],
+          [
+            2.3853296885869155,
+            12.008362041401432,
+            0.0
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            7,
+            5,
+            3
+          ],
+          [
+            0,
+            7,
+            3
+          ],
+          [
+            2,
+            4,
+            6
+          ],
+          [
+            2,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.4179999999999981,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.4179999999999975,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "normalized_obj": "geometry/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "raw_obj": "geometry/raw/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "15E8Vbrel1CPHZLHya6edm",
+      "global_id": "15E8Vbrel1CPHZLHya6edm",
+      "express_id": 91005,
+      "name": "M_Fixed:3000 X 2200:352928:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -1.4682736781814778,
+            13.198123407077972,
+            0.050000000000000044
+          ],
+          [
+            -1.3998696495163439,
+            13.386061931235155,
+            0.050000000000000044
+          ],
+          [
+            -1.3998696495163439,
+            13.386061931235155,
+            2.2499999999999973
+          ],
+          [
+            -1.4682736781814778,
+            13.198123407077972,
+            2.2499999999999973
+          ],
+          [
+            1.2312696886841985,
+            12.428405529923278,
+            2.2499999999999973
+          ],
+          [
+            1.1628656600190646,
+            12.240467005766098,
+            2.2499999999999973
+          ],
+          [
+            1.2312696886841985,
+            12.428405529923278,
+            0.050000000000000044
+          ],
+          [
+            1.1628656600190646,
+            12.240467005766098,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999958,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999947,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "normalized_obj": "geometry/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "raw_obj": "geometry/raw/openings/15E8Vbrel1CPHZLHya6edm.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3telsqPy5jtAYfsyTZwu8x",
+      "global_id": "3telsqPy5jtAYfsyTZwu8x",
+      "express_id": 91020,
+      "name": "M_Fixed:3000 X 2200:354147:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -1.4682736781814778,
+            13.198123407077972,
+            3.35
+          ],
+          [
+            -1.3998696495163439,
+            13.386061931235155,
+            3.35
+          ],
+          [
+            -1.3998696495163439,
+            13.386061931235155,
+            5.549999999999997
+          ],
+          [
+            -1.4682736781814778,
+            13.198123407077972,
+            5.549999999999997
+          ],
+          [
+            1.2312696886841985,
+            12.428405529923278,
+            5.549999999999997
+          ],
+          [
+            1.1628656600190646,
+            12.240467005766098,
+            5.549999999999997
+          ],
+          [
+            1.2312696886841985,
+            12.428405529923278,
+            3.35
+          ],
+          [
+            1.1628656600190646,
+            12.240467005766098,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999958,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999947,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "normalized_obj": "geometry/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "raw_obj": "geometry/raw/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "18_j_L7XUZg9BtRoEeHFId",
+      "global_id": "18_j_L7XUZg9BtRoEeHFId",
+      "express_id": 91035,
+      "name": "M_Fixed:3000 X 2200:354191:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.3390580264164953,
+            12.176338228892506,
+            3.35
+          ],
+          [
+            1.4074620550816292,
+            12.364276753049689,
+            3.35
+          ],
+          [
+            1.4074620550816292,
+            12.364276753049689,
+            5.549999999999997
+          ],
+          [
+            1.3390580264164953,
+            12.176338228892506,
+            5.549999999999997
+          ],
+          [
+            4.038601393282171,
+            11.406620351737812,
+            5.549999999999997
+          ],
+          [
+            3.9701973646170376,
+            11.218681827580632,
+            5.549999999999997
+          ],
+          [
+            4.038601393282171,
+            11.406620351737812,
+            3.35
+          ],
+          [
+            3.9701973646170376,
+            11.218681827580632,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999969,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999922,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "normalized_obj": "geometry/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "raw_obj": "geometry/raw/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2L4YQz8vDo7zpANHyV5gVl",
+      "global_id": "2L4YQz8vDo7zpANHyV5gVl",
+      "express_id": 91051,
+      "name": "M_Fixed:750 X 2200:352285:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            2.6026885579726526,
+            7.443208482919063,
+            0.050000000000000044
+          ],
+          [
+            2.7906270821298342,
+            7.37480445425393,
+            0.050000000000000044
+          ],
+          [
+            2.7906270821298342,
+            7.37480445425393,
+            2.2499999999999973
+          ],
+          [
+            2.6026885579726526,
+            7.443208482919063,
+            2.2499999999999973
+          ],
+          [
+            2.5341119746355822,
+            6.670034988664499,
+            2.2499999999999973
+          ],
+          [
+            2.3461734504784006,
+            6.7384390173296325,
+            2.2499999999999973
+          ],
+          [
+            2.5341119746355822,
+            6.670034988664499,
+            0.050000000000000044
+          ],
+          [
+            2.3461734504784006,
+            6.7384390173296325,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.330000000000002,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.330000000000002,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "normalized_obj": "geometry/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "raw_obj": "geometry/raw/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "31xIQbs6ruQC6nO5xMDuhF",
+      "global_id": "31xIQbs6ruQC6nO5xMDuhF",
+      "express_id": 91066,
+      "name": "M_Fixed:750 X 2200:352507:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.5786802488556009,
+            4.629768776286062,
+            0.050000000000000044
+          ],
+          [
+            1.7666187730127825,
+            4.561364747620929,
+            0.050000000000000044
+          ],
+          [
+            1.7666187730127825,
+            4.561364747620929,
+            2.2499999999999973
+          ],
+          [
+            1.5786802488556009,
+            4.629768776286062,
+            2.2499999999999973
+          ],
+          [
+            1.5101036655185305,
+            3.8565952820314977,
+            2.2499999999999973
+          ],
+          [
+            1.3221651413613489,
+            3.9249993106966317,
+            2.2499999999999973
+          ],
+          [
+            1.5101036655185305,
+            3.8565952820314977,
+            0.050000000000000044
+          ],
+          [
+            1.3221651413613489,
+            3.9249993106966317,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.32999999999999935,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.32999999999999935,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "normalized_obj": "geometry/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "raw_obj": "geometry/raw/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "18g5nNBS4dNBnGz2L4Av5b",
+      "global_id": "18g5nNBS4dNBnGz2L4Av5b",
+      "express_id": 91082,
+      "name": "M_Fixed:750 X 2200:352520:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            3.9622186276922045,
+            11.178486650543087,
+            0.050000000000000044
+          ],
+          [
+            4.1501571518493865,
+            11.110082621877954,
+            0.050000000000000044
+          ],
+          [
+            4.1501571518493865,
+            11.110082621877954,
+            2.2499999999999973
+          ],
+          [
+            3.9622186276922045,
+            11.178486650543087,
+            2.2499999999999973
+          ],
+          [
+            3.893642044355134,
+            10.405313156288523,
+            2.2499999999999973
+          ],
+          [
+            3.7057035201979525,
+            10.473717184953657,
+            2.2499999999999973
+          ],
+          [
+            3.893642044355134,
+            10.405313156288523,
+            0.050000000000000044
+          ],
+          [
+            3.7057035201979525,
+            10.473717184953657,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3299999999999974,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3299999999999974,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "normalized_obj": "geometry/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "raw_obj": "geometry/raw/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3U6fcnxpVfzjD4zv4GTMn1",
+      "global_id": "3U6fcnxpVfzjD4zv4GTMn1",
+      "express_id": 91097,
+      "name": "M_Fixed:750 X 2200:354105:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            2.6026885579726526,
+            7.443208482919063,
+            3.35
+          ],
+          [
+            2.7906270821298342,
+            7.37480445425393,
+            3.35
+          ],
+          [
+            2.7906270821298342,
+            7.37480445425393,
+            5.549999999999997
+          ],
+          [
+            2.6026885579726526,
+            7.443208482919063,
+            5.549999999999997
+          ],
+          [
+            2.5341119746355822,
+            6.670034988664499,
+            5.549999999999997
+          ],
+          [
+            2.3461734504784006,
+            6.7384390173296325,
+            5.549999999999997
+          ],
+          [
+            2.5341119746355822,
+            6.670034988664499,
+            3.35
+          ],
+          [
+            2.3461734504784006,
+            6.7384390173296325,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.32999999999998436,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.32999999999998425,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "normalized_obj": "geometry/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "raw_obj": "geometry/raw/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3CqRIidhtnkplkRtWrS$yX",
+      "global_id": "3CqRIidhtnkplkRtWrS$yX",
+      "express_id": 91112,
+      "name": "M_Fixed:750 X 2200:354106:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.5786802488556009,
+            4.629768776286062,
+            3.35
+          ],
+          [
+            1.7666187730127825,
+            4.561364747620929,
+            3.35
+          ],
+          [
+            1.7666187730127825,
+            4.561364747620929,
+            5.549999999999997
+          ],
+          [
+            1.5786802488556009,
+            4.629768776286062,
+            5.549999999999997
+          ],
+          [
+            1.5101036655185305,
+            3.8565952820314977,
+            5.549999999999997
+          ],
+          [
+            1.3221651413613489,
+            3.9249993106966317,
+            5.549999999999997
+          ],
+          [
+            1.5101036655185305,
+            3.8565952820314977,
+            3.35
+          ],
+          [
+            1.3221651413613489,
+            3.9249993106966317,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3300000000000007,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.33000000000000074,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "normalized_obj": "geometry/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "raw_obj": "geometry/raw/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1AfrghL9UdZSb$jFKVN$bq",
+      "global_id": "1AfrghL9UdZSb$jFKVN$bq",
+      "express_id": 91128,
+      "name": "M_Fixed:750 X 2200:354107:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            3.9622186276922045,
+            11.178486650543087,
+            3.35
+          ],
+          [
+            4.1501571518493865,
+            11.110082621877954,
+            3.35
+          ],
+          [
+            4.1501571518493865,
+            11.110082621877954,
+            5.549999999999997
+          ],
+          [
+            3.9622186276922045,
+            11.178486650543087,
+            5.549999999999997
+          ],
+          [
+            3.893642044355134,
+            10.405313156288523,
+            5.549999999999997
+          ],
+          [
+            3.7057035201979525,
+            10.473717184953657,
+            5.549999999999997
+          ],
+          [
+            3.893642044355134,
+            10.405313156288523,
+            3.35
+          ],
+          [
+            3.7057035201979525,
+            10.473717184953657,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3299999999999678,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3299999999999678,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "normalized_obj": "geometry/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "raw_obj": "geometry/raw/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2LWFy07q16RthzSG4xBKIk",
+      "global_id": "2LWFy07q16RthzSG4xBKIk",
+      "express_id": 91143,
+      "name": "M_Fixed:750 X 2200:354122:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.2260574810868476,
+            3.6609456842558243,
+            3.35
+          ],
+          [
+            1.4139960052440292,
+            3.5925416555906904,
+            3.35
+          ],
+          [
+            1.4139960052440292,
+            3.5925416555906904,
+            5.549999999999997
+          ],
+          [
+            1.2260574810868476,
+            3.6609456842558243,
+            5.549999999999997
+          ],
+          [
+            1.1574808977497772,
+            2.8877721900012596,
+            5.549999999999997
+          ],
+          [
+            0.9695423735925955,
+            2.9561762186663936,
+            5.549999999999997
+          ],
+          [
+            1.1574808977497772,
+            2.8877721900012596,
+            3.35
+          ],
+          [
+            0.9695423735925955,
+            2.9561762186663936,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3299999999999985,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3299999999999985,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "normalized_obj": "geometry/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "raw_obj": "geometry/raw/openings/2LWFy07q16RthzSG4xBKIk.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2iliIrZjYVkMNyGFU$QJtB",
+      "global_id": "2iliIrZjYVkMNyGFU$QJtB",
+      "express_id": 91158,
+      "name": "M_Fixed:3000 X 2200:352538:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -0.06564032662593686,
+            0.1303089023069436,
+            0.050000000000000044
+          ],
+          [
+            -0.13404435529107078,
+            -0.05762962185023801,
+            0.050000000000000044
+          ],
+          [
+            -0.13404435529107078,
+            -0.05762962185023801,
+            2.2499999999999973
+          ],
+          [
+            -0.06564032662593686,
+            0.1303089023069436,
+            2.2499999999999973
+          ],
+          [
+            -2.765183693491613,
+            0.900026779461637,
+            2.2499999999999973
+          ],
+          [
+            -2.696779664826479,
+            1.0879653036188186,
+            2.2499999999999973
+          ],
+          [
+            -2.765183693491613,
+            0.900026779461637,
+            0.050000000000000044
+          ],
+          [
+            -2.696779664826479,
+            1.0879653036188186,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999982,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999984,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "normalized_obj": "geometry/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "raw_obj": "geometry/raw/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0nz1H9tCPcHWsuWg7a5RQG",
+      "global_id": "0nz1H9tCPcHWsuWg7a5RQG",
+      "express_id": 91173,
+      "name": "M_Fixed:3000 X 2200:352647:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -2.872972031223836,
+            1.1520940804923812,
+            0.050000000000000044
+          ],
+          [
+            -2.9413760598889698,
+            0.9641555563351996,
+            0.050000000000000044
+          ],
+          [
+            -2.9413760598889698,
+            0.9641555563351996,
+            2.2499999999999973
+          ],
+          [
+            -2.872972031223836,
+            1.1520940804923812,
+            2.2499999999999973
+          ],
+          [
+            -5.572515398089513,
+            1.9218119576470745,
+            2.2499999999999973
+          ],
+          [
+            -5.504111369424378,
+            2.109750481804256,
+            2.2499999999999973
+          ],
+          [
+            -5.572515398089513,
+            1.9218119576470745,
+            0.050000000000000044
+          ],
+          [
+            -5.504111369424378,
+            2.109750481804256,
+            0.050000000000000044
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999993,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999995,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "normalized_obj": "geometry/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "raw_obj": "geometry/raw/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3xHx5qi$DYbOY_H6BzkeHG",
+      "global_id": "3xHx5qi$DYbOY_H6BzkeHG",
+      "express_id": 91189,
+      "name": "M_Fixed:3000 X 2200:354143:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -2.872972031223836,
+            1.1520940804923812,
+            3.35
+          ],
+          [
+            -2.9413760598889698,
+            0.9641555563351996,
+            3.35
+          ],
+          [
+            -2.9413760598889698,
+            0.9641555563351996,
+            5.549999999999997
+          ],
+          [
+            -2.872972031223836,
+            1.1520940804923812,
+            5.549999999999997
+          ],
+          [
+            -5.572515398089513,
+            1.9218119576470745,
+            5.549999999999997
+          ],
+          [
+            -5.504111369424378,
+            2.109750481804256,
+            5.549999999999997
+          ],
+          [
+            -5.572515398089513,
+            1.9218119576470745,
+            3.35
+          ],
+          [
+            -5.504111369424378,
+            2.109750481804256,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999993,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999993,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "normalized_obj": "geometry/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "raw_obj": "geometry/raw/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "16DZ5BKlZYRvf8PCfkGZRk",
+      "global_id": "16DZ5BKlZYRvf8PCfkGZRk",
+      "express_id": 91205,
+      "name": "M_Fixed:3000 X 2200:354162:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -0.06564032662593686,
+            0.1303089023069436,
+            3.35
+          ],
+          [
+            -0.13404435529107078,
+            -0.05762962185023801,
+            3.35
+          ],
+          [
+            -0.13404435529107078,
+            -0.05762962185023801,
+            5.549999999999997
+          ],
+          [
+            -0.06564032662593686,
+            0.1303089023069436,
+            5.549999999999997
+          ],
+          [
+            -2.765183693491613,
+            0.900026779461637,
+            5.549999999999997
+          ],
+          [
+            -2.696779664826479,
+            1.0879653036188186,
+            5.549999999999997
+          ],
+          [
+            -2.765183693491613,
+            0.900026779461637,
+            3.35
+          ],
+          [
+            -2.696779664826479,
+            1.0879653036188186,
+            3.35
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            5
+          ],
+          [
+            4,
+            1,
+            2
+          ],
+          [
+            4,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 1.2319999999999975,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 1.2319999999999978,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "normalized_obj": "geometry/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "raw_obj": "geometry/raw/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3FlIiGarUwrH9MmaSMqQw7",
+      "global_id": "3FlIiGarUwrH9MmaSMqQw7",
+      "express_id": 91220,
+      "name": "M_Single-Flush:0915 x 2134mm:351691:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -1.9444996157229195,
+            3.684777299166588,
+            0.0
+          ],
+          [
+            -1.7800534070853855,
+            3.624923774084596,
+            0.0
+          ],
+          [
+            -1.467104975942398,
+            4.484742522103701,
+            0.0
+          ],
+          [
+            -1.631551184579932,
+            4.544596047185694,
+            0.0
+          ],
+          [
+            -1.467104975942398,
+            4.484742522103701,
+            2.1999999999999997
+          ],
+          [
+            -1.631551184579932,
+            4.544596047185694,
+            2.1999999999999997
+          ],
+          [
+            -1.7800534070853855,
+            3.624923774084596,
+            2.1999999999999997
+          ],
+          [
+            -1.9444996157229195,
+            3.684777299166588,
+            2.1999999999999997
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.35227499999999884,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999988,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "normalized_obj": "geometry/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "raw_obj": "geometry/raw/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3Vw1coSerOZbreKZZpRIK1",
+      "global_id": "3Vw1coSerOZbreKZZpRIK1",
+      "express_id": 91235,
+      "name": "M_Single-Flush:0915 x 2134mm:352101:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.5513621897425456,
+            8.903872070972113,
+            0.0
+          ],
+          [
+            1.7158083983800796,
+            8.84401854589012,
+            0.0
+          ],
+          [
+            2.028756829523067,
+            9.703837293909226,
+            0.0
+          ],
+          [
+            1.8643106208855331,
+            9.763690818991218,
+            0.0
+          ],
+          [
+            2.028756829523067,
+            9.703837293909226,
+            2.1999999999999997
+          ],
+          [
+            1.8643106208855331,
+            9.763690818991218,
+            2.1999999999999997
+          ],
+          [
+            1.7158083983800796,
+            8.84401854589012,
+            2.1999999999999997
+          ],
+          [
+            1.5513621897425456,
+            8.903872070972113,
+            2.1999999999999997
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3522750000000007,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.35227500000000056,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "normalized_obj": "geometry/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "raw_obj": "geometry/raw/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0CuWGnW6Jr6YG4o3CO8LJO",
+      "global_id": "0CuWGnW6Jr6YG4o3CO8LJO",
+      "express_id": 91250,
+      "name": "M_Single-Flush:0915 x 2134mm:352204:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            2.231127224602309,
+            10.771511154784072,
+            0.0
+          ],
+          [
+            2.395573433239843,
+            10.71165762970208,
+            0.0
+          ],
+          [
+            2.7085218643828304,
+            11.571476377721185,
+            0.0
+          ],
+          [
+            2.5440756557452966,
+            11.631329902803177,
+            0.0
+          ],
+          [
+            2.7085218643828304,
+            11.571476377721185,
+            2.1999999999999997
+          ],
+          [
+            2.5440756557452966,
+            11.631329902803177,
+            2.1999999999999997
+          ],
+          [
+            2.395573433239843,
+            10.71165762970208,
+            2.1999999999999997
+          ],
+          [
+            2.231127224602309,
+            10.771511154784072,
+            2.1999999999999997
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3522749999999946,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999946,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "normalized_obj": "geometry/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "raw_obj": "geometry/raw/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1nY8PEtIKNR1u2WNtxpT04",
+      "global_id": "1nY8PEtIKNR1u2WNtxpT04",
+      "express_id": 91265,
+      "name": "M_Single-Flush:0915 x 2134mm:351889:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.0409667131553935,
+            5.926372403469298,
+            0.0
+          ],
+          [
+            1.1008202382373857,
+            6.0908186121068315,
+            0.0
+          ],
+          [
+            0.2410014902182799,
+            6.403767043249819,
+            0.0
+          ],
+          [
+            0.18114796513628773,
+            6.239320834612285,
+            0.0
+          ],
+          [
+            0.2410014902182799,
+            6.403767043249819,
+            2.1999999999999997
+          ],
+          [
+            0.18114796513628773,
+            6.239320834612285,
+            2.1999999999999997
+          ],
+          [
+            1.1008202382373857,
+            6.0908186121068315,
+            2.1999999999999997
+          ],
+          [
+            1.0409667131553935,
+            5.926372403469298,
+            2.1999999999999997
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.35227499999999884,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999988,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "normalized_obj": "geometry/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "raw_obj": "geometry/raw/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "0USjcYbZe$kWK8FISkVQHw",
+      "global_id": "0USjcYbZe$kWK8FISkVQHw",
+      "express_id": 91280,
+      "name": "M_Single-Flush:0915 x 2134mm:351784:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            0.35265117471247753,
+            4.03524100413766,
+            0.0
+          ],
+          [
+            0.4125046997944697,
+            4.199687212775194,
+            0.0
+          ],
+          [
+            -0.44731404822463583,
+            4.512635643918181,
+            0.0
+          ],
+          [
+            -0.5071675733066281,
+            4.348189435280648,
+            0.0
+          ],
+          [
+            -0.44731404822463583,
+            4.512635643918181,
+            2.1999999999999997
+          ],
+          [
+            -0.5071675733066281,
+            4.348189435280648,
+            2.1999999999999997
+          ],
+          [
+            0.4125046997944697,
+            4.199687212775194,
+            2.1999999999999997
+          ],
+          [
+            0.35265117471247753,
+            4.03524100413766,
+            2.1999999999999997
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3522749999999992,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999994,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "normalized_obj": "geometry/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "raw_obj": "geometry/raw/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "03OGAzj$8K4Us8RcsM9Hal",
+      "global_id": "03OGAzj$8K4Us8RcsM9Hal",
+      "express_id": 91295,
+      "name": "M_Single-Flush:0915 x 2134mm:355129:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            0.869135310427938,
+            8.103967242170178,
+            3.3000000000000003
+          ],
+          [
+            0.92898883550993,
+            8.268413450807712,
+            3.3000000000000003
+          ],
+          [
+            0.06917008749082429,
+            8.5813618819507,
+            3.3000000000000003
+          ],
+          [
+            0.009316562408832094,
+            8.416915673313166,
+            3.3000000000000003
+          ],
+          [
+            0.06917008749082429,
+            8.5813618819507,
+            5.5
+          ],
+          [
+            0.009316562408832094,
+            8.416915673313166,
+            5.5
+          ],
+          [
+            0.92898883550993,
+            8.268413450807712,
+            5.5
+          ],
+          [
+            0.869135310427938,
+            8.103967242170178,
+            5.5
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.35227500000000017,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.35227499999999995,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "normalized_obj": "geometry/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "raw_obj": "geometry/raw/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "1dhjajbDDbAHDoImuOGHco",
+      "global_id": "1dhjajbDDbAHDoImuOGHco",
+      "express_id": 91310,
+      "name": "M_Single-Flush:0915 x 2134mm:355450:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            1.718330636970089,
+            7.981116530414153,
+            3.3000000000000003
+          ],
+          [
+            1.658477111888097,
+            7.816670321776619,
+            3.3000000000000003
+          ],
+          [
+            2.5182958599072025,
+            7.503721890633631,
+            3.3000000000000003
+          ],
+          [
+            2.5781493849891945,
+            7.668168099271165,
+            3.3000000000000003
+          ],
+          [
+            2.5182958599072025,
+            7.503721890633631,
+            5.5
+          ],
+          [
+            2.5781493849891945,
+            7.668168099271165,
+            5.5
+          ],
+          [
+            1.658477111888097,
+            7.816670321776619,
+            5.5
+          ],
+          [
+            1.718330636970089,
+            7.981116530414153,
+            5.5
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            3,
+            0,
+            7
+          ],
+          [
+            5,
+            3,
+            7
+          ],
+          [
+            6,
+            1,
+            2
+          ],
+          [
+            6,
+            2,
+            4
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.35227500000001183,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522750000000112,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "normalized_obj": "geometry/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "raw_obj": "geometry/raw/openings/1dhjajbDDbAHDoImuOGHco.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "2SRhAIz6YAop4gByXnsG7t",
+      "global_id": "2SRhAIz6YAop4gByXnsG7t",
+      "express_id": 91325,
+      "name": "M_Single-Flush:0915 x 2134mm:355076:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -0.4390917377927613,
+            4.509642967664085,
+            5.5
+          ],
+          [
+            -0.4989452628747535,
+            4.3451967590265514,
+            5.5
+          ],
+          [
+            -1.3587640108938595,
+            4.658145190169539,
+            5.5
+          ],
+          [
+            -1.2989104858118672,
+            4.822591398807073,
+            5.5
+          ],
+          [
+            -1.3587640108938595,
+            4.658145190169539,
+            3.3000000000000003
+          ],
+          [
+            -1.2989104858118672,
+            4.822591398807073,
+            3.3000000000000003
+          ],
+          [
+            -0.4989452628747535,
+            4.3451967590265514,
+            3.3000000000000003
+          ],
+          [
+            -0.4390917377927613,
+            4.509642967664085,
+            3.3000000000000003
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            7,
+            5,
+            3
+          ],
+          [
+            0,
+            7,
+            3
+          ],
+          [
+            2,
+            4,
+            6
+          ],
+          [
+            2,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.35227499999999995,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522750000000001,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "normalized_obj": "geometry/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "raw_obj": "geometry/raw/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "20ZUlaiLYsxWyiPsZ_s3Fy",
+      "global_id": "20ZUlaiLYsxWyiPsZ_s3Fy",
+      "express_id": 91340,
+      "name": "M_Single-Flush:0915 x 2134mm:355350:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            0.2903965385854116,
+            4.057899838632985,
+            5.5
+          ],
+          [
+            0.3502500636674038,
+            4.222346047270519,
+            5.5
+          ],
+          [
+            1.2100688116865093,
+            3.9093976161275314,
+            5.5
+          ],
+          [
+            1.1502152866045172,
+            3.7449514074899977,
+            5.5
+          ],
+          [
+            1.2100688116865093,
+            3.9093976161275314,
+            3.3000000000000003
+          ],
+          [
+            1.1502152866045172,
+            3.7449514074899977,
+            3.3000000000000003
+          ],
+          [
+            0.3502500636674038,
+            4.222346047270519,
+            3.3000000000000003
+          ],
+          [
+            0.2903965385854116,
+            4.057899838632985,
+            3.3000000000000003
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            7,
+            5,
+            3
+          ],
+          [
+            0,
+            7,
+            3
+          ],
+          [
+            2,
+            4,
+            6
+          ],
+          [
+            2,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.35227500000000117,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.35227500000000117,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "normalized_obj": "geometry/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "raw_obj": "geometry/raw/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+        "glb": null
+      }
+    },
+    {
+      "object_name": "3bUWJ6AtIzfVCEXf0UPr4B",
+      "global_id": "3bUWJ6AtIzfVCEXf0UPr4B",
+      "express_id": 91355,
+      "name": "M_Single-Flush:0915 x 2134mm:386110:1",
+      "entity_type": "IfcOpeningElement",
+      "has_representation": true,
+      "mesh": {
+        "vertices": [
+          [
+            -7.469811862145036,
+            -2.7244801328248993,
+            5.5
+          ],
+          [
+            -7.305365653507502,
+            -2.784333657906892,
+            5.5
+          ],
+          [
+            -7.61831408465049,
+            -3.6441524059259973,
+            5.5
+          ],
+          [
+            -7.782760293288024,
+            -3.5842988808440053,
+            5.5
+          ],
+          [
+            -7.61831408465049,
+            -3.6441524059259973,
+            3.3000000000000003
+          ],
+          [
+            -7.782760293288024,
+            -3.5842988808440053,
+            3.3000000000000003
+          ],
+          [
+            -7.305365653507502,
+            -2.784333657906892,
+            3.3000000000000003
+          ],
+          [
+            -7.469811862145036,
+            -2.7244801328248993,
+            3.3000000000000003
+          ]
+        ],
+        "faces": [
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4,
+            2,
+            5
+          ],
+          [
+            4,
+            5,
+            7
+          ],
+          [
+            6,
+            4,
+            7
+          ],
+          [
+            6,
+            7,
+            0
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            7,
+            5,
+            3
+          ],
+          [
+            0,
+            7,
+            3
+          ],
+          [
+            2,
+            4,
+            6
+          ],
+          [
+            2,
+            6,
+            1
+          ]
+        ]
+      },
+      "vertex_count": 8,
+      "face_count": 12,
+      "component_count": 1,
+      "components": [
+        {
+          "component_index": 0,
+          "face_count": 12,
+          "vertex_count": 8,
+          "closed": true,
+          "manifold": true,
+          "outward_normals": true,
+          "volume_m3": 0.3522749999999903,
+          "flipped_winding": false
+        }
+      ],
+      "repair_actions": [],
+      "closed": true,
+      "manifold": true,
+      "outward_normals": true,
+      "volume_m3": 0.3522749999999899,
+      "valid": true,
+      "reason": null,
+      "repair_backend": "none",
+      "repair_status": "not_attempted",
+      "repair_reason": "Exact repair targets IfcSpace only.",
+      "artifacts": {
+        "obj": "geometry/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj",
+        "normalized_obj": "geometry/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj",
+        "raw_obj": "geometry/raw/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj",
+        "glb": null
+      }
+    }
+  ],
+  "worker_backend": "hybrid",
+  "unit": "meter",
+  "source_unit_scale_to_meters": 0.001,
+  "repair": {
+    "contract_version": 2,
+    "mode_requested": "preferred",
+    "effective_mode": "exact_repair",
+    "worker_path": "C:\\Users\\ngnav\\OneDrive\\Documents\\GitHub\\ifcgeometryrepair\\worker\\build\\geometry_worker.exe",
+    "worker_available": true,
+    "worker_invoked": true,
+    "worker_backend": "cpp-cgal",
+    "response_status": "ok",
+    "fallback_reason": null,
+    "summary": {
+      "effective_mode": "exact_repair",
+      "space_count": 24,
+      "attempted_space_count": 24,
+      "exact_repaired_space_count": 24,
+      "exact_passthrough_space_count": 0,
+      "python_fallback_space_count": 0,
+      "not_attempted_space_count": 0
+    },
+    "spaces": [
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVeO",
+        "express_id": 93,
+        "name": "1",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVeR",
+        "express_id": 107,
+        "name": "2",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVeM",
+        "express_id": 121,
+        "name": "3",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVeH",
+        "express_id": 135,
+        "name": "4",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVeC",
+        "express_id": 149,
+        "name": "5",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVeF",
+        "express_id": 171,
+        "name": "6",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVe5",
+        "express_id": 185,
+        "name": "7",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVe1",
+        "express_id": 199,
+        "name": "8",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVey",
+        "express_id": 213,
+        "name": "9",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "275uc_d0D37ggfbUf7EVe$",
+        "express_id": 227,
+        "name": "10",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "2puJI5Ci99RgxZaQWdLc1V",
+        "express_id": 241,
+        "name": "1",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKEn",
+        "express_id": 263,
+        "name": "2",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE_",
+        "express_id": 277,
+        "name": "3",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE$",
+        "express_id": 291,
+        "name": "4",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKEy",
+        "express_id": 305,
+        "name": "5",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKEz",
+        "express_id": 319,
+        "name": "6",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKEw",
+        "express_id": 333,
+        "name": "7",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE6",
+        "express_id": 347,
+        "name": "8",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE7",
+        "express_id": 361,
+        "name": "9",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE4",
+        "express_id": 375,
+        "name": "10",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE5",
+        "express_id": 389,
+        "name": "11",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE2",
+        "express_id": 403,
+        "name": "12",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE3",
+        "express_id": 417,
+        "name": "13",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      },
+      {
+        "global_id": "0ZJGyRZaj36fppkc2yhKE0",
+        "express_id": 441,
+        "name": "14",
+        "repair_backend": "cpp-cgal",
+        "repair_status": "exact_repaired",
+        "repair_reason": null,
+        "repair_actions": [
+          "cgal_nef_regularization"
+        ],
+        "valid": true
+      }
+    ]
+  },
+  "artifacts": {
+    "request": "geometry/request.json",
+    "result": "geometry/result.json",
+    "summary": "geometry/geometry_summary.json",
+    "repair_request": "geometry/repair_request.json",
+    "repair_response": "geometry/repair_response.json",
+    "repair_report": "geometry/repair_report.json",
+    "viewer_manifest": "geometry/viewer_manifest.json",
+    "raw_spaces_all": "geometry/raw/spaces_all.obj",
+    "raw_openings": "geometry/raw/openings.obj",
+    "spaces_all": "geometry/spaces_all.obj",
+    "openings": "geometry/openings.obj",
+    "per_raw_space_objs": [
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeO.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeR.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeM.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeH.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeC.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVeF.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVe5.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVe1.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVey.obj",
+      "geometry/raw/spaces/275uc_d0D37ggfbUf7EVe$.obj",
+      "geometry/raw/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEn.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+      "geometry/raw/spaces/0ZJGyRZaj36fppkc2yhKE0.obj"
+    ],
+    "per_raw_opening_objs": [
+      "geometry/raw/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+      "geometry/raw/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+      "geometry/raw/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+      "geometry/raw/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+      "geometry/raw/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+      "geometry/raw/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+      "geometry/raw/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+      "geometry/raw/openings/15E8Vbrel1CPHZLHya6edm.obj",
+      "geometry/raw/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+      "geometry/raw/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+      "geometry/raw/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+      "geometry/raw/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+      "geometry/raw/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+      "geometry/raw/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+      "geometry/raw/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+      "geometry/raw/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+      "geometry/raw/openings/2LWFy07q16RthzSG4xBKIk.obj",
+      "geometry/raw/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+      "geometry/raw/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+      "geometry/raw/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+      "geometry/raw/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+      "geometry/raw/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+      "geometry/raw/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+      "geometry/raw/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+      "geometry/raw/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+      "geometry/raw/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+      "geometry/raw/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+      "geometry/raw/openings/1dhjajbDDbAHDoImuOGHco.obj",
+      "geometry/raw/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+      "geometry/raw/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+      "geometry/raw/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj"
+    ],
+    "per_space_objs": [
+      "geometry/spaces/275uc_d0D37ggfbUf7EVeO.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVeR.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVeM.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVeH.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVeC.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVeF.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVe5.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVe1.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVey.obj",
+      "geometry/spaces/275uc_d0D37ggfbUf7EVe$.obj",
+      "geometry/spaces/2puJI5Ci99RgxZaQWdLc1V.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKEn.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE_.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE$.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKEy.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKEz.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKEw.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE6.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE7.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE4.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE5.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE2.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE3.obj",
+      "geometry/spaces/0ZJGyRZaj36fppkc2yhKE0.obj"
+    ],
+    "per_opening_objs": [
+      "geometry/openings/0tWZaphRKAxG_g6y5ahA_O.obj",
+      "geometry/openings/2S5xf4S$fCRQT2ntmXkwO9.obj",
+      "geometry/openings/0OAoI8Bi$1$MojHEKS0Cv9.obj",
+      "geometry/openings/0_Nnp8jxWhkNE$TEQybvYw.obj",
+      "geometry/openings/2Sq3rnJ6rWHSmYzPlLFRKX.obj",
+      "geometry/openings/2yGyYVW4sxmbDznW9sCHLU.obj",
+      "geometry/openings/2CY5cGV_Qc8ddlQHLAkL$f.obj",
+      "geometry/openings/15E8Vbrel1CPHZLHya6edm.obj",
+      "geometry/openings/3telsqPy5jtAYfsyTZwu8x.obj",
+      "geometry/openings/18_j_L7XUZg9BtRoEeHFId.obj",
+      "geometry/openings/2L4YQz8vDo7zpANHyV5gVl.obj",
+      "geometry/openings/31xIQbs6ruQC6nO5xMDuhF.obj",
+      "geometry/openings/18g5nNBS4dNBnGz2L4Av5b.obj",
+      "geometry/openings/3U6fcnxpVfzjD4zv4GTMn1.obj",
+      "geometry/openings/3CqRIidhtnkplkRtWrS$yX.obj",
+      "geometry/openings/1AfrghL9UdZSb$jFKVN$bq.obj",
+      "geometry/openings/2LWFy07q16RthzSG4xBKIk.obj",
+      "geometry/openings/2iliIrZjYVkMNyGFU$QJtB.obj",
+      "geometry/openings/0nz1H9tCPcHWsuWg7a5RQG.obj",
+      "geometry/openings/3xHx5qi$DYbOY_H6BzkeHG.obj",
+      "geometry/openings/16DZ5BKlZYRvf8PCfkGZRk.obj",
+      "geometry/openings/3FlIiGarUwrH9MmaSMqQw7.obj",
+      "geometry/openings/3Vw1coSerOZbreKZZpRIK1.obj",
+      "geometry/openings/0CuWGnW6Jr6YG4o3CO8LJO.obj",
+      "geometry/openings/1nY8PEtIKNR1u2WNtxpT04.obj",
+      "geometry/openings/0USjcYbZe$kWK8FISkVQHw.obj",
+      "geometry/openings/03OGAzj$8K4Us8RcsM9Hal.obj",
+      "geometry/openings/1dhjajbDDbAHDoImuOGHco.obj",
+      "geometry/openings/2SRhAIz6YAop4gByXnsG7t.obj",
+      "geometry/openings/20ZUlaiLYsxWyiPsZ_s3Fy.obj",
+      "geometry/openings/3bUWJ6AtIzfVCEXf0UPr4B.obj"
+    ],
+    "preview": "preview.obj"
+  },
+  "summary": {
+    "entities_total": 55,
+    "entities_with_input_mesh": 55,
+    "normalized_entities": 55,
+    "valid_entities": 55,
+    "invalid_entities": 0,
+    "space_count": 24,
+    "opening_count": 31,
+    "valid_spaces": 24,
+    "invalid_spaces": 0,
+    "valid_openings": 31,
+    "invalid_openings": 0,
+    "spaces_with_obj_exports": 24,
+    "openings_with_obj_exports": 31,
+    "repair_effective_mode": "exact_repair",
+    "repair_exact_repaired_spaces": 24,
+    "repair_exact_passthrough_spaces": 0,
+    "repair_python_fallback_spaces": 0,
+    "repair_not_attempted_spaces": 0
+  }
+}
